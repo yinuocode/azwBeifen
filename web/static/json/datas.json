@@ -1,0 +1,29 @@
+{
+  "room":{
+    "id":"19",
+    "title":"这个是标题很长很长的标题，对，就是这样",
+    "img":{
+      "src":"http://placehold.it/72x45",
+      "alt":"图片说明"
+    },
+    "time":{
+      "hour":"02",
+      "min":"24"
+    },
+    "arrAdmin":["150"],
+    "videoUrl":"rtmp://139.196.179.121:1935/hls/5211e4d43500240cb57805331d928f7cfed1cbf3",
+    "noticeNr":"命运嘛，休论公道！",
+    "socketUrl":"http://139.196.195.238:8080"
+  },
+  "lecturer":{
+    "id":"150",
+    "name":"瞎说啥大实话",
+    "link":"http://you.azw.com/home",
+    "avatar":"http://placehold.it/60x60",
+    "fans":"2322",
+    "sign":"这个世界上本没有路，走的人多了，便有了路。"
+  },
+  "pTimestamp":"1463728180",
+  "pTtoken":"6a831e7598ad2eac5ca7c97234a0ec2c",
+  "dataService":"2"
+}
