@@ -1,0 +1,71 @@
+<!-- header -->
+<?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
+<!-- header end -->
+  <section class="section-panel">
+    <header class="panel-heading clearfix">
+      <a href="/personage/setbase">基础信息</a>
+      <a href="/personage/setsafety" class="active">安全设置</a>
+      <a href="/personage/setlecturer">讲师申请</a>
+    </header>
+    <div class="panel-body">
+      <h2 class="panel-title">安全设置</h2>
+      <div class="safety-setting w600">
+        <div class="row">
+          <div class="safety-icon qq"></div>
+          <div class="set-name">QQ账号</div>
+          <div class="set-info">未绑定，绑定后可直接登录。</div>
+          <a href="javascript:;" class="rf">绑定</a>
+        </div>
+        <div class="row">
+          <div class="safety-icon weixin"></div>
+          <div class="set-name">微信登录</div>
+          <div class="set-info">未绑定，绑定后可直接登录。</div>
+          <a href="javascript:;" class="rf">绑定</a>
+        </div>
+        <div class="row">
+          <div class="safety-icon password"></div>
+          <div class="set-name">登录密码</div>
+          <div class="set-info">登录网校时需要输入的密码</div>
+          <a href="/personage/setpassword" class="rf">修改</a>
+        </div>
+        <div class="row">
+          <div class="safety-icon phone"></div>
+          <div class="set-name">手机绑定</div>
+          <div class="set-info">增加账户登录、购买课程时的安全性，同时还可以找回登录密码、支付密码。</div>
+          <a href="javascript:;" class="rf">绑定</a>
+        </div>
+      </div>
+      <h2 class="panel-title">邮箱设置</h2>
+      <form id="set-email-form" class="w600 cmxform" method="post">
+        <div class="form-group">
+          <label class="control-label" for="profile-email">当前登录邮箱</label>
+          <div class="form-controls">
+            <input type="text" id="profile-email" name="" class="form-input" value="" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label">新登录邮箱</label>
+          <div class="form-controls">
+            <input type="text" name="" class="form-input" value="" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label">网站登录密码</label>
+          <div class="form-controls">
+            <input type="password" name="" required minlength="6" class="form-input" />
+            <p class="form-hint">设置新的登录邮箱，需要校验当前的网站登录密码</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-submit">
+            <button type="submit" class="button-submit">提交</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+  <!-- footer -->
+  <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
+  <!-- footer end -->
+</body>
+</html>

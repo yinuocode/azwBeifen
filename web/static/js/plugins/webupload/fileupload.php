@@ -1,4 +1,5 @@
 <?php
+
 /**
  * upload.php
  *
@@ -56,7 +57,7 @@ if ( !empty($_REQUEST[ 'debug' ]) ) {
 // Settings
 // $targetDir = ini_get("upload_tmp_dir") . DIRECTORY_SEPARATOR . "plupload";
 $targetDir = 'upload_tmp';
-$uploadDir = 'upload';
+$uploadDir = '../../../../../../common/upload/'.date('Ymd').'/';
 
 $cleanupTargetDir = true; // Remove old files
 $maxFileAge = 5 * 3600; // Temp file age in seconds
@@ -64,12 +65,12 @@ $maxFileAge = 5 * 3600; // Temp file age in seconds
 
 // Create target dir
 if (!file_exists($targetDir)) {
-    @mkdir($targetDir);
+    @mkdir($targetDir,0777);
 }
 
 // Create target dir
 if (!file_exists($uploadDir)) {
-    @mkdir($uploadDir);
+    @mkdir($uploadDir,0777);
 }
 
 // Get a file name
@@ -174,4 +175,6 @@ if ( $done ) {
 }
 
 // Return Success JSON-RPC response
-die('{"jsonrpc" : "2.0", "result" : null, "id" : "id"}');
+$date = array('date'=>date('Ymd'));
+echo  json_encode($date);
+// die('{"jsonrpc" : "2.0", "result" : null, "id" : "id","date":'$date'}');
