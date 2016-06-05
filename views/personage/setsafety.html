@@ -40,19 +40,19 @@
         <div class="form-group">
           <label class="control-label" for="profile-email">当前登录邮箱</label>
           <div class="form-controls">
-            <input type="text" id="profile-email" name="" class="form-input" value="" required>
+            <input type="text" id="profile-email" name="oldemail" class="form-input" value="" required email="true">
           </div>
         </div>
         <div class="form-group">
           <label class="control-label">新登录邮箱</label>
           <div class="form-controls">
-            <input type="text" name="" class="form-input" value="" required>
+            <input type="text" name="User[email]" class="form-input" value="" required email="true">
           </div>
         </div>
         <div class="form-group">
           <label class="control-label">网站登录密码</label>
           <div class="form-controls">
-            <input type="password" name="" required minlength="6" class="form-input" />
+            <input type="password" name="User[password_hash]" required minlength="6" class="form-input" />
             <p class="form-hint">设置新的登录邮箱，需要校验当前的网站登录密码</p>
           </div>
         </div>
@@ -61,11 +61,39 @@
             <button type="submit" class="button-submit">提交</button>
           </div>
         </div>
+        <input type="hidden" name="form-data" value ="#set-email-form"/>
+        <input type="hidden" name="_url" value ="/personage/mailset"/>
       </form>
     </div>
   </section>
   <!-- footer -->
   <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
   <!-- footer end -->
+  <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
+  <script src="/static/js/plugins/validate/messages_zh.js"></script>
+  <script>
+    // ajax提交
+    var $formData = $($('input[name="form-data"]').val());
+    $formData.validate({
+      onsubmit:true,// 是否在提交时验证
+      submitHandler: function(form){
+        var _url = $('input[name="_url"]').val();
+        var data = $formData.serialize();
+        console.log(data);
+        $.ajax({
+          url : _url,
+          type : 'post',
+          data : data,
+          success : function(data){
+            if(data){
+              alert("提交成功");
+            }else{
+              alert(data);
+            }
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>

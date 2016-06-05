@@ -128,6 +128,7 @@ define(function(require,exports,module){
       },
       dataType:"json",
       success: function(data){
+        console.log(data);
         var str ='';
         if(data.status==1){
           var list = data.data;

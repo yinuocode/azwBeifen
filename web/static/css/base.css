@@ -29,7 +29,9 @@ a:hover {
 
 .hide {
   display: none; }
-
+.hot{color:#4e9bd5;}
+.w50{width:50%;}
+.w40{width:40%;}
 /*cmxform.css*/
 form.cmxform fieldset {
   margin-bottom: 10px; }
@@ -1087,7 +1089,22 @@ form.cmxform form.cmxform .gray * {
 .panel-body-bd {
   border: 2px solid #ECEBEB;
   padding: 35px 0 15px; }
-
+.panel-body-state-title{
+  line-height: 220px;
+  color:#4E9BD5;
+  text-align: center;
+  height: 500px;
+}
+.panel-body-state-title span{position: relative;}
+.panel-body-state-title span:before{
+  content: '';
+  position: absolute;
+  background: url(../img/logo-sub.png) no-repeat;
+  width: 33px;
+  height: 65px;
+  left: -50px;
+  top: -25px;
+}
 .panel-crumbs {
   font-size: 16px;
   line-height: 50px;
@@ -1132,6 +1149,10 @@ form.cmxform form.cmxform .gray * {
   position:relative;
   width: 475px;
   line-height: 36px; }
+.form-controls select{
+  width:100%;
+  height: 36px;
+}
 #copy-link{
   position: absolute;
   top: 0;
@@ -1166,6 +1187,7 @@ form.cmxform form.cmxform .gray * {
 
 .form-hint {
   font-size: 14px;
+  line-height: 28px;
   color: #a4a4a4; }
 
 .form-controls a {
@@ -1232,3 +1254,182 @@ form.cmxform form.cmxform .gray * {
   line-height: 34px;
   margin-top: 7px;
   cursor: pointer; }
+
+/* 我的教学 */
+.panel-heading .mydatum-btn {
+  float: right;
+  padding: 0 18px;
+  background: #4E9BD5;
+  color: #fff;
+  line-height: 44px;
+  margin-top: 6px;
+  letter-spacing: 5px; }
+
+.panel-body-course {
+  margin-top: 25px;
+  margin-bottom: 5px;
+  background: #F6F5F5;
+  border: 2px solid #e2e1e1; }
+
+.select-type {
+  border-bottom: 1px solid #d4d4d4;
+  line-height: 38px;
+  font-size: 16px; }
+
+.select-type > .lf {
+  position: relative; }
+
+.handle-icon {
+  display: block;
+  position: relative; }
+
+.handle-icon.triangle {
+  padding: 0 45px 0 32px;
+  border-right: 1px solid #d4d4d4; }
+
+.handle-icon:before {
+  content: '';
+  position: absolute;
+  background: url(../img/handle-icon.png) no-repeat; }
+
+.handle-icon.triangle:before {
+  width: 9px;
+  height: 7px;
+  top: 15px;
+  right: 15px; }
+
+.handle-icon.delete, .handle-icon.edit {
+  padding: 0 12px 0 40px;
+  border-left: 1px solid #d4d4d4; }
+
+.handle-icon.delete:before {
+  background-position: -33px -1px;
+  width: 16px;
+  height: 16px;
+  left: 15px;
+  top: 11px; }
+
+.handle-icon.edit:before {
+  background-position: -12px 0;
+  width: 20px;
+  height: 23px;
+  left: 15px;
+  top: 6px; }
+
+.handle-icon.left-arrows:before, .handle-icon.right-arrows:before {
+  background-position: -1px -24px;
+  width: 20px;
+  height: 34px;
+  top: 7px;
+  left: 60px; }
+
+.handle-icon.right-arrows:before {
+  background-position: -21px -24px; }
+
+.ajax-paging .clearfix {
+  padding: 20px 0;
+  width: 400px;
+  margin: 0 auto; }
+
+#paging-prev, #paging-next {
+  display: block;
+  float: left;
+  width: 130px;
+  margin: 0 35px;
+  height: 48px;
+  background: #4E9BD5; }
+
+.select-items {
+  position: absolute;
+  background: #F6F5F5;
+  line-height: 25px;
+  z-index: 10;
+  width: 100%;
+  padding-left: 32px;
+  top: 38px;
+  border: 1px solid #d4d4d4;
+  margin-left: -1px;
+  display: none; }
+
+.select-items.active {
+  display: block; }
+
+.select-items a {
+  display: block; }
+
+.table-course {
+  width: 100%;
+  text-align: center;
+  color: #666;
+  font-size: 16px;
+  border-bottom: 1px solid #d4d4d4; }
+
+.table-course th {
+  text-align: center;
+  font-size: 18px;
+  width: 20%;
+  color: #333; }
+
+.table-course img {
+  max-width: 100%; }
+
+.table-course .th1 {
+  width: 8%; }
+
+.table-course .th2 {
+  width: 19%; }
+
+.table-course .th3 {
+  width: 17%; }
+
+.table-course .th4 {
+  width: 10%; }
+
+.table-course .th5 {
+  width: 10%; }
+
+.table-course .th6 {
+  width: 10%; }
+
+.table-course .th7 {
+  width: 14%; }
+
+.table-course .th8 {
+  width: 12%; }
+
+.table-course tr {
+  height: 46px;
+  word-break: break-all; }
+
+.table-course td, .table-course th {
+  border-bottom: 1px solid #d4d4d4;
+  border-right: 1px solid #d4d4d4;
+  padding: 10px; }
+
+.table-course td:last-child, .table-course th:last-child {
+  border-right: 0; }
+
+input[name="selected"], #controlAll {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  top: 3px;
+  margin-right: 5px;
+  cursor: pointer; }
+
+.table-course a {
+  color: #4E9BD5; }
+
+.handle a {
+  display: block;
+  margin: 3px 0; }
+
+/* 我学习的课程 */
+.course-list.study-course {
+  background: #F6F5F5;
+  padding: 25px; }
+
+.course-list.study-course li {
+  width: 334px;
+  height: auto;
+  margin: 15px 10px; }

@@ -1,0 +1,123 @@
+<!-- header -->
+<?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
+<!-- header end -->
+  <section class="section-panel">
+    <header class="panel-heading clearfix">
+      <a href="/coures/direct">创建直播</a>
+      <a href="/coures/course">创建录播</a>
+      <a href="/coures/teaching" class="active">我的教学</a>
+      <a href="/coures/study">我的学习</a>
+      <a href="/coures/note">我的笔记</a>
+      <a href="/coures/manage">学员管理</a>
+      <a href="my_datum.html" class="mydatum-btn">我的资料库</a>
+    </header>
+    <div class="panel-body">
+      <div class="panel-body-course">
+        <div class="select-type clearfix">
+          <div class="lf">
+            <a href="javascript:;" class="handle-icon triangle">全部课程</a>
+            <ul class="select-items">
+              <li><a href="javascript:;">直播课程</a></li>
+              <li><a href="javascript:;">录播课程</a></li>
+              <li><a href="javascript:;">助播课程</a></li>
+            </ul>
+          </div>
+          <div class="lf">
+            <a href="javascript:;" class="handle-icon triangle">发布状态</a>
+            <ul class="select-items">
+              <li><a href="javascript:;">已发布</a></li>
+              <li><a href="javascript:;">未发布</a></li>
+            </ul>
+          </div>
+          <div class="lf">
+            <a href="javascript:;" class="handle-icon triangle">发布日期</a>
+            <ul class="select-items">
+              <li><a href="javascript:;">过去一周</a></li>
+              <li><a href="javascript:;">过去一个月</a></li>
+              <li><a href="javascript:;">过去两个月</a></li>
+              <li><a href="javascript:;">过去半年</a></li>
+            </ul>
+          </div>
+          <div class="rf"><a href="javascript:;" class="handle-icon delete">删除</a></div>
+          <div class="rf"><a href="javascript:;" class="handle-icon edit">编辑</a></div>
+        </div>
+        <table class="table-course">
+          <tbody>
+            <tr>
+              <th class="th1"><input type="checkbox" name="controlAll" id="controlAll"><label for="controlAll">全选</label></th>
+              <th class="th2">名称</th>
+              <th class="th3">图片</th>
+              <th class="th4">学员数</th>
+              <th class="th5">价格</th>
+              <th class="th6">发布状态</th>
+              <th class="th7">创建时间</th>
+              <th class="th8">操作</th>
+            </tr>
+            <tr>
+              <td><input type="checkbox" name="selected" value="1"></td>
+              <td><a href="javascript:;">这是课程名称</a></td>
+              <td><img src="http://placehold.it/260x120" alt=""></td>
+              <td>5000</td>
+              <td>1000</td>
+              <td>已发布</td>
+              <td>2016-4.1:12:56</td>
+              <td class="handle">
+                <a href="javascript:;">开始直播</a>
+                <a href="javascript:;">推广链接</a>
+                <a href="javascript:;">课时管理</a>
+              </td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" name="selected" value="2"></td>
+              <td><a href="javascript:;">这是课程名称</a></td>
+              <td><img src="http://placehold.it/260x120" alt=""></td>
+              <td>5000</td>
+              <td>1000</td>
+              <td>已发布</td>
+              <td>2016-4.1:12:56</td>
+              <td class="handle">
+                <a href="javascript:;">开始直播</a>
+                <a href="javascript:;">推广链接</a>
+                <a href="javascript:;">课时管理</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="ajax-paging">
+          <div class="clearfix">
+            <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
+            <a href="javascript:;" id="paging-next" class="handle-icon right-arrows"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- footer -->
+  <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
+  <!-- footer end -->
+  <script>
+    // 下拉菜单
+    $('.handle-icon.triangle').on('click',function(){
+      $(this).parent().siblings().find('.select-items').removeClass('active');
+      $(this).next().toggleClass('active');
+    });
+    $('.select-items a').on('click',function(){
+      $('.select-items').removeClass('active');
+    });
+    // 选择操作目标
+    $('#controlAll').on('click',function(){
+      var checklist = document.getElementsByName("selected");
+      var len=checklist.length;
+      if(document.getElementById("controlAll").checked){
+        for(var i=0;i<len;i++){
+          checklist[i].checked = 1;
+        }
+      }else{
+        for(var j=0;j<len;j++){
+          checklist[j].checked = 0;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

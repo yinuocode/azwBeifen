@@ -1,15 +1,13 @@
 <!-- header -->
 <?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
 <!-- header end -->
-  <link rel="stylesheet" href="/static/js/plugins/webupload/webupload.css">
-
   <section class="section-panel">
     <header class="panel-heading clearfix">
       <a href="/personage/setbase" class="active">基础信息</a>
       <a href="/personage/setsafety">安全设置</a>
       <a href="/personage/setlecturer">讲师申请</a>
     </header>
-    <div class="panel-body">
+    <div class="panel-body" id="panel-body1">
       <h2 class="panel-title">基础信息</h2>
       <form id="set-base-form" class="w600 cmxform" method="post">
         <script id="setBaseForm" type="text/html">
@@ -33,8 +31,13 @@
         <div class="form-group">
           <label class="control-label" for="profile-truename">姓名</label>
           <div class="form-controls">
+          {{if data.card}}
+            <input type="text" id="profile-truename" name="" class="form-input" value="{{data.real_name}}" disabled>
+            <div class="form-hint"><span class="hot" id="">已认证成功</span></div>
+          {{else}}
             <input type="text" id="profile-truename" name="UserDetail[real_name]" class="form-input" value="{{data.real_name}}" maxlength="30">
-            <div class="form-hint">您尚未实名认证，<a href="/personage/setname">点此认证</a></div>
+            <div class="form-hint">您尚未实名认证，<a href="javascript:;" id="setname">点此认证</a></div>
+          {{/if}}
           </div>
         </div>
         <div class="form-group">
@@ -55,7 +58,7 @@
         </div>
         <div class="form-group">
           <label for="profile-link" class="control-label">邀请链接</label>
-          <div class="form-controls">
+          <div class="form-controls" id="copy-link-box">
             <input type="text" id="profile-link" class="form-input" value="{{data.link}}" name="" disabled>
             <a id="copy-link" href="javascript:;">复制</a>
           </div>
@@ -81,7 +84,7 @@
         <div class="form-group">
           <label class="control-label">自我介绍</label>
           <div class="form-controls">
-            <textarea name="UserDetail[introduce]" rows="4" id="profile-about" class="form-textarea form-richtext">{{data.introduce}}</textarea>
+            <textarea name="UserDetail[introduce]" rows="4" id="form-richtext" class="form-textarea">{{data.introduce}}</textarea>
           </div>
         </div>
         <div class="form-group">
@@ -107,12 +110,37 @@
             <button type="submit" class="button-submit">保存信息</button>
           </div>
         </div>
-        <!-- name="attach[]" -->
         <input type="hidden" name="UserDetail[portrait]" id="img-path" value="">
         <input type="hidden" name="form-data" value ="#set-base-form"/>
         <input type="hidden" name="_url" value ="/personage/basic"/>
         </script>
       </form>
+    </div>
+    <div class="panel-body hide" id="panel-body2">
+      <h2 class="panel-crumbs"><a href="/personage/setbase">基础信息</a>&gt;实名认证</h2>
+      <div class="panel-body-bd">
+        <form id="set-name-form" class="w600 cmxform" method="post">
+          <div class="form-group">
+            <label class="control-label" for="profile-truename">姓名</label>
+            <div class="form-controls required">
+              <input type="text" id="profile-truename" name="UserDetail[nick_name]" class="form-input" value="" required maxlength="30">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="profile-idcard">身份证号</label>
+            <div class="form-controls required">
+              <input type="text" id="profile-idcard" name="UserDetail[card]" class="form-input" value="" required isIdCardNo="true">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-submit">
+              <button type="submit" class="button-submit">保存信息</button>
+            </div>
+          </div>
+        </form>
+        <input type="hidden" name="form-data2" value ="#set-name-form"/>
+        <input type="hidden" name="_url2" value ="/personage/authentication"/>
+      </div>
     </div>
   </section>
   <!-- footer -->
@@ -122,7 +150,6 @@
   <script src="/static/js/plugins/validate/messages_zh.js"></script>
   <script src="/static/js/plugins/kindeditor/kindeditor-min.js?v=2"></script>
   <script src="/static/js/plugins/webupload/webuploader.js"></script>
-  <script src="/static/js/plugins/webupload/upload.js"></script>
   <script src="/static/js/plugins/copy/ZeroClipboard.min.js"></script>
   <script>
     seajs.use('/static/js/setting/setbase.js');

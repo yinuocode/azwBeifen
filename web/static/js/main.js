@@ -85,7 +85,7 @@ define(function(require,exports,module){
       type : 'post',
       data : data,
       success : function(data){
-        if(data === true){
+        if(data){
           location.reload();
         }else{
           alert(data);
