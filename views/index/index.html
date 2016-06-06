@@ -65,19 +65,19 @@
               </a>
             </li>
             <li>
-              <a href="/index.php?r=coures%2Findex">
+              <a href="/coures/direct-list">
                 <span class="nav2-icon nav-icon"></span>
                 <strong>直播</strong>
               </a>
             </li>
             <li>
-              <a href="/index.php?r=coures%2Findex">
+              <a href="/coures/direct-list">
                 <span class="nav3-icon nav-icon"></span>
                 <strong>录播</strong>
               </a>
             </li>
             <li>
-              <a href="/">
+              <a href="/coures/direct-list">
                 <span class="nav4-icon nav-icon"></span>
                 <strong>推荐课程</strong>
               </a>
@@ -97,7 +97,11 @@
           <img src="http://placehold.it/42x42" class="user-avatar" width="42" height="42" alt="头像">
           <div class="lf">{{name}} 欢迎来到阿猪网！</div>
           <ul class="rf clearfix">
+          {{if identity}}
             <li><a href="/coures/direct">我的课程</a></li>
+          {{else}}
+            <li><a href="/coures/study">我的课程</a></li>
+          {{/if}}
             <li><a href="javascript:;">我的主页</a></li>
             <li><a href="/personage/setbase">个人设置</a></li>
             <li><a href="javascript:;">站内信

@@ -3,11 +3,11 @@ define(function(require,exports,module){
   var common = require('common');
   var main={};
   // 配置js 图片上传路径变量
-  main.imgPath='http://demo.agodpig.com/static/js/plugins/webupload/upload/';
+  main.imgPath='http://image.agodpig.com';
   // ajax 取数据
   main.getAjaxDatas=function(_url,fSuccess){
     $.ajax({
-      type:'post',
+      type:'get',
       url:_url,
       dataType: 'json',
       success: function(datas){
@@ -18,11 +18,30 @@ define(function(require,exports,module){
       }
     });
   };
-
+  // ajax post 方法
+  main.postAjaxDatas=function(_url,_datas,fSuccess){
+    console.log(_datas);
+    $.ajax({
+      type:'post',
+      url:_url,
+      data:_datas,
+      dataType: 'json',
+      success: function(datas){
+        fSuccess(datas);
+      },
+      error: function(xml,err){
+        console.log(err);
+      }
+    });
+  };
   // 登录站内信
   main.getAjaxDatas('/index/letter',function(datas){
     var headerLogin = template('headerLogin',datas);
     $('#header-login').html(headerLogin);
+    if($('#course-head').get(0)){
+      var courseHead = template('courseHead',datas);
+      $('#course-head').html(courseHead);
+    }
   });
   // 友情链接
   main.getAjaxDatas('/index/blogroll',function(datas){
@@ -54,11 +73,12 @@ define(function(require,exports,module){
       toTop.css({'bottom':'5%'});
     });
   });
-  // 登录
+  // 登录登出
   $('#header-login').on('click','.logout',function(){
     $.post('http://demo.agodpig.com/site/logout',{},function(data){
+      console.log(data);
       if(data){
-        location.reload();
+        window.location.href='http://demo.agodpig.com/';
       }
     });
   });

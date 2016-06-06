@@ -1,0 +1,73 @@
+<!-- header -->
+<?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
+<!-- header end -->
+  <section class="section-panel">
+    <header class="panel-heading clearfix">
+      <a href="javascript:;" class="active">销售课程</a>
+      <a href="javascript:;">情感教育</a>
+      <a href="javascript:;">明星</a>
+      <a href="javascript:;">酷玩</a>
+      <a href="javascript:;">其它</a>
+    </header>
+    <div class="panel-body">
+      <div class="panel-body-course">
+        <ul class="course-list direct-course clearfix">
+          <li>
+            <a href="javascript:;" target="_blank">
+              <img src="/static/img/sec02-item01.jpg" alt="">
+              <span>这是课程标题</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;" target="_blank">
+              <img src="/static/img/sec02-item01.jpg" alt="" id="aeaoofnhgocdbnbeljkmbjdmhbcokfdb-mousedown">
+              <span>这是课程标题</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;" target="_blank">
+              <img src="/static/img/sec02-item01.jpg" alt="">
+              <span>这是课程标题</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;" target="_blank">
+              <img src="/static/img/sec02-item01.jpg" alt="">
+              <span>这是课程标题</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;" target="_blank">
+              <img src="/static/img/sec02-item01.jpg" alt="">
+              <span>这是课程标题</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;" target="_blank">
+              <img src="/static/img/sec02-item01.jpg" alt="">
+              <span>这是课程标题</span>
+            </a>
+          </li>
+        </ul>
+        <div class="ajax-paging">
+          <div class="clearfix">
+            <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
+            <a href="javascript:;" id="paging-next" class="handle-icon right-arrows"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- footer -->
+  <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
+  <!-- footer end -->
+  <script>
+    // 直播标签
+    $('.panel-heading a').on('click',function(){
+      $(this).addClass('active').siblings().removeClass('active');
+    });
+    // 导航选中
+    $('.nav>ul>li').eq(1).addClass('active').siblings().removeClass('active');
+  </script>
+</body>
+</html>

@@ -119,8 +119,8 @@ define(function(require,exports,module){
   // 文件上传成功，给item添加成功class, 用样式标记上传成功。
   uploader.on( 'uploadSuccess', function( file,resporse ) {
       $( '#'+file.id ).addClass('upload-state-done');
-      $('#img-path').val(main.imgPath+file.name);
-      console.log(main.imgPath+file.name);
+      $('#img-path').val(main.imgPath+'/'+resporse.date+'/'+file.name);
+      console.log(main.imgPath+'/'+resporse.date+'/'+file.name);
   });
   // 文件上传失败，显示上传出错。
   uploader.on( 'uploadError', function( file ) {

@@ -1,0 +1,96 @@
+define(function(require,exports,module){
+  // 引入主要模块模块
+  var main = require('main');
+  // 分页
+  var pageVal=1;
+  // 按条件查找
+  function runPostAjaxDatas(){
+    var typeVal=$('#handle-course').attr('data-val');
+    var statusVal=$('#handle-status').attr('data-val');
+    var timeVal=$('#handle-date').attr('data-val');
+    main.postAjaxDatas('/coures/my-teach',{type:typeVal,status:statusVal,time:timeVal,page:pageVal},function(datas){
+      var tableCourseList = template('tableCourseList',{list:datas});
+      $('#table-course-list').html(tableCourseList);
+    });
+  }
+  // 初始化
+  runPostAjaxDatas();
+  // 下拉菜单
+  $('.handle-icon.triangle').on('click',function(){
+    $(this).parent().siblings().find('.select-items').removeClass('active');
+    $(this).next().toggleClass('active');
+  });
+  // 类型查找
+  $('.select-items').on('click','a',function(){
+    var _this=$(this);
+    var dataArg=_this.attr('data-arg');
+    _this.parent().parent().prev().html(_this.html()).attr('data-val',dataArg);
+    $('.select-items').removeClass('active');
+    // 执行查找
+    runPostAjaxDatas();
+  });
+  // 选择操作目标
+  $('#table-course-list').on('click','#controlAll',function(){
+    var checklist = document.getElementsByName('selected');
+    var len=checklist.length;
+    if(document.getElementById('controlAll').checked){
+      for(var i=0;i<len;i++){
+        checklist[i].checked = 1;
+      }
+    }else{
+      for(var j=0;j<len;j++){
+        checklist[j].checked = 0;
+      }
+    }
+  });
+  // 分页
+  $('#paging-prev').on('click',function(){
+    if(pageVal>1){
+      pageVal--;
+      runPostAjaxDatas();
+    }
+  });
+  $('#paging-next').on('click',function(){
+    if($('#table-course-list tr').length==8){
+      pageVal++;
+      runPostAjaxDatas();
+    }
+  });
+  // 编辑
+  $('#handle-edit').on('click',function(){
+    var $selected=$('input[name="selected"]:checked');
+    if($selected.length==1){
+      main.getAjaxDatas('/coures/update-live-beg?live_id='+$selected.val(),function(datas){
+        // var tableCourseList = template('tableCourseList',{list:datas});
+        // $('#table-course-list').html(tableCourseList);
+        console.log(datas);
+      });
+    }else{
+      alert('请选择具体修改的某个课程');
+    }
+  });
+  // 删除
+  $('#handle-delete').on('click',function(){
+    var $selected=$('input[name="selected"]:checked');
+    var selectedArr=[];
+    if($selected.length>0){
+      if(confirm('您确定要删除吗?')){
+        for(var i=0,len=$selected.length;i<len;i++){
+          selectedArr.push($selected.eq(i).val());
+        }
+        // main.postAjaxDatas('/coures/my-teach',{live_id:selectedArr},function(datas){
+        //   console.log(datas);
+             // 循环删除
+             // for(var j=0,lens=$selected.length;j<lens;j++){
+             //   $selected.eq(j).parent().parent().remove();
+             // }
+             // 局部刷新
+             // runPostAjaxDatas();
+        // });
+
+      }
+    }else{
+      alert('请选择您要删除的课程');
+    }
+  });
+});

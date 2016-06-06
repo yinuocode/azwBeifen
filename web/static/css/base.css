@@ -823,6 +823,7 @@ form.cmxform form.cmxform .gray * {
 
 .course-list img {
   width: 100%;
+  height: 100%;
   display: block;
   -webkit-transition: 300ms;
   -moz-transition: 300ms;
@@ -847,6 +848,7 @@ form.cmxform form.cmxform .gray * {
   transition: 300ms; }
 
 .course-list li a {
+  height: 100%;
   display: block; }
 
 .course-list li a:hover span {
@@ -1433,3 +1435,14 @@ input[name="selected"], #controlAll {
   width: 334px;
   height: auto;
   margin: 15px 10px; }
+
+/*直播课程列表*/
+.course-list.direct-course{
+  padding: 10px 30px;
+  background: #F6F5F5;
+}
+.course-list.direct-course li{
+  width:505px;
+  height:418px;
+  margin:10px;
+}

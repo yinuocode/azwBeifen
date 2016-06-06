@@ -2,13 +2,19 @@
 <?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
 <!-- header end -->
   <section class="section-panel">
-    <header class="panel-heading clearfix">
+    <header class="panel-heading clearfix" id="course-head">
+    <script id="courseHead" type="text/html">
+    {{if identity}}
       <a href="/coures/direct">创建直播</a>
       <a href="/coures/course">创建录播</a>
       <a href="/coures/teaching">我的教学</a>
+    {{/if}}
       <a href="/coures/study">我的学习</a>
       <a href="/coures/note" class="active">我的笔记</a>
+    {{if identity}}
       <a href="/coures/manage">学员管理</a>
+    {{/if}}
+    </script>
     </header>
     <div class="panel-body">
       <div class="panel-body-course">
