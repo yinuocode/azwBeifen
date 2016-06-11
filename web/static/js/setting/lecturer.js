@@ -124,6 +124,7 @@ define(function(require,exports,module){
     uploader.on( 'uploadSuccess', function( file,resporse ) {
         $( '#'+file.id ).addClass('upload-state-done');
         $('.img-path').eq(_index).val(main.imgPath+'/'+resporse.date+'/'+file.name);
+        $('.uploader-img').eq(_index).find('.error').hide();
     });
     // 文件上传失败，显示上传出错。
     uploader.on( 'uploadError', function( file ) {

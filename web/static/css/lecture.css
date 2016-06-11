@@ -1154,6 +1154,7 @@ input#file-upload {
   background: #111;
   position: fixed;
   bottom: 0;
+  z-index: 2;
   width: 100%; }
 
 /* footer end */

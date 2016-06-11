@@ -57,7 +57,7 @@
             {{each list as value i}}
             <tr>
             {{if value.type}}
-              <td><input type="checkbox" name="selected" value="{{value.coures_id}}"></td>
+              <td><input type="checkbox" name="selected" data-type="{{value.type}}" value="{{value.coures_id}}"></td>
               <td><a href="/broadcasting?cid={{value.coures_id}}" target="_blank">{{value.coures_title}}</a></td>
               <td><img src="{{value.coures_cover}}" alt=""></td>
               <td>{{value.num}}</td>
@@ -70,7 +70,7 @@
                 <a href="javascript:;">课时管理</a>
               </td>
               {{else}}
-              <td><input type="checkbox" name="selected" value="{{value.live_id}}"></td>
+              <td><input type="checkbox" name="selected" data-type="{{value.type}}" value="{{value.live_id}}"></td>
               <td><a href="/broadcasting?cid={{value.live_id}}" target="_blank">{{value.live_title}}</a></td>
               <td><img src="{{value.live_cover}}" alt=""></td>
               <td>{{value.num}}</td>

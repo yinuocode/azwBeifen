@@ -227,29 +227,17 @@
           <div class="lf">课堂人数：<span id="count"></span>人</div>
         </header>
         <div class="lecturer-order clearfix">
-          <div class="lf icon iconfont icon-speak">麦序模式</div>
-          <a href="javascript:;" class="icon-speak-state rf">禁麦</a>
+          <div class="lf icon iconfont icon-speak icon-speak-off">麦序模式</div>
+          <a href="javascript:;" class="icon-speak-state rf">开麦</a>
         </div>
         <div class="chat-body">
           <ol class="lecturer-list">
-            <li>
+            <!-- <li>
               <span class="hot lf point-icon icon iconfont"><b>1.</b></span>
               <img src="http://placehold.it/32x32" alt="用户名" class="avatar">
               <span class="username">久伴</span>
               <span class="usernamesub">老师</span>
-            </li>
-            <li>
-              <span class="hot lf point-icon icon point-icon-off iconfont"><b>2.</b></span>
-              <img src="http://placehold.it/32x32" alt="用户名" class="avatar">
-              <span class="username">久伴</span>
-              <span class="usernamesub">老师</span>
-            </li>
-            <li>
-              <span class="hot lf point-icon point-icon-off icon iconfont"><b>3.</b></span>
-              <img src="http://placehold.it/32x32" alt="用户名" class="avatar">
-              <span class="username">久伴</span>
-              <span class="usernamesub">老师</span>
-            </li>
+            </li> -->
           </ol>
           <div class="chat" id="chat-messages">
             <a href="javascript:;" id="notice" class="inform"></a>
@@ -340,23 +328,52 @@
   </div>
   <!-- 上传处理 end -->
   <input name="_csrf" type="hidden" id="_csrf" value="<?= Yii::$app->request->csrfToken?>">
-
+  <!-- 区分页面 -->
+  <input type="hidden" id="is-index" value="0">
+  <!-- 视频区域 -->
+  <div class="pure-u-2-3" id="video-container">
+    <video id="their-video" autoplay></video>
+    <!-- <video id="my-video" muted="true" autoplay></video> -->
+  </div>
+  <!-- 步骤 -->
+  <div class="pure-u-1-3">
+    <h2>PeerJS视频聊天</h2>
+    <!-- 得到当地音频/视频流 -->
+    <div id="step1">
+      <p>请点击“允许”屏幕的顶端,所以我们可以为调用访问您的网络摄像头和麦克风。</p>
+      <div id="step1-error">
+        <p>无法访问网络摄像头和麦克风。确保一个http服务器上运行这个演示后,点击“允许”要求许可由浏览器。</p>
+        <a href="#" class="pure-button pure-button-error" id="step1-retry">再试一次</a>
+      </div>
+    </div>
+    <!-- 链接别人给别人 -->
+    <div id="step2">
+      <p>Your id: <span id="my-id">...</span></p>
+    </div>
+  </div>
   <!-- js 脚本文件 -->
   <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="/static/js/lib/jquery-1.9.1.min.js"><\/script>')</script>
   <script src="/static/js/lib/template.js"></script>
+  <!-- peer 麦克和摄像头 -->
+  <link rel="stylesheet" href="/static/js/plugins/peer/style.css">
+  <script src="/static/js/plugins/peer/peer.js"></script>
+  <script src="/static/js/plugins/peer/script.js"></script>
+  <!-- seajs -->
   <script src="/static/js/lib/sea.js" id="seajsnode"></script>
-  <script src="http://139.196.195.238:8080/socket.io/socket.io.js"></script>
+  <!-- <script src="http://139.196.195.238:8080/socket.io/socket.io.js"></script> -->
+  <script src="http://192.168.0.102:8080/socket.io/socket.io.js"></script>
+
   <script>
     // 全局变量
-    var arrAdminT,//获取管理员数组
+    var arrAdminT=['50'], //获取管理员数组
         userMid,
         userName,
-        socketUrl,
+        socketUrl='http://192.168.0.102:8080/',
         dataService,
         pTimestamp,
         pTtoken,
-        noticeNr,
+        // noticeNr,
         search=location.search,
         courseCid=search.substring(search.indexOf('cid=')+4);
     // seajs
@@ -377,22 +394,21 @@
     });
     // 请求页面数据
     $.ajax({
-      url:'/static/json/datas.json',
+      // url:'/static/json/datas.json',
+      url:'/broadcasting/lecturer-live',
       type:'POST',
       data:{cid:courseCid},
       dataType:'json',
       success: function(datas){
+        console.log(datas);
         // 变量赋值
-        arrAdminT=datas.room.arrAdmin;//获取管理员数组
-        socketUrl=datas.room.socketUrl;
-        noticeNr=datas.room.noticeNr;
-        userMid=datas.lecturer.id;
-        userName=datas.lecturer.name;
-        dataService=datas.dataService;
-        pTimestamp=datas.pTimestamp;
-        pTtoken=datas.pTtoken;
+        userMid=datas.live_id;
+        userName=datas.uname;
+        dataService='2';
+        pTimestamp='1463728180';
+        pTtoken='6a831e7598ad2eac5ca7c97234a0ec2c';
         $('#lecturer-name').html(userName);
-        $('#content-title').html(datas.room.title);
+        $('#content-title').html(datas.live_title);
         seajs.use('lecture');
       },
       error: function(xml,err){

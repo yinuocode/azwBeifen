@@ -12,42 +12,16 @@
     <div class="panel-body">
       <div class="panel-body-course">
         <ul class="course-list direct-course clearfix">
+        <script id="directCourse" type="text/html">
+        {{each list as value i}}
           <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="">
-              <span>这是课程标题</span>
+            <a href="/broadcasting/classroom?cid={{value.live_id}}" target="_blank">
+              <img src="{{value.live_cover}}" alt="">
+              <span>{{value.live_title}}</span>
             </a>
           </li>
-          <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="" id="aeaoofnhgocdbnbeljkmbjdmhbcokfdb-mousedown">
-              <span>这是课程标题</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="">
-              <span>这是课程标题</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="">
-              <span>这是课程标题</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="">
-              <span>这是课程标题</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="">
-              <span>这是课程标题</span>
-            </a>
-          </li>
+        {{/each}}
+        </script>
         </ul>
         <div class="ajax-paging">
           <div class="clearfix">
@@ -62,12 +36,7 @@
   <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
   <!-- footer end -->
   <script>
-    // 直播标签
-    $('.panel-heading a').on('click',function(){
-      $(this).addClass('active').siblings().removeClass('active');
-    });
-    // 导航选中
-    $('.nav>ul>li').eq(1).addClass('active').siblings().removeClass('active');
+    seajs.use('/static/js/course/course_list.js');
   </script>
 </body>
 </html>

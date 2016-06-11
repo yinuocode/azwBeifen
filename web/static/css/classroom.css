@@ -536,7 +536,7 @@ body {
   margin: 0 auto; }
 
 .main-icon {
-  background-image: url(../img/lecture/main-icon.png);
+  background-image: url(../img/lecture/main-icon.png?v=1);
   background-repeat: no-repeat;
   z-index: 999999; }
 
@@ -553,8 +553,11 @@ body {
   bottom: 0;
   width: 230px;
   height: 66px;
+  display: none;
   background-position: -340px 0; }
-
+.main-play .me-make.end-speak-stat{
+  background-position: -365px -66px;
+}
 #real-state {
   position: absolute;
   top: 82%;

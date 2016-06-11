@@ -13,7 +13,7 @@
     "arrAdmin":["150"],
     "videoUrl":"rtmp://139.196.179.121:1935/hls/5211e4d43500240cb57805331d928f7cfed1cbf3",
     "noticeNr":"命运嘛，休论公道！",
-    "socketUrl":"http://139.196.195.238:8080"
+    "socketUrl":"http://192.168.0.102:8080/"
   },
   "lecturer":{
     "id":"150",

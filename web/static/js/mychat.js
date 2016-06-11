@@ -120,6 +120,58 @@ $(function(){
       },3000);
     }
   };
+  // 如果是学员页面
+  if($('#is-index').val()==1){
+    var randomId='';
+    // 我要发言
+    var meSpeak = function(cid,uid,uname){
+      socket.emit('meSpeak',{cid:cid,uid:uid,uname:uname});
+    };
+    // 发言完毕
+    var endSpeak = function(cid,uid,uname){
+      socket.emit('endSpeak',{cid:cid,uid:uid,uname:uname});
+    };
+    // 触发我要发言
+    $('.main-play').on('click','#me-speak',function(){
+      $(this).attr('id','end-speak');
+      $(this).addClass('end-speak-stat');
+      meSpeak(courseCid,userMid,userName);
+    });
+    // 触发发言完毕
+    $('.main-play').on('click','#end-speak',function(){
+      $(this).attr('id','me-speak');
+      $(this).removeClass('end-speak-stat');
+      window.existingCall.close();
+      step2();
+      endSpeak(courseCid,userMid,userName);
+    });
+  }else{
+    console.log('讲师页面');
+    // 开麦
+    var openMake = function(cid,val){
+      socket.emit('openMake',{cid:cid,val:val});
+    };
+    // 禁麦
+    var endMake = function(cid){
+      socket.emit('endMake',{cid:cid});
+    };
+    // 麦序控制
+    var $iconSpeak=$('.icon-speak'),
+    $iconSpeakState=$('.icon-speak-state');
+    $('.icon-speak-state,.icon-speak').on('click',function(){
+      if($iconSpeak.toggleClass('icon-speak-off').hasClass('icon-speak-off')){
+        // 禁麦
+        $iconSpeakState.html('开麦');
+        endMake(courseCid);
+      }else{
+        // 开麦
+        $iconSpeakState.html('禁麦');
+        var _val=$('#my-id').html();
+        openMake(courseCid,_val);
+      }
+    });
+  }
+
   //加入教室
   var joinroom = function(cid,uid,uname,isman,isNo,_index){
     socket.emit('joinroom',{uid:uid,uname:uname,cid:cid,isman:isman,isNo:isNo,_index:_index});
@@ -232,6 +284,34 @@ $(function(){
         event.preventDefault();
       });
     });
+    // 我要发言处理
+    socket.on('onMeSpeak',function(data){
+      $('.lecturer-list').append('<li class="username'+data.uid+'"><span class="username" data-uid="'+data.uid+'">'+data.uname+'</span></li>');
+      var call = peer.call(randomId, window.localStream);
+      step3(call);
+      console.log(data);
+    });
+    // 发言完成处理
+    socket.on('onEndSpeak',function(data){
+      $('.lecturer-list .username'+data.uid).remove();
+      var call = peer.call(randomId, window.localStream);
+      step3(call);
+    });
+    // 如果是学员页面
+    if($('#is-index').val()==1){
+      console.log('进入学员页面');
+      // 开麦处理
+      socket.on('onOpenMake',function(val){
+        $('#me-speak,#end-speak').show();
+        randomId=val;
+      });
+      // 关闭麦克
+      socket.on('onEndMake',function(){
+        $('#me-speak,#end-speak').hide();
+      });
+    }else{
+      console.log('进入讲师页面');
+    }
     // 同步ppt
     socket.on('syncPpt',function(imgSite){
       console.log('数据返回成功');
@@ -313,7 +393,8 @@ $(function(){
     });
     // 发公告
     $('#notice').on('click',function(event){
-      socket.emit('input',{name:userName,cid:courseCid,uid:userMid,message:'<div class="inform">'+noticeNr+'</div>'});
+      // socket.emit('input',{name:userName,cid:courseCid,uid:userMid,message:'<div class="inform">'+noticeNr+'</div>'});
+      socket.emit('input',{name:userName,cid:courseCid,uid:userMid,message:'<div class="inform">'+chatTextarea.html()+'</div>'});
       event.preventDefault();
     });
     // 送礼物

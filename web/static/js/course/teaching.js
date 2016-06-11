@@ -51,42 +51,62 @@ define(function(require,exports,module){
     }
   });
   $('#paging-next').on('click',function(){
-    if($('#table-course-list tr').length==8){
+    if($('#table-course-list tr').length==7){
       pageVal++;
       runPostAjaxDatas();
     }
   });
   // 编辑
   $('#handle-edit').on('click',function(){
+    var _this=$(this);
     var $selected=$('input[name="selected"]:checked');
-    if($selected.length==1){
-      main.getAjaxDatas('/coures/update-live-beg?live_id='+$selected.val(),function(datas){
-        // var tableCourseList = template('tableCourseList',{list:datas});
-        // $('#table-course-list').html(tableCourseList);
-        console.log(datas);
-      });
-    }else{
-      alert('请选择具体修改的某个课程');
-    }
+      if($selected.length==1){
+        var cid=$selected.val();
+        var ctype=$selected.attr('data-type');
+        if(ctype==1){
+          window.open('/coures/course?cid='+cid);
+        }else{
+          window.open('/coures/direct?cid='+cid);
+        }
+      }else{
+        alert('请选择具体修改的某个课程');
+      }
   });
+  // $('#handle-edit').on('click',function(){
+  //   var $selected=$('input[name="selected"]:checked');
+  //   if($selected.length==1){
+  //     main.getAjaxDatas('/coures/update-live-beg?live_id='+$selected.val(),function(datas){
+  //       // var tableCourseList = template('tableCourseList',{list:datas});
+  //       // $('#table-course-list').html(tableCourseList);
+  //       console.log(datas);
+  //     });
+  //   }else{
+  //     alert('请选择具体修改的某个课程');
+  //   }
+  // });
   // 删除
   $('#handle-delete').on('click',function(){
     var $selected=$('input[name="selected"]:checked');
-    var selectedArr=[];
+    var cid1=[];
+    var cid2=[];
     if($selected.length>0){
       if(confirm('您确定要删除吗?')){
         for(var i=0,len=$selected.length;i<len;i++){
-          selectedArr.push($selected.eq(i).val());
+          if($selected.eq(i).attr('data-type')){
+            cid2.push($selected.eq(i).val());
+          }else{
+            cid1.push($selected.eq(i).val());
+          }
         }
-        // main.postAjaxDatas('/coures/my-teach',{live_id:selectedArr},function(datas){
-        //   console.log(datas);
-             // 循环删除
-             // for(var j=0,lens=$selected.length;j<lens;j++){
-             //   $selected.eq(j).parent().parent().remove();
-             // }
-             // 局部刷新
-             // runPostAjaxDatas();
-        // });
+        main.postAjaxDatas('/coures/delete',{cid1,cid2},function(datas){
+          console.log(datas);
+          // 循环删除
+          // for(var j=0,lens=$selected.length;j<lens;j++){
+          //   $selected.eq(j).parent().parent().remove();
+          // }
+          // 局部刷新
+          runPostAjaxDatas();
+        });
 
       }
     }else{

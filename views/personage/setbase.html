@@ -12,6 +12,12 @@
       <form id="set-base-form" class="w600 cmxform" method="post">
         <script id="setBaseForm" type="text/html">
         <div class="form-group">
+          <label class="control-label">用户名</label>
+          <div class="form-controls">
+            <input type="text" class="form-input" value="{{username}}" disabled>
+          </div>
+        </div>
+        <div class="form-group">
           <label class="control-label">昵称</label>
           <div class="form-controls">
             <input type="text" id="nickname" name="UserDetail[nick_name]" class="form-input" value="{{data.nick_name}}" maxlength="50">
