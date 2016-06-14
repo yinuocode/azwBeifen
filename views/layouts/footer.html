@@ -104,9 +104,9 @@
     </div>
     <div class="registration-body">
       <form id="signin-form" method="post" class="registration-form" onsubmit="return checkLogin()">
+        <p id="error-massage"></p>
         <div class="rlf-group">
-
-          <input type="text" value="" name="LoginForm[username]" class="ipt ipt-email e-username" id="e-username" placeholder="请输入用户名或邮箱">
+          <input type="text" value="" name="LoginForm[name]" class="ipt ipt-email e-username" id="e-username" placeholder="请输入用户名或邮箱">
           <p class="rlf-tip-wrap"></p>
         </div>
         <div class="rlf-group">
@@ -123,6 +123,7 @@
         <input name="_csrf" type="hidden" id="_csrf" value="">
       </form>
       <form id="signup-form"  method="post" class="registration-form" onsubmit="return checkSignup()">
+        <p id="error-massage2"></p>
         <div class="rlf-group">
           <input type="text" value="" name="SignupForm[email]" class="ipt ipt-email" id="e-phone" placeholder="请输入邮箱">
           <p class="rlf-tip-wrap"></p>

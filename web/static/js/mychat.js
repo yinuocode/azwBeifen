@@ -171,7 +171,10 @@ $(function(){
       }
     });
   }
-
+  // 礼物
+  var showGift=function(cid,uid,uname,gnr,num,gtitle){
+    socket.emit('showGift',{cid:cid,uid:uid,uname:uname,gnr:gnr,num:num,gtitle:gtitle});
+  };
   //加入教室
   var joinroom = function(cid,uid,uname,isman,isNo,_index){
     socket.emit('joinroom',{uid:uid,uname:uname,cid:cid,isman:isman,isNo:isNo,_index:_index});
@@ -246,9 +249,9 @@ $(function(){
           if(data[x].uid==userMid){
             dUname='<span class="username current"><input type="text" mid="'+data[x].uid+'" id="amend-name" value="'+data[x].uname+'"></span>';
           }else if(data[x].uid<200){// 是否是会员
-            dUname='<span class="username" title="'+data[x].uname+'">'+data[x].uname+'</span>';
+            dUname='<span class="username" mid="'+data[x].uid+'" title="'+data[x].uname+'">'+data[x].uname+'</span>';
           }else{
-            dUname='<span class="username hot" title="'+data[x].uname+'">'+data[x].uname+'</span><span class="icon-grade iconfont icon hot">&#xe642;</span>';
+            dUname='<span class="username hot" mid="'+data[x].uid+'" title="'+data[x].uname+'">'+data[x].uname+'</span><span class="icon-grade iconfont icon hot">&#xe642;</span>';
           }
           if($.inArray(userMid,arrAdminT)!=-1){
             str +='<li class="clearfix"><img src="http://placehold.it/32x32" alt="用户名" class="avatar">'+dUname+'<div class="banned-kick rf">'+bannedMake+'&nbsp;&nbsp;'+kickedRoom+'</div></li>';
@@ -287,15 +290,19 @@ $(function(){
     // 我要发言处理
     socket.on('onMeSpeak',function(data){
       $('.lecturer-list').append('<li class="username'+data.uid+'"><span class="username" data-uid="'+data.uid+'">'+data.uname+'</span></li>');
-      var call = peer.call(randomId, window.localStream);
-      step3(call);
-      console.log(data);
+      if(userMid==$('.lecturer-list>li:first-child>.username').attr('data-uid')){
+        var call = peer.call(randomId, window.localStream);
+        step3(call);
+      }
     });
     // 发言完成处理
     socket.on('onEndSpeak',function(data){
       $('.lecturer-list .username'+data.uid).remove();
-      var call = peer.call(randomId, window.localStream);
-      step3(call);
+      window.existingCall.close();
+      if($('.lecturer-list>li:first-child>.username').attr('data-uid')==userMid){
+        var call = peer.call(randomId, window.localStream);
+        step3(call);
+      }
     });
     // 如果是学员页面
     if($('#is-index').val()==1){
@@ -308,6 +315,11 @@ $(function(){
       // 关闭麦克
       socket.on('onEndMake',function(){
         $('#me-speak,#end-speak').hide();
+      });
+      // 礼物显示
+      socket.on('onShowGift',function(data){
+        console.log(1234);
+        $('#real-satte-span').hide().html(data.uname+'送了'+data.gnr+data.num+'个'+data.gtitle).fadeIn('1000');
       });
     }else{
       console.log('进入讲师页面');
@@ -400,12 +412,12 @@ $(function(){
     // 送礼物
     $('#gift-send').on('click',function(){
       var num=$giftNum.val();
-      if (Number(num)) {
+      if (Number(num)<1000) {
         var giftNrs='';
         for(var i=0;i<num;i++){
           giftNrs+=giftNr;
         }
-        $('#real-satte-span').hide().html(userName+'送了'+giftNr+num+'个'+giftTitle).fadeIn('1000');
+        showGift(courseCid,userMid,userName,giftNr,num,giftTitle);
         socket.emit('input',{name:userName+'<span class="hot">送了'+num+'个'+giftTitle+'</span>',cid:courseCid,uid:userMid,message:giftNrs});
         event.preventDefault();
       }

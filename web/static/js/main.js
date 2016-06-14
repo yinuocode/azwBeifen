@@ -82,6 +82,7 @@ define(function(require,exports,module){
       }
     });
   });
+  // 登录
   $('#signin-btn').click(function(){
     var data = $('#signin-form').serialize();
     $.ajax({
@@ -89,15 +90,22 @@ define(function(require,exports,module){
       type : 'post',
       data : data,
       success : function(data){
-        console.log(data);
-        if(data){
-          location.reload();
+        if(data==0){
+          console.log(1234);
+          $('#error-massage').html('账号或密码错误！');
         }else{
-          alert(data);
+          location.reload();
         }
       }
     });
   });
+  $('input').keyup(function (event) {
+    if (event.keyCode == "13") {
+      document.getElementById("signin-btn").click();  //服务器控件loginsubmit点击事件被触发
+      document.getElementById("signup-btn").click();  //服务器控件loginsubmit点击事件被触发
+    }
+  });
+  // 注册
   $('#signup-btn').click(function(){
     var data = $('#signup-form').serialize();
     $.ajax({
@@ -105,10 +113,10 @@ define(function(require,exports,module){
       type : 'post',
       data : data,
       success : function(data){
-        if(data){
+        if(data==1){
           location.reload();
         }else{
-          alert(data);
+          $('#error-massage2').html(data);
         }
       }
     });
@@ -146,7 +154,8 @@ define(function(require,exports,module){
       $('.registration-form').eq($(this).index()).show().siblings().hide();
       ePhone.focus();eiUsername.focus();
     });
-    $('.registration-bg,.rl-close').click(function(){$('#registration').hide();});
+    // registration-bg,
+    $('.rl-close').click(function(){$('#registration').hide();});
     // 验证
     // ePhone.focus();eiUsername.focus();
     eUsername.bind('input blur keydown', function() {

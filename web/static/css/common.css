@@ -330,6 +330,20 @@ body {
 .banned-kick {
   color: #008AD1; }
 
+/*视频麦克风*/
+#video-container,#my-video{
+  position: fixed;
+  bottom:0;
+  left:0;
+  bottom: 45px;
+  width: 220px
+}
+#their-video{
+  width: 220px
+}
+#step2{opacity: 0;}
+#video-container{display: none}
+
 /*Customize Scrollbar Appearance in Chrome */
 ::-webkit-scrollbar {
   width: 10px;

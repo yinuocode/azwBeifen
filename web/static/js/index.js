@@ -6,7 +6,7 @@ define(function(require,exports,module){
     {
       url:'/index/banner',
       fSuccess:function(datas){
-        $('.top-banner').html('<a href="'+datas[0].img_address+'" target="_blank"><img src="'+datas[0].src+'" width="100%" alt="'+datas[0].img_title+'"></a>');
+        $('.top-banner').html('<a href="'+datas[0].img_address+'" target="_blank"><img src="'+datas[0].src+'" alt="'+datas[0].img_title+'"></a>');
       }
     },
     // 公告

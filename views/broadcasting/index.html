@@ -356,20 +356,19 @@
   <script>window.jQuery || document.write('<script src="/static/js/lib/jquery-1.9.1.min.js"><\/script>')</script>
   <script src="/static/js/lib/template.js"></script>
   <!-- peer 麦克和摄像头 -->
-  <link rel="stylesheet" href="/static/js/plugins/peer/style.css">
   <script src="/static/js/plugins/peer/peer.js"></script>
   <script src="/static/js/plugins/peer/script.js"></script>
   <!-- seajs -->
   <script src="/static/js/lib/sea.js" id="seajsnode"></script>
   <!-- <script src="http://139.196.195.238:8080/socket.io/socket.io.js"></script> -->
-  <script src="http://192.168.0.102:8080/socket.io/socket.io.js"></script>
+  <script src="http://192.168.0.100:8080/socket.io/socket.io.js"></script>
 
   <script>
     // 全局变量
     var arrAdminT=['50'], //获取管理员数组
         userMid,
         userName,
-        socketUrl='http://192.168.0.102:8080/',
+        socketUrl='http://192.168.0.100:8080/',
         dataService,
         pTimestamp,
         pTtoken,

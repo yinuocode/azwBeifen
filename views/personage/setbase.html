@@ -116,7 +116,7 @@
             <button type="submit" class="button-submit">保存信息</button>
           </div>
         </div>
-        <input type="hidden" name="UserDetail[portrait]" id="img-path" value="">
+        <input type="hidden" name="UserDetail[portrait]" id="img-path" value="{{if data.portrait}}{{data.portrait}}{{else}}/static/img/default-avatar.jpg{{/if}}">
         <input type="hidden" name="form-data" value ="#set-base-form"/>
         <input type="hidden" name="_url" value ="/personage/basic"/>
         </script>

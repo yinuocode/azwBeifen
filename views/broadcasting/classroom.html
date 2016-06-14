@@ -89,13 +89,13 @@
           <div class="user-info main-icon">
             <div class="user-info-option" id="user-info-option">
             <script id="userInfoOption" type="text/html">
-              <a href="{{}}" target="_blank" class="user-avatar"><img class="user-avatar" src="{{portrait}}" alt="头像"></a>
-              <a href="javascript:;" class="rank main-icon">{{1}}</a>
-              <a href="javascript:;" class="set" target="_blank"></a>
+              <a href="javascript:;" target="_blank" class="user-avatar"><img class="user-avatar" src="{{portrait}}" alt="头像"></a>
+              <a href="javascript:;" class="rank main-icon">{{grade}}</a>
+              <!-- <a href="javascript:;" class="set" target="_blank"></a> -->
               <a href="javascript:;" class="name">{{uname}}</a>
-              <a href="javascript:;" class="concern">关注</a>
+<!--               <a href="javascript:;" class="concern">关注</a>
               <a href="javascript:;" class="vermicelli" title="343">粉丝</a>
-              <a href="javascript:;" class="member" target="_blank">vip 会员</a>
+              <a href="javascript:;" class="member" target="_blank">vip 会员</a> -->
             </script>
             </div>
           </div>
@@ -138,7 +138,7 @@
             <h2 class="title"><span>贵宾席</span></h2>
             <ul class="rankig-list" id="rankig-vip">
             <script id="rankigVip" type="text/html">
-            {{each guest as value i}}
+            {{each guname as value i}}
               <li>{{value}}</li>
             {{/each}}
             </script>
@@ -148,8 +148,8 @@
             <h2 class="title"><span>粉丝团排行</span></h2>
             <ul class="rankig-list" id="rankig-vermicelli">
             <script id="rankigVermicelli" type="text/html">
-            {{each fans as value i}}
-              <li>{{value}}</li>
+            {{each list as value i}}
+              <li><img class="grade" src="{{value.grade}}" alt="">{{value.nick}}</li>
             {{/each}}
             </script>
             </ul>
@@ -165,8 +165,8 @@
             <div class="lf left clearfix">
               <div class="clearfix" id="all-gift">
               <script id="allGift" type="text/html">
-              {{each gift as value i}}
-                <a href="javascript:;" data-id="{{i+1}}" title="{{value.title}}"><img src="{{value.src}}" alt=""></a>
+              {{each list as value i}}
+                <a href="javascript:;" data-id="{{value.gid}}" title="{{value.gname}}"><img src="{{value.gimage}}" alt="{{value.gname}}"></a>
               {{/each}}
               </script>
               </div>
@@ -266,24 +266,23 @@
   <script src="/static/js/lib/template.js"></script>
   <script src="/static/js/lib/sea.js" id="seajsnode"></script>
   <!-- <script src="http://139.196.195.238:8080/socket.io/socket.io.js"></script> -->
-  <script src="http://192.168.0.102:8080/socket.io/socket.io.js"></script>
+  <script src="http://192.168.0.100:8080/socket.io/socket.io.js"></script>
   <!-- peer 麦克和摄像头 -->
-  <link rel="stylesheet" href="/static/js/plugins/peer/style.css">
   <script src="/static/js/plugins/peer/peer.js"></script>
   <script src="/static/js/plugins/peer/script.js"></script>
   <script>
     // 定义全局变量
     var arrAdminT=['50'],//获取管理员数组
-        socketUrl='http://192.168.0.102:8080/',
+        socketUrl='http://192.168.0.100:8080/',
         userMid,
         userName,
-        dataService="2",
+        dataService='2',
         search=location.search,
-        courseCid=search.substring(search.indexOf('cid=')+4);
-    var $allGift, // 礼物
-        giftNr, // 礼物
-        giftTitle,
-        giftId; // 礼物 id
+        courseCid=search.substring(search.indexOf('cid=')+4),
+        $allGift=$('#all-gift'), // 礼物
+        giftNr=$allGift.find('a:first').html(), // 礼物
+        giftTitle=$allGift.find('a:first').attr('title'),
+        giftId=1; // 礼物 id
     // seajs
     seajs.config({
       alias: {
@@ -295,42 +294,29 @@
         'mychat' : '/static/js/mychat.js'
       }
     });
-    seajs.use('classroom');
-    // 请求页面数据
-    // $.ajax({
-      // url:'/static/json/classroom.json',
-      // url:'/broadcasting/get-gurl',
-      // type:'POST',
-      // data:{cid:courseCid},
-      // dataType:'json',
-      // success: function(datas){
-        // var mainSideTop = template('mainSideTop',datas);
-        // var guestRanking = template('guestRanking',datas);
-        // var userInfoOption = template('userInfoOption',datas);
-        // var adList = template('adList',datas);
-        // $('#main-side-top').html(mainSideTop);
-        // $('#guest-ranking').html(guestRanking);
-        // $('#user-info-option').html(userInfoOption);
-        // $('#ad-list').html(adList);
-        // $('#lecturer-name').html(datas.lecturer.name);
-        // // 变量赋值
-        // arrAdminT=datas.room.arrAdmin;//获取管理员数组
-        // videoUrl=datas.room.videoUrl;
-        // socketUrl=datas.room.socketUrl;
-        // userMid=datas.user.id;
-        // userName=datas.user.name;
-        // dataService=datas.dataService;
-
-        // $allGift=$('#all-gift'); // 礼物
-        // giftNr=$allGift.find('a:first').html(); // 礼物
-        // giftTitle=$allGift.find('a:first').attr('title');
-        // giftId=1; // 礼物 id
-        // seajs.use('classroom');
-      // },
-      // error: function(xml,err){
-      //   console.log(err);
-      // }
-    // });
+    // ajax post 方法
+    function postAjaxDatas(_url,fSuccess){
+      $.ajax({
+        type:'post',
+        url:_url,
+        data:{cid:courseCid},
+        dataType: 'json',
+        success: function(datas){
+          fSuccess(datas);
+        },
+        error: function(xml,err){
+          console.log(err);
+        }
+      });
+    }
+    // 会员信息
+    postAjaxDatas('/broadcasting/study',function(datas){
+      userMid=datas.id;
+      userName=datas.uname;
+      var userInfoOption = template('userInfoOption',datas);
+      $('#user-info-option').html(userInfoOption);
+      seajs.use('classroom');
+    });
   </script>
 </body>
 </html>

@@ -8,7 +8,7 @@ define(function(require,exports,module){
     var typeVal='liveCoures';
     var statusVal=1;
     var timeVal=null;
-    main.postAjaxDatas('/coures/my-teach',{type:typeVal,status:statusVal,time:timeVal,page:pageVal},function(datas){
+    main.postAjaxDatas('/coures/live-list',{page:pageVal},function(datas){
       var directCourse = template('directCourse',{list:datas});
       $('.direct-course').html(directCourse);
       console.log(datas);

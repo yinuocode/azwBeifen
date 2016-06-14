@@ -4,19 +4,27 @@ define(function(require,exports,module){
 
   var search=window.location.search;
   var ret = search.split('=')[1];
-  if($('#course-type').val()){
+  if($('#course-type').val()==0){
     main.postAjaxDatas('/coures/update-live-beg',{live_id:ret},function(datas){
       var directForm = template('directForm',datas);
       $('#course-form-box').html(directForm);
       console.log(datas);
       $('#h-cid').val(ret);
       runCourseForm();
+      laydate({
+        elem: '#startDate'
+      });
+      laydate({
+        elem: '#endDate'
+      });
     });
   }else{
-    main.postAjaxDatas('/coures/recorded',{coures_id:ret},function(datas){
-      // var tableCourseList = template('tableCourseList',datas);
-      // $('#course-form-box').html(tableCourseList);
+    main.postAjaxDatas('/coures/update-coures-beg',{coures_id:ret},function(datas){
+      var courseForm = template('courseForm',datas);
+      $('#course-form-box').html(courseForm);
       console.log(datas);
+      $('#h-cid').val(ret);
+      runCourseForm();
     });
   }
   // 初始化 js
@@ -40,6 +48,7 @@ define(function(require,exports,module){
       submitHandler: function(form){
         var _url = $('input[name="_url"]').val();
         var data = $formData.serialize();
+        console.log(_url);
         console.log(data);
         $.ajax({
           url : _url,
@@ -160,14 +169,6 @@ define(function(require,exports,module){
     // 完成上传完了，成功或者失败，先删除进度条。
     uploader.on( 'uploadComplete', function( file ) {
         $( '#'+file.id ).find('.progress').remove();
-    });
-
-    // 日期调用
-    laydate({
-      elem: '#startDate'
-    });
-    laydate({
-      elem: '#endDate'
     });
   }
 });

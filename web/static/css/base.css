@@ -285,6 +285,10 @@ form.cmxform form.cmxform .gray * {
 
 .registration .error {
   color: #f01400; }
+#error-massage,#error-massage2{
+  color:red;
+  margin-bottom: 10px;
+  margin-left: 2px;}
 
 /*登录注册结束*/
 /* 返回顶部 */
@@ -552,9 +556,15 @@ form.cmxform form.cmxform .gray * {
 /* 右侧客服 */
 /* top-banner */
 .top-banner{
-  max-height:100px;
+  max-height:150px;
   overflow: hidden;
 }
+.top-banner img{
+  max-height:150px;
+  width:100%;
+  max-width: 1920px;
+}
+
 
 /* 公告 */
 .top-notice {
