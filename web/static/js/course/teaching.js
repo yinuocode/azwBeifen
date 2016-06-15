@@ -72,6 +72,45 @@ define(function(require,exports,module){
         alert('请选择具体修改的某个课程');
       }
   });
+  // 一键邀请
+  $('#handle-invite').on('click',function(){
+    var $selected=$('input[name="selected"]:checked');
+    var cid1=[];
+    var cid2=[];
+    if($selected.length>0){
+      for(var i=0,len=$selected.length;i<len;i++){
+        if($selected.eq(i).attr('data-type')){
+          cid2.push($selected.eq(i).val());
+        }else{
+          cid1.push($selected.eq(i).val());
+        }
+      }
+      main.postAjaxDatas('/coures/invite',{cid1,cid2},function(datas){
+        console.log(datas);
+        alert('邀请成功');
+        // 循环删除
+        // for(var j=0,lens=$selected.length;j<lens;j++){
+        //   $selected.eq(j).parent().parent().remove();
+        // }
+        // 局部刷新
+        runPostAjaxDatas();
+      });
+    }else{
+      alert('请选择您要邀请的课程');
+    }
+  });
+  // 开始发布
+  $('.table-course').on('click','.start-issue',function(){
+    var type=$(this).attr('data-type');
+    var cid=$(this).attr('data-cid');
+    main.postAjaxDatas('/coures/alter-state',{type:type,cid:cid},function(datas){
+      if(!datas.status){
+        alert('服务器忙，请稍后。。。');
+      }
+      // 局部刷新
+      runPostAjaxDatas();
+    });
+  });
   // $('#handle-edit').on('click',function(){
   //   var $selected=$('input[name="selected"]:checked');
   //   if($selected.length==1){
@@ -111,6 +150,37 @@ define(function(require,exports,module){
       }
     }else{
       alert('请选择您要删除的课程');
+    }
+  });
+  // 添加助教
+  $('.table-course').on('click','.add-teaching',function(){
+    var cid=$(this).attr('data-cid');
+    $('#sub-teaching-popup').removeClass('hide');
+    $('input[name="cid"]').val(cid);
+
+  });
+  $('.popup-close').on('click',function(){
+    $('.popup').addClass('hide');
+  });
+  // ajax提交
+  $('#sub-teaching').validate({
+    onsubmit:true,// 是否在提交时验证
+    submitHandler: function(form){
+      var data = $('#sub-teaching').serialize();
+      $.ajax({
+        url : '/coures/add-assistant',
+        type : 'post',
+        data : data,
+        dataType:'json',
+        success : function(data){
+          if(data.status){
+            alert('添加成功');
+            $('.popup').addClass('hide');
+          }else{
+            alert(data.msg);
+          }
+        }
+      });
     }
   });
 });

@@ -307,8 +307,20 @@ class BroadcastingController extends Controller
     {
         $startdate = date('Y-m-d',time()).' '.$start.':00:00';
         $minute=floor((strtotime($startdate)-time())%86400/60);
-        $data['hour'] = floor($minute/60);
-        $data['minute'] = $minute%60;
+        $hour = floor($minute/60);
+        $min = $minute%60;
+        if ($hour<0) {
+           $data['hour'] = $hour+12;
+        }else{
+            $data['hour'] = $hour;
+        }
+        if ($min<0) {
+            $data['minute'] = $min+60;
+        }else{
+            $data['minute'] = $min;
+        }
+        // $data['hour'] = floor($minute/60);
+        // $data['minute'] = $minute%60;
 
         return $data;
     }

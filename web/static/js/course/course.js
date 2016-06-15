@@ -34,9 +34,17 @@ define(function(require,exports,module){
       var selectedId=$('#course-categoryId').attr('value');
       for(var i=0,len=datas.length;i<len;i++){
         if(datas[i].gc_id==selectedId){
-          options+='<option value="'+datas[i].gc_id+'" selected>'+datas[i].gc_name+'</option>';
+          if(datas[i].gc_parent_id!=0){
+            options+='<option value="'+datas[i].gc_id+'" selected>&nbsp;&nbsp;--'+datas[i].gc_name+'</option>';
+          }else{
+            options+='<option value="'+datas[i].gc_id+'" selected>'+datas[i].gc_name+'</option>';
+          }
         }else{
-          options+='<option value="'+datas[i].gc_id+'">'+datas[i].gc_name+'</option>';
+          if(datas[i].gc_parent_id!=0){
+            options+='<option value="'+datas[i].gc_id+'">&nbsp;&nbsp;--'+datas[i].gc_name+'</option>';
+          }else{
+            options+='<option value="'+datas[i].gc_id+'">'+datas[i].gc_name+'</option>';
+          }
         }
       }
       $('#course-categoryId').html(options);

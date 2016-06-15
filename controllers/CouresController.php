@@ -16,6 +16,7 @@ use yii\db\Exception;
 use common\models\base\BaseModel;
 use common\models\CouresMember;
 use common\models\GroupRecords;
+use common\models\Audit;
 
 class CouresController extends Controller
 {
@@ -78,72 +79,115 @@ class CouresController extends Controller
         }
         
         if ($page>'1') {
-            $row = ($page-1)*6;  
+            $row = ($page-1)*8;  
         }else{
             $row = '';  
         }
-        $limit=7;
+        $limit=9;
         $where = array('>','create_time',$ago);
         $member = new CouresMember();
-        // $uid = Yii::$app->user->identity->user_id;
-        $uid = 246;
+        $uid = Yii::$app->user->identity->user_id;
+        // $uid = 246;
         $data = array();
         $arr = array();
         switch ($type) {
-            case '0':
+            case 'liveCoures':
                 $conditions = array('user_id'=>$uid,'type'=>'0','is_delete'=>'0');
                 $result = $member->getLearnlist($conditions,$row,$limit,$where);
                 foreach ($result as $key => $value) {
-                    $arr['id'] = $value['live_id'];
-                    $arr['title'] = $value['live_title'];
-                    $arr['cover'] = $value['live_cover'];
+                    $arr['live_id'] = $value['live_id'];
+                    $arr['live_title'] = $value['live_title'];
+                    $arr['live_cover'] = $value['live_cover'];
                     $arr['type'] = '0';
+                    $arr['time'] = $this->actionLiveState($value['live_id']);
                     array_push($data, $arr);
                 }
                 break;
             
-            case '1':
+            case 'coures':
                 $conditions = array('user_id'=>$uid,'type'=>'1','is_delete'=>'0');
                 $result = $member->getLearnlist($conditions,$row,$limit,$where);
                 foreach ($result as $key => $value) {
-                    $arr['id'] = $value['coures_id'];
-                    $arr['title'] = $value['coures_title'];
-                    $arr['cover'] = $value['coures_cover'];
+                    $arr['coures_id'] = $value['coures_id'];
+                    $arr['coures_title'] = $value['coures_title'];
+                    $arr['coures_cover'] = $value['coures_cover'];
                     $arr['type'] = '1';
                     array_push($data, $arr);
                 }
                 break;
 
-            case '2':
-                
-                break;
-
-            default:
-                $conditions = array('user_id'=>$uid,'is_delete'=>'0');
-                $result = $member->getLearnlist($conditions,$row,$limit,$where);
-                $cou  = array();
-                foreach ($result as $key => $value) {
-                    if ($value['type']=='0') {
-                        $arr['id'] = $value['live_id'];
-                        $arr['title'] = $value['live_title'];
-                        $arr['cover'] = $value['live_cover'];
-                        $arr['type'] = '0';
-                        array_push($data, $arr);
-                    }elseif ($value['type']=='1') {
-                        $cou['id'] = $value['coures_id'];
-                        $cou['title'] = $value['coures_title'];
-                        $cou['cover'] = $value['coures_cover'];
-                        $cou['type'] = '1';
-                        array_push($data, $cou);
-                    }
-                }
-                break;
+            // default:
+            //     $conditions = array('user_id'=>$uid,'is_delete'=>'0');
+            //     $result = $member->getLearnlist($conditions,$row,$limit,$where);
+            //     $cou = array();
+            //     foreach ($result as $key => $value) {
+            //         if ($value['type']=='0') {
+            //             $arr['id'] = $value['live_id'];
+            //             $arr['title'] = $value['live_title'];
+            //             $arr['cover'] = $value['live_cover'];
+            //             $arr['type'] = '0';
+            //             $arr['time'] = $this->actionLiveState($value['live_id']);
+            //             array_push($data, $arr);
+            //         }elseif ($value['type']=='1') {
+            //             $cou['id'] = $value['coures_id'];
+            //             $cou['title'] = $value['coures_title'];
+            //             $cou['cover'] = $value['coures_cover'];
+            //             $cou['type'] = '1';
+            //             array_push($data, $cou);
+            //         }
+            //     }
+            //     break;
         }
         
         // print_r($mycoures);
         echo json_encode($data,JSON_UNESCAPED_UNICODE);
     }
    
+     /**
+      * 课程直播状态 0:未直播; 1:正在直播; 2:今天已播; 3:该课程已过期
+      */
+    public function  actionLiveState($lid)
+    {
+        // $lid = $_POST['cid'];
+        $liveCoures = new LiveCoures();
+        $liveCoures = LiveCoures::findOne(['live_id'=>$lid]);
+        $now = strtotime(date('Y-m-d',time()));   
+        $cend =strtotime($liveCoures['end_date']);
+        $bad = $cend-$now;
+        if ($cend-$now<0) {
+            $data['state'] = 3;
+            // echo json_encode(array('state'='2','msg'=>'课程已过期'),JSON_UNESCAPED_UNICODE);exit;
+        }
+        $startdate = date('Y-m-d',time()).' '.$liveCoures['start_time'].':00:00';      
+        $minute=floor((strtotime($startdate)-time())%86400/60);
+        if ($minute<0) {
+            $enddate = date('Y-m-d',time()).' '.$liveCoures['end_time'].':00:00';      
+            $endminute=floor((strtotime($enddate)-time())%86400/60);
+            if ($endminute>0) {
+                $liveCoures->is_class = 1;
+                if ($liveCoures->save()) {
+                    $data['state'] = 1;
+                }
+            }else{
+                $liveCoures->is_class = 2;
+                if ($liveCoures->save()) {
+                    $data['state'] = 2;
+                    $data['start_time'] = $liveCoures['start_time'];
+                    $data['end_time'] = $liveCoures['end_time'];
+                }
+            }  
+        }else{
+            $liveCoures->is_class = 0;
+            if ($liveCoures->save()) {
+                $data['state'] = 0;
+                $data['hour'] = floor($minute/60);
+                $data['min'] = $minute%60;
+            }
+        }
+        return $data;
+        // echo json_encode($data,JSON_UNESCAPED_UNICODE);
+    }
+
     /**
      * 直播页面
      */
@@ -221,8 +265,8 @@ class CouresController extends Controller
     public function actionClassify()
     {
         $classify = new CouresClass();
-        $data = $classify->getCouresList();
-        echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        $result = $classify->getCouresList();
+        echo json_encode($result,JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -274,7 +318,7 @@ class CouresController extends Controller
                 if($coures->save()){
                     echo json_encode(array('status'=>'1','msg'=>'操作成功'),JSON_UNESCAPED_UNICODE);              
                 }else{
-                    throw new Exception('创建直播失败');
+                    throw new Exception('创建录播失败');
                 }
             }
             $transaction->commit();
@@ -285,7 +329,7 @@ class CouresController extends Controller
     }
 
     /**
-     * 我的教学
+     * 我的教学页面
      */
     public function actionTeaching()
     {
@@ -331,8 +375,8 @@ class CouresController extends Controller
             $lconditions=['in','live_state',array('0','1')];
             $conditions = ['in','coures_status',array('0','1')];
         }
-        $field = array('live_id','live_title','live_cover','privilege_price','create_time');
-        $cfield = array('coures_id','coures_title','coures_cover','privilege_price','create_time');
+        $field = array('live_id','live_title','live_cover','privilege_price','create_time','live_state');
+        $cfield = array('coures_id','coures_title','coures_cover','privilege_price','create_time','coures_status');
 
         $orderby='create_time DESC';
         $limit = 6;
@@ -410,6 +454,117 @@ class CouresController extends Controller
     }
 
     /**
+     * 修改发布状态
+     */
+    public function actionAlterState()
+    {
+        $type = $_POST['type'];
+        $cid  = $_POST['cid'];
+        if ($type=='0') {
+            $live = LiveCoures::findOne(['live_id'=>$cid]);
+            $live->live_state = 1;
+            if ($live->save()) {
+                echo json_encode(array('status'=>1),JSON_UNESCAPED_UNICODE);
+            }else{
+                echo json_encode(array('status'=>0),JSON_UNESCAPED_UNICODE);
+            }
+            
+        }elseif ($type=='1') {
+            $coures = Coures::findOne(['coures_id'=>$cid]);
+            $coures->coures_status = 1;
+            if ($coures->save()) {
+                echo json_encode(array('status'=>1),JSON_UNESCAPED_UNICODE);
+            }else{
+                echo json_encode(array('status'=>0),JSON_UNESCAPED_UNICODE);
+            }
+            
+        }
+    }
+
+    /**
+     * 添加助教
+     */
+    public function actionAddAssistant()
+    {
+        $cid = $_POST['cid'];
+        $uid = $_POST['uid'];
+        $audit = Audit::findOne(['user_id'=>$uid,'audit_state'=>'1']);
+        if (empty($audit)) {
+            echo json_encode(array('status'=>0,'msg'=>'对方不是讲师，无法添加助教'),JSON_UNESCAPED_UNICODE);exit;
+        }
+        $lecturer = new Lecturer();
+        $stop = $lecturer->lecturerType($uid);
+        if (!$stop) {
+            echo json_encode(array('status'=>0,'msg'=>'该讲师已被封停'),JSON_UNESCAPED_UNICODE);exit;
+        }
+        $lec = Lecturer::findOne(['user_id'=>$uid]);
+        $lec->assis_id = $cid.',';
+        if ($lec->save()) {
+            echo json_encode(array('status'=>1,'msg'=>'添加助教成功'),JSON_UNESCAPED_UNICODE);exit;
+        }else{
+            echo json_encode(array('status'=>0,'msg'=>'助教添加失败'),JSON_UNESCAPED_UNICODE);exit;
+        }
+    }
+
+    /**
+     * 录播列表页面
+     */
+    public function actionCourseList()
+    {
+        return $this->renderPartial('course_list.html');
+    }
+    /**
+     * 录播列表
+     */
+    public function actionRecordedList()
+    {
+        $page = $_POST['page'];
+        if ($page>'1') {
+            $row = ($page-1)*8;  
+        }else{
+            $row = '';  
+        }
+        $orderby='create_time DESC';
+        $limit = 9;
+        $coures = new Coures();
+        $field = array('coures_id','coures_title','coures_cover','privilege_price','coures_number');
+        if (!empty($_POST['classify'])) {
+            if (!empty($_POST['difficulty'])) {
+                $lconditions = array('coures_status'=>'1','gc_id'=>$_POST['classify'],'difficulty'=>$_POST['difficulty']); 
+            }else{
+                $lconditions = array('coures_status'=>'1','gc_id'=>$_POST['classify']);
+            }            
+        }else{
+            if (!empty($_POST['difficulty'])) {
+                $lconditions = array('coures_status'=>'1','difficulty'=>$_POST['difficulty']); 
+            }else{
+                $lconditions = array('coures_status'=>'1');
+            }
+        }
+        $liveCoures = $coures->find()->select($field)->where($lconditions)->orderby($orderby)->asArray()->offset($row)->limit($limit)->all();
+        $data = array();
+        foreach ($liveCoures as $key => $value) {
+            $arr['coures_id'] = $value['coures_id'];
+            $arr['coures_title'] = $value['coures_title'];
+            $arr['coures_cover'] = $value['coures_cover'];
+            $arr['privilege_price'] = $value['privilege_price'];
+            $arr['coures_number'] = $value['coures_number'];
+            // $arr['time'] = $this->actionLiveState($value['coures_id']);
+            array_push($data, $arr);
+        }       
+        echo json_encode($data,JSON_UNESCAPED_UNICODE);
+    }
+    /**
+     * 查询录播课程的讲师
+     */
+    public function actionCourseTeach()
+    {
+        $lid = $_POST['lid'];
+        $coures = new Coures();
+        $result = $coures->find()->where(['coures_id'=>9])->asArray()->one();
+        echo json_encode($result,JSON_UNESCAPED_UNICODE);
+    }
+    /**
      * 直播列表页面
      */
     public function actionDirectList()
@@ -424,17 +579,37 @@ class CouresController extends Controller
     {
         $page = $_POST['page'];
         if ($page>'1') {
-            $row = ($page-1)*6;  
+            $row = ($page-1)*8;  
         }else{
             $row = '';  
         }
         $orderby='create_time DESC';
-        $limit = 6;
+        $limit = 9;
         $live = new LiveCoures();
-        $field = array('live_id','live_title','live_cover','privilege_price','start_time','end_time');
-        $lconditions = array('live_state'=>'1');
+        $field = array('live_id','live_title','live_cover');
+        if (!empty($_POST['classify'])) {
+            if (!empty($_POST['difficulty'])) {
+                $lconditions = array('live_state'=>'1','gc_id'=>$_POST['classify'],'difficulty'=>$_POST['difficulty']); 
+            }else{
+                $lconditions = array('live_state'=>'1','gc_id'=>$_POST['classify']);
+            }            
+        }else{
+            if (!empty($_POST['difficulty'])) {
+                $lconditions = array('live_state'=>'1','difficulty'=>$_POST['difficulty']); 
+            }else{
+                $lconditions = array('live_state'=>'1');
+            }
+        }
         $liveCoures = $live->find()->select($field)->where($lconditions)->orderby($orderby)->asArray()->offset($row)->limit($limit)->all();
-        echo json_encode($liveCoures,JSON_UNESCAPED_UNICODE);
+        $data = array();
+        foreach ($liveCoures as $key => $value) {
+            $arr['live_id'] = $value['live_id'];
+            $arr['live_title'] = $value['live_title'];
+            $arr['live_cover'] = $value['live_cover'];
+            $arr['time'] = $this->actionLiveState($value['live_id']);
+            array_push($data, $arr);
+        }       
+        echo json_encode($data,JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -508,5 +683,86 @@ class CouresController extends Controller
         $liveCoures = new LiveCoures();
         $live = $liveCoures->getLive(array('live_id','live_title'),array('lecturer_id'=>$lid));
         echo json_encode($live,JSON_UNESCAPED_UNICODE);
+    }
+
+    /**
+     * 一键邀请
+     */
+    public function actionInviteLetter()
+    {
+        if (isset($_POST['cid1'])) {
+            $groupRecords = new GroupRecords();
+            $record = $groupRecords->find()->where(['live_id'=>$_POST['cid1']])->with('live')->asArray()->all();
+            print_r($record);
+        }elseif (isset($_POST['cid2'])) {
+            $coures = new Coures();            
+        }
+    }
+    /**
+     * 执行发送信息
+     */
+    public function actionSendLetter()
+    {
+        $type = $_POST['send_type'];
+        $model = new LetterDetail();
+        $title = $_POST['letter_title'];
+        $body = $_POST['letter_body'];
+        if(empty($body)){
+            echo "内容不能为空";exit;
+        }
+        $model -> letter_title = $title;
+        $model -> letter_body = $body;
+        if($model->save()){
+            $det_id = $model->primaryKey;
+            $letter_model = new Letter();
+            $user = new User();
+            if($type == '1'){
+                $username = $_POST['user_name'];
+                if(empty($username)){
+                    echo "请填写会员信息";exit;
+                }
+                $user_array = explode(';',$username);
+                foreach($user_array as $list){
+                    $_user = clone $user;
+                    $ids = $_user->find()->select('id')->where(['username'=>$list])->asArray()->one();
+                    $_letter = clone $letter_model;
+                    $_letter -> det_id = $det_id;
+                    $_letter -> from_mid = Yii::$app->user->identity->id;
+                    $_letter -> from_name = Yii::$app->user->identity->username;
+                    $_letter -> to_mid = $ids['id'];
+                    $_letter -> to_name = $list;
+                    $_letter -> letter_read = 0;
+                    $_letter -> letter_state = 0;
+                    $_letter -> letter_type = 1;
+                    $_letter -> letter_add_time = time();
+                    $_letter -> letter_add_date = date("Y-m-d");
+                    $data = $_letter->save();
+                }
+                if($data >0){
+                    echo true;
+                }
+                
+            }else if($type =='2'){
+                $_member = new User();
+                $result = $_member->find()->select('id,username')->asArray()->all();
+                foreach($result as $value){
+                    $_letter = clone $letter_model;
+                    $_letter -> det_id = $det_id;
+                    $_letter -> from_mid = Yii::$app->user->identity->id;
+                    $_letter -> from_name = Yii::$app->user->identity->username;
+                    $_letter -> to_mid = $value['id'];
+                    $_letter -> to_name = $value['username'];
+                    $_letter -> letter_read = 0;
+                    $_letter -> letter_state = 0;
+                    $_letter -> letter_type = 1;
+                    $_letter -> letter_add_time = time();
+                    $_letter -> letter_add_date = date("Y-m-d");
+                    $data = $_letter->save();
+                }
+                if($data >0){
+                    echo true;
+                }
+            }
+        }
     }
 }

@@ -40,6 +40,7 @@
           </div>
           <div class="rf"><a href="javascript:;" class="handle-icon delete" id="handle-delete">删除</a></div>
           <div class="rf"><a href="javascript:;" class="handle-icon edit" id="handle-edit">编辑</a></div>
+          <div class="rf"><a href="javascript:;" class="handle-icon invite" id="handle-invite">一键邀请</a></div>
         </div>
         <table class="table-course" id="table-course-list">
         <script id="tableCourseList" type="text/html">
@@ -65,11 +66,15 @@
               <!-- <td>已发布</td> -->
               <td>{{value.ctime}}</td>
               <td class="handle">
+              {{if value.coures_status==1}}
                 <a href="/broadcasting?cid={{value.coures_id}}">进入课程</a>
                 <a href="javascript:;">推广链接</a>
                 <a href="javascript:;">课时管理</a>
-              </td>
               {{else}}
+                <a href="javascript:;" class="start-issue" data-type="{{value.type}}" data-cid="{{value.coures_id}}">开始发布</a>
+              {{/if}}
+              </td>
+            {{else}}
               <td><input type="checkbox" name="selected" data-type="{{value.type}}" value="{{value.live_id}}"></td>
               <td><a href="/broadcasting?cid={{value.live_id}}" target="_blank">{{value.live_title}}</a></td>
               <td><img src="{{value.live_cover}}" alt=""></td>
@@ -78,11 +83,15 @@
               <!-- <td>已发布</td> -->
               <td>{{value.ctime}}</td>
               <td class="handle">
+              {{if value.live_state==1}}
                 <a href="/broadcasting?cid={{value.live_id}}">开始直播</a>
                 <a href="javascript:;">推广链接</a>
-                <a href="javascript:;">添加助教</a>
-              </td>
+                <a href="javascript:;" class="add-teaching" data-cid="{{value.live_id}}">添加助教</a>
+              {{else}}
+                <a href="javascript:;" class="start-issue" data-type="{{value.type}}" data-cid="{{value.live_id}}">开始发布</a>
               {{/if}}
+              </td>
+            {{/if}}
             </tr>
             {{/each}}
           </tbody>
@@ -97,9 +106,39 @@
       </div>
     </div>
   </section>
+  <!-- 添加助教 -->
+  <div class="popup hide" id="sub-teaching-popup">
+    <div class="popup-modal">
+      <div class="popup-header">
+        <h1>
+          <span>添加助教</span>
+        </h1>
+        <button type="button" class="popup-close"></button>
+      </div>
+      <div class="popup-body">
+        <form method="post" id="sub-teaching" class="popup-form cmxform">
+          <div class="form-group">
+            <label class="control-label">助教id</label>
+            <div class="form-controls">
+              <input type="text" class="form-input" name="uid" number="true">
+            </div>
+          </div>
+          <input type="hidden" class="form-input" name="cid" value="">
+          <div class="form-group">
+            <div class="form-submit">
+              <button type="submit" class="button-submit">确认</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="popup-bg"></div>
+  </div>
   <!-- footer -->
   <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
   <!-- footer end -->
+  <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
+  <script src="/static/js/plugins/validate/messages_zh.js"></script>
   <script>
     seajs.use('/static/js/course/teaching.js');
   </script>

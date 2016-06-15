@@ -20,78 +20,59 @@
       <div class="panel-body-course">
         <div class="select-type clearfix">
           <div class="lf">
-            <a href="javascript:;" class="handle-icon triangle">全部课程</a>
+            <a href="javascript:;" class="handle-icon triangle" id="handle-course" data-val="liveCoures">直播课程</a>
             <ul class="select-items">
-              <li><a href="javascript:;">直播课程</a></li>
-              <li><a href="javascript:;">录播课程</a></li>
-              <li><a href="javascript:;">助播课程</a></li>
+              <li><a href="javascript:;" data-arg="liveCoures">直播课程</a></li>
+              <li><a href="javascript:;" data-arg="coures">录播课程</a></li>
             </ul>
           </div>
           <div class="lf">
-            <a href="javascript:;" class="handle-icon triangle">发布日期</a>
+            <a href="javascript:;" class="handle-icon triangle" id="handle-date" data-val="null">学习日期</a>
             <ul class="select-items">
-              <li><a href="javascript:;">过去一周</a></li>
-              <li><a href="javascript:;">过去一个月</a></li>
-              <li><a href="javascript:;">过去两个月</a></li>
-              <li><a href="javascript:;">过去半年</a></li>
+              <li><a href="javascript:;" data-arg="7">过去一周</a></li>
+              <li><a href="javascript:;" data-arg="30">过去一个月</a></li>
+              <li><a href="javascript:;" data-arg="60">过去两个月</a></li>
+              <li><a href="javascript:;" data-arg="180">过去半年</a></li>
             </ul>
           </div>
+          <div class="rf"><a href="javascript:;" class="handle-icon delete" id="handle-delete">删除</a></div>
+          <div class="rf"><a href="javascript:;" class="handle-icon batch" id="handle-batch">批量处理</a></div>
+          <div class="rf"><a href="javascript:;" class="handle-icon"><input type="checkbox" name="controlAll" id="controlAll"><label for="controlAll">全选</label></a></div>
         </div>
         <ul class="course-list study-course clearfix">
-          <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="">
-              <span>这是课程标题</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="" id="aeaoofnhgocdbnbeljkmbjdmhbcokfdb-mousedown">
-              <span>这是课程标题</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="">
-              <span>这是课程标题</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="">
-              <span>这是课程标题</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="">
-              <span>这是课程标题</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="">
-              <span>这是课程标题</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="">
-              <span>这是课程标题</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="">
-              <span>这是课程标题</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="">
-              <span>这是课程标题</span>
-            </a>
-          </li>
+          <script id="studyCourse" type="text/html">
+          {{each list as value i}}
+            <li>
+            {{if value.type!=0}}
+              <a href="/broadcasting/classroom?cid={{value.coures_id}}" target="_blank">
+                <img src="{{value.coures_cover}}" alt="">
+                <span class="full"><b>抓紧学习</b></span>
+              </a>
+              <p class="course-title"><a href="/broadcasting/classroom?cid={{value.coures_id}}" target="_blank">{{value.coures_title}}</a></p>
+              <div class="clearfix">
+                <div class="lf name"><img src="http://placehold.it/22x22" alt="">讲师：某某某</div>
+                <a href="javascript:;" class="rf chour">查看课时</a>
+              </div>
+              <input type="checkbox" name="selected" data-type="{{value.type}}" value="{{value.coures_id}}">
+            {{else}}
+              <a href="{{if value.time.state==1}}/broadcasting/classroom?cid={{value.live_id}}{{else}}javascript:;{{/if}}" target="_blank">
+                <img src="{{value.live_cover}}" alt="">
+                {{if value.time.state==0}}
+                <span class="full course-time"><div class="clearfix"><strong>距开始直播：</strong><b class="b">{{value.time.hour}}</b><strong>小时</strong><b class="b">{{value.time.min}}</b><strong>分</strong></div></span>
+                {{else if value.time.state==1}}
+                <span class="full"><b>开始直播</b></span>
+                {{else if value.time.state==2}}
+                <span class="full course-time"><div class="clearfix"><strong>开播时间：</strong><b class="b">{{value.time.start_time}}</b><strong>点到</strong><b class="b">{{value.time.end_time}}</b><strong>点</strong></div></span>
+                {{else if value.time.state==3}}
+                <span class="full"><b>课程已过期</b></span>
+                {{/if}}
+              </a>
+              <p class="course-title"><a href="{{if value.time.state==1}}/broadcasting/classroom?cid={{value.live_id}}{{else}}javascript:;{{/if}}" target="_blank">{{value.live_title}}</a></p>
+              <input type="checkbox" name="selected" data-type="{{value.type}}" value="{{value.live_id}}">
+            {{/if}}
+            </li>
+          {{/each}}
+          </script>
         </ul>
         <div class="ajax-paging">
           <div class="clearfix">
@@ -106,28 +87,7 @@
   <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
   <!-- footer end -->
   <script>
-    // 下拉菜单
-    $('.handle-icon.triangle').on('click',function(){
-      $(this).parent().siblings().find('.select-items').removeClass('active');
-      $(this).next().toggleClass('active');
-    });
-    $('.select-items a').on('click',function(){
-      $('.select-items').removeClass('active');
-    });
-    // 选择操作目标
-    $('#controlAll').on('click',function(){
-      var checklist = document.getElementsByName("selected");
-      var len=checklist.length;
-      if(document.getElementById("controlAll").checked){
-        for(var i=0;i<len;i++){
-          checklist[i].checked = 1;
-        }
-      }else{
-        for(var j=0;j<len;j++){
-          checklist[j].checked = 0;
-        }
-      }
-    });
+    seajs.use('/static/js/course/study.js');
   </script>
 </body>
 </html>
