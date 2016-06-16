@@ -9,6 +9,7 @@ define(function(require,exports,module){
     var statusVal=$('#handle-status').attr('data-val');
     var timeVal=$('#handle-date').attr('data-val');
     main.postAjaxDatas('/coures/my-teach',{type:typeVal,status:statusVal,time:timeVal,page:pageVal},function(datas){
+      console.log(datas);
       var tableCourseList = template('tableCourseList',{list:datas});
       $('#table-course-list').html(tableCourseList);
     });
@@ -22,6 +23,7 @@ define(function(require,exports,module){
   });
   // 类型查找
   $('.select-items').on('click','a',function(){
+    $('.handle-icon.invite').addClass('hide');
     var _this=$(this);
     var dataArg=_this.attr('data-arg');
     _this.parent().parent().prev().html(_this.html()).attr('data-val',dataArg);
@@ -43,15 +45,21 @@ define(function(require,exports,module){
       }
     }
   });
+  // 直播选择
+  $('.select-type').on('click','#live-pitch',function(){
+    $('.handle-icon.invite').removeClass('hide');
+  });
   // 分页
   $('#paging-prev').on('click',function(){
     if(pageVal>1){
+      $(this).addClass('active').siblings().removeClass('active');
       pageVal--;
       runPostAjaxDatas();
     }
   });
   $('#paging-next').on('click',function(){
-    if($('#table-course-list tr').length==7){
+    if($('#table-course-list tr').length==10){
+      $(this).addClass('active').siblings().removeClass('active');
       pageVal++;
       runPostAjaxDatas();
     }
@@ -76,25 +84,13 @@ define(function(require,exports,module){
   $('#handle-invite').on('click',function(){
     var $selected=$('input[name="selected"]:checked');
     var cid1=[];
-    var cid2=[];
+    // var cid2=[];
     if($selected.length>0){
       for(var i=0,len=$selected.length;i<len;i++){
-        if($selected.eq(i).attr('data-type')){
-          cid2.push($selected.eq(i).val());
-        }else{
-          cid1.push($selected.eq(i).val());
-        }
+        cid1.push($selected.eq(i).val());
       }
-      main.postAjaxDatas('/coures/invite',{cid1,cid2},function(datas){
-        console.log(datas);
-        alert('邀请成功');
-        // 循环删除
-        // for(var j=0,lens=$selected.length;j<lens;j++){
-        //   $selected.eq(j).parent().parent().remove();
-        // }
-        // 局部刷新
-        runPostAjaxDatas();
-      });
+      $('#invite-cid').val(cid1);
+      $('#invite-popup').removeClass('hide');
     }else{
       alert('请选择您要邀请的课程');
     }
@@ -157,7 +153,6 @@ define(function(require,exports,module){
     var cid=$(this).attr('data-cid');
     $('#sub-teaching-popup').removeClass('hide');
     $('input[name="cid"]').val(cid);
-
   });
   $('.popup-close').on('click',function(){
     $('.popup').addClass('hide');
@@ -178,6 +173,27 @@ define(function(require,exports,module){
             $('.popup').addClass('hide');
           }else{
             alert(data.msg);
+          }
+        }
+      });
+    }
+  });
+  $('#invite-form').validate({
+    onsubmit:true,// 是否在提交时验证
+    submitHandler: function(form){
+      var data = $('#invite-form').serialize();
+      $.ajax({
+        url : '/coures/invite-letter',
+        type : 'post',
+        data : data,
+        dataType:'json',
+        success : function(data){
+          if(data.status==1){
+            alert('邀请成功');
+            $('.popup').addClass('hide');
+          }else{
+            alert(data.msg);
+            $('.popup').addClass('hide');
           }
         }
       });

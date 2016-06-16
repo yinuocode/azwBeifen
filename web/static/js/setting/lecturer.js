@@ -3,13 +3,34 @@ define(function(require,exports,module){
   var main = require('main');
 
   main.getAjaxDatas('/personage/lecturer-beg',function(datas){
-    var state=datas['audit_state'];
+    var state=datas.audit_state;
     console.log(state);
     $('#panel-body-state'+state).removeClass('hide');
+    if(state==1){
+      $('#live-password').val(datas.audit_key);
+      $('#live-ip').val(datas.ip);
+      console.log(datas);
+      // $.getScript('/static/js/plugins/copy/ZeroClipboard.min.js', function(data, status, jqxhr) {
+        // 复制邀请链接
+        // copyToClipboard('live-password','copy-link');
+        // copyToClipboard('profile-link','copy-link');
+      // });
+    }
     if(state==3){
-        runForm();
+      runForm();
     }
   });
+  // 复制文本
+  // function copyToClipboard(txt,id){
+  //   var clip = new ZeroClipboard.Client(); // 新建一个对象
+  //   clip.setHandCursor( true ); // 设置鼠标为手型
+  //   clip.setCSSEffects( true );
+  //   var val=$("#"+txt).val();   //获取需要复制文本。
+  //   clip.setText(val);          // 设置要复制的文本。
+  //   clip.addEventListener( 'complete', function(){$('#'+id).html('复制成功');});
+  //   clip.glue(id);              // 和上一句位置不可调换
+  // }
+  // js初始化
   function runForm(){
     // ajax提交
     var $formData = $($('input[name="form-data"]').val());

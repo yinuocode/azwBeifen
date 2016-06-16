@@ -32,12 +32,14 @@ define(function(require,exports,module){
   // 分页
   $('#paging-prev').on('click',function(){
     if(pageVal>1){
+      $(this).addClass('active').siblings().removeClass('active');
       pageVal--;
       runPostAjaxDatas();
     }
   });
   $('#paging-next').on('click',function(){
     if($('.direct-course>li').length==9){
+      $(this).addClass('active').siblings().removeClass('active');
       pageVal++;
       runPostAjaxDatas();
     }

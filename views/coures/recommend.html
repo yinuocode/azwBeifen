@@ -3,34 +3,11 @@
 <!-- header end -->
   <section class="section-panel">
     <header class="panel-heading clearfix">
-    <ul class="header-tag clearfix">
-    <script id="panelHeading" type="text/html">
-      <li class="active li-tag"><a href="javascript:;" data-tid="">全部课程</a></li>
-      {{each list as value i}}
-      <li class="li-tag">
-        <a href="javascript:;" data-tid="{{value.gc_id}}">{{value.gc_name}}</a>
-        <ul class="header-tag-sub clearfix">
-        {{each value.ziji as val i}}
-          <li><a href="javascript:;" data-tid="{{val.gc_id}}">{{val.gc_name}}</a></li>
-        {{/each}}
-        </ul>
-      </li>
-      {{/each}}
-    </script>
-    </ul>
+      <a href="javascript:;" class="active">最新课程</a>
+      <a href="javascript:;">名气课程</a>
     </header>
     <div class="panel-body">
-      <div class="panel-body-course mt">
-        <div class="select-type clearfix">
-          <div class="lf">
-            <a href="javascript:;" class="handle-icon triangle" id="handle-grade" data-val="">课程难度</a>
-            <ul class="select-items">
-              <li><a href="javascript:;" data-arg="1">初级课程</a></li>
-              <li><a href="javascript:;" data-arg="2">中级课程</a></li>
-              <li><a href="javascript:;" data-arg="3">高级课程</a></li>
-            </ul>
-          </div>
-        </div>
+      <div class="panel-body-course">
         <ul class="course-list direct-course clearfix">
         <script id="directCourse" type="text/html">
         {{each list as value i}}
@@ -63,7 +40,7 @@
   <script>
     seajs.use('/static/js/course/course_list.js');
     // 导航选中
-    $('.nav>ul>li').eq(2).addClass('active').siblings().removeClass('active');
+    $('.nav>ul>li').eq(3).addClass('active').siblings().removeClass('active');
   </script>
 </body>
 </html>

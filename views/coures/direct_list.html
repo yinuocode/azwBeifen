@@ -1,7 +1,7 @@
 <!-- header -->
 <?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
 <!-- header end -->
-  <section class="section-panel course">
+  <section class="section-panel">
     <header class="panel-heading clearfix">
     <ul class="header-tag clearfix">
     <script id="panelHeading" type="text/html">
@@ -11,10 +11,8 @@
       <li class="li-tag">
         <a href="javascript:;" data-tid="{{value.gc_id}}">{{value.gc_name}}</a>
         <ul class="header-tag-sub clearfix">
-        {{each list as value i}}
-          {{if value.gc_parent_id!=0}}
-          <li><a href="javascript:;" data-tid="{{value.gc_id}}">{{value.gc_name}}</a></li>
-          {{/if}}
+        {{each value.ziji as val i}}
+          <li><a href="javascript:;" data-tid="{{val.gc_id}}">{{val.gc_name}}</a></li>
         {{/each}}
         </ul>
       </li>
@@ -39,7 +37,7 @@
         <script id="directCourse" type="text/html">
         {{each list as value i}}
           <li>
-            <a href="{{if value.time.state==1}}/broadcasting/classroom?cid={{value.live_id}}{{else}}javascript:;{{/if}}" target="_blank">
+            <a href="/broadcasting/classroom?cid={{value.live_id}}" target="_blank">
               <img src="{{value.live_cover}}" alt="">
               {{if value.time.state==0}}
               <span class="full course-time"><div class="clearfix"><strong>距开始直播：</strong><b class="b">{{value.time.hour}}</b><strong>小时</strong><b class="b">{{value.time.min}}</b><strong>分</strong></div></span>
@@ -51,7 +49,7 @@
               <span class="full"><b>课程已过期</b></span>
               {{/if}}
             </a>
-            <p class="course-title"><a href="{{if value.time.state==1}}/broadcasting/classroom?cid={{value.live_id}}{{else}}javascript:;{{/if}}" target="_blank">{{value.live_title}}</a></p>
+            <p class="course-title"><a href="/broadcasting/classroom?cid={{value.live_id}}" target="_blank">{{value.live_title}}</a></p>
           </li>
         {{/each}}
         </script>
@@ -59,7 +57,7 @@
         <div class="ajax-paging">
           <div class="clearfix">
             <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
-            <a href="javascript:;" id="paging-next" class="handle-icon right-arrows"></a>
+            <a href="javascript:;" id="paging-next" class="handle-icon right-arrows active"></a>
           </div>
         </div>
       </div>

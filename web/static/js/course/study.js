@@ -25,22 +25,27 @@ define(function(require,exports,module){
   });
   // 选择操作目标
   $('#controlAll').on('click',function(){
-    $('input[name="selected"]').show();
+    $('.select-checkbox').show();
     var checklist = document.getElementsByName("selected");
     var len=checklist.length;
     if(document.getElementById("controlAll").checked){
       for(var i=0;i<len;i++){
         checklist[i].checked = 1;
+        $('.select-checkbox').eq(i).addClass('active');
       }
     }else{
       for(var j=0;j<len;j++){
         checklist[j].checked = 0;
+        $('.select-checkbox').eq(j).removeClass('active');
       }
     }
   });
+  $('.study-course').on('click','input[name="selected"]',function(){
+    $(this).parent().toggleClass('active');
+  });
   // 批处理
   $('#handle-batch').on('click',function(){
-    $('input[name="selected"]').toggle();
+    $('.select-checkbox').toggle();
   });
   // 类型查找
   $('.select-items').on('click','a',function(){
@@ -54,12 +59,14 @@ define(function(require,exports,module){
   // 分页
   $('#paging-prev').on('click',function(){
     if(pageVal>1){
+      $(this).addClass('active').siblings().removeClass('active');
       pageVal--;
       runPostAjaxDatas();
     }
   });
   $('#paging-next').on('click',function(){
     if($('.course-list li').length==9){
+      $(this).addClass('active').siblings().removeClass('active');
       pageVal++;
       runPostAjaxDatas();
     }
@@ -72,13 +79,13 @@ define(function(require,exports,module){
     if($selected.length>0){
       if(confirm('您确定要删除吗?')){
         for(var i=0,len=$selected.length;i<len;i++){
-          if($selected.eq(i).attr('data-type')){
+          if($selected.eq(i).attr('data-type')==0){
             cid2.push($selected.eq(i).val());
           }else{
             cid1.push($selected.eq(i).val());
           }
         }
-        main.postAjaxDatas('/coures/delete',{cid1,cid2},function(datas){
+        main.postAjaxDatas('/coures/study-delete',{cid1,cid2},function(datas){
           console.log(datas);
           // 循环删除
           // for(var j=0,lens=$selected.length;j<lens;j++){

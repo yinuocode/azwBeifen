@@ -30,24 +30,15 @@ define(function(require,exports,module){
   // 初始化 js
   function runCourseForm(){
     main.getAjaxDatas('/coures/classify',function(datas){
-      var options='';
       var selectedId=$('#course-categoryId').attr('value');
-      for(var i=0,len=datas.length;i<len;i++){
-        if(datas[i].gc_id==selectedId){
-          if(datas[i].gc_parent_id!=0){
-            options+='<option value="'+datas[i].gc_id+'" selected>&nbsp;&nbsp;--'+datas[i].gc_name+'</option>';
-          }else{
-            options+='<option value="'+datas[i].gc_id+'" selected>'+datas[i].gc_name+'</option>';
-          }
-        }else{
-          if(datas[i].gc_parent_id!=0){
-            options+='<option value="'+datas[i].gc_id+'">&nbsp;&nbsp;--'+datas[i].gc_name+'</option>';
-          }else{
-            options+='<option value="'+datas[i].gc_id+'">'+datas[i].gc_name+'</option>';
-          }
-        }
-      }
-      $('#course-categoryId').html(options);
+      datas.sid=selectedId;
+      console.log(datas);
+      var courseCategoryId = template('courseCategoryId',{list:datas});
+      $('#course-categoryId').html(courseCategoryId);
+    });
+    // 价格显示
+    $('#course-price1').on('input',function(){
+      $('#course-price2').attr('range','[0,'+$(this).val()+']');
     });
     // ajax提交
     var $formData = $($('input[name="form-data"]').val());
@@ -177,6 +168,13 @@ define(function(require,exports,module){
     // 完成上传完了，成功或者失败，先删除进度条。
     uploader.on( 'uploadComplete', function( file ) {
         $( '#'+file.id ).find('.progress').remove();
+    });
+    // 是否显示价格
+    $('#course-type1').on('click',function(){
+      $('#course-price').hide();
+    });
+    $('#course-type0').on('click',function(){
+      $('#course-price').show();
     });
   }
 });

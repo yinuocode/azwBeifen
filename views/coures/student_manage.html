@@ -14,97 +14,122 @@
       <div class="panel-body-course">
         <div class="select-type clearfix">
           <div class="lf">
-            <a href="javascript:;" class="handle-icon triangle">全部课程</a>
-            <ul class="select-items">
-              <li><a href="javascript:;">直播课程</a></li>
-              <li><a href="javascript:;">录播课程</a></li>
-              <li><a href="javascript:;">助播课程</a></li>
-            </ul>
-          </div>
-          <div class="lf">
             <a href="javascript:;" class="handle-icon triangle">所有小组</a>
             <ul class="select-items">
-              <li><a href="javascript:;">101小组</a></li>
-              <li><a href="javascript:;">120小组</a></li>
+            <script id="selectItems" type="text/html">
+            {{each list as value i}}
+              <li><a href="javascript:;" data-gid="{{value.group_id}}">{{value.group_name}}</a></li>
+            {{/each}}
+            </script>
             </ul>
           </div>
-          <div class="lf">
-            <a href="javascript:;" class="handle-icon triangle">加入日期</a>
-            <ul class="select-items">
-              <li><a href="javascript:;">过去一周</a></li>
-              <li><a href="javascript:;">过去一个月</a></li>
-              <li><a href="javascript:;">过去两个月</a></li>
-              <li><a href="javascript:;">过去半年</a></li>
-            </ul>
+          <div class="lf student-search-box">
+            <form action="" method="post" id="student-search">
+              <div class="search-input clearfix">
+                <input type="text" class="search-txt" name="search-txt" placeholder="请输入搜索关键字">
+                <button type="submit" class="handle-icon search-btn"></button>
+              </div>
+            </form>
           </div>
-          <div class="rf"><a href="javascript:;" class="handle-icon delete">删除</a></div>
+          <div class="rf"><a href="javascript:;" class="handle-icon delete" id="delete-group">删除组</a></div>
+          <div class="rf"><a href="javascript:;" class="handle-icon add" id="create-group">创建组</a></div>
+          <div class="rf"><a href="javascript:;" class="handle-icon delete" id="delete-student">删除学员</a></div>
+          <div class="rf"><a href="javascript:;" class="handle-icon add" id="add-student">添加学员</a></div>
+          <div class="rf"><a href="javascript:;" class="handle-icon" id="chat-room">进入聊天室</a></div>
         </div>
-        <table class="table-course">
+        <table class="table-course" id="student-list">
+        <script id="studentList" type="text/html">
           <tbody>
             <tr>
               <th class="th1"><input type="checkbox" name="controlAll" id="controlAll"><label for="controlAll">全选</label></th>
+              <th class="th4">ID</th>
               <th class="th2">昵称</th>
               <th class="th3">性别</th>
               <th class="th4">级别</th>
-              <th class="th5">积分</th>
-              <th class="th6">贡献值</th>
-              <th class="th7">入会时间</th>
+              <th class="th2">手机号码</th>
+              <th class="th2">入会时间</th>
             </tr>
+            {{each list as value i}}
             <tr>
-              <td><input type="checkbox" name="selected" value="1"></td>
-              <td><a href="javascript:;">这是用户昵称</a></td>
-              <td>男</td>
-              <td>★★★</td>
-              <td>1000</td>
-              <td>321323</td>
-              <td>2016-4.1:12:56</td>
+              <td><input type="checkbox" name="selected" value="{{value.id}}"></td>
+              <td><a href="javascript:;">{{value.id}}</a></td>
+              <td><a href="javascript:;">{{if value.nick}}{{value.nick}}{{else}}未填写{{/if}}</a></td>
+              <td>{{if value.sex==0}}女{{else if value.sex==1}}男{{else}}未填写{{/if}}</td>
+              <td><img src="{{value.grade}}" alt=""></td>
+              <td>{{if value.phone}}{{value.phone}}{{else}}未填写{{/if}}</td>
+              <td>{{value.addtime}}</td>
             </tr>
-            <tr>
-              <td><input type="checkbox" name="selected" value="2"></td>
-              <td><a href="javascript:;">这是用户昵称</a></td>
-              <td>男</td>
-              <td>★★★</td>
-              <td>1000</td>
-              <td>321323</td>
-              <td>2016-4.1:12:56</td>
-            </tr>
+            {{/each}}
           </tbody>
+        </script>
         </table>
         <div class="ajax-paging">
           <div class="clearfix">
             <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
-            <a href="javascript:;" id="paging-next" class="handle-icon right-arrows"></a>
+            <a href="javascript:;" id="paging-next" class="handle-icon right-arrows active"></a>
           </div>
         </div>
       </div>
     </div>
   </section>
+  <!-- 创建组 -->
+  <div class="popup hide" id="create-group-popup">
+    <div class="popup-modal">
+      <div class="popup-header">
+        <h1>创建组</h1>
+        <button type="button" class="popup-close"></button>
+      </div>
+      <div class="popup-body">
+        <form method="post" id="create-group-form" class="popup-form cmxform">
+          <div class="form-group">
+            <label class="control-label">组名称</label>
+            <div class="form-controls">
+              <input type="text" class="form-input" name="group_name" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-submit">
+              <button type="submit" class="button-submit">确认</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="popup-bg"></div>
+  </div>
+  <!-- 添加学员 -->
+  <div class="popup hide" id="add-student-popup">
+    <div class="popup-modal">
+      <div class="popup-header">
+        <h1>添加学员</h1>
+        <button type="button" class="popup-close"></button>
+      </div>
+      <div class="popup-body">
+        <form method="post" id="add-student-form" class="popup-form cmxform">
+          <div class="form-group">
+            <label class="control-label">学员ID</label>
+            <div class="form-controls">
+              <input type="text" class="form-input" name="user_id" required number="true">
+            </div>
+          </div>
+          <input type="hidden" class="form-input" name="group_id" id="group-id" value="">
+          <div class="form-group">
+            <div class="form-submit">
+              <button type="submit" class="button-submit">确认</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="popup-bg"></div>
+  </div>
   <!-- footer -->
   <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
   <!-- footer end -->
+  <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
+  <script src="/static/js/plugins/validate/messages_zh.js"></script>
   <script>
-    // 下拉菜单
-    $('.handle-icon.triangle').on('click',function(){
-      $(this).parent().siblings().find('.select-items').removeClass('active');
-      $(this).next().toggleClass('active');
-    });
-    $('.select-items a').on('click',function(){
-      $('.select-items').removeClass('active');
-    });
-    // 选择操作目标
-    $('#controlAll').on('click',function(){
-      var checklist = document.getElementsByName("selected");
-      var len=checklist.length;
-      if(document.getElementById("controlAll").checked){
-        for(var i=0;i<len;i++){
-          checklist[i].checked = 1;
-        }
-      }else{
-        for(var j=0;j<len;j++){
-          checklist[j].checked = 0;
-        }
-      }
-    });
+    seajs.use('/static/js/course/student.js');
   </script>
 </body>
 </html>
