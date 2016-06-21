@@ -7,7 +7,7 @@ define(function(require,exports,module){
   // 按条件查找
   function runPostAjaxDatas(){
     var grade=$('#handle-grade').attr('data-val');
-    main.postAjaxDatas('/coures/recorded-list',{page:pageVal,difficulty:grade,classify:cClassify},function(datas){
+    main.postAjaxDatas('/curriculum/recorded-list',{page:pageVal,difficulty:grade,classify:cClassify},function(datas){
       var directCourse = template('directCourse',{list:datas});
       $('.direct-course').html(directCourse);
       console.log(datas);

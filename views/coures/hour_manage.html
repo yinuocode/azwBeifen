@@ -16,31 +16,48 @@
       <div class="panel-body-course sub">
         <div class="select-type clearfix">
           <div class="lf">
-            <a href="javascript:;" class="handle-icon triangle" id="handle-course" data-val="i-hour">我的课时</a>
+            <a href="javascript:;" class="handle-icon triangle" id="handle-course" data-val="1">我的课时</a>
             <ul class="select-items">
-              <li><a href="javascript:;" data-arg="i-hour">我的课时</a></li>
-              <li><a href="javascript:;" data-arg="i-data">我的资料</a></li>
+              <li><a href="javascript:;" data-arg="1">我的课时</a></li>
+              <li><a href="javascript:;" data-arg="2">我的资料</a></li>
             </ul>
           </div>
           <div class="rf"><a href="javascript:;" class="handle-icon delete" id="handle-delete">删除</a></div>
           <div class="rf"><a href="javascript:;" class="handle-icon add" id="add-data">添加资料</a></div>
           <div class="rf"><a href="javascript:;" class="handle-icon add" id="add-hour">添加课时</a></div>
         </div>
-        <table class="table-course" id="table-course-list">
+        <table class="table-course hour" id="table-course-list">
         <script id="tableCourseList" type="text/html">
           <tbody>
+          {{if type==1}}
             <tr>
               <th class="th1"><input type="checkbox" name="controlAll" id="controlAll"><label for="controlAll">全选</label></th>
               <th class="th2">课时名称</th>
               <th class="th3">课时长度</th>
+              <th class="th3">操作</th>
             </tr>
-            {{each list as value i}}
+            {{each data as value i}}
             <tr>
-              <td><input type="checkbox" name="selected" data-type="{{value.type}}" value="{{value.coures_id}}"></td>
-              <td><a href="/broadcasting?cid={{value.coures_id}}" target="_blank">{{value.coures_title}}</a></td>
-              <td>{{value.time}}</td>
+              <td><input type="checkbox" name="selected" data-type="{{type}}" value="{{value.hour_id}}"></td>
+              <td><a href="/broadcasting?cid={{value.hour_id}}" target="_blank">{{value.hour_title}}</a></td>
+              <td>{{value.video_time}}</td>
+              <td><a href="javascript:;" id="">已发布</a></td>
             </tr>
             {{/each}}
+          {{else}}
+            <tr>
+              <th class="th1"><input type="checkbox" name="controlAll" id="controlAll"><label for="controlAll">全选</label></th>
+              <th class="th2">资料名称</th>
+              <th class="th3">下载次数</th>
+            </tr>
+            {{each data as value i}}
+            <tr>
+              <td><input type="checkbox" name="selected" data-type="{{type}}" value="{{value.datum_id}}"></td>
+              <td><a href="/broadcasting?cid={{value.datum_id}}" target="_blank">{{value.datum_title}}</a></td>
+              <td>{{value.downloads}}</td>
+            </tr>
+            {{/each}}
+          {{/if}}
           </tbody>
         </script>
         </table>
@@ -53,22 +70,61 @@
       </div>
     </div>
   </section>
-  <!-- 添加助教 -->
-  <div class="popup hide" id="sub-teaching-popup">
+  <!-- 添加课时 -->
+  <div class="popup hide" id="add-hour-popup">
     <div class="popup-modal">
       <div class="popup-header">
-        <h1>添加助教</h1>
+        <h1>添加课时</h1>
         <button type="button" class="popup-close"></button>
       </div>
       <div class="popup-body">
-        <form method="post" id="sub-teaching" class="popup-form cmxform">
+        <form method="post" id="add-hour-form" class="popup-form cmxform">
           <div class="form-group">
-            <label class="control-label">助教id</label>
+            <label class="control-label">课时标题</label>
             <div class="form-controls">
-              <input type="text" class="form-input" name="uid" number="true">
+              <input type="text" class="form-input" name="ClassHour[hour_title]" required>
             </div>
           </div>
-          <input type="hidden" class="form-input" name="cid" value="">
+          <div class="form-group">
+            <label class="control-label">课时简介</label>
+            <div class="form-controls">
+              <textarea name="ClassHour[hour_brief]" class="form-textarea"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">课程类型</label>
+            <div class="form-controls">
+              <div id="form-radio">
+                <input type="radio" id="course-type0" name="ClassHour[is_free]" value="0" checked>
+                <label for="course-type0">收费</label>
+                <input type="radio" id="course-type1" name="ClassHour[is_free]" value="1">
+                <label for="course-type1">免费</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">发布状态</label>
+            <div class="form-controls">
+              <div id="form-radio">
+                <input type="radio" id="course-state0" name="ClassHour[hour_state]" value="1" checked>
+                <label for="course-state0">开启</label>
+                <input type="radio" id="course-state1" name="ClassHour[hour_state]" value="0">
+                <label for="course-state1">关闭</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">上传课时</label>
+            <div class="form-controls">
+              <div id="uploader-hour">
+                <div id="fileList1" class="uploader-list"></div>
+                <div id="filePicker1" class="choose_img choose_hour">上传课时</div>
+                <input type="text" name="ClassHour[video_address]" class="file-path" id="hour-path" value="" required>
+              </div>
+            </div>
+          </div>
+          <input type="hidden" class="form-input" name="ClassHour[video_time]" id="hour-time" value="0">
+          <input type="hidden" class="form-input course-id" name="ClassHour[coures_id]" value="">
           <div class="form-group">
             <div class="form-submit">
               <button type="submit" class="button-submit">确认</button>
@@ -79,28 +135,32 @@
     </div>
     <div class="popup-bg"></div>
   </div>
-  <!-- 一键邀请 -->
-  <div class="popup hide" id="invite-popup">
+  <!-- 添加资料 -->
+  <div class="popup hide" id="add-data-popup">
     <div class="popup-modal">
       <div class="popup-header">
-        <h1>一键邀请</h1>
+        <h1>添加资料</h1>
         <button type="button" class="popup-close"></button>
       </div>
       <div class="popup-body">
-        <form method="post" id="invite-form" class="popup-form cmxform">
+        <form method="post" id="add-data-form" class="popup-form cmxform">
           <div class="form-group">
-            <label class="control-label">标题</label>
+            <label class="control-label">资料标题</label>
             <div class="form-controls">
-              <input type="text" class="form-input" name="title" required>
+              <input type="text" class="form-input" name="CouresDatum[datum_title]" required>
             </div>
           </div>
           <div class="form-group">
-            <label class="control-label">内容</label>
+            <label class="control-label">上传资料</label>
             <div class="form-controls">
-              <textarea name="content" id="" class="form-textarea" required></textarea>
+              <div id="uploader-data">
+                <div id="fileList2" class="uploader-list"></div>
+                <div id="filePicker2" class="choose_img">上传资料</div>
+                <input type="text" name="CouresDatum[datum_address]" id="data-path" class="file-path" value="" required>
+              </div>
             </div>
           </div>
-          <input type="hidden" class="form-input" name="cid" id="invite-cid" value="">
+          <input type="hidden" class="form-input course-id" name="CouresDatum[coures_id]" value="">
           <div class="form-group">
             <div class="form-submit">
               <button type="submit" class="button-submit">确认</button>
@@ -116,6 +176,7 @@
   <!-- footer end -->
   <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
   <script src="/static/js/plugins/validate/messages_zh.js"></script>
+  <script src="/static/js/plugins/webupload/webuploader.js"></script>
   <script>
     seajs.use('/static/js/course/hour.js');
   </script>
