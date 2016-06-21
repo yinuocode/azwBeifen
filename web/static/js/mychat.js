@@ -120,9 +120,9 @@ $(function(){
       },3000);
     }
   };
+  var randomId='';
   // 如果是学员页面
   if($('#is-index').val()==1){
-    var randomId='';
     // 我要发言
     var meSpeak = function(cid,uid,uname){
       socket.emit('meSpeak',{cid:cid,uid:uid,uname:uname});
@@ -133,14 +133,22 @@ $(function(){
     };
     // 触发我要发言
     $('.main-play').on('click','#me-speak',function(){
-      $(this).attr('id','end-speak');
-      $(this).addClass('end-speak-stat');
-      meSpeak(courseCid,userMid,userName);
+      if(navigator.userAgent.indexOf('Firefox')!=-1){
+        var _this=$(this);
+        runMake();
+        setTimeout(function() {
+          // if(call){
+          _this.attr('id','end-speak').addClass('end-speak-stat');
+          meSpeak(courseCid,userMid,userName);
+          // }
+        }, 6000);
+      }else{
+        alert('请使用火狐浏览器操作麦序');
+      }
     });
     // 触发发言完毕
     $('.main-play').on('click','#end-speak',function(){
-      $(this).attr('id','me-speak');
-      $(this).removeClass('end-speak-stat');
+      $(this).attr('id','me-speak').removeClass('end-speak-stat');
       window.existingCall.close();
       step2();
       endSpeak(courseCid,userMid,userName);
@@ -159,15 +167,22 @@ $(function(){
     var $iconSpeak=$('.icon-speak'),
     $iconSpeakState=$('.icon-speak-state');
     $('.icon-speak-state,.icon-speak').on('click',function(){
-      if($iconSpeak.toggleClass('icon-speak-off').hasClass('icon-speak-off')){
-        // 禁麦
-        $iconSpeakState.html('开麦');
-        endMake(courseCid);
+      if(navigator.userAgent.indexOf('Firefox')!=-1){
+        if($iconSpeak.toggleClass('icon-speak-off').hasClass('icon-speak-off')){
+          // 禁麦
+          $iconSpeakState.html('开麦');
+          endMake(courseCid);
+        }else{
+          // 开麦
+          runMake();
+          setTimeout(function() {
+            $iconSpeakState.html('禁麦');
+            var _val=$('#my-id').html();
+            openMake(courseCid,_val);
+          }, 500);
+        }
       }else{
-        // 开麦
-        $iconSpeakState.html('禁麦');
-        var _val=$('#my-id').html();
-        openMake(courseCid,_val);
+        alert('请使用火狐浏览器操作麦序');
       }
     });
   }

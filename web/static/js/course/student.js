@@ -33,7 +33,7 @@ define(function(require,exports,module){
     $('.handle-icon.invite').addClass('hide');
     var _this=$(this);
     groupId=_this.attr('data-gid');
-    $('#group-id').val(groupId);
+    $('#group-id,#group-id2').val(groupId);
     _this.parent().parent().prev().html(_this.html());
     $('.select-items').removeClass('active');
     // 执行查找
@@ -178,14 +178,16 @@ define(function(require,exports,module){
       var data = $('#student-search').serialize();
       console.log(data);
       $.ajax({
-        url : '/coures/student-search',
+        url : '/coures/search',
         type : 'post',
         data : data,
         dataType:'json',
         success : function(data){
           if(data.status==1){
-            // 局部刷新
-            runPostAjaxDatas();
+            console.log(data);
+            console.log(11);
+            var studentList = template('studentList',{list:data.data});
+            $('#student-list').html(studentList);
           }else{
             alert(data.msg);
           }

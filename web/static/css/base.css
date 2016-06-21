@@ -936,7 +936,14 @@ form.cmxform form.cmxform .gray * {
   font-size: 16px;
   cursor: pointer;
   border: none; }
-
+.letter-item {
+  width: 16%;
+  text-align: center;
+  line-height: 30px;
+  background: #E5E5E5;
+  border-radius: 40%;
+  margin-top: 3px;
+}
 /* section03 */
 .sec03-top-item {
   display: none; }
@@ -1254,7 +1261,23 @@ form.cmxform form.cmxform .gray * {
   padding: 2px 10px;
   height: 36px;
   border-color: #dedede; }
-
+.form-tag{
+  position: absolute;
+  top: 36px;
+  width: 100%;
+  background: #fff;
+  z-index: 1000;
+  padding: 0 10px;
+  border: 1px solid #dedede;
+  font-size: 16px;
+  line-height: 30px;
+  max-height: 160px;
+  overflow: auto;
+  display: none;
+}
+.form-tag a{
+  display: block;
+}
 .required {
   position: relative; }
 
@@ -1358,6 +1381,7 @@ form.cmxform form.cmxform .gray * {
   margin-bottom: 5px;
   background: #F6F5F5;
   border: 2px solid #e2e1e1; }
+.panel-body-course.sub{margin-top:0;}
 .panel-body-course.mt{margin-top:45px;}
 .select-type {
   border-bottom: 1px solid #d4d4d4;
@@ -1428,12 +1452,12 @@ form.cmxform form.cmxform .gray * {
   background-position: -42px -24px;
 }
 /*学员搜索*/
-.student-search-box .search-input{
+.search-box .search-input{
   background: #F6F5F5;
   border:none;
   height:auto;
 }
-.student-search-box .search-txt{
+.search-box .search-txt{
   background: #F6F5F5;
   border: none;
   outline: none;
@@ -1442,10 +1466,10 @@ form.cmxform form.cmxform .gray * {
   border-right: 1px solid #cdcdcd;
   font-size: 14px;
 }
-.student-search-box .search-txt:focus{
+.search-box .search-txt:focus{
   box-shadow:none;
 }
-.student-search-box .search-btn{
+.search-box .search-btn{
   background: #F6F5F5;
   color:#999;
   border: 0;
@@ -1617,8 +1641,10 @@ input[name="selected"], #controlAll {
 .course-title{
   line-height: 36px;
   height: 36px;
-  text-align: center;
+  text-align: left;
+  width: 80%;
   overflow: hidden;
+  float: left;
 }
 .course-title a{
   color:#333;
@@ -1668,4 +1694,87 @@ input[name="selected"], #controlAll {
   font-weight: normal;
   top:80px;
   background: #178EEE;
+}
+/*讲师列表*/
+.lecture-list{
+  padding: 10px 8px;
+  background: #F6F5F5;
+  font-size: 16px;
+}
+.lecture-list>li{
+  float:left;
+  margin: 15px 5px;
+  width: 355px;
+  background: #E5E5E5;
+}
+.lecture-list>li>a {
+  position: relative;
+  height: 210px;
+  overflow: hidden;
+  display: block;
+  text-align: center;
+  padding:12px 0 10px;
+}
+.lecture-list>li>a>img {
+  width: 160px;
+  height: 160px;
+  display: block;
+  margin:0 auto 5px;
+  border-radius: 50%;
+}
+.lecture-list>li .row{
+  position: absolute;
+  background: #fff;
+  padding:10px 49px;
+  z-index: 100;
+  border-top: 1px solid #bbb;
+  box-shadow: 0 2px 12px -5px #000;
+  display: none;
+}
+.lecture-list>li:hover .row{
+  display: block;
+}
+.lecture-list>li .row .lf{
+  line-height: 40px;
+  background: #E5E5E5;
+  color:#a9a9a9;
+  height:40px;
+  width:80px;
+  text-align: center;
+  border-radius: 0;
+  margin:0 24px;
+}
+.lecture-list>li .row .lf:first-child{
+  color:#fff;
+  background: #217BBF;
+}
+.lecturer-search .search-txt{
+  border-left: 1px solid #cdcdcd;
+}
+.lecturer-search .search-btn{
+  border-right: 1px solid #cdcdcd;
+}
+.lecturer-search .search-btn{
+  border-right:0;
+}
+.lecture-list>li .name>img{
+  width: 22px;
+  height: 22px;
+  margin-right: 5px;
+  position: relative;
+  top: 4px;
+}
+/*.lecture-list>li .row .lf:hover{
+  background: #217BBF;
+  color:#fff;
+}*/
+
+/*课时管理*/
+/*面包屑*/
+.crumbs{
+  line-height: 46px;
+  color:#a4a4a4;
+}
+.crumbs>a{
+  color:#a4a4a4;
 }

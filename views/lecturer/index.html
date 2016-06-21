@@ -3,26 +3,39 @@
 <!-- header end -->
   <section class="section-panel">
     <header class="panel-heading clearfix">
-      <a href="javascript:;" class="active">最新课程</a>
-      <a href="javascript:;">名气课程</a>
+      <a href="javascript:;" class="active" data-type="1">名牌讲师</a>
+      <a href="javascript:;" data-type="2">人气讲师</a>
     </header>
     <div class="panel-body">
       <div class="panel-body-course">
-        <ul class="course-list direct-course clearfix">
-        <script id="directCourse" type="text/html">
-        {{each list as value i}}
-          <li>
-            <a href="/broadcasting/classroom?cid={{value.coures_id}}" target="_blank">
-              <img src="{{value.coures_cover}}" alt="">
-              <span class="full"><b>抓紧学习</b></span>
-            </a>
-            <div class="course-price">{{if value.coures_type==1}}￥{{value.privilege_price}}&nbsp;&nbsp;&nbsp;<span class="cost">原价：￥{{value.coures_price}}</span>{{else}}￥免费{{/if}}</div>
-            <div class="row">
-              <p class="course-title"><a href="/broadcasting/classroom?cid={{value.coures_id}}" target="_blank">{{value.coures_title}}</a></p>
-              <!-- <a href="javascript:;" class="rf letter-item" data-uid="{{value.user_id}}">私信</a> -->
+        <div class="select-type clearfix">
+          <div class="rf search-box lecturer-search">
+            <div class="search-input clearfix">
+              <input type="text" class="search-txt" id="search-val" placeholder="请输入讲师名称">
+              <button type="button" class="handle-icon search-btn" id="search-btn"></button>
             </div>
-            <div class="clearfix">
-              <div class="lf name"><img src="{{value.lecturer.grade}}" alt="">讲师：{{value.lecturer.audit_name}}</div>
+          </div>
+        </div>
+        <ul class="lecture-list clearfix">
+        <script id="lecturerList" type="text/html">
+        {{each data as value i}}
+          <li>
+            <a href="/home/?cid={{value.user_id}}" target="_blank">
+              <img src="{{value.portrait}}" alt="">
+              <div class="name"><img src="{{value.gimage}}" width="22" height="22" alt="">讲师：{{value.audit_name}}</div>
+            </a>
+            <div class="row">
+            {{if login==1}}
+              {{if value.attention==0}}
+              <a href="javascript:;" class="lf attention" data-uid="{{value.user_id}}">关注TA</a>
+              {{else}}
+              <a href="javascript:;" class="lf cancel-attention" data-uid="{{value.user_id}}">取消关注</a>
+              {{/if}}
+              <a href="javascript:;" class="lf letter-item" data-uid="{{value.user_id}}">私信TA</a>
+            {{else}}
+              <a href="javascript:;" class="lf attention-login">关注TA</a>
+              <a href="javascript:;" class="lf letter-item-login">私信TA</a>
+            {{/if}}
             </div>
           </li>
         {{/each}}
@@ -75,9 +88,9 @@
   <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
   <script src="/static/js/plugins/validate/messages_zh.js"></script>
   <script>
-    seajs.use('/static/js/course/course_list.js');
+    seajs.use('/static/js/lecture/list.js');
     // 导航选中
-    $('.nav>ul>li').eq(3).addClass('active').siblings().removeClass('active');
+    $('.nav>ul>li').eq(4).addClass('active').siblings().removeClass('active');
   </script>
 </body>
 </html>

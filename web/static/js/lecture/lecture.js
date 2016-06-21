@@ -6,7 +6,6 @@ define(function(require,exports,module){
   require('palette');
   var galleriffic=require('galleriffic');
   require('uploadify');
-
   // 定义变量
   var $body=$("body"),
       $jTarget=$('#Jtarget'),

@@ -38,9 +38,18 @@
               {{else}}
               <div id="fileList" class="uploader-list"><img class="imghead" src="/static/img/default-course.jpg"></div>
               <div id="filePicker" class="choose_img" data-index="0">选择图片</div>
-              <input type="text" name="LiveCoures[live_cover]" id="img-path" value="/static/img/default-course.jpg">
+              <input type="text" name="LiveCoures[live_cover]" id="img-path" value="" required>
               {{/if}}
               </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">标签</label>
+            <div class="form-controls">
+              <input type="text" class="form-input" value="{{live_label}}" id="input-tag" name="Coures[live_label]" autocomplete="off">
+              <p class="form-hint">将用于搜索相关课程使用，多个词之间用<strong class="hot">，</strong>逗号隔开</p>
+              <ul class="form-tag" id="course-tag">
+              </ul>
             </div>
           </div>
           <div class="form-group">
@@ -64,7 +73,7 @@
             <div class="form-group">
               <label class="control-label">促销价格</label>
               <div class="form-controls">
-                <input type="text" class="form-input" value="{{if live_price}}{{live_price}}{{else}}0{{/if}}" id="course-price2"  name="LiveCoures[live_price]" number="true">
+                <input type="text" class="form-input" range="[0,0]" value="{{if live_price}}{{live_price}}{{else}}0{{/if}}" id="course-price2"  name="LiveCoures[live_price]" number="true">
               </div>
             </div>
           </div>
@@ -201,6 +210,12 @@
         {{/if}}
         </script>
       </div>
+      <!-- 标签 -->
+      <script id="courseTag" type="text/html">
+      {{each list as value i}}
+      <li><a href="javascript:;">{{value.label_name}}</a></li>
+      {{/each}}
+      </script>
       <!-- 分类选项 -->
       <script id="courseCategoryId" type="text/html">
       {{each list as value i}}

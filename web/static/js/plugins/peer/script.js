@@ -38,7 +38,7 @@ function step1 () {
     $('#my-video').prop('src', URL.createObjectURL(stream));
     window.localStream = stream;
     step2();
-  }, function(){ $('#step1-error').show(); });
+  }, function(){$('#step1-error').show(); });
 }
 function step2 () {
   $('#step1').hide();

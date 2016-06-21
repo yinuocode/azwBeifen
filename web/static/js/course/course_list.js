@@ -57,4 +57,33 @@ define(function(require,exports,module){
     cClassify=$(this).attr('data-tid');
     runPostAjaxDatas();
   });
+  // 发私信
+  $('.course-list').on('click','.letter-item',function(){
+    $('#user-id').val($(this).attr('data-uid'));
+    $('#letter-popup').removeClass('hide');
+  });
+  // 关闭弹窗
+  $('.popup-close').on('click',function(){
+    $('.popup').addClass('hide');
+  });
+  $('#letter-form').validate({
+    onsubmit:true,// 是否在提交时验证
+    submitHandler: function(form){
+      var data = $('#invite-form').serialize();
+      $.ajax({
+        url : '/coures/letter',
+        type : 'post',
+        data : data,
+        dataType:'json',
+        success : function(data){
+          if(data.status==1){
+            alert('发送成功');
+            $('.popup').addClass('hide');
+          }else{
+            alert(data.msg);
+          }
+        }
+      });
+    }
+  });
 });

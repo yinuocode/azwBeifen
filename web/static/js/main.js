@@ -125,12 +125,12 @@ define(function(require,exports,module){
   var $signinForm=$('#signin-form');
   var $signupForm=$('#signup-form');
   $('#header-login').on('click','#login-btn',function(){
-    registration(0);
+    main.registration(0);
   });
   $('#header-login').on('click','#register-btn',function(){
-    registration(1);
+    main.registration(1);
   });
-  function registration(_index){
+  main.registration=function(_index){
     $('#registration').show();
     $('.registration-header h1 span').eq(_index).addClass('active-title').siblings().removeClass('active-title');
     if(_index){
@@ -140,7 +140,7 @@ define(function(require,exports,module){
       $signinForm.show();
       $signupForm.hide();
     }
-  }
+  };
   // 登录注册表单验证变量
   var istrueP=false;
   var istrueEP=false;

@@ -3,45 +3,12 @@
 <!-- header end -->
   <section class="section-panel">
     <header class="panel-heading clearfix">
-      <a href="/coures/direct">创建直播</a>
-      <a href="/coures/course">创建录播</a>
-      <a href="/coures/teaching" class="active">我的教学</a>
-      <a href="/coures/study">我的学习</a>
-      <a href="/coures/note">我的笔记</a>
-      <a href="/coures/manage">学员管理</a>
-      <a href="my_datum.html" class="mydatum-btn">我的资料库</a>
+      <a href="/coures/direct" class="active">主页</a>
+      <a href="/coures/course">相册</a>
+      <a href="/coures/teaching">动态</a>
     </header>
     <div class="panel-body">
       <div class="panel-body-course">
-        <div class="select-type clearfix">
-          <div class="lf">
-            <a href="javascript:;" class="handle-icon triangle" id="handle-course" data-val="">全部课程</a>
-            <ul class="select-items">
-              <li><a href="javascript:;" data-arg="liveCoures" id="live-pitch">直播课程</a></li>
-              <li><a href="javascript:;" data-arg="coures">录播课程</a></li>
-              <li><a href="javascript:;" data-arg="assis">助播课程</a></li>
-            </ul>
-          </div>
-          <div class="lf">
-            <a href="javascript:;" class="handle-icon triangle" id="handle-status" data-val="">发布状态</a>
-            <ul class="select-items">
-              <li><a href="javascript:;" data-arg="1">已发布</a></li>
-              <li><a href="javascript:;" data-arg="0">未发布</a></li>
-            </ul>
-          </div>
-          <div class="lf">
-            <a href="javascript:;" class="handle-icon triangle" id="handle-date" data-val="null">发布日期</a>
-            <ul class="select-items">
-              <li><a href="javascript:;" data-arg="7">过去一周</a></li>
-              <li><a href="javascript:;" data-arg="30">过去一个月</a></li>
-              <li><a href="javascript:;" data-arg="60">过去两个月</a></li>
-              <li><a href="javascript:;" data-arg="180">过去半年</a></li>
-            </ul>
-          </div>
-          <div class="rf"><a href="javascript:;" class="handle-icon delete" id="handle-delete">删除</a></div>
-          <div class="rf"><a href="javascript:;" class="handle-icon edit" id="handle-edit">编辑</a></div>
-          <div class="rf"><a href="javascript:;" class="handle-icon invite hide" id="handle-invite">一键邀请</a></div>
-        </div>
         <table class="table-course" id="table-course-list">
         <script id="tableCourseList" type="text/html">
           <tbody>
@@ -69,7 +36,7 @@
               {{if value.coures_status==1}}
                 <a href="/broadcasting?cid={{value.coures_id}}">进入课程</a>
                 <a href="javascript:;">推广链接</a>
-                <a href="hour-manage">课时管理</a>
+                <a href="javascript:;">课时管理</a>
               {{else}}
                 <a href="javascript:;" class="start-issue" data-type="{{value.type}}" data-cid="{{value.coures_id}}">开始发布</a>
               {{/if}}

@@ -1,0 +1,123 @@
+<!-- header -->
+<?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
+<!-- header end -->
+  <section class="section-panel">
+    <header class="panel-heading clearfix">
+      <a href="/coures/direct">创建直播</a>
+      <a href="/coures/course">创建录播</a>
+      <a href="/coures/teaching" class="active">我的教学</a>
+      <a href="/coures/study">我的学习</a>
+      <a href="/coures/note">我的笔记</a>
+      <a href="/coures/manage">学员管理</a>
+      <a href="my_datum.html" class="mydatum-btn">我的资料库</a>
+    </header>
+    <div class="panel-body">
+      <div class="crumbs"><a href="teaching">我的教学</a><span> &gt; 课时管理</span></div>
+      <div class="panel-body-course sub">
+        <div class="select-type clearfix">
+          <div class="lf">
+            <a href="javascript:;" class="handle-icon triangle" id="handle-course" data-val="i-hour">我的课时</a>
+            <ul class="select-items">
+              <li><a href="javascript:;" data-arg="i-hour">我的课时</a></li>
+              <li><a href="javascript:;" data-arg="i-data">我的资料</a></li>
+            </ul>
+          </div>
+          <div class="rf"><a href="javascript:;" class="handle-icon delete" id="handle-delete">删除</a></div>
+          <div class="rf"><a href="javascript:;" class="handle-icon add" id="add-data">添加资料</a></div>
+          <div class="rf"><a href="javascript:;" class="handle-icon add" id="add-hour">添加课时</a></div>
+        </div>
+        <table class="table-course" id="table-course-list">
+        <script id="tableCourseList" type="text/html">
+          <tbody>
+            <tr>
+              <th class="th1"><input type="checkbox" name="controlAll" id="controlAll"><label for="controlAll">全选</label></th>
+              <th class="th2">课时名称</th>
+              <th class="th3">课时长度</th>
+            </tr>
+            {{each list as value i}}
+            <tr>
+              <td><input type="checkbox" name="selected" data-type="{{value.type}}" value="{{value.coures_id}}"></td>
+              <td><a href="/broadcasting?cid={{value.coures_id}}" target="_blank">{{value.coures_title}}</a></td>
+              <td>{{value.time}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </script>
+        </table>
+        <div class="ajax-paging">
+          <div class="clearfix">
+            <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
+            <a href="javascript:;" id="paging-next" class="handle-icon right-arrows active"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- 添加助教 -->
+  <div class="popup hide" id="sub-teaching-popup">
+    <div class="popup-modal">
+      <div class="popup-header">
+        <h1>添加助教</h1>
+        <button type="button" class="popup-close"></button>
+      </div>
+      <div class="popup-body">
+        <form method="post" id="sub-teaching" class="popup-form cmxform">
+          <div class="form-group">
+            <label class="control-label">助教id</label>
+            <div class="form-controls">
+              <input type="text" class="form-input" name="uid" number="true">
+            </div>
+          </div>
+          <input type="hidden" class="form-input" name="cid" value="">
+          <div class="form-group">
+            <div class="form-submit">
+              <button type="submit" class="button-submit">确认</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="popup-bg"></div>
+  </div>
+  <!-- 一键邀请 -->
+  <div class="popup hide" id="invite-popup">
+    <div class="popup-modal">
+      <div class="popup-header">
+        <h1>一键邀请</h1>
+        <button type="button" class="popup-close"></button>
+      </div>
+      <div class="popup-body">
+        <form method="post" id="invite-form" class="popup-form cmxform">
+          <div class="form-group">
+            <label class="control-label">标题</label>
+            <div class="form-controls">
+              <input type="text" class="form-input" name="title" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">内容</label>
+            <div class="form-controls">
+              <textarea name="content" id="" class="form-textarea" required></textarea>
+            </div>
+          </div>
+          <input type="hidden" class="form-input" name="cid" id="invite-cid" value="">
+          <div class="form-group">
+            <div class="form-submit">
+              <button type="submit" class="button-submit">确认</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="popup-bg"></div>
+  </div>
+  <!-- footer -->
+  <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
+  <!-- footer end -->
+  <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
+  <script src="/static/js/plugins/validate/messages_zh.js"></script>
+  <script>
+    seajs.use('/static/js/course/hour.js');
+  </script>
+</body>
+</html>

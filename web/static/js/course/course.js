@@ -11,12 +11,29 @@ define(function(require,exports,module){
       console.log(datas);
       $('#h-cid').val(ret);
       runCourseForm();
-      laydate({
-        elem: '#startDate'
-      });
-      laydate({
-        elem: '#endDate'
-      });
+      var start = {
+          elem: '#startDate',
+          min: laydate.now(), //设定最小日期为当前日期
+          max: '2099-06-16 23:59:59', //最大日期
+          istime: true,
+          istoday: false,
+          choose: function(datas){
+               end.min = datas; //开始日选好后，重置结束日的最小日期
+               end.start = datas; //将结束日的初始值设定为开始日
+          }
+      };
+      var end = {
+          elem: '#endDate',
+          min: laydate.now(),
+          max: '2099-06-16 23:59:59',
+          istime: true,
+          istoday: false,
+          choose: function(datas){
+              start.max = datas; //结束日选好后，重置开始日的最大日期
+          }
+      };
+      laydate(start);
+      laydate(end);
     });
   }else{
     main.postAjaxDatas('/coures/update-coures-beg',{coures_id:ret},function(datas){
@@ -29,6 +46,11 @@ define(function(require,exports,module){
   }
   // 初始化 js
   function runCourseForm(){
+    main.getAjaxDatas('/coures/get-label',function(datas){
+      var courseTag = template('courseTag',{list:datas});
+      $('#course-tag').html(courseTag);
+      console.log(datas);
+    });
     main.getAjaxDatas('/coures/classify',function(datas){
       var selectedId=$('#course-categoryId').attr('value');
       datas.sid=selectedId;
@@ -153,6 +175,7 @@ define(function(require,exports,module){
     uploader.on( 'uploadSuccess', function( file,resporse ) {
         $( '#'+file.id ).addClass('upload-state-done');
         $('#img-path').val(main.imgPath+'/'+resporse.date+'/'+file.name);
+        $('#uploader-img').find('.error').hide();
         console.log(main.imgPath+'/'+resporse.date+'/'+file.name);
     });
     // 文件上传失败，显示上传出错。
@@ -175,6 +198,24 @@ define(function(require,exports,module){
     });
     $('#course-type0').on('click',function(){
       $('#course-price').show();
+    });
+    // 标签
+    var formTag=$('.form-tag');
+    var inputTag=$('#input-tag');
+    inputTag.on('click',function(){
+      formTag.toggle();
+    });
+    inputTag.on('blur',function(){
+      inputTag.val(inputTag.val().replace(/，/g,','));
+    });
+    formTag.on('click','a',function(){
+      var txt= $(this).html();
+      if($.trim(inputTag.val())!==''){
+        inputTag.val(inputTag.val()+','+txt);
+      }else{
+        inputTag.val(txt);
+      }
+      formTag.hide();
     });
   }
 });

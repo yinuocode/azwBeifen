@@ -355,9 +355,8 @@
   <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="/static/js/lib/jquery-1.9.1.min.js"><\/script>')</script>
   <script src="/static/js/lib/template.js"></script>
-  <!-- peer 麦克和摄像头 -->
-  <script src="/static/js/plugins/peer/peer.js"></script>
-  <script src="/static/js/plugins/peer/script.js"></script>
+  <!-- <script src="/static/js/plugins/peer/peer.js"></script>
+  <script src="/static/js/plugins/peer/script.js"></script> -->
   <!-- seajs -->
   <script src="/static/js/lib/sea.js" id="seajsnode"></script>
   <!-- <script src="http://139.196.195.238:8080/socket.io/socket.io.js"></script> -->
@@ -414,6 +413,12 @@
         console.log(err);
       }
     });
+    // peer 麦克和摄像头
+    function runMake(){
+      $.getScript('/static/js/plugins/peer/peer.js',function(){
+        $.getScript('/static/js/plugins/peer/script.js');
+      });
+    }
   </script>
 </body>
 </html>
