@@ -3,8 +3,8 @@
 <!-- header end -->
   <section class="section-panel">
     <header class="panel-heading clearfix">
-      <a href="javascript:;" class="active">最新课程</a>
-      <a href="javascript:;">名气课程</a>
+      <a href="javascript:;" class="active" data-type="1">最新课程</a>
+      <a href="javascript:;" data-type="2">名气课程</a>
     </header>
     <div class="panel-body">
       <div class="panel-body-course">
@@ -12,13 +12,13 @@
         <script id="directCourse" type="text/html">
         {{each list as value i}}
           <li>
-            <a href="/broadcasting/classroom?cid={{value.coures_id}}" target="_blank">
+            <a href="/couresdetail?cid={{value.coures_id}}" target="_blank">
               <img src="{{value.coures_cover}}" alt="">
               <span class="full"><b>抓紧学习</b></span>
             </a>
             <div class="course-price">{{if value.coures_type==1}}￥{{value.privilege_price}}&nbsp;&nbsp;&nbsp;<span class="cost">原价：￥{{value.coures_price}}</span>{{else}}￥免费{{/if}}</div>
             <div class="row">
-              <p class="course-title"><a href="/broadcasting/classroom?cid={{value.coures_id}}" target="_blank">{{value.coures_title}}</a></p>
+              <p class="course-title"><a href="/couresdetail?cid={{value.coures_id}}" target="_blank">{{value.coures_title}}</a></p>
               <!-- <a href="javascript:;" class="rf letter-item" data-uid="{{value.user_id}}">私信</a> -->
             </div>
             <div class="clearfix">
@@ -75,7 +75,7 @@
   <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
   <script src="/static/js/plugins/validate/messages_zh.js"></script>
   <script>
-    seajs.use('/static/js/course/course_list.js');
+    seajs.use('/static/js/course/recommend.js');
     // 导航选中
     $('.nav>ul>li').eq(3).addClass('active').siblings().removeClass('active');
   </script>

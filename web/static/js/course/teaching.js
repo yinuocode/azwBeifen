@@ -8,7 +8,7 @@ define(function(require,exports,module){
     var typeVal=$('#handle-course').attr('data-val');
     var statusVal=$('#handle-status').attr('data-val');
     var timeVal=$('#handle-date').attr('data-val');
-    main.postAjaxDatas('/coures/my-teach',{type:typeVal,status:statusVal,time:timeVal,page:pageVal},function(datas){
+    main.postAjaxDatas('/myteach/my-teach',{type:typeVal,status:statusVal,time:timeVal,page:pageVal},function(datas){
       console.log(datas);
       var tableCourseList = template('tableCourseList',{list:datas});
       $('#table-course-list').html(tableCourseList);
@@ -99,7 +99,7 @@ define(function(require,exports,module){
   $('.table-course').on('click','.start-issue',function(){
     var type=$(this).attr('data-type');
     var cid=$(this).attr('data-cid');
-    main.postAjaxDatas('/coures/alter-state',{type:type,cid:cid},function(datas){
+    main.postAjaxDatas('/myteach/alter-state',{type:type,cid:cid},function(datas){
       if(!datas.status){
         alert('服务器忙，请稍后。。。');
       }
@@ -127,22 +127,26 @@ define(function(require,exports,module){
     if($selected.length>0){
       if(confirm('您确定要删除吗?')){
         for(var i=0,len=$selected.length;i<len;i++){
-          if($selected.eq(i).attr('data-type')){
+          if($selected.eq(i).attr('data-type')==0){
             cid2.push($selected.eq(i).val());
           }else{
             cid1.push($selected.eq(i).val());
           }
         }
-        main.postAjaxDatas('/coures/delete',{cid1,cid2},function(datas){
+        main.postAjaxDatas('/myteach/delete',{cid1:cid1,cid2:cid2},function(datas){
           console.log(datas);
+          if(datas.status==1){
+            alert('删除成功');
+            // 局部刷新
+            runPostAjaxDatas();
+          }else{
+            alert(datas.msg);
+          }
           // 循环删除
           // for(var j=0,lens=$selected.length;j<lens;j++){
           //   $selected.eq(j).parent().parent().remove();
           // }
-          // 局部刷新
-          runPostAjaxDatas();
         });
-
       }
     }else{
       alert('请选择您要删除的课程');
@@ -163,7 +167,7 @@ define(function(require,exports,module){
     submitHandler: function(form){
       var data = $('#sub-teaching').serialize();
       $.ajax({
-        url : '/coures/add-assistant',
+        url : '/myteach/add-assistant',
         type : 'post',
         data : data,
         dataType:'json',
@@ -183,7 +187,7 @@ define(function(require,exports,module){
     submitHandler: function(form){
       var data = $('#invite-form').serialize();
       $.ajax({
-        url : '/coures/invite-letter',
+        url : '/myteach/invite-letter',
         type : 'post',
         data : data,
         dataType:'json',

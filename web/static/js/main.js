@@ -4,6 +4,7 @@ define(function(require,exports,module){
   var main={};
   // 配置js 图片上传路径变量
   main.imgPath='http://image.agodpig.com';
+  main.videoPath='http://video.agodpig.com';
   // ajax 取数据
   main.getAjaxDatas=function(_url,fSuccess){
     $.ajax({

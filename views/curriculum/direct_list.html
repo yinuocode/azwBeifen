@@ -37,7 +37,7 @@
         <script id="directCourse" type="text/html">
         {{each list as value i}}
           <li>
-            <a href="/broadcasting/classroom?cid={{value.live_id}}" target="_blank">
+            <a href="/directdetail?cid={{value.live_id}}" target="_blank">
               <img src="{{value.live_cover}}" alt="">
               {{if value.time.state==0}}
               <span class="full course-time"><div class="clearfix"><strong>距开始直播：</strong><b class="b">{{value.time.hour}}</b><strong>小时</strong><b class="b">{{value.time.min}}</b><strong>分</strong></div></span>
@@ -50,7 +50,7 @@
               {{/if}}
             </a>
             <div class="row">
-              <p class="course-title"><a href="/broadcasting/classroom?cid={{value.live_id}}" target="_blank">{{value.live_title}}</a></p>
+              <p class="course-title"><a href="/directdetail?cid={{value.live_id}}" target="_blank">{{value.live_title}}</a></p>
               <!-- <a href="javascript:;" class="rf letter-item" data-uid="{{value.user_id}}">私信</a> -->
             </div>
           </li>

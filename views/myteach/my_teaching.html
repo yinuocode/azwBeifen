@@ -5,7 +5,7 @@
     <header class="panel-heading clearfix">
       <a href="/coures/direct">创建直播</a>
       <a href="/coures/course">创建录播</a>
-      <a href="/coures/teaching" class="active">我的教学</a>
+      <a href="/myteach/teaching" class="active">我的教学</a>
       <a href="/coures/study">我的学习</a>
       <a href="/coures/note">我的笔记</a>
       <a href="/coures/manage">学员管理</a>
@@ -59,7 +59,7 @@
             <tr>
             {{if value.type==1}}
               <td><input type="checkbox" name="selected" data-type="{{value.type}}" value="{{value.coures_id}}"></td>
-              <td><a href="/broadcasting?cid={{value.coures_id}}" target="_blank">{{value.coures_title}}</a></td>
+              <td><a href="/couresdetail?cid={{value.coures_id}}" target="_blank">{{value.coures_title}}</a></td>
               <td><img src="{{value.coures_cover}}" alt=""></td>
               <td>{{value.num}}</td>
               <td>{{value.privilege_price}}</td>
@@ -67,7 +67,7 @@
               <td>{{value.ctime}}</td>
               <td class="handle">
               {{if value.coures_status==1}}
-                <a href="/broadcasting?cid={{value.coures_id}}">进入课程</a>
+                <a href="/couresdetail/video?cid={{value.coures_id}}">进入课程</a>
                 <a href="javascript:;">推广链接</a>
                 <a href="hour-manage?cid={{value.coures_id}}">课时管理</a>
               {{else}}
@@ -76,7 +76,7 @@
               </td>
             {{else if value.type==0}}
               <td><input type="checkbox" name="selected" data-type="{{value.type}}" value="{{value.live_id}}"></td>
-              <td><a href="/broadcasting?cid={{value.live_id}}" target="_blank">{{value.live_title}}</a></td>
+              <td><a href="/directdetail?cid={{value.live_id}}" target="_blank">{{value.live_title}}</a></td>
               <td><img src="{{value.live_cover}}" alt=""></td>
               <td>{{value.num}}</td>
               <td>{{value.privilege_price}}</td>
@@ -93,7 +93,7 @@
               </td>
             {{else}}
               <td><input type="checkbox" name="selected" data-type="{{value.type}}" value="{{value.live_id}}"></td>
-              <td><a href="/broadcasting?cid={{value.live_id}}" target="_blank">{{value.live_title}}</a></td>
+              <td><a href="/directdetail?cid={{value.live_id}}" target="_blank">{{value.live_title}}</a></td>
               <td><img src="{{value.live_cover}}" alt=""></td>
               <td>{{value.num}}</td>
               <td>{{value.privilege_price}}</td>

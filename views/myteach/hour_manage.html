@@ -5,7 +5,7 @@
     <header class="panel-heading clearfix">
       <a href="/coures/direct">创建直播</a>
       <a href="/coures/course">创建录播</a>
-      <a href="/coures/teaching" class="active">我的教学</a>
+      <a href="/myteach/teaching" class="active">我的教学</a>
       <a href="/coures/study">我的学习</a>
       <a href="/coures/note">我的笔记</a>
       <a href="/coures/manage">学员管理</a>
@@ -39,9 +39,15 @@
             {{each data as value i}}
             <tr>
               <td><input type="checkbox" name="selected" data-type="{{type}}" value="{{value.hour_id}}"></td>
-              <td><a href="/broadcasting?cid={{value.hour_id}}" target="_blank">{{value.hour_title}}</a></td>
+              <td class="td2"><a href="/couresdetail/video?cid={{value.hour_id}}" {{if value.is_free==1}}class="free"{{/if}}target="_blank">{{value.hour_title}}</a></td>
               <td>{{value.video_time}}</td>
-              <td><a href="javascript:;" id="">已发布</a></td>
+              <td>
+              {{if value.hour_state==1}}
+                <a href="javascript:;" id="cancel-issue" data-hid="{{value.hour_id}}">取消发布</a>
+              {{else}}
+                <a href="javascript:;" id="issue" data-hid="{{value.hour_id}}">现在发布</a>
+              {{/if}}
+              </td>
             </tr>
             {{/each}}
           {{else}}
@@ -53,7 +59,7 @@
             {{each data as value i}}
             <tr>
               <td><input type="checkbox" name="selected" data-type="{{type}}" value="{{value.datum_id}}"></td>
-              <td><a href="/broadcasting?cid={{value.datum_id}}" target="_blank">{{value.datum_title}}</a></td>
+              <td class="td2"><a href="/couresdetail/video?cid={{value.datum_id}}" target="_blank">{{value.datum_title}}</a></td>
               <td>{{value.downloads}}</td>
             </tr>
             {{/each}}
@@ -121,9 +127,11 @@
                 <div id="filePicker1" class="choose_img choose_hour">上传课时</div>
                 <input type="text" name="ClassHour[video_address]" class="file-path" id="hour-path" value="" required>
               </div>
+              <p class="hot f14">请上传mp4格式文件</p>
             </div>
           </div>
-          <input type="hidden" class="form-input" name="ClassHour[video_time]" id="hour-time" value="0">
+          <input type="hidden" class="form-input" name="date" id="hour-date" value="">
+          <input type="hidden" class="form-input" name="fname" id="hour-fname" value="">
           <input type="hidden" class="form-input course-id" name="ClassHour[coures_id]" value="">
           <div class="form-group">
             <div class="form-submit">
@@ -158,6 +166,7 @@
                 <div id="filePicker2" class="choose_img">上传资料</div>
                 <input type="text" name="CouresDatum[datum_address]" id="data-path" class="file-path" value="" required>
               </div>
+              <p class="hot f14">请上传压缩包格式文件</p>
             </div>
           </div>
           <input type="hidden" class="form-input course-id" name="CouresDatum[coures_id]" value="">

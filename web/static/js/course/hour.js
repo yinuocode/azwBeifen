@@ -11,7 +11,7 @@ define(function(require,exports,module){
     // var typeVal=$('#handle-course').attr('data-val');
     // var statusVal=$('#handle-status').attr('data-val');
     // var timeVal=$('#handle-date').attr('data-val');
-    main.postAjaxDatas('/coures/period',{cid:courseCid,classify:classify,page:pageVal},function(datas){
+    main.postAjaxDatas('/myteach/period',{cid:courseCid,classify:classify,page:pageVal},function(datas){
       console.log(datas);
       var tableCourseList = template('tableCourseList',datas);
       $('#table-course-list').html(tableCourseList);
@@ -66,8 +66,8 @@ define(function(require,exports,module){
   // 删除
   $('#handle-delete').on('click',function(){
     var $selected=$('input[name="selected"]:checked');
-    var cid1=[];
-    var cid2=[];
+    var hid=[];
+    var did=[];
     if($selected.length>0){
       if(confirm('您确定要删除吗?')){
         for(var i=0,len=$selected.length;i<len;i++){
@@ -77,37 +77,38 @@ define(function(require,exports,module){
             did.push($selected.eq(i).val());
           }
         }
-        main.postAjaxDatas('/coures/delete',{hid,did},function(datas){
+        main.postAjaxDatas('/myteach/del-hour',{hid:hid,did:did},function(datas){
           console.log(datas);
-          // 循环删除
-          // for(var j=0,lens=$selected.length;j<lens;j++){
-          //   $selected.eq(j).parent().parent().remove();
-          // }
-          // 局部刷新
-          runPostAjaxDatas();
+          if(datas.status==1){
+            alert('删除成功');
+            // 局部刷新
+            runPostAjaxDatas();
+          }else{
+            alert(datas.msg);
+          }
         });
-
       }
     }else{
       alert('请选择您要删除的课程');
     }
   });
+  var one1=0;
+  var one2=0;
   // 添加课时按钮
   $('.select-type').on('click','#add-hour',function(){
     $('#add-hour-popup').removeClass('hide');
-  });
-  $('.select-type').one('click',function(){
-    uploadVideo();
+    if(!one1){
+      uploadVideo();
+      one1++;
+    }
   });
   // 添加资料按钮
   $('.select-type').on('click','#add-data',function(){
     $('#add-data-popup').removeClass('hide');
-  });
-  $('.select-type').one('click','#add-data',function(){
-    uploadData();
-  });
-  $("#picker .webuploader-pick").click(function () {
-    $("#picker :file").click();
+    if(!one2){
+      uploadData();
+      one2++;
+    }
   });
   // 关闭弹窗
   $('.popup-close').on('click',function(){
@@ -121,11 +122,12 @@ define(function(require,exports,module){
       var data = $('#add-hour-form').serialize();
       console.log(data);
       $.ajax({
-        url : '/coures/add-hour',
+        url : '/myteach/add-hour',
         type : 'post',
         data : data,
         dataType:'json',
         success : function(data){
+          console.log(data);
           if(data.status==1){
             alert('添加成功');
             $('.popup').addClass('hide');
@@ -146,7 +148,7 @@ define(function(require,exports,module){
       var data = $('#add-data-form').serialize();
       console.log(data);
       $.ajax({
-        url : '/coures/add-datum',
+        url : '/myteach/add-datum',
         type : 'post',
         data : data,
         dataType:'json',
@@ -163,6 +165,20 @@ define(function(require,exports,module){
       });
     }
   });
+  // 发布
+  $('.table-course').on('click','#issue',function(){
+    var thisId=$(this).attr('data-hid');
+    main.postAjaxDatas('/myteach/hour-state',{hour_id:thisId},function(datas){
+      runPostAjaxDatas();
+    });
+  });
+  // 取消发布
+  $('.table-course').on('click','#cancel-issue',function(){
+    var thisId=$(this).attr('data-hid');
+    main.postAjaxDatas('/myteach/hour-stateno',{hour_id:thisId},function(datas){
+      runPostAjaxDatas();
+    });
+  });
   function uploadVideo(){
     // 上传资料视频
     var $list = $('#fileList1'),
@@ -178,16 +194,16 @@ define(function(require,exports,module){
         // swf文件路径
         swf: '/static/js/plugins/webupload/Uploader.swf',
         // 文件接收服务端。
-        server: "/static/js/plugins/webupload/fileupload.php",
+        server: "/static/js/plugins/webupload/videoupload.php",
         // 选择文件的按钮。可选。
         // 内部根据当前运行是创建，可能是input元素，也可能是flash.
         pick: '#filePicker1',
-        // 只允许选择图片文件。
-        // accept: {
-        //     title: 'Images',
-        //     extensions: 'gif,jpg,jpeg,bmp,png',
-        //     mimeTypes: 'image/*'
-        // },
+        // 只允许选择视频文件。
+        accept: {
+            title: 'video',
+            extensions: 'mp4,swf,flv',
+            mimeTypes: 'application/*'
+        },
         thumb: {
           // width: 260,
           // height: 146,
@@ -238,9 +254,11 @@ define(function(require,exports,module){
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on( 'uploadSuccess', function( file,resporse ) {
         $( '#'+file.id ).addClass('upload-state-done');
-        $('#hour-path').val(main.imgPath+'/'+resporse.date+'/'+file.name);
+        $('#hour-date').val(resporse.date);
+        $('#hour-fname').val(file.name);
+        $('#hour-path').val(main.videoPath+'/'+resporse.date+'/'+file.name);
         $('#uploader-hour').find('.error').hide();
-        console.log(main.imgPath+'/'+resporse.date+'/'+file.name);
+        console.log(main.videoPath+'/'+resporse.date+'/'+file.name);
     });
     // 文件上传失败，显示上传出错。
     uploader.on( 'uploadError', function( file ) {
@@ -278,11 +296,11 @@ define(function(require,exports,module){
         // 内部根据当前运行是创建，可能是input元素，也可能是flash.
         pick: '#filePicker2',
         // 只允许选择图片文件。
-        // accept: {
-        //     title: 'Images',
-        //     extensions: 'gif,jpg,jpeg,bmp,png',
-        //     mimeTypes: 'image/*'
-        // },
+        accept: {
+            title: 'zip',
+            extensions: 'zip,rar,cab,arj,lzh,ace,7-zip,tar,gzip,uue,bz2,jar,iso',
+            mimeTypes: 'application/*'
+        },
         thumb: {
           // width: 260,
           // height: 146,

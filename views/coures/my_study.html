@@ -7,7 +7,7 @@
     {{if identity}}
       <a href="/coures/direct">创建直播</a>
       <a href="/coures/course">创建录播</a>
-      <a href="/coures/teaching">我的教学</a>
+      <a href="/myteach/teaching">我的教学</a>
     {{/if}}
       <a href="/coures/study" class="active">我的学习</a>
       <a href="/coures/note">我的笔记</a>
@@ -44,18 +44,18 @@
           {{each list as value i}}
             <li>
             {{if value.type!=0}}
-              <a href="/broadcasting/classroom?cid={{value.coures_id}}" target="_blank">
+              <a href="/couresdetail?cid={{value.coures_id}}" target="_blank">
                 <img src="{{value.coures_cover}}" alt="">
                 <span class="full"><b>抓紧学习</b></span>
               </a>
-              <p class="course-title"><a href="/broadcasting/classroom?cid={{value.coures_id}}" target="_blank">{{value.coures_title}}</a></p>
+              <p class="course-title"><a href="/couresdetail?cid={{value.coures_id}}" target="_blank">{{value.coures_title}}</a></p>
               <div class="clearfix">
                 <div class="lf name"><img src="{{value.lecturer.grade}}" alt="">讲师：{{value.lecturer.audit_name}}</div>
                 <a href="javascript:;" class="rf chour">查看课时</a>
               </div>
               <div class="select-checkbox"><input type="checkbox" name="selected" data-type="{{value.type}}" value="{{value.coures_id}}"></div>
             {{else}}
-              <a href="/broadcasting/classroom?cid={{value.live_id}}" target="_blank">
+              <a href="/directdetail?cid={{value.live_id}}" target="_blank">
                 <img src="{{value.live_cover}}" alt="">
                 {{if value.time.state==0}}
                 <span class="full course-time"><div class="clearfix"><strong>距开始直播：</strong><b class="b">{{value.time.hour}}</b><strong>小时</strong><b class="b">{{value.time.min}}</b><strong>分</strong></div></span>
@@ -68,7 +68,7 @@
                 {{/if}}
               </a>
               <div class="row">
-                <p class="course-title"><a href="/broadcasting/classroom?cid={{value.live_id}}" target="_blank">{{value.live_title}}</a></p>
+                <p class="course-title"><a href="/directdetail?cid={{value.live_id}}" target="_blank">{{value.live_title}}</a></p>
                 <!-- <a href="javascript:;" class="rf letter-item" data-uid="{{value.user_id}}">私信</a> -->
               </div>
               <div class="select-checkbox"><input type="checkbox" name="selected" data-type="{{value.type}}" value="{{value.live_id}}"></div>
