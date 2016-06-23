@@ -294,8 +294,8 @@ form.cmxform form.cmxform .gray * {
 
 /*弹窗共用代码*/
 .popup-modal{
-  /*position: fixed;*/
-  position: absolute;
+  position: fixed;
+  /*position: absolute;*/
   top: 100px;
   left: 50%;
   margin: 0 0 0 -325px;
@@ -1556,15 +1556,36 @@ form.cmxform form.cmxform .gray * {
 .table-course.hour .td2{
   text-align: left;
 }
-.table-course.hour .td2>.free:after{
+.hour-title{
+  padding-right: 60px;
+  padding-left:40px;
+  max-width: 450px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  position: relative;
+  float:left;
+  line-height: 36px;
+}
+.hour-title:before{
+  content: '';
+  position: absolute;
+  background: url(../img/hour-icon.png) no-repeat;
+  width: 30px;
+  height: 30px;
+  left: 0;
+  top: 3px;
+}
+.hour-title.free:after{
   content: '免费';
   background: #178EEE;
   color: #fff;
   padding: 0 12px 2px;
-  position: relative;
-  left: 5px;
+  right: 2px;
+  top:8px;
   line-height: 20px;
   height: 20px;
+  position: absolute;
 }
 .table-course.hour .th2{
   text-align: left;
@@ -1801,19 +1822,3 @@ input[name="selected"], #controlAll {
   color:#a4a4a4;
 }
 .f14{font-size: 14px;}
-/*课程介绍页*/
-.course-info-left{
-  width:470px;
-  padding:10px;
-  border:1px solid #ccc;
-}
-.course-info-left img{display: block;}
-.course-info-right{
-  width:520px;
-}
-.course-about-lf{
-  width:760px;
-}
-.course-about-rf{
-  width:340px;
-}

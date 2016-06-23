@@ -1,0 +1,212 @@
+/*课程介绍页*/
+.panel-body-course.b0{
+  border:0;
+  background: #f7f7f7;
+}
+.section-panel.news-panel{
+  background: #f7f7f7;
+  color: #444;
+}
+.course-info{
+  margin-bottom:20px;
+  height: 268px;
+}
+.course-info-left{
+  width:470px;
+}
+.course-info-left img{display: block;}
+.course-info-right{
+  width: 640px;
+  height:268px;
+}
+.course-info-right>.clearfix>.lf{
+  width:380px;
+}
+.course-info-right>.clearfix>.rf{
+  width:240px;
+  background: #F1F7FF;
+  padding:20px 10px;
+  line-height: 28px;
+  height: 268px;
+}
+.course-info-right>.clearfix>.rf>.row{
+  margin-bottom:18px;
+  padding-bottom:18px;
+  border-bottom:1px solid #dedede;
+}
+.course-info-right>.clearfix>.rf>.clearfix{
+  margin-left: 26px;
+}
+.course-info-right .data{
+  font-size: 14px;
+  color:#606060;
+}
+.bdsharebuttonbox{
+  margin-left:10px;
+  float:left;
+}
+.course-info-right .row-lf,.course-info-right .row-rf{
+  width:50%;
+  text-align: center;
+}
+.course-info-right .title{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  line-height: 50px;
+  font-size: 20px;
+}
+.course-info-right .price{
+  margin:10px 0;
+}
+.course-info-right .price.original strong{
+  text-decoration: line-through;
+}
+.course-info-right strong{
+  color: #188eee;
+  font-size: 22px;
+  /*margin-left:10px;*/
+  font-weight: normal;
+}
+.course-info-right .operate{
+  margin-top:50px;
+}
+.course-info-right .operate .lf{
+  padding: 3px 18px;
+  margin-right: 10px;
+  border-radius: 4px;
+  background: #188eee;
+  border: 2px solid #188eee;
+  color: #fff;
+}
+.course-info-right .operate .lf:hover{
+  color: #188eee;
+  background: #f7f7f7;
+}
+.course-about-lf{
+  width: 760px;
+  background: #fff;
+  padding: 20px 15px;
+}
+.course-about-rf{
+  width:340px;
+}
+.star-0, .star-1, .star-2, .star-3, .star-4, .star-5 {
+  display: inline-block;
+  overflow: hidden;
+  width: 80px;
+  height: 16px;
+  background: url(../img/stars.png) no-repeat;
+  vertical-align: middle;
+}
+.star-4 {
+  background-position: 0 -16px;
+}
+.star-3 {
+  background-position: 0 -32px;
+}
+.star-2 {
+  background-position: 0 -48px;
+}
+.star-1 {
+  background-position: 0 -64px;
+}
+.star-0 {
+  background-position: 0 -80px;
+}
+/*下半部分*/
+.course-about{
+  font-size: 14px;
+}
+.course-about h2{
+  font-size: 16px;
+  line-height: 36px;
+  border-bottom:1px solid #dedede;
+  margin-bottom:15px;
+}
+.course-about .head a{
+  float:left;
+  padding: 0 20px;
+}
+.course-about .head .active{
+  color:#188EEE;
+  border-bottom:2px solid #188EEE;
+}
+.course-about-lf .hour-head{
+  margin-top:35px;
+}
+.course-about-lf .hour-title{
+  line-height: 40px;
+}
+.course-about-lf .hour-title.free:after{
+  top:10px;
+}
+.course-about-lf .hour-list a{
+  color:#757575;
+}
+.course-about-lf .hour-list>li{
+  line-height: 36px;
+  border-bottom:1px solid #eee;
+  padding: 5px;
+}
+.course-about-lf .hour-list>li:hover{
+  background: #eee;
+}
+.course-about-lf .hour-list>li:hover a{
+  color:#000;
+}
+.course-about-lf .hour-list>li>a{
+  display: block;
+}
+.course-about-rf .module{
+  background: #fff;
+  padding:10px 10px 20px;
+  margin-bottom:15px;
+}
+.course-about-rf .body{
+  padding: 10px 30px;
+}
+.avatar{
+  border-radius: 50%;
+  overflow: hidden;
+  display: block;
+}
+.avatar>img{
+  display: block;
+}
+.course-about-rf .name{
+  margin: 20px 0 0 20px;
+  line-height: 25px;
+}
+.course-about-rf .grade{
+  position: relative;
+  margin-right: 6px;
+  top: 5px;
+}
+.course-about-rf .row{
+  margin-bottom:15px;
+}
+.comment-list{
+  color:#757575;
+}
+.comment-list .user{
+  text-align: center;
+  line-height: 25px;
+}
+.comment-content {
+  margin-left: 120px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ebebeb;
+}
+.comment-content > p {
+  text-indent: 2em;
+}
+.comment-content > .date {
+  color: #9d9d9d;
+  text-align: right;
+}
+.no-comment,.no-hour,.no-nr{
+  line-height: 80px;
+  text-align: center;
+}

@@ -39,7 +39,7 @@
             {{each data as value i}}
             <tr>
               <td><input type="checkbox" name="selected" data-type="{{type}}" value="{{value.hour_id}}"></td>
-              <td class="td2"><a href="/couresdetail/video?cid={{value.hour_id}}" {{if value.is_free==1}}class="free"{{/if}}target="_blank">{{value.hour_title}}</a></td>
+              <td class="td2"><a href="/couresdetail/video?cid={{value.hour_id}}" class="hour-title {{if value.is_free==1}}free{{/if}}"target="_blank">{{value.hour_title}}</a></td>
               <td>{{value.video_time}}</td>
               <td>
               {{if value.hour_state==1}}

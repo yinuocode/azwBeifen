@@ -1,85 +1,246 @@
 <!-- header -->
 <?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
+<link rel="stylesheet" href="/static/css/course.css">
 <!-- header end -->
-  <section class="section-panel">
+  <section class="section-panel news-panel">
     <div class="panel-body bt0">
-      <div class="crumbs"><a href="/curriculum/course-list">录播课程</a><span> &gt; 课程介绍</span></div>
-      <div class="panel-body-course sub">
-        <div class="course-info clearfix">
-          <div class="lf course-info-left">
-            <a href="javascript:;"><img src="http://image.agodpig.com/20160616/medium20160218_d968438a2434b62ba59dH7q5KEzTS6OH.png" width="450" height="268" alt=""></a>
-          </div>
-          <div class="lf course-info-right">
-            <div class="clearfix">
-              <div class="lf">
-                <div class="title">复健科来得快福建省的开发商的开发大上</div>
-                <div>原价：<span class="price">￥340元</span></div>
-                <div>现价：<span class="now-price">￥30元</span></div>
-                <div class="row">
-                  <a href="javascript:;">立即购买</a>
-                  <a href="javascript:;">点击收藏</a>
-                  <a href="javascript:;">我要咨询</a>
+      <!-- <div class="crumbs"><a href="javascript:history.back(-1)">返回上一级</a><span> &gt; 课程介绍</span></div> -->
+      <div class="panel-body-course sub b0">
+        <div class="course-info clearfix" id="course-info">
+          <script id="courseInfo" type="text/html">
+          {{if type==1}}
+            <div class="lf course-info-left">
+              <a href="javascript:;"><img src="{{detail.coures_cover}}" width="450" height="268" alt=""></a>
+            </div>
+            <div class="rf course-info-right">
+              <div class="clearfix">
+                <div class="lf">
+                  <div class="title">{{detail.coures_title}}</div>
+                  {{if detail.coures_type==1}}
+                  <div class="price original">原价：<strong>￥{{detail.coures_price}}元</strong></div>
+                  <div class="price now">现价：<strong>￥{{detail.privilege_price}}元</strong></div>
+                  {{else}}
+                  <div class="price now"><strong>免费课程</strong></div>
+                  {{/if}}
+                  <div class="row operate" id="operate-status">
+                    {{if status.is_login==1}}
+                    {{if status.buy==1}}
+                    <a href="javascript:;" class="lf">立即观看</a>
+                    {{else}}
+                    <a href="javascript:;" class="lf">立即购买</a>
+                    {{/if}}
+                    {{if status.enshrine==1}}
+                    <a href="javascript:;" class="lf" id="cancel-collect">取消收藏</a>
+                    {{else}}
+                    <a href="javascript:;" class="lf" id="collect">点击收藏</a>
+                    {{/if}}
+                    <a href="javascript:;" class="lf" id="send-letter">我要咨询</a>
+                    {{else}}
+                    <a href="javascript:;" class="lf click-login">立即购买</a>
+                    <a href="javascript:;" class="lf click-login">点击收藏</a>
+                    <a href="javascript:;" class="lf click-login">我要咨询</a>
+                    {{/if}}
+                  </div>
                 </div>
-              </div>
-              <div class="lf">
-                <div class="row">
-                  <div class="lf"><p>观看数</p><p class="data">3422次</p></div>
-                  <div class="lf"><p>评分</p><p class="grade grade5"></p></div>
+                <div class="rf">
+                  <div class="row row1">
+                    <div class="lf row-lf"><p class="data">观看数</p><p>{{detail.watch_num}}次</p></div>
+                    <div class="rf row-rf"><p class="data">评分</p><p class="star-{{detail.score}}"></p></div>
+                  </div>
+                  <div class="row">
+                    <div class="lf row-lf"><p class="data">难度</p><p>{{if detail.difficulty==1}}初级{{else if detail.difficulty==2}}中级{{else}}高级{{/if}}</p></div>
+                    <div class="rf row-rf"><p class="data">课时</p><p>{{detail.hour_num}}课时</p></div>
+                  </div>
+                  <div class="clearfix">
+                    <a href="javascript:;" class="data lf">分享</a>
+                    <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+                  </div>
                 </div>
-                <div class="row">
-                  <div class="lf"><p>难度</p><p class="data">中级</p></div>
-                  <div class="lf"><p>课时</p><p class="data">13课时</p></div>
-                </div>
-                <a href="javascript:;" id="course-share"></a>
               </div>
             </div>
-          </div>
+          {{else}}
+            <div class="lf course-info-left">
+              <a href="javascript:;"><img src="{{detail.live_cover}}" width="450" height="268" alt=""></a>
+            </div>
+            <div class="rf course-info-right">
+              <div class="clearfix">
+                <div class="lf">
+                  <div class="title">{{detail.live_title}}</div>
+                  {{if detail.live_type==1}}
+                  <div class="price original">原价：<strong>￥{{detail.live_price}}元</strong></div>
+                  <div class="price now">现价：<strong>￥{{detail.privilege_price}}元</strong></div>
+                  {{else}}
+                  <div class="price now"><strong>免费课程</strong></div>
+                  {{/if}}
+                  <div class="row operate" id="operate-status">
+                    {{if status.is_login==1}}
+                    {{if status.buy==1}}
+                    <a href="javascript:;" class="lf">立即观看</a>
+                    {{else}}
+                    <a href="javascript:;" class="lf">立即购买</a>
+                    {{/if}}
+                    {{if status.enshrine==1}}
+                    <a href="javascript:;" class="lf" id="cancel-collect">取消收藏</a>
+                    {{else}}
+                    <a href="javascript:;" class="lf" id="collect">点击收藏</a>
+                    {{/if}}
+                    <a href="javascript:;" class="lf" id="send-letter">我要咨询</a>
+                    {{else}}
+                    <a href="javascript:;" class="lf click-login">立即购买</a>
+                    <a href="javascript:;" class="lf click-login">点击收藏</a>
+                    <a href="javascript:;" class="lf click-login">我要咨询</a>
+                    {{/if}}
+                  </div>
+                </div>
+                <div class="rf">
+                  <div class="row row1">
+                    <div class="lf row-lf"><p class="data">观看数</p><p>{{detail.watch_num}}次</p></div>
+                    <div class="rf row-rf"><p class="data">类型</p><p>直播</p></div>
+                  </div>
+                  <div class="row">
+                    <div class="lf row-lf"><p class="data">难度</p><p>{{if detail.difficulty==1}}初级{{else if detail.difficulty==2}}中级{{else}}高级{{/if}}</p></div>
+                    <div class="rf row-rf"><p class="data">课时</p><p>{{detail.hour_num}}课时</p></div>
+                  </div>
+                  <div class="clearfix">
+                    <a href="javascript:;" class="data lf">分享</a>
+                    <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {{/if}}
+          </script>
         </div>
         <div class="course-about clearfix">
           <div class="lf course-about-lf">
-            <div class="head">
+            <h2 class="head clearfix" id="course-about-head">
               <a href="javascript:;" class="active">课程介绍</a>
-              <a href="javascript:;">评价</a>
-            </div>
-            <div class="introduce">
-              伴随着电子商务的极速发展，衍生出诸多的新型业态。从B2B、B2C、C2C、O2O，从阿里系的崛起，到腾讯系的起落，从京东的发展到团购网站的衰落， 一直在围绕着创新、突破、边界！产品也从传统零售商品转向新兴的百货、美妆、直至海外商品！最为直接的问题出现了，人员的短缺及专业化的缺失是现困扰线上 企业的发展的最大障碍！
-            </div>
-            <div class="hour">
-              <div class="hour-h1">本课课时</div>
-              <ul class="hour-list">
-                <li class="clearfix">
-                  <a href="javascript:;">
-                    <span class="lf hour-title"></span>
-                    <span class="lf hour-time"></span>
-                    <span class="lf play-btn"></span>
-                  </a>
+              <a href="javascript:;" class="hide" id="comment-btn">评价</a>
+            </h2>
+            <div class="body" id="course-about-body">
+              <div class="body-item">
+                <div class="introduce" id="course-introduce">
+                  该课程暂无介绍
+                </div>
+                <div class="hour">
+                  <h2 class="head hour-head">本课课时</h2>
+                  <ul class="hour-list">
+                  <script id="hourList" type="text/html">
+                  {{if hour_num==0}}
+                    <div class="no-hour">该课程暂无课时</div>
+                  {{else}}
+                  {{each hour as value i}}
+                    <li class="clearfix">
+                      <a href="{{if is_login==1}}{{if buy==1}}index?cid={{value.coures_id}}&hid={{value.hour_id}}{{else}}购买页{{/if}}{{else}}javascript:;{{/if}}" class="{{if is_login==0}}click-login{{/if}}">
+                        <span class="hour-title {{if value.is_free==1}}free{{/if}}">{{value.hour_title}}</span>
+                        <span class="rf hour-time">{{value.video_time}}</span>
+                      </a>
+                    </li>
+                  {{/each}}
+                  {{/if}}
+                  </script>
+                  </ul>
+                </div>
+              </div>
+              <div class="body-item hide">
+                <ul class="comment-list">
+                <script id="commentList" type="text/html">
+                {{if comment_sum==0}}
+                <li class="no-comment">该课程暂无评论</li>
+                {{else}}
+                {{each comment as value i}}
+                <li class="clearfix review-item">
+                  <div class="user lf">
+                    <a href="/user/64{{value.user_id}}">
+                      <span class="avatar"><img src="{{value.portrait}}" width="100" height="100" alt=""></span>
+                      <p>{{value.nick_name}}</p>
+                      <p><img src="{{value.grade_image}}" width="22" height="22" alt=""></p>
+                    </a>
+                  </div>
+                  <div class="comment-content clearfix">
+                    <div class="score">
+                      <span class="star-{{value.score}}"></span>
+                    </div>
+                    <p>{{value.content}}</p>
+                    <div class="date">{{value.create_date}}</div>
+                  </div>
                 </li>
-              </ul>
+                {{/each}}
+                {{/if}}
+                </script>
+                </ul>
+              </div>
             </div>
           </div>
-          <div class="lf course-about-rf">
-            <h2>讲师简介</h2>
-            <div class="row">
-              <div class="lf"><img src="http://placehold.it/100x100" alt=""></div>
-              <div class="lf"><p class="name">阮帅</p><p>萝卜网讲师</p></div>
+          <div class="rf course-about-rf">
+            <div class="module">
+              <h2 class="head">讲师简介</h2>
+              <div class="body" id="lecturer-module">
+              <script id="lecturerModule" type="text/html">
+                <div class="row">
+                  <div class="lf avatar"><a href="{{user_id}}"><img src="{{portrait}}" width="100" height="100" alt=""></a></div>
+                  <div class="lf name"><p><img src="{{grade}}" class="grade" width="22" height="22" alt="">{{username}}</p><p>昵称：{{nick_name}}</p></div>
+                </div>
+                <div class="lecturer-info">
+                  {{if introduce==''}}
+                  暂无介绍
+                  {{else}}
+                  {{introduce}}
+                  {{/if}}
+                </div>
+              </script>
+              </div>
             </div>
-            <div class="lecturer-info">
-              曾任国美在线电子商务有限公司总监、红孩子集团缤购营销总经理、北京物美商业集团采购中心。十六年零售业经验，由传统零售进入电子商务。由采购买手转为营销、运营、网站管理。具备大型企业十年专业采购经历.有较强的执行力及商品营销、商品规划、组织能力。
+            <div class="module">
+              <h2 class="head">课程公告</h2>
+              <div class="body">
+                <div class="nr" id="course-notice">暂无课程公告</div>
+              </div>
             </div>
-            <h2>课程公告</h2>
-            <div class="nr">暂无课时公告</div>
           </div>
         </div>
       </div>
     </div>
   </section>
-  <!-- 添加课时 -->
-  <div class="popup hide" id="add-hour-popup">
+  <!-- 发送私信 -->
+  <div class="popup hide" id="letter-popup">
     <div class="popup-modal">
       <div class="popup-header">
-        <h1>添加课时</h1>
+        <h1>发送私信</h1>
         <button type="button" class="popup-close"></button>
       </div>
       <div class="popup-body">
-        <form method="post" id="add-hour-form" class="popup-form cmxform">
-          <d
+        <form method="post" id="letter-form" class="popup-form cmxform">
+          <div class="form-group">
+            <label class="control-label">标题</label>
+            <div class="form-controls">
+              <input type="text" class="form-input" name="title" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">内容</label>
+            <div class="form-controls">
+              <textarea name="content" id="" class="form-textarea" required></textarea>
+            </div>
+          </div>
+          <input type="hidden" value="" name="user_id" id="user-id">
+          <div class="form-group">
+            <div class="form-submit">
+              <button type="submit" class="button-submit">确认</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="popup-bg"></div>
+  </div>
+  <!-- footer -->
+  <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
+  <!-- footer end -->
+  <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
+  <script src="/static/js/plugins/validate/messages_zh.js"></script>
+  <script>
+    seajs.use('/static/js/course/course_info.js');
+  </script>
+</body>
+</html>

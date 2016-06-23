@@ -79,7 +79,7 @@ define(function(require,exports,module){
             if(data){
               console.log(data);
               alert("操作成功");
-              window.location.href='/coures/teaching';
+              window.location.href='/myteach/teaching';
             }else{
               alert(data);
             }

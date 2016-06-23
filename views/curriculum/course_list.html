@@ -35,13 +35,13 @@
         <script id="directCourse" type="text/html">
         {{each list as value i}}
           <li>
-            <a href="/couresdetail?cid={{value.coures_id}}" target="_blank">
+            <a href="/couresdetail?cid={{value.coures_id}}&type=1" target="_blank">
               <img src="{{value.coures_cover}}" alt="">
               <span class="full"><b>抓紧学习</b></span>
             </a>
             <div class="course-price">{{if value.coures_type==1}}￥{{value.privilege_price}}&nbsp;&nbsp;&nbsp;<span class="cost">原价：￥{{value.coures_price}}</span>{{else}}￥免费{{/if}}</div>
             <div class="row">
-              <p class="course-title"><a href="/couresdetail?cid={{value.coures_id}}" target="_blank">{{value.coures_title}}</a></p>
+              <p class="course-title"><a href="/couresdetail?cid={{value.coures_id}}&type=1" target="_blank">{{value.coures_title}}</a></p>
               <!-- <a href="javascript:;" class="rf letter-item" data-uid="{{value.user_id}}">私信</a> -->
             </div>
             <div class="clearfix">

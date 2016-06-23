@@ -33,17 +33,22 @@ define(function(require,exports,module){
   });
   // 选择操作目标
   $('#table-course-list').on('click','#controlAll',function(){
-    var checklist = document.getElementsByName('selected');
-    var len=checklist.length;
-    if(document.getElementById('controlAll').checked){
-      for(var i=0;i<len;i++){
-        checklist[i].checked = 1;
-      }
+    if($(this).prop('checked')){
+      $('#table-course-list').find('input:checkbox').prop('checked',true);
     }else{
-      for(var j=0;j<len;j++){
-        checklist[j].checked = 0;
-      }
+      $('#table-course-list').find('input:checkbox').prop('checked',false);
     }
+    // var checklist = document.getElementsByName('selected');
+    // var len=checklist.length;
+    // if(document.getElementById('controlAll').checked){
+    //   for(var i=0;i<len;i++){
+    //     checklist[i].checked = 1;
+    //   }
+    // }else{
+    //   for(var j=0;j<len;j++){
+    //     checklist[j].checked = 0;
+    //   }
+    // }
   });
   // 直播选择
   $('.select-type').on('click','#live-pitch',function(){
