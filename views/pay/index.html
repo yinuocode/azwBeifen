@@ -1,0 +1,103 @@
+<!-- header -->
+<?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
+<link rel="stylesheet" href="/static/css/pay.css">
+<!-- header end -->
+  <section class="section-panel news-panel">
+    <div class="panel-body bt0">
+      <!-- <div class="crumbs"><a href="javascript:history.back(-1)">返回上一级</a><span> &gt; 课程介绍</span></div> -->
+      <div class="panel-body-course sub b0">
+        <div class="order-pay">
+          <div class="order-pay-body">
+          <script id="orderPayBody" type="text/html">
+            <div class="order-detail-bg checkout" style="border:none">
+              <div class="order-detail  clearfix">
+                <div class="order-img hidden-xs">
+                  <a href="/couresdetail?cid={{cid}}&type={{type}}">
+                    <img class="img-responsive" src="{{coures}}" alt="收费">
+                  </a>
+                </div>
+                <div class="order-info">
+                  <p>订单名称：{{title}}</p>
+                  <!-- <p>订单号：C2016040612022335990</p> -->
+                  <p>订单价格：<span class="pay-rmb">￥{{pay_amount}}</span></p>
+                  <p>账户余额：<span class="pay-rmb">￥{{deposit}}</span></p>
+                  <select name="" id="select-coupon" class="select-coupon">
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="es-piece">
+              <div class="piece-header">支付方式</div>
+            </div>
+            <form class="form-paytype" method="post" action="/pay/site-pay?cid={{cid}}&type={{type}}&order={{order}}">
+              <div class="form-group order-detail-bg">
+                <div class="check active" id="site-pay" data-url="/pay/site-pay?cid={{cid}}&type={{type}}&order={{order}}">
+                  <img src="/static/img/site-pay.png?6.14.2">
+                  <span class="icon"></span>
+                </div>
+                <div class="check" id="alipay" data-url="/pay/alipay">
+                  <img src="/static/img/alipay.png?6.14.2">
+                  <span class="icon"></span>
+                </div>
+                <div class="check" id="wxpay" data-url="/pay/wechat-pay">
+                  <img src="/static/img/wxpay.png?6.14.2">
+                  <span class="icon"></span>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="total-price">
+                  应付金额：
+                  <span role="pay-rmb" class="pay-rmb">￥<span id="deal-money">{{pay_amount}}</span></span>
+                </div>
+              </div>
+              <input type="hidden" name="cpid" id="coupon-id" value="">
+              <input type="hidden" name="title" value="{{title}}">
+              <input type="hidden" name="order" value="{{order}}">
+              <input type="hidden" name="paymoney" id="deal-money-input" value="{{pay_amount}}">
+              <div class="form-group text-right">
+                <a href="javascript:history.back(-1)" class="">取消</a>
+                <button class="btn submit-pay" type="button" id="submit-buy">确认支付</button>
+              </div>
+            </form>
+          </script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- 支付弹窗 -->
+  <div class="popup hide" id="pay-popup">
+    <div class="popup-modal">
+      <div class="popup-header">
+        <h1>支付遇到问题</h1>
+        <button type="button" class="popup-close"></button>
+      </div>
+      <div class="popup-body">
+        <p class="popup-alert">你的账户余额不足，请充值或者选择其他方式付款</p>
+        <div class="clearfix popup-item">
+          <a href="javascript:;" class="lf btn">立即充值</a>
+          <a href="javascript:;" class="rf btn p-close">其他方式</a>
+        </div>
+      </div>
+    </div>
+    <div class="popup-bg"></div>
+  </div>
+  <!-- 优惠卷 -->
+  <script id="selectCoupon" type="text/html">
+    {{if list.length}}
+    <option value="">不使用优惠券</option>
+    {{each list as value i}}
+    <option value="{{value.cnum_id}}" data-price="{{value.coupon_money}}">{{value.coupon_money}}元优惠券 {{value.coupon_info}}</option>
+    {{/each}}
+    {{else}}
+    <option>暂无可用优惠劵</option>
+    {{/if}}
+  </script>
+  <!-- footer -->
+  <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
+  <!-- footer end -->
+  <script>
+    seajs.use('/static/js/pay/pay.js');
+  </script>
+</body>
+</html>

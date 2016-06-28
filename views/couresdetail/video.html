@@ -1,193 +1,318 @@
-<!-- header -->
-<?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
-<!-- header end -->
-  <section class="section-panel">
-    <header class="panel-heading clearfix">
-      <a href="/coures/direct">创建直播</a>
-      <a href="/coures/course">创建录播</a>
-      <a href="/myteach/teaching" class="active">我的教学</a>
-      <a href="/coures/study">我的学习</a>
-      <a href="/coures/note">我的笔记</a>
-      <a href="/coures/manage">学员管理</a>
-      <a href="my_datum.html" class="mydatum-btn">我的资料库</a>
-    </header>
-    <div class="panel-body">
-      <div class="crumbs"><a href="teaching">我的教学</a><span> &gt; 课时管理</span></div>
-      <div class="panel-body-course sub">
-        <div class="select-type clearfix">
-          <div class="lf">
-            <a href="javascript:;" class="handle-icon triangle" id="handle-course" data-val="1">我的课时</a>
-            <ul class="select-items">
-              <li><a href="javascript:;" data-arg="1">我的课时</a></li>
-              <li><a href="javascript:;" data-arg="2">我的资料</a></li>
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="zh-cmn-Hans" class="no-js">
+<!--<![endif]-->
+<head>
+  <meta charset="UTF-8">
+  <title>阿猪网首页</title>
+  <meta name="Keywords" content="阿猪网首页">
+  <meta name="Description" content="阿猪网首页">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="/static/css/rely/reset.css">
+  <!-- <link rel="stylesheet" href="/static/js/plugins/slick/slick.css"> -->
+  <!-- <link rel="stylesheet" href="/static/css/base.css"> -->
+  <!-- 让低版本ie浏览器更好的兼容 -->
+  <!--[if lt IE 7]>
+    <script>
+      window.location.href="http://cdn.dmeng.net/upgrade-your-browser.html?referrer="+location.href;
+    </script>
+  <![endif]-->
+  <!-- 兼容ie8以下的盒模型 -->
+  <!--[if lt IE 8]>
+    <style>
+      *{*behavior: url(/static/css/rely/boxsizing.htc);}
+    </style>
+  <![endif]-->
+  <!-- 让低版本 ie 兼容 html5 新标签 -->
+  <!--[if lt IE 9]>
+    <script src="/static/js/polyfills/html5shiv.min.js"></script>
+    <script src="/static/css/video_files/respond.min.js?6.17.0"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="/static/css/video.css">
+</head>
+<body>
+  <div class="lesson-dashboard">
+    <div class="dashboard-content">
+      <a class="btn btn-primary nav-btn back-course-btn" href="javascript:;" id="current-course"><span class="glyphicon glyphicon-chevron-left"></span> 返回课程</a>
+    <!--   <a class="btn btn-primary nav-btn prev-lesson-btn" href="javascript:" title=""><span class="glyphicon glyphicon-chevron-up" title="上一课时"></span></a>
+      <a class="btn btn-primary nav-btn next-lesson-btn" href="javascript:" title=""><span class="glyphicon glyphicon-chevron-down"></span></a> -->
+      <div class="course-pay-title">
+        <p id="hour-title"></p>
+      </div>
+      <div class="dashboard-body">
+        <div class="lesson-content" id="lesson-video-content">
+          <iframe src="http://agodpig.com/course/26/lesson/66/player" name="viewerIframe" id="viewerIframe" width="100%" allowfullscreen="" webkitallowfullscreen="" height="100%" style="border:0px">
+          </iframe>
+        </div>
+        <div class="watermarkEmbedded"><input type="hidden" id="videoWatermarkEmbedded" value="0"></div>
+        <div class="lesson-content lesson-content-audio" id="lesson-audio-content" ></div>
+        <div class="lesson-content" id="lesson-swf-content"></div>
+        <div class="lesson-content" id="lesson-iframe-content"></div>
+        <div class="lesson-content lesson-content-text" id="lesson-text-content">
+          <div class="lesson-content-text-body"></div>
+        </div>
+        <div class="lesson-content lesson-content-document" id="lesson-document-content">
+          <div class="lesson-content-document-body"></div>
+        </div>
+        <div class="lesson-content lesson-content-text" id="lesson-live-content">
+          <div class="lesson-content-text-body"></div>
+        </div>
+        <div class="lesson-content lesson-content-text" id="lesson-unpublished-content">
+          <div class="lesson-content-text-body">当前课时正在编辑中，暂时无法观看。</div>
+        </div>
+        <div class="lesson-content lesson-content-text" id="lesson-testpaper-content">
+          <div class="lesson-content-text-body"></div>
+        </div>
+        <div class="lesson-content lesson-content-text" id="lesson-ppt-content">
+          <div class="lesson-content-text-body"></div>
+        </div>
+      </div>
+  <!--     <div class="dashboard-footer clearfix">
+        <div class="rf">
+          <button class="btn btn-primary finish-btn"><span class="glyphicon glyphicon-unchecked"></span> 学过了</button>
+        </div>
+      </div> -->
+    </div>
+    <div class="course-data">
+      <div class="course-data-title" id="course-data-title"></div>
+      <div class="course-data-row clearfix" id="course-type-video">
+        <div class="lf">评分：</div><div class="lf star-5" id="grade-star"></div>
+      </div>
+      <div  class="course-data-row">
+        <div class="teacher" id="aeaoofnhgocdbnbeljkmbjdmhbcokfdb-mousedown">
+          讲师：<span id="teacher-name"></span>
+        </div>
+      </div>
+    </div>
+    <div class="toolbar toolbar-open" id="lesson-dashboard-toolbar">
+      <div class="toolbar-nav">
+        <ul class="toolbar-nav-stacked" id="lesson-toolbar-primary">
+          <li class="active">
+            <a href="javascript:;"><span class="glyphicon glyphicon-th-list"> </span>目录</a>
+          </li>
+          <li>
+            <a href="javascript:;"><span class="glyphicon glyphicon-question-sign"> </span>问答</a>
+          </li>
+          <li>
+            <a href="javascript:;"><span class="glyphicon es-icon glyphicon-comment"> </span>评论</a>
+          </li>
+          <li>
+            <a href="javascript:;"><span class="glyphicon glyphicon-edit"> </span>笔记</a>
+          </li>
+          <li>
+            <a href="javascript:;"><span class="glyphicon glyphicon-download-alt text-success"><span class="badge">1</span></span>资料</a>
+          </li>
+        </ul>
+        <ul class="list-unstyled">
+          <li class="es-qrcode toolbar-qrcode">
+            <i class="es-icon es-icon-qrcode"></i><br>
+            扫一扫
+            <span class="qrcode-popover">
+              <img src="" alt="">
+              扫二维码继续学习
+            </span>
+          </li>
+        </ul>
+        <ul class="toolbar-nav-stacked" id="lesson-toolbar-secondary">
+          <li class="hide-pane" style="">
+            <a href="javascript:"><span class="glyphicon glyphicon-chevron-right"></span></a>
+          </li>
+        </ul>
+      </div>
+      <div class="toolbar-pane-container">
+        <div class="lesson-pane">
+          <div class="course-item-list-in-toolbar-pane ps-container show">
+            <ul class="period-list" id="hour-item-list">
+            <script id="hourItemList" type="text/html">
+            {{each hour as value i}}
+              <li class="period lesson-item lesson-item-66" data-hid={{value.hour_id}}>
+                <a href="/couresdetail/video?cid={{cid}}&type={{type}}&hid={{value.hour_id}}" title="如何更好的使用阿猪网学习">
+                  <i class="es-icon es-icon-doing color-primary status-icon"></i>
+                  <span class="title">   课时{{i+1}}：{{value.hour_title}}</span>
+                  <!-- <i class="es-icon es-icon-filedownload mls" title="资料"></i> -->
+                  <span class="date" title="视频时长{{value.video_time}}">{{value.video_time}}</span>
+              <!--     <span class="course-type">
+                    <i class="es-icon es-icon-videoclass"></i>
+                  </span> -->
+                </a>
+              </li>
+            {{/each}}
+            </script>
             </ul>
           </div>
-          <div class="rf"><a href="javascript:;" class="handle-icon delete" id="handle-delete">删除</a></div>
-          <div class="rf"><a href="javascript:;" class="handle-icon add" id="add-data">添加资料</a></div>
-          <div class="rf"><a href="javascript:;" class="handle-icon add" id="add-hour">添加课时</a></div>
+          <div class="course-item-list-in-toolbar-pane ps-container">
+            <form id="faq-form" class="pd10 cmxform" method="post">
+              <div class="form-group">
+                <label for="form-faq-title"></label>
+                <div class="form-controls">
+                  <input type="text" name="CouresAnswers[title]" id="form-faq-title" class="form-input" value="" placeholder="我要提问" required maxlength="50">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-controls">
+                  <textarea name="CouresAnswers[content]" rows="4" class="form-richtext" class="form-textarea"></textarea>
+                </div>
+              </div>
+              <input type="hidden" name="CouresAnswers[hour_id]" value="" class="hid">
+              <div class="form-group">
+                <div class="form-submit">
+                  <!-- <a href="javascript:;" id="reset">取消</a> -->
+                  <button type="submit" class="button-submit">提交</button>
+                </div>
+              </div>
+            </form>
+            <ul class="faq-list">
+              <li>
+                <h2><a href="javascript:;" class="faq-title">随便输入点啥东西呢</a></h2>
+                <div class="metas" id="aeaoofnhgocdbnbeljkmbjdmhbcokfdb-mousedown">
+                  <a class="link-dark lf" href="/user/1064">ZHUXIao</a>
+                  &nbsp;发表于 1小时前
+                  <span class="bullet">&nbsp;•&nbsp;</span>
+                  <a href="javascript:;">0回答</a>
+                </div>
+              </li>
+            </ul>
+            <div class="lesson-plugin-pane lesson-question-plugin-pane">
+              <div class="lesson-question-plugin-pane-header clearfix">
+                <button type="button" class="btn btn-default back-to-list" id="faq-back">返回</button>
+                <h4 id="aeaoofnhgocdbnbeljkmbjdmhbcokfdb-mousedown">财富<i>问...</i></h4>
+              </div>
+              <div class="lesson-question-plugin-pane-thread">
+                <h5><a href="/course/29/thread/1" target="_blank">怎样加微信？</a></h5>
+                <div class="lesson-question-plugin-pane-thread-content editor-text">
+                  <p>怎样加微信陌生好友啊？
+                    <img alt="smiley" height="23" src="http://agodpig.com/assets/libs/ckeditor/4.6.7/plugins/smiley/images/regular_smile.png" title="smiley" width="23">
+                  </p>
+                  <p>搜索添加</p>
+                </div>
+              </div>
+              <div class="lesson-question-plugin-pane-posts">
+                <div class="posts-header">
+                  <h5><span data-role="post-number">3</span> 回答</h5>
+                </div>
+              </div>
+              <ul data-role="post-list" class="posts">
+                <li class="post-item">
+                  <div class="post-item-heading clearfix">
+                    <img src="/files/default/2015/10-23/171332ce3c75531663.png?6.17.0" class="avatar">
+                    <div class="infos">
+                      <div class="nickname">
+                        <a href="/user/404" class="nickname">财富</a>
+                        <span class="teacher-flag">老师</span>
+                      </div>
+                      <div class="time">04-30</div>
+                    </div>
+                  </div>
+                  <div class="post-item-body">
+                    <p><span style="color:rgb(97,97,97);">搜索手机号，QQ号，微信号添加</span></p>
+                  </div>
+                </li>
+              </ul>
+              <form class="post-form" method="post" action="">
+                <div class="form-group">
+                  <div class="controls">
+                    <textarea id="post_content" name="post[content]" required="required" class="form-control" rows="4" data-display="内容" data-widget-cid="widget-12" data-explain=""></textarea>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="controls clearfix">
+                    <button type="submit" class="btn btn-primary rf">添加答案</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="course-item-list-in-toolbar-pane ps-container">
+            <form id="comment-form" class="pd10 cmxform" method="post">
+              <div class="form-group">
+                <div class="form-controls">
+                  <div class="star-5" id="star-con"></div>
+                  <div>
+                    <div class="star star5" data-i="5"></div>
+                    <div class="star star4" data-i="4"></div>
+                    <div class="star star3" data-i="3"></div>
+                    <div class="star star2" data-i="2"></div>
+                    <div class="star star1" data-i="1"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-controls">
+                  <textarea name="CouresAnswers[content]" rows="4" id="form-comment-nr" class="form-textarea"></textarea>
+                </div>
+              </div>
+              <input type="hidden" name="star" id="star-val" value="5">
+              <div class="form-group">
+                <div class="form-submit">
+                  <!-- <a href="javascript:;" id="reset">取消</a> -->
+                  <button type="submit" class="button-submit">提交</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="course-item-list-in-toolbar-pane ps-container">
+            <form id="note-form" class="pd10 cmxform" method="post">
+              <div class="form-group">
+                <div class="form-controls">
+                  <textarea name="CouresAnswers[content]" rows="4" class="form-richtext" class="form-textarea"></textarea>
+                </div>
+              </div>
+              <input type="hidden" name="CouresAnswers[hour_id]" value="" class="hid">
+              <div class="form-group">
+                <div class="form-submit">
+                  <!-- <a href="javascript:;" id="reset">取消</a> -->
+                  <button type="submit" class="button-submit">保存笔记</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="course-item-list-in-toolbar-pane ps-container">
+            <ul class="period-list" id="data-item-list">
+              <li class="period lesson-item lesson-item-66 item-active">
+                <a href="http://agodpig.com/course/26/learn#lesson/66" title="如何更好的使用阿猪网学习">
+                  <span class="title">   课时1：如何更好的使用阿猪网学习</span>
+                  <i class="es-icon es-icon-filedownload mls" title="资料"></i>
+                  <span class="date" title="视频时长29:41">29:41</span>
+                </a>
+              </li>
+              <li class="period lesson-item lesson-item-66">
+                <a href="http://agodpig.com/course/26/learn#lesson/66" title="如何更好的使用阿猪网学习">
+                  <span class="title">   课时1：如何更好的使用阿猪网学习</span>
+                  <i class="es-icon es-icon-filedownload mls" title="资料"></i>
+                  <span class="date" title="视频时长29:41">29:41</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
-        <table class="table-course hour" id="table-course-list">
-        <script id="tableCourseList" type="text/html">
-          <tbody>
-          {{if type==1}}
-            <tr>
-              <th class="th1"><input type="checkbox" name="controlAll" id="controlAll"><label for="controlAll">全选</label></th>
-              <th class="th2">课时名称</th>
-              <th class="th3">课时长度</th>
-              <th class="th3">操作</th>
-            </tr>
-            {{each data as value i}}
-            <tr>
-              <td><input type="checkbox" name="selected" data-type="{{type}}" value="{{value.hour_id}}"></td>
-              <td class="td2"><a href="/broadcasting?cid={{value.hour_id}}" {{if value.is_free==1}}class="free"{{/if}}target="_blank">{{value.hour_title}}</a></td>
-              <td>{{value.video_time}}</td>
-              <td>
-              {{if value.hour_state==1}}
-                <a href="javascript:;" id="cancel-issue" data-hid="{{value.hour_id}}">取消发布</a>
-              {{else}}
-                <a href="javascript:;" id="issue" data-hid="{{value.hour_id}}">现在发布</a>
-              {{/if}}
-              </td>
-            </tr>
-            {{/each}}
-          {{else}}
-            <tr>
-              <th class="th1"><input type="checkbox" name="controlAll" id="controlAll"><label for="controlAll">全选</label></th>
-              <th class="th2">资料名称</th>
-              <th class="th3">下载次数</th>
-            </tr>
-            {{each data as value i}}
-            <tr>
-              <td><input type="checkbox" name="selected" data-type="{{type}}" value="{{value.datum_id}}"></td>
-              <td class="td2"><a href="/broadcasting?cid={{value.datum_id}}" target="_blank">{{value.datum_title}}</a></td>
-              <td>{{value.downloads}}</td>
-            </tr>
-            {{/each}}
-          {{/if}}
-          </tbody>
-        </script>
-        </table>
-        <div class="ajax-paging">
-          <div class="clearfix">
-            <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
-            <a href="javascript:;" id="paging-next" class="handle-icon right-arrows active"></a>
-          </div>
-        </div>
       </div>
     </div>
-  </section>
-  <!-- 添加课时 -->
-  <div class="popup hide" id="add-hour-popup">
-    <div class="popup-modal">
-      <div class="popup-header">
-        <h1>添加课时</h1>
-        <button type="button" class="popup-close"></button>
-      </div>
-      <div class="popup-body">
-        <form method="post" id="add-hour-form" class="popup-form cmxform">
-          <div class="form-group">
-            <label class="control-label">课时标题</label>
-            <div class="form-controls">
-              <input type="text" class="form-input" name="ClassHour[hour_title]" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label">课时简介</label>
-            <div class="form-controls">
-              <textarea name="ClassHour[hour_brief]" class="form-textarea"></textarea>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label">课程类型</label>
-            <div class="form-controls">
-              <div id="form-radio">
-                <input type="radio" id="course-type0" name="ClassHour[is_free]" value="0" checked>
-                <label for="course-type0">收费</label>
-                <input type="radio" id="course-type1" name="ClassHour[is_free]" value="1">
-                <label for="course-type1">免费</label>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label">发布状态</label>
-            <div class="form-controls">
-              <div id="form-radio">
-                <input type="radio" id="course-state0" name="ClassHour[hour_state]" value="1" checked>
-                <label for="course-state0">开启</label>
-                <input type="radio" id="course-state1" name="ClassHour[hour_state]" value="0">
-                <label for="course-state1">关闭</label>
-              </div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label">上传课时</label>
-            <div class="form-controls">
-              <div id="uploader-hour">
-                <div id="fileList1" class="uploader-list"></div>
-                <div id="filePicker1" class="choose_img choose_hour">上传课时</div>
-                <input type="text" name="ClassHour[video_address]" class="file-path" id="hour-path" value="" required>
-              </div>
-              <p class="hot f14">请上传mp4格式文件</p>
-            </div>
-          </div>
-          <input type="hidden" class="form-input" name="date" id="hour-date" value="">
-          <input type="hidden" class="form-input" name="fname" id="hour-fname" value="">
-          <input type="hidden" class="form-input course-id" name="ClassHour[coures_id]" value="">
-          <div class="form-group">
-            <div class="form-submit">
-              <button type="submit" class="button-submit">确认</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="popup-bg"></div>
   </div>
-  <!-- 添加资料 -->
-  <div class="popup hide" id="add-data-popup">
-    <div class="popup-modal">
-      <div class="popup-header">
-        <h1>添加资料</h1>
-        <button type="button" class="popup-close"></button>
-      </div>
-      <div class="popup-body">
-        <form method="post" id="add-data-form" class="popup-form cmxform">
-          <div class="form-group">
-            <label class="control-label">资料标题</label>
-            <div class="form-controls">
-              <input type="text" class="form-input" name="CouresDatum[datum_title]" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label">上传资料</label>
-            <div class="form-controls">
-              <div id="uploader-data">
-                <div id="fileList2" class="uploader-list"></div>
-                <div id="filePicker2" class="choose_img">上传资料</div>
-                <input type="text" name="CouresDatum[datum_address]" id="data-path" class="file-path" value="" required>
-              </div>
-              <p class="hot f14">请上传压缩包格式文件</p>
-            </div>
-          </div>
-          <input type="hidden" class="form-input course-id" name="CouresDatum[coures_id]" value="">
-          <div class="form-group">
-            <div class="form-submit">
-              <button type="submit" class="button-submit">确认</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="popup-bg"></div>
-  </div>
-  <!-- footer -->
-  <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
-  <!-- footer end -->
+  <!-- js -->
+  <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="/static/js/lib/jquery-1.9.1.min.js"><\/script>')</script>
+  <script src="/static/js/lib/template.js"></script>
+  <script src="/static/js/lib/sea.js" id="seajsnode"></script>
   <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
   <script src="/static/js/plugins/validate/messages_zh.js"></script>
-  <script src="/static/js/plugins/webupload/webuploader.js"></script>
+  <script src="/static/js/plugins/kindeditor/kindeditor-min.js?v=2"></script>
   <script>
-    seajs.use('/static/js/course/hour.js');
+    // seajs
+    seajs.config({
+      alias: {
+        'modernizr': '/static/js/polyfills/modernizr.min',
+        'common' : '/static/js/common.js',
+        'slick': '/static/js/plugins/slick/slick.min',
+        'main' : '/static/js/main.js',
+        'index' : '/static/js/index.js'
+      }
+    });
+    seajs.use('/static/js/video/video.js');
   </script>
 </body>
 </html>

@@ -101,6 +101,25 @@ define(function(require,exports,module){
       });
     }
   });
+  // 点击购买课程
+  $('.panel-body').on('click','#course-buy',function(){
+    var _this=$(this);
+    var cid=getVal.cid;
+    var type=getVal.type;
+    var title=_this.attr('data-title');
+    getVal.title=title;
+    main.postAjaxDatas('/pay/add-order',getVal,function(datas){
+      if(datas.status==1){
+        window.location.href='pay?cid='+cid+'&type='+type+'&order='+datas.order;
+      }else{
+        alert(datas.msg);
+      }
+    });
+  });
+  // 尚未购买提示
+  $('.panel-body').on('click','.no-buy ',function(){
+    $('#no-buy-popup').removeClass('hide');
+  });
   // 点击收藏
   $('.panel-body').on('click','#collect',function(){
     var _this=$(this);

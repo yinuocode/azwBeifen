@@ -78,7 +78,7 @@
   </section>
   <!-- 添加课时 -->
   <div class="popup hide" id="add-hour-popup">
-    <div class="popup-modal">
+    <div class="popup-modal ab">
       <div class="popup-header">
         <h1>添加课时</h1>
         <button type="button" class="popup-close"></button>
@@ -97,14 +97,14 @@
               <textarea name="ClassHour[hour_brief]" class="form-textarea"></textarea>
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group" id="course-type">
             <label class="control-label">课程类型</label>
             <div class="form-controls">
               <div id="form-radio">
-                <input type="radio" id="course-type0" name="ClassHour[is_free]" value="0" checked>
-                <label for="course-type0">收费</label>
-                <input type="radio" id="course-type1" name="ClassHour[is_free]" value="1">
+                <input type="radio" id="course-type1" name="ClassHour[is_free]" value="1" checked>
                 <label for="course-type1">免费</label>
+                <input type="radio" id="course-type0" name="ClassHour[is_free]" value="0">
+                <label for="course-type0">收费</label>
               </div>
             </div>
           </div>

@@ -1,0 +1,56 @@
+<!-- header -->
+<?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
+<link rel="stylesheet" href="/static/css/pay.css">
+<!-- header end -->
+  <section class="section-panel news-panel">
+    <div class="panel-body bt0">
+      <!-- <div class="crumbs"><a href="javascript:history.back(-1)">返回上一级</a><span> &gt; 课程介绍</span></div> -->
+      <div class="panel-body-course sub b0">
+        <div class="order-pay">
+          <div class="order-pay-body">
+            <div class="alert alert-success alert-dismissible">
+              <button type="button" class="pay-close"><span>×</span></button>
+              订单已提交，请在４８小时内完成支付！逾期订单将被取消。
+            </div>
+            <div class="pay-qrcode-body clearfix">
+              <form id="site-pay-form" class="w600 cmxform" method="post">
+                <div class="form-group">
+                  <label for="profile-mobile" class="control-label">手机号码</label>
+                  <div class="form-controls clearfix">
+                    <input type="text" id="profile-mobile" class="form-input" value="" name="UserDetail[phone]" placeholder="请输入手机号" required ismobile="true">
+                    <button type="button" class="btn input-btn" id="get-code">获取验证码</button>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="verify-code" class="control-label">验证码</label>
+                  <div class="form-controls">
+                    <input type="text" id="verify-code" class="form-input" value="" name="UserDetail" disabled maxlength="4" minlength="4" required number="true">
+                  </div>
+                </div>
+                <input type="hidden" name="order" id="order-id">
+                <div class="form-group">
+                  <div class="form-submit">
+                    <button type="submit" class="button-submit">确认支付</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="pay-qrcode-footer">
+              <a href="javascript:history.back(-1)" class="mrl"><i class="es-icon es-icon-arrowback mrs"></i>选择其他支付方式</a>
+               <!-- 应付金额：<span class="pay-rmb">¥365.00</span> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- footer -->
+  <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
+  <!-- footer end -->
+  <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
+  <script src="/static/js/plugins/validate/messages_zh.js"></script>
+  <script>
+    seajs.use('/static/js/pay/site_pay.js');
+  </script>
+</body>
+</html>

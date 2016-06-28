@@ -62,7 +62,7 @@
               <td><a href="/couresdetail?cid={{value.coures_id}}&type=1" target="_blank">{{value.coures_title}}</a></td>
               <td><img src="{{value.coures_cover}}" alt=""></td>
               <td>{{value.num}}</td>
-              <td>{{value.privilege_price}}</td>
+              <td>{{if value.coures_type==1}}{{value.privilege_price}}{{else}}免费{{/if}}</td>
               <!-- <td>已发布</td> -->
               <td>{{value.ctime}}</td>
               <td class="handle">
@@ -79,7 +79,7 @@
               <td><a href="/couresdetail?cid={{value.live_id}}&type=0" target="_blank">{{value.live_title}}</a></td>
               <td><img src="{{value.live_cover}}" alt=""></td>
               <td>{{value.num}}</td>
-              <td>{{value.privilege_price}}</td>
+              <td>{{if value.live_type==1}}{{value.privilege_price}}{{else}}免费{{/if}}</td>
               <!-- <td>已发布</td> -->
               <td>{{value.ctime}}</td>
               <td class="handle">
@@ -96,7 +96,7 @@
               <td><a href="/directdetail?cid={{value.live_id}}&type=0" target="_blank">{{value.live_title}}</a></td>
               <td><img src="{{value.live_cover}}" alt=""></td>
               <td>{{value.num}}</td>
-              <td>{{value.privilege_price}}</td>
+              <td>{{if value.live_type==1}}{{value.privilege_price}}{{else}}免费{{/if}}</td>
               <!-- <td>已发布</td> -->
               <td>{{value.ctime}}</td>
               <td class="handle">

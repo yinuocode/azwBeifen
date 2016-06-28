@@ -1,12 +1,4 @@
 /*课程介绍页*/
-.panel-body-course.b0{
-  border:0;
-  background: #f7f7f7;
-}
-.section-panel.news-panel{
-  background: #f7f7f7;
-  color: #444;
-}
 .course-info{
   margin-bottom:20px;
   height: 268px;
@@ -91,29 +83,6 @@
 }
 .course-about-rf{
   width:340px;
-}
-.star-0, .star-1, .star-2, .star-3, .star-4, .star-5 {
-  display: inline-block;
-  overflow: hidden;
-  width: 80px;
-  height: 16px;
-  background: url(../img/stars.png) no-repeat;
-  vertical-align: middle;
-}
-.star-4 {
-  background-position: 0 -16px;
-}
-.star-3 {
-  background-position: 0 -32px;
-}
-.star-2 {
-  background-position: 0 -48px;
-}
-.star-1 {
-  background-position: 0 -64px;
-}
-.star-0 {
-  background-position: 0 -80px;
 }
 /*下半部分*/
 .course-about{

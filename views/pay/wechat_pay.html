@@ -1,0 +1,44 @@
+<!-- header -->
+<?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
+<link rel="stylesheet" href="/static/css/pay.css">
+<!-- header end -->
+  <section class="section-panel news-panel">
+    <div class="panel-body bt0">
+      <!-- <div class="crumbs"><a href="javascript:history.back(-1)">返回上一级</a><span> &gt; 课程介绍</span></div> -->
+      <div class="panel-body-course sub b0">
+        <div class="order-pay">
+          <div class="order-pay-body">
+            <div class="alert alert-success alert-dismissible">
+              <button type="button" class="pay-close"><span>×</span></button>
+              订单已提交，请在４８小时内完成支付！逾期订单将被取消。
+            </div>
+            <div class="pay-qrcode-body clearfix">
+              <div class="qrcode-img">
+                <div id="code-img"><img src="" id="erweima" alt=""></div>
+                <div class="text-qrcode hidden-xs">
+                  请使用微信扫一扫
+                  <br>扫描二维码支付
+                </div>
+              </div>
+              <div class="qrcode-img-two hidden-xs">
+                <img class="img-responsive" src="http://agodpig.com/assets/v2/img/pay_phone.jpg?6.17.0" alt="">
+              </div>
+            </div>
+            <div class="pay-qrcode-footer">
+              <a href="javascript:history.back(-1)" class="mrl"><i class="es-icon es-icon-arrowback mrs"></i>选择其他支付方式</a>
+               <!-- 应付金额：<span class="pay-rmb">¥365.00</span> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- footer -->
+  <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
+  <!-- footer end -->
+  <!-- <script src="/static/js/plugins/qrcode/jquery.qrcode.min.js"></script> -->
+  <script>
+    seajs.use('/static/js/pay/wechat.js?a=1');
+  </script>
+</body>
+</html>

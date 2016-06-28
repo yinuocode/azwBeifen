@@ -24,10 +24,10 @@
                   {{/if}}
                   <div class="row operate" id="operate-status">
                     {{if status.is_login==1}}
-                    {{if status.buy==1}}
-                    <a href="javascript:;" class="lf">立即观看</a>
+                    {{if status.buy==1||detail.coures_type==0}}
+                    <a href="/couresdetail/video?cid={{detail.coures_id}}&type={{type}}" class="lf">立即观看</a>
                     {{else}}
-                    <a href="javascript:;" class="lf">立即购买</a>
+                    <a href="javascript:;" id="course-buy" data-cid="{{detail.coures_id}}" data-title="{{detail.coures_title}}" data-type="{{detail.coures_type}}" class="lf">立即购买</a>
                     {{/if}}
                     {{if status.enshrine==1}}
                     <a href="javascript:;" class="lf" id="cancel-collect">取消收藏</a>
@@ -36,7 +36,11 @@
                     {{/if}}
                     <a href="javascript:;" class="lf" id="send-letter">我要咨询</a>
                     {{else}}
-                    <a href="javascript:;" class="lf click-login">立即购买</a>
+                    {{if detail.coures_type==1}}
+                    <a href="javascript:;" id="course-buy" data-cid="{{detail.coures_id}}" data-title="{{detail.coures_title}}" data-type="{{detail.coures_type}}" class="lf">立即购买</a>
+                    {{else}}
+                    <a href="/couresdetail/video?cid={{detail.coures_id}}&type={{type}}" class="lf">立即观看</a>
+                    {{/if}}
                     <a href="javascript:;" class="lf click-login">点击收藏</a>
                     <a href="javascript:;" class="lf click-login">我要咨询</a>
                     {{/if}}
@@ -74,10 +78,10 @@
                   {{/if}}
                   <div class="row operate" id="operate-status">
                     {{if status.is_login==1}}
-                    {{if status.buy==1}}
-                    <a href="javascript:;" class="lf">立即观看</a>
+                    {{if status.buy==1||detail.live_type==0}}
+                    <a href="/couresdetail/video?cid={{detail.live_id}}&type={{type}}" class="lf">立即观看</a>
                     {{else}}
-                    <a href="javascript:;" class="lf">立即购买</a>
+                    <a href="javascript:;" id="course-buy" data-cid="{{detail.live_id}}" data-title="{{detail.live_title}}" data-type="{{detail.live_type}}" class="lf">立即购买</a>
                     {{/if}}
                     {{if status.enshrine==1}}
                     <a href="javascript:;" class="lf" id="cancel-collect">取消收藏</a>
@@ -86,7 +90,11 @@
                     {{/if}}
                     <a href="javascript:;" class="lf" id="send-letter">我要咨询</a>
                     {{else}}
-                    <a href="javascript:;" class="lf click-login">立即购买</a>
+                    {{if detail.live_type==1}}
+                    <a href="javascript:;" id="course-buy" data-cid="{{detail.live_id}}" data-title="{{detail.live_title}}" data-type="{{detail.live_type}}" class="lf">立即购买</a>
+                    {{else}}
+                    <a href="/couresdetail/video?cid={{detail.live_id}}&type={{type}}" class="lf">立即观看</a>
+                    {{/if}}
                     <a href="javascript:;" class="lf click-login">点击收藏</a>
                     <a href="javascript:;" class="lf click-login">我要咨询</a>
                     {{/if}}
@@ -131,7 +139,7 @@
                   {{else}}
                   {{each hour as value i}}
                     <li class="clearfix">
-                      <a href="{{if is_login==1}}{{if buy==1}}index?cid={{value.coures_id}}&hid={{value.hour_id}}{{else}}购买页{{/if}}{{else}}javascript:;{{/if}}" class="{{if is_login==0}}click-login{{/if}}">
+                      <a href="{{if is_login==1}}{{if buy==1||is_free==1}}/couresdetail/video?cid={{value.cid}}&type={{value.type}}&hid={{value.hour_id}}{{else}}javascript:;{{/if}}{{else}}javascript:;{{/if}}" class="{{if is_login==1}}{{if buy==1||is_free==1}}{{else}}no-buy {{/if}}{{else}}click-login{{/if}}">
                         <span class="hour-title {{if value.is_free==1}}free{{/if}}">{{value.hour_title}}</span>
                         <span class="rf hour-time">{{value.video_time}}</span>
                       </a>
@@ -230,6 +238,18 @@
             </div>
           </div>
         </form>
+      </div>
+    </div>
+    <div class="popup-bg"></div>
+  </div>
+  <div class="popup hide" id="no-buy-popup">
+    <div class="popup-modal">
+      <div class="popup-header">
+        <h1>尚未购买</h1>
+        <button type="button" class="popup-close"></button>
+      </div>
+      <div class="popup-body">
+        <p class="popup-alert">该课程需要购买后才能观看</p>
       </div>
     </div>
     <div class="popup-bg"></div>

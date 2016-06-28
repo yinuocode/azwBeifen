@@ -304,7 +304,9 @@ form.cmxform form.cmxform .gray * {
   font-size: 18px;
   width: 650px;
   height: auto;
+  padding-bottom: 20px;
 }
+.popup-modal.ab{position: absolute;}
 .popup-header{
   position: relative;
   padding: 0 20px;
@@ -336,6 +338,22 @@ form.cmxform form.cmxform .gray * {
   transform: scale(1.1);
   -webkit-transform: scale(1.1);
   -moz-transform: scale(1.1);
+}
+.popup-alert{
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.popup-item{
+  width:250px;
+  margin:0 auto;
+  font-size: 16px;
+}
+.popup-item>.btn{
+  padding: 0 16px;
+  margin: 10px 0;
+  border-radius: 3px;
+  line-height: 35px;
 }
 /*弹窗代码结束*/
 /* 返回顶部 */
@@ -873,7 +891,7 @@ form.cmxform form.cmxform .gray * {
   padding: 25px 0; }
 .course-list .course-price{
   font-size: 25px;
-  color:#d4042b;
+  color:#188eee;
   line-height: 40px;
   height: 40px;
 }
@@ -1262,6 +1280,16 @@ form.cmxform form.cmxform .gray * {
   padding: 2px 10px;
   height: 36px;
   border-color: #dedede; }
+.form-input.input-70{
+  width:70%;
+}
+.input-btn{
+  position: absolute;
+  height: 36px;
+  width: 125px;
+  top: 0;
+  right: -130px;
+}
 .form-tag{
   position: absolute;
   top: 36px;
@@ -1822,3 +1850,47 @@ input[name="selected"], #controlAll {
   color:#a4a4a4;
 }
 .f14{font-size: 14px;}
+/*课程详情*/
+.panel-body-course.b0{
+  border:0;
+  background: #f7f7f7;
+}
+.section-panel.news-panel{
+  background: #f7f7f7;
+  color: #444;
+}
+.btn{
+  background: #188eee;
+  margin: 0 auto;
+  color: #fff;
+  cursor: pointer;
+}
+.btn:disabled{
+  background: #ddd;
+  color: #999;
+  cursor: auto;
+}
+/*评分*/
+.star-0, .star-1, .star-2, .star-3, .star-4, .star-5 {
+  display: inline-block;
+  overflow: hidden;
+  width: 80px;
+  height: 16px;
+  background: url(../img/stars.png) no-repeat;
+  vertical-align: middle;
+}
+.star-4 {
+  background-position: 0 -16px;
+}
+.star-3 {
+  background-position: 0 -32px;
+}
+.star-2 {
+  background-position: 0 -48px;
+}
+.star-1 {
+  background-position: 0 -64px;
+}
+.star-0 {
+  background-position: 0 -80px;
+}

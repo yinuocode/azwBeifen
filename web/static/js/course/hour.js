@@ -17,6 +17,12 @@ define(function(require,exports,module){
       $('#table-course-list').html(tableCourseList);
     });
   }
+  // 判断是否是免费课程
+  main.postAjaxDatas('/myteach/isfree',{cid:courseCid},function(datas){
+    if(datas.free==0){
+      $('#course-type').hide();
+    }
+  });
   // 初始化
   runPostAjaxDatas();
   // 下拉菜单
