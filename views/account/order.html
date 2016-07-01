@@ -3,20 +3,60 @@
 <link rel="stylesheet" href="/static/css/account.css">
 <!-- header end -->
   <section class="section-panel">
-    <header class="panel-heading clearfix">
-      <a href="/account" class="active">我的账户</a>
-      <a href="/account/order">我的订单</a>
-      <a href="/account/gift">我的礼物</a>
+    <header class="panel-heading clearfix" id="course-head">
+      <script id="courseHead" type="text/html">
+      <a href="/account">我的账户</a>
+      <a href="/account/order" class="active">我的订单</a>
+      {{if identity}}
+        <a href="/account/gift">我的礼物</a>
+      {{/if}}
+      </script>
     </header>
     <div class="panel-body">
-      <div class="panel-body-account">
-        <div class="row row1">
-          <div class="lf">我的余额：</span><span id="balance" class="hot"></span> 阿猪币</div>
-          <a href="/account/recharge" class="lf btn">我要充值</a>
-        </div>
-        <div class="row row2">
-          <a href="/account/transaction" class="account-icon query lf"><span class="hot">查询交易记录</span><span class="q">立即查询&gt;&gt;</span></a>
-          <a href="/account/coupon" class="account-icon coupon lf"><span class="hot">优惠卷</span><span class="q">立即查询&gt;&gt;</span></a>
+      <div class="search-date order">
+        查询时间：
+        <input class="" type="text" id="startDate" name="start_time" value="" placeholder="起始日期">&nbsp;-
+        <input class="" type="text" id="endDate" name="end_time" value="" placeholder="结束日期">
+        <button class="btn" id="date-submit">查询</button>
+      </div>
+      <div class="panel-body-course">
+        <table class="table-course order-table" id="table-course-list">
+        <script id="tableCourseList" type="text/html">
+          <tbody>
+            <tr>
+              <th>日期</th>
+              <th>课程名称</th>
+              <th>流水号</th>
+              <th>价格</th>
+              <th>状态</th>
+              <th>操作</th>
+            </tr>
+            {{each list as value i}}
+            <tr>
+              <td>{{value.add_date}}</td>
+              <td><a href="/couresdetail?cid={{value.goods_id}}&type={{value.type}}">{{value.goods_name}}</a></td>
+              <td>{{value.order_sn}}</td>
+              <td>{{value.pay_amount}}</td>
+              <td>
+                {{if value.order_state==0}}
+                <a href="javascript:;">已取消</a>
+                {{else if value.order_state==10}}
+                <a target="_blank" href="/pay?cid={{value.goods_id}}&type={{value.type}}&order={{value.order_sn}}">去付款</a>
+                {{else}}
+                <a href="javascript:;">已完成</a>
+                {{/if}}
+              </td>
+              <td><a href="javascript:;" data-oid="{{value.order_id}}">删除</a></td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </script>
+        </table>
+        <div class="ajax-paging">
+          <div class="clearfix">
+            <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
+            <a href="javascript:;" id="paging-next" class="handle-icon right-arrows active"></a>
+          </div>
         </div>
       </div>
     </div>
@@ -24,20 +64,9 @@
   <!-- footer -->
   <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
   <!-- footer end -->
+  <script src="/static/js/plugins/laydate/laydate.dev.js"></script>
   <script>
-    // seajs.use('/static/js/account/account.js');
-    // ajax 取数据
-    $.ajax({
-      type:'get',
-      url:'wealth/my-balance',
-      dataType: 'json',
-      success: function(datas){
-        $('#balance').html(datas.zhubi);
-      },
-      error: function(xml,err){
-        console.log(err);
-      }
-    });
+    seajs.use('/static/js/account/order.js');
   </script>
 </body>
 </html>

@@ -4,17 +4,21 @@
 <link rel="stylesheet" href="/static/css/account.css">
 <!-- header end -->
   <section class="section-panel news-panel">
-    <header class="panel-heading clearfix">
+    <header class="panel-heading clearfix" id="course-head">
+      <script id="courseHead" type="text/html">
       <a href="/account" class="active">我的账户</a>
       <a href="/account/order">我的订单</a>
-      <a href="/account/gift">我的礼物</a>
+      {{if identity}}
+        <a href="/account/gift">我的礼物</a>
+      {{/if}}
+      </script>
     </header>
     <div class="panel-body">
       <div class="crumbs"><a href="/account">我的账户</a><span> &gt; 充值</span></div>
       <div class="panel-body-course sub b0">
         <div class="panel-body-recharge">
           <p>您充值的账号：<span id="account">jfdskljfkldjfj</span></p>
-          <form class="form-paytype" method="post" action="/pay/alipay">
+          <form class="form-paytype" method="post" action="/wealth/alipay">
             <div class="row recharge-row1">
               <div class="lf">充值：</div>
               <div class="lf" id="ratio-count">
@@ -39,7 +43,7 @@
               <div class="piece-header">支付方式</div>
             </div>
             <div class="form-group order-detail-bg">
-              <div class="check active" id="alipay" data-url="/pay/alipay">
+              <div class="check active" id="alipay" data-url="/wealth/alipay">
                 <img src="/static/img/alipay.png?6.14.2">
                 <span class="icon"></span>
               </div>

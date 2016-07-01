@@ -3,20 +3,75 @@
 <link rel="stylesheet" href="/static/css/account.css">
 <!-- header end -->
   <section class="section-panel">
-    <header class="panel-heading clearfix">
+    <header class="panel-heading clearfix" id="course-head">
+      <script id="courseHead" type="text/html">
       <a href="/account" class="active">我的账户</a>
       <a href="/account/order">我的订单</a>
-      <a href="/account/gift">我的礼物</a>
+      {{if identity}}
+        <a href="/account/gift">我的礼物</a>
+      {{/if}}
+      </script>
     </header>
     <div class="panel-body">
-      <div class="panel-body-account">
-        <div class="row row1">
-          <div class="lf">我的余额：</span><span id="balance" class="hot"></span> 阿猪币</div>
-          <a href="/account/recharge" class="lf btn">我要充值</a>
+      <div class="crumbs"><a href="/account">我的账户</a><span> &gt; 交易记录</span></div>
+      <div class="panel-body-course sub">
+        <div class="select-type clearfix">
+          <div class="lf">
+            <a href="javascript:;" class="handle-icon triangle">消费记录</a>
+            <ul class="select-items">
+              <li><a href="javascript:;" data-arg="2">消费记录</a></li>
+              <li><a href="javascript:;" data-arg="1">充值记录</a></li>
+            </ul>
+          </div>
+          <div class="lf search-date">
+            查询时间：
+            <input class="" type="text" id="startDate" name="start_time" value="" placeholder="起始日期">&nbsp;-
+            <input class="" type="text" id="endDate" name="end_time" value="" placeholder="结束日期">
+            <button class="btn" id="date-submit">查询</button>
+          </div>
         </div>
-        <div class="row row2">
-          <a href="/account/transaction" class="account-icon query lf"><span class="hot">查询交易记录</span><span class="q">立即查询&gt;&gt;</span></a>
-          <a href="/account/coupon" class="account-icon coupon lf"><span class="hot">优惠卷</span><span class="q">立即查询&gt;&gt;</span></a>
+        <table class="table-course" id="table-course-list">
+        <script id="tableCourseList" type="text/html">
+          <tbody>
+          {{if type==2}}
+            <tr>
+              <th class="">日期</th>
+              <th class="">支出方式</th>
+              <th class="">支出金额</th>
+              <th class="">消费名称</th>
+            </tr>
+            {{each data as value i}}
+            <tr>
+              <td>{{value.con_date}}</td>
+              <td>{{if value.pay_manner==0}}微信{{else if value.pay_manner==1}}支付宝{{else}}余额{{/if}}</td>
+              <td>{{value.product_money}}</td>
+              <td>{{value.product_code}}</td>
+            </tr>
+            {{/each}}
+          {{else}}
+            <tr>
+              <th class="">日期</th>
+              <th class="">充值方式</th>
+              <th class="">充值金额</th>
+              <th class="">流水号</th>
+            </tr>
+            {{each data as value i}}
+            <tr>
+              <td>{{value.rec_date}}</td>
+              <td>{{if value.rec_manner==0}}微信{{else}}支付宝{{/if}}</td>
+              <td>{{value.rec_money}}</td>
+              <td>{{value.order_sn}}</td>
+            </tr>
+            {{/each}}
+          {{/if}}
+          </tbody>
+        </script>
+        </table>
+        <div class="ajax-paging">
+          <div class="clearfix">
+            <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
+            <a href="javascript:;" id="paging-next" class="handle-icon right-arrows active"></a>
+          </div>
         </div>
       </div>
     </div>
@@ -24,20 +79,9 @@
   <!-- footer -->
   <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
   <!-- footer end -->
+  <script src="/static/js/plugins/laydate/laydate.dev.js"></script>
   <script>
-    // seajs.use('/static/js/account/account.js');
-    // ajax 取数据
-    $.ajax({
-      type:'get',
-      url:'wealth/my-balance',
-      dataType: 'json',
-      success: function(datas){
-        $('#balance').html(datas.zhubi);
-      },
-      error: function(xml,err){
-        console.log(err);
-      }
-    });
+    seajs.use('/static/js/account/transaction.js');
   </script>
 </body>
 </html>

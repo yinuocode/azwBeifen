@@ -1,5 +1,56 @@
 <!-- header -->
 <?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
+<style>
+  .note-course{
+    padding:25px;
+    line-height: 30px;
+  }
+  .note-course>li{
+    margin-bottom:20px;
+    border-bottom: 1px solid #ddd;
+  }
+  .note-course>li img{
+    width: 200px;
+  }
+  .note-course>li>.rf{
+    margin: 30px 10px 0 0;
+    font-size: 16px;
+  }
+  .note-course>li>.lf{
+    margin-right: 15px;
+    max-width: 600px;
+  }
+  .note-course a{
+    display: block;
+    color:#4E9BD5;
+  }
+  #note-nr-box{
+    display: none;
+  }
+  .note-nr{
+    position: absolute;
+    width: 100%;
+    height: 70%;
+    max-height: 360px;
+    padding: 45px 25px 20px;
+    z-index: 100000;
+    text-indent: 2em;
+    line-height: 30px;
+    font-size: 16px;
+    background: #fff;
+    overflow: auto;
+    top: 0;
+  }
+  #note-nr-box .btn{
+    position: absolute;
+    top: 0;
+    z-index: 1000000;
+    right: 0;
+    width: 100%;
+    line-height: 36px;
+    border-radius: 5px;
+  }
+</style>
 <!-- header end -->
   <section class="section-panel">
     <header class="panel-heading clearfix" id="course-head">
@@ -18,7 +69,7 @@
     </header>
     <div class="panel-body">
       <div class="panel-body-course">
-        <div class="select-type clearfix">
+       <!--  <div class="select-type clearfix">
           <div class="lf">
             <a href="javascript:;" class="handle-icon triangle">全部课程</a>
             <ul class="select-items">
@@ -36,63 +87,34 @@
               <li><a href="javascript:;">过去半年</a></li>
             </ul>
           </div>
-        </div>
-        <ul class="course-list study-course clearfix">
-          <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="">
-              <span>这是课程标题</span>
-            </a>
+        </div> -->
+        <ul class="note-course clearfix" id="note-list">
+        <script id="noteList" type="text/html">
+          {{each list as value i}}
+          <li class="row">
+            <div class="lf">
+              <img src="{{value.coures_cover}}" alt="">
+            </div>
+            <div class="lf">
+              <a href="/couresdetail?cid={{value.coures_id}}&type=1" target="_blank">{{value.coures_title}}</a>
+              <p>讲师：{{value.audit_name}}</p>
+            </div>
+            <div class="rf">
+              <a href="javascript:;" data-cid="{{value.coures_id}}" class="look-note">查看笔记</a>
+              <a href="javascript:;" data-nid="{{value.note_id}}" class="delete-note">删除笔记</a>
+            </div>
           </li>
-          <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="" id="aeaoofnhgocdbnbeljkmbjdmhbcokfdb-mousedown">
-              <span>这是课程标题</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="">
-              <span>这是课程标题</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="">
-              <span>这是课程标题</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="">
-              <span>这是课程标题</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="">
-              <span>这是课程标题</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="">
-              <span>这是课程标题</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="">
-              <span>这是课程标题</span>
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" target="_blank">
-              <img src="/static/img/sec02-item01.jpg" alt="">
-              <span>这是课程标题</span>
-            </a>
-          </li>
+          {{/each}}
+        </script>
         </ul>
+        <div id="note-nr-box">
+          <div id="note-content" class="note-nr">
+          <script id="noteContent" type="text/html">
+            {{data}}
+          </script>
+          </div>
+          <button class="btn" id="close-note">返回</button>
+        </div>
         <div class="ajax-paging">
           <div class="clearfix">
             <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
@@ -106,28 +128,7 @@
   <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
   <!-- footer end -->
   <script>
-    // 下拉菜单
-    $('.handle-icon.triangle').on('click',function(){
-      $(this).parent().siblings().find('.select-items').removeClass('active');
-      $(this).next().toggleClass('active');
-    });
-    $('.select-items a').on('click',function(){
-      $('.select-items').removeClass('active');
-    });
-    // 选择操作目标
-    $('#controlAll').on('click',function(){
-      var checklist = document.getElementsByName("selected");
-      var len=checklist.length;
-      if(document.getElementById("controlAll").checked){
-        for(var i=0;i<len;i++){
-          checklist[i].checked = 1;
-        }
-      }else{
-        for(var j=0;j<len;j++){
-          checklist[j].checked = 0;
-        }
-      }
-    });
+    seajs.use('/static/js/course/note.js');
   </script>
 </body>
 </html>

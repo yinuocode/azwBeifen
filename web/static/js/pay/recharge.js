@@ -27,7 +27,7 @@ define(function(require,exports,module){
       var paymoney=$('#money').val();
       if(/^\+?[1-9]\d*$/.test(paymoney)){
         if($('#wxpay').hasClass('active')){
-          main.postAjaxDatas('/pay/wechat',{paymoney:paymoney},function(datas){
+          main.postAjaxDatas('/wealth/wechat',{paymoney:paymoney},function(datas){
             $('.form-paytype').attr('action','/pay/wechat-pay?url='+datas).submit();
           });
         }else{

@@ -3,10 +3,14 @@
 <link rel="stylesheet" href="/static/css/account.css">
 <!-- header end -->
   <section class="section-panel">
-    <header class="panel-heading clearfix">
+    <header class="panel-heading clearfix" id="course-head">
+      <script id="courseHead" type="text/html">
       <a href="/account" class="active">我的账户</a>
       <a href="/account/order">我的订单</a>
-      <a href="/account/gift">我的礼物</a>
+      {{if identity}}
+        <a href="/account/gift">我的礼物</a>
+      {{/if}}
+      </script>
     </header>
     <div class="panel-body">
       <div class="panel-body-course pd36 panel-body-account">

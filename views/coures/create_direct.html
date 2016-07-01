@@ -56,13 +56,14 @@
             <label class="control-label">课程类型</label>
             <div class="form-controls">
               <div id="form-radio">
-                <input type="radio" id="course-type0" name="LiveCoures[live_type]" value="1" {{if coures_type==1}}checked{{else if coures_type!=0}}checked{{/if}}>
+                <input type="radio" id="course-type0" name="LiveCoures[live_type]" value="1" {{if live_type==1}}checked{{else if live_type!=0}}checked{{/if}}>
                 <label for="course-type0">收费课</label>
-                <input type="radio" id="course-type1" name="LiveCoures[live_type]" value="0" {{if coures_type==0}}checked{{else}}{{/if}}>
+                <input type="radio" id="course-type1" name="LiveCoures[live_type]" value="0" {{if live_type==0}}checked{{else}}{{/if}}>
                 <label for="course-type1">公开课</label>
               </div>
             </div>
           </div>
+          {{if live_type!=0}}
           <div id="course-price">
             <div class="form-group">
               <label class="control-label">课程价格</label>
@@ -77,6 +78,7 @@
               </div>
             </div>
           </div>
+          {{/if}}
           <div class="form-group">
             <label class="control-label">课程介绍</label>
             <div class="form-controls">

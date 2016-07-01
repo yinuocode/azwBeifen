@@ -79,7 +79,11 @@
                   <div class="row operate" id="operate-status">
                     {{if status.is_login==1}}
                     {{if status.buy==1||detail.live_type==0}}
-                    <a href="/couresdetail/video?cid={{detail.live_id}}&type={{type}}" class="lf">立即观看</a>
+                      {{if isend==0}}
+                      <a href="/broadcasting/classroom?cid={{detail.live_id}}" class="lf">立即观看</a>
+                      {{else}}
+                      <a href="/couresdetail/video?cid={{detail.live_id}}&type={{type}}" class="lf">立即观看</a>
+                      {{/if}}
                     {{else}}
                     <a href="javascript:;" id="course-buy" data-cid="{{detail.live_id}}" data-title="{{detail.live_title}}" data-type="{{detail.live_type}}" class="lf">立即购买</a>
                     {{/if}}

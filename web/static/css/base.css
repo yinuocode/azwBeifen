@@ -1409,6 +1409,7 @@ form.cmxform form.cmxform .gray * {
   margin-top: 25px;
   margin-bottom: 5px;
   background: #F6F5F5;
+  position: relative;
   border: 2px solid #e2e1e1; }
 .panel-body-course.sub{margin-top:0;}
 .panel-body-course.mt{margin-top:45px;}

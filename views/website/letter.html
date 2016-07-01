@@ -1,6 +1,61 @@
 <!-- header -->
 <?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
 <!-- header end -->
+<style>
+  .letter-list{
+    padding:10px 0;
+  }
+  .letter-list>li{
+    padding:10px 35px;
+    border-bottom:1px solid #d4d4d4;
+  }
+  .letter-list>li:last-child{
+    border-bottom:0;
+  }
+  .letter-list>li>.clearfix>.lf{
+    margin-right:15px;
+    text-align: left;
+    line-height: 26px;
+  }
+  .letter-list .avatar{
+    display: block;
+    border-radius: 50%;
+    width:80px;
+    height:80px;
+  }
+  .letter-list>li>.clearfix>.rf{
+    position: relative;
+  }
+  .letter-list>li>.clearfix>.rf a{
+    display: block;
+    line-height: 35px;
+  }
+  .letter-list>li>.clearfix>.rf .delete-letter.hide{
+    position: absolute;
+    bottom:0;
+    left:-60px;
+    display: none;
+  }
+  .letter-list>li:hover .delete-letter.hide{
+    display: block !important;
+  }
+  .letter-list .name{
+    color:#969696;
+  }
+  .letter-list .name.hot{
+    color: #4E9BD5
+  }
+  .letter-list .date{
+    color:#969696;
+    font-size: 12px;
+  }
+  .letter-content{
+    padding:10px 30px;
+    text-align: left;
+    text-indent: 2em;
+    display: none;
+  }
+</style>
   <section class="section-panel">
     <header class="panel-heading clearfix">
       <a href="/coures/teaching" class="active">站内信</a>
@@ -11,37 +66,64 @@
           <div class="lf">
             <a href="javascript:;" class="handle-icon triangle" id="handle-course" data-val="">收件箱</a>
             <ul class="select-items">
-              <li><a href="javascript:;" data-arg="coures">收件箱</a></li>
-              <li><a href="javascript:;" data-arg="assis">发件箱</a></li>
+              <li><a href="javascript:;" data-arg="1">收件箱</a></li>
+              <li><a href="javascript:;" data-arg="2">发件箱</a></li>
             </ul>
           </div>
-          <div class="rf"><a href="javascript:;" class="handle-icon delete" id="handle-delete">删除</a></div>
+          <!-- <div class="rf"><a href="javascript:;" class="handle-icon delete" id="handle-delete">删除</a></div> -->
         </div>
-        <table class="table-course" id="table-course-list">
+        <div class="table-course" id="table-course-list">
         <script id="tableCourseList" type="text/html">
-          <tbody>
-            <tr>
-              <th class="th1"><input type="checkbox" name="controlAll" id="controlAll"><label for="controlAll">全选</label></th>
-              <th class="th2">主题</th>
-              <th class="th3">发件人</th>
-              <th class="th4">接收时间</th>
-              <th class="th5">操作</th>
-            </tr>
-            {{each list as value i}}
-            <tr>
-              <td><input type="checkbox" name="selected" data-type="{{value.type}}" value="{{value.coures_id}}"></td>
-              <td><a href="/broadcasting?cid={{value.coures_id}}" target="_blank">{{value.coures_title}}</a></td>
-              <td>{{value.num}}</td>
-              <td>{{value.ctime}}</td>
-              <td class="handle">
-                <a href="javascript:;" >回复私信</a>
-                <a href="/broadcasting?cid={{value.coures_id}}">查看全部</a>
-              </td>
-            </tr>
+          <ul class="letter-list">
+            {{each data as value i}}
+            <li>
+              <div class="clearfix">
+                <div class="lf">
+                  <img src="{{value.portrait}}" class="avatar" alt="">
+                </div>
+                <div class="lf">
+                  {{if type==1}}
+                    {{if value.letter_read==0}}
+                    <div class="name hot">
+                      {{if value.nick_name}}
+                      {{value.nick_name}}
+                      {{else}}
+                      {{value.username}}
+                      {{/if}}
+                    </div>
+                    {{else}}
+                    <div class="name">
+                      {{if value.nick_name}}
+                      {{value.nick_name}}
+                      {{else}}
+                      {{value.username}}
+                      {{/if}}
+                    </div>
+                    {{/if}}
+                  {{else}}
+                  <div class="name"><span class="hot">接收人：</span>{{if value.nick_name}}{{value.nick_name}}{{else}}{{value.username}}{{/if}}</div>
+                  {{/if}}
+                  <div class="title">
+                    {{value.letter_title}}</div>
+                  <div class="date">{{value.letter_add_date}}</div>
+                </div>
+                <div class="rf">
+                {{if type==1}}
+                  <a href="javascript:;" data-uid="{{value.user_id}}" class="reply-letter">回复私信</a>
+                  <a href="javascript:;" class="look-all">查看全部</a>
+                  <a href="javascript:;" data-lid="{{value.letter_id}}" class="delete-letter hide">x删除</a>
+                {{else}}
+                  <a href="javascript:;" data-lid="{{value.letter_id}}" class="delete-letter">删除私信</a>
+                  <a href="javascript:;" class="look-all">查看全部</a>
+                {{/if}}
+                </div>
+              </div>
+              <div class="letter-content">{{value.letter_body}}</div>
+            </li>
             {{/each}}
-          </tbody>
+          </ul>
         </script>
-        </table>
+        </div>
         <div class="ajax-paging">
           <div class="clearfix">
             <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
@@ -60,12 +142,12 @@
       </div>
       <div class="popup-body">
         <form method="post" id="letter-form" class="popup-form cmxform">
-          <div class="form-group">
+<!--           <div class="form-group">
             <label class="control-label">收件人</label>
             <div class="form-controls">
               <input type="text" class="form-input" name="name" value="" required>
             </div>
-          </div>
+          </div> -->
           <div class="form-group">
             <label class="control-label">标题</label>
             <div class="form-controls">
@@ -78,6 +160,7 @@
               <textarea name="content" id="" class="form-textarea" required></textarea>
             </div>
           </div>
+          <input type="hidden" name="uid" id="user-id" value="">
           <div class="form-group">
             <div class="form-submit">
               <button type="submit" class="button-submit">确认</button>

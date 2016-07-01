@@ -76,12 +76,12 @@ define(function(require,exports,module){
           type : 'post',
           data : data,
           success : function(data){
-            if(data){
+            if(data.status==1){
               console.log(data);
               alert("操作成功");
               window.location.href='/myteach/teaching';
             }else{
-              alert(data);
+              alert(data.msg);
             }
           }
         });

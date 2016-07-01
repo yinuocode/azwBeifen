@@ -69,3 +69,43 @@
 .form-hint.hot{
   color:#4e9bd5;
 }
+/*搜索日期*/
+.search-date{
+  margin-left:100px;
+}
+.search-date.order{
+  margin-top: 25px;
+  margin-left: 0;
+}
+.search-date input{
+  line-height: 32px;
+  height:32px;
+  padding:0 5px;
+}
+.search-date .btn{
+  line-height: 32px;
+  height: 32px;
+  padding: 0 25px;
+  border-radius: 3px;
+}
+.table-course.order-table th{
+  width: auto;
+}
+/*礼物*/
+.get-gift-list{
+  background: #0068B7;
+  color:#002fb7;
+  width: 996px;
+  margin:30px auto;
+  padding:8px;
+  font-size: 14px;
+  text-align: center;
+}
+.get-gift-list>li{
+  width:92px;
+  height:92px;
+  background: #008AD1;
+  border:1px solid #05B0F2;
+  margin:3px;
+  float:left;
+}
