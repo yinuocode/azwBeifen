@@ -60,7 +60,7 @@ define(function(require,exports,module){
     });
     // 价格显示
     $('#course-price1').on('input',function(){
-      $('#course-price2').attr('range','[0,'+$(this).val()+']');
+      $('#course-price2').attr('range','[1,'+$(this).val()+']');
     });
     // ajax提交
     var $formData = $($('input[name="form-data"]').val());

@@ -30,6 +30,7 @@ define(function(require,exports,module){
       }
     });
   }
+  $('.cid').val(getVal.cid);
   // 返回课程详情
   $('#current-course').attr('href','/couresdetail?cid='+getVal.cid+'&type='+getVal.type);
   // 课程基本信息
@@ -48,6 +49,7 @@ define(function(require,exports,module){
   });
   // 课时
   postAjaxDatas('/couresdetail/hour',getVal,function(datas){
+    console.log(datas);
     // datas.cid=getVal.cid;
     // datas.type=getVal.type;
     var hourItemList = template('hourItemList',datas);
@@ -58,10 +60,19 @@ define(function(require,exports,module){
       $('.hid').val(getVal.hid);
     }else{
       liLessonItem=$('.lesson-item.lesson-item-66').eq(0);
-      $('#hid').val(liLessonItem.attr('data-hid'));
+      $('.hid').val(liLessonItem.attr('data-hid'));
     }
     liLessonItem.addClass('item-active');
     $('#hour-title').html(liLessonItem.find('.title').html());
+    // 视频播放
+    $('#my-video_html5_api').attr('src',liLessonItem.attr('data-src'));
+    // 问答列表
+    postAjaxDatas('/comment/question-list',{hour_id:$('.hid').val()},function(datas){
+      console.log(datas);
+      template.config("escape", false);
+      var faqList = template('faqList',{list:datas});
+      $('#faq-list').html(faqList);
+    });
   });
   // 调用富文本文件 js
   var editor1;
@@ -84,8 +95,38 @@ define(function(require,exports,module){
   });
   // 问答详情
   $('.lesson-pane').on('click','.faq-title',function(){
+    var aId=$(this).attr('data-aid');
     $('.lesson-question-plugin-pane').show();
+    runAnswer(aId);
   });
+  function runAnswer(aid){
+    postAjaxDatas('/comment/reply-detail',{answer_id:aid},function(datas){
+      console.log(datas);
+      template.config("escape", false);
+      var answersDetails = template('answersDetails',datas);
+      $('#answers-details').html(answersDetails);
+      // 回复问题
+      $('#add-answer-form').validate({
+        onsubmit:true,// 是否在提交时验证
+        submitHandler: function(form){
+          var data = $('#add-answer-form').serialize();
+          $.ajax({
+            url : '/comment/reply',
+            type : 'post',
+            data : data,
+            dataType:'json',
+            success : function(data){
+              if(data.status==1){
+                runAnswer(aid);
+              }else{
+                alert(data.msg);
+              }
+            }
+          });
+        }
+      });
+    });
+  }
   // 问答返回
   $('.lesson-pane').on('click','#faq-back',function(){
     $('.lesson-question-plugin-pane').hide();
@@ -130,8 +171,8 @@ define(function(require,exports,module){
         dataType:'json',
         success : function(data){
           if(data.status==1){
-            $('#comment-form')[0].reset();
-            $('.ke-edit-iframe').contents().find('.ke-content').html('');
+            $('#comment-form .ke-edit-iframe').contents().find('.ke-content').html('');
+            $('#comment-succeed').fadeIn().fadeOut(3500);
           }else{
             alert(data.msg);
           }
@@ -139,19 +180,37 @@ define(function(require,exports,module){
       });
     }
   });
+  // 笔记内容
+  postAjaxDatas('/comment/get-note',{cid:getVal.cid},function(datas){
+    console.log(datas);
+    template.config('escape', false);
+    var noteContent = template('noteContent',{list:datas});
+    $('#note-content').html(noteContent);
+    var editor3;
+    window.K = KindEditor;
+    K.create('textarea[id="note-textarea"]', {
+      // width:200,
+      afterBlur: function(){this.sync()},
+      items : [
+        'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+        'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+        'insertunorderedlist', '|', 'emoticons', 'image', 'link','source']
+    });
+  });
   // 笔记表单
   $('#note-form').validate({
     onsubmit:true,// 是否在提交时验证
     submitHandler: function(form){
       var data = $('#note-form').serialize();
+      console.log(data);
       $.ajax({
-        url : '/comment/note',
+        url : '/comment/mynote',
         type : 'post',
         data : data,
         dataType:'json',
         success : function(data){
           if(data.status==1){
-            console.log('以保存');
+            $('#note-save').fadeIn().fadeOut(3500);
           }else{
             alert(data.msg);
           }
@@ -164,5 +223,28 @@ define(function(require,exports,module){
     var i=$(this).attr('data-i');
     $('#star-con').attr('class','star-'+i);
     $('#star-val').val(i);
+  });
+  // 课程资料
+  $('.toolbar-nav').one('click','.glyphicon-download-data',function(){
+    postAjaxDatas('/comment/datum',{cid:getVal.cid},function(datas){
+      console.log(datas);
+      var dataItemList = template('dataItemList',{list:datas});
+      $('#data-item-list').html(dataItemList);
+    });
+  });
+  // 下载资料
+  $('.period-list').on('click','.download-data',function(){
+    var did=$(this).attr('data-did');
+    postAjaxDatas('/myteach/downloads',{did:did},function(datas){
+      console.log(datas);
+    });
+  });
+  // 二维码
+  $('.list-unstyled').on('click',function(){
+    $('.qrcode-popover2').toggle();
+  });
+  // 关闭侧边栏
+  $('#close-sidebar').on('click',function(){
+    $('.toolbar-pane-container').hide();
   });
 });

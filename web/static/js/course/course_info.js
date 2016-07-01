@@ -49,6 +49,7 @@ define(function(require,exports,module){
   if(getVal.type==1){
     $('#comment-btn').removeClass('hide');
     main.postAjaxDatas('/couresdetail/comment',getVal,function(datas){
+      template.config("escape", false);
       var commentList = template('commentList',datas);
       $('.comment-list').html(commentList);
       console.log(datas);

@@ -59,9 +59,9 @@ define(function(require,exports,module){
           $('.form-paytype').attr('action','/pay/wechat-pay?url='+datas).submit();
         });
       }else{
-        main.postAjaxDatas('/pay/use-coupon',{cpid:$('#coupon-id').val()},function(datas){
+        // main.postAjaxDatas('/pay/use-coupon',{cpid:$('#coupon-id').val()},function(datas){
           $('.form-paytype').submit();
-        });
+        // });
       }
     });
   });

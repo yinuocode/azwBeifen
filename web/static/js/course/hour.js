@@ -207,8 +207,8 @@ define(function(require,exports,module){
         // 只允许选择视频文件。
         accept: {
             title: 'video',
-            extensions: 'mp4,swf,flv',
-            mimeTypes: 'application/*'
+            extensions: 'mp4',
+            mimeTypes: 'application/.mp4'
         },
         thumb: {
           // width: 260,
@@ -262,9 +262,9 @@ define(function(require,exports,module){
         $( '#'+file.id ).addClass('upload-state-done');
         $('#hour-date').val(resporse.date);
         $('#hour-fname').val(file.name);
-        $('#hour-path').val(main.videoPath+'/'+resporse.date+'/'+file.name);
+        $('#hour-path').val('/'+resporse.date+'/'+file.name);
         $('#uploader-hour').find('.error').hide();
-        console.log(main.videoPath+'/'+resporse.date+'/'+file.name);
+        console.log('/'+resporse.date+'/'+file.name);
     });
     // 文件上传失败，显示上传出错。
     uploader.on( 'uploadError', function( file ) {

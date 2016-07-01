@@ -37,9 +37,9 @@
                     <a href="javascript:;" class="lf" id="send-letter">我要咨询</a>
                     {{else}}
                     {{if detail.coures_type==1}}
-                    <a href="javascript:;" id="course-buy" data-cid="{{detail.coures_id}}" data-title="{{detail.coures_title}}" data-type="{{detail.coures_type}}" class="lf">立即购买</a>
+                    <a href="javascript:;" class="lf click-login">立即购买</a>
                     {{else}}
-                    <a href="/couresdetail/video?cid={{detail.coures_id}}&type={{type}}" class="lf">立即观看</a>
+                    <a href="javascript:;" class="lf click-login">立即观看</a>
                     {{/if}}
                     <a href="javascript:;" class="lf click-login">点击收藏</a>
                     <a href="javascript:;" class="lf click-login">我要咨询</a>
@@ -91,9 +91,9 @@
                     <a href="javascript:;" class="lf" id="send-letter">我要咨询</a>
                     {{else}}
                     {{if detail.live_type==1}}
-                    <a href="javascript:;" id="course-buy" data-cid="{{detail.live_id}}" data-title="{{detail.live_title}}" data-type="{{detail.live_type}}" class="lf">立即购买</a>
+                    <a href="javascript:;" class="lf click-login">立即购买</a>
                     {{else}}
-                    <a href="/couresdetail/video?cid={{detail.live_id}}&type={{type}}" class="lf">立即观看</a>
+                    <a href="javascript:;" class="lf click-login">立即观看</a>
                     {{/if}}
                     <a href="javascript:;" class="lf click-login">点击收藏</a>
                     <a href="javascript:;" class="lf click-login">我要咨询</a>
@@ -139,10 +139,24 @@
                   {{else}}
                   {{each hour as value i}}
                     <li class="clearfix">
-                      <a href="{{if is_login==1}}{{if buy==1||is_free==1}}/couresdetail/video?cid={{value.cid}}&type={{value.type}}&hid={{value.hour_id}}{{else}}javascript:;{{/if}}{{else}}javascript:;{{/if}}" class="{{if is_login==1}}{{if buy==1||is_free==1}}{{else}}no-buy {{/if}}{{else}}click-login{{/if}}">
-                        <span class="hour-title {{if value.is_free==1}}free{{/if}}">{{value.hour_title}}</span>
-                        <span class="rf hour-time">{{value.video_time}}</span>
-                      </a>
+                      {{if is_login==1}}
+                        {{if buy==1||is_free==1}}
+                          <a href="/couresdetail/video?cid={{value.cid}}&type={{value.type}}&hid={{value.hour_id}}">
+                            <span class="hour-title {{if value.is_free==1}}free{{/if}}">{{value.hour_title}}</span>
+                            <span class="rf hour-time">{{value.video_time}}</span>
+                          </a>
+                        {{else}}
+                          <a href="javascript:;" class="no-buy">
+                            <span class="hour-title">{{value.hour_title}}</span>
+                            <span class="rf hour-time">{{value.video_time}}</span>
+                          </a>
+                        {{/if}}
+                      {{else}}
+                        <a href="javascript:;" class="click-login">
+                          <span class="hour-title {{if value.is_free==1}}free{{/if}}">{{value.hour_title}}</span>
+                          <span class="rf hour-time">{{value.video_time}}</span>
+                        </a>
+                      {{/if}}
                     </li>
                   {{/each}}
                   {{/if}}
@@ -160,8 +174,8 @@
                 <li class="clearfix review-item">
                   <div class="user lf">
                     <a href="/user/64{{value.user_id}}">
-                      <span class="avatar"><img src="{{value.portrait}}" width="100" height="100" alt=""></span>
-                      <p>{{value.nick_name}}</p>
+                      <span class="avatar"><img src="{{if value.portrait}}{{value.portrait}}{{else}}http://image.agodpig.com/default/albumdefault.png{{/if}}" width="100" height="100" alt=""></span>
+                      <p>{{if value.nick_name}}{{value.nick_name}}{{else}}{{value.username}}{{/if}}</p>
                       <p><img src="{{value.grade_image}}" width="22" height="22" alt=""></p>
                     </a>
                   </div>

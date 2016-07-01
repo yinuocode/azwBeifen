@@ -1,3 +1,4 @@
+.hot{color:#4495D2;}
 /*cmxform.css*/
 form.cmxform fieldset {
   margin-bottom: 10px; }
@@ -110,7 +111,7 @@ form.cmxform form.cmxform .gray * {
   top: 0px;
   left: 20px;
   bottom: 0px;
-  right: 440px;
+  right: 400px;
 }
 .lesson-dashboard .back-course-btn {
   position: absolute;
@@ -410,7 +411,7 @@ form.cmxform form.cmxform .gray * {
     right: 0px;
     top: 135px;
     bottom: 0px;
-    width: 420px;
+    width: 380px;
     color: #666;
     background: #f5f7fa;
 }
@@ -572,15 +573,20 @@ form.cmxform form.cmxform .gray * {
     transition: all 0.3s ease;
     z-index: 1;
 }
-.es-qrcode.toolbar-qrcode .qrcode-popover {
-    top: 0;
-    right: 100%;
-    transform-origin: 100% 0;
-    -webkit-transform-origin: 100% 0;
-    -moz-transform-origin: 100% 0;
-    -o-transform-origin: 100% 0;
+.es-qrcode.toolbar-qrcode .qrcode-popover2 {
+  position: absolute;
+  top:0;
+  left:-115px;
+  padding-right:30px;
+  z-index: 100;
+  display: none;
 }
-.es-qrcode .qrcode-popover img {
+.es-qrcode .qrcode-popover2 img{
+  width: 110px;
+  height: 110px;
+  display: block;
+}
+.es-qrcode .qrcode-popover img{
     margin-bottom: 10px;
     width: 110px;
     height: 110px;
@@ -1365,7 +1371,7 @@ a:hover {
   top:0;
   right:0;
   height:135px;
-  width:420px;
+  width:380px;
   color:#666;
   background: #B0B4BD;
 }
@@ -1408,6 +1414,14 @@ a:hover {
   padding:10px;
   color:#999;
   line-height: 26px;
+  overflow: auto;
+  position: absolute;
+  bottom: 0;
+  top: 270px;
+  width: 100%;
+}
+.faq-list li{
+  margin-bottom:12px;
 }
 .lesson-pane a:hover{
   color:#4495D2;
@@ -1479,8 +1493,11 @@ a:hover {
 }
 .lesson-question-plugin-pane .posts {
     list-style: none;
-    margin: 10px;
+    margin:0 10px;
     padding: 0;
+}
+.lesson-question-plugin-pane .posts>li{
+    margin-bottom:12px;
 }
 .lesson-question-plugin-pane .post-form {
     margin: 10px;
@@ -1515,7 +1532,7 @@ form.cmxform label.error, label.error{
 .form-controls .star{
   position: absolute;
   left:10px;
-  top:14px;
+  top:35px;
   width:16px;
   height:16px;
   cursor: pointer;
@@ -1548,4 +1565,7 @@ form.cmxform label.error, label.error{
 }
 #note-form .ke-statusbar{
   display: none;
+}
+#data-item-list .period{
+  padding-left:20px;
 }
