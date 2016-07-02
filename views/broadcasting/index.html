@@ -14,6 +14,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <link rel="stylesheet" href="/static/css/rely/reset.css">
+  <!-- 左侧样式 -->
+  <link rel="stylesheet" type="text/css" href="/static/css/video/sidelist.css"/>
+  <link rel="stylesheet" type="text/css" href="/static/css/video/dialog.css"/>
+  <link rel="stylesheet" type="text/css" href="/static/css/video/jquery-ui-1.10.0.custom.min.css"/>
+  <!-- end -->
   <link rel="stylesheet" href="/static/js/plugins/upload/uploadify.css">
   <link rel="stylesheet" href="/static/css/lecture.css">
   <!-- 让低版本ie浏览器更好的兼容 -->
@@ -38,7 +43,8 @@
 <body>
   <header class="header clearfix">
     <h1 class="clearfix lf"><a href="/" target="_blank" class="logo lf"><img src="/static/img/lecture/logo-sub.png" alt="阿猪网"></a><hgroup class="lf">课程直播中心</hgroup></h1>
-    <a class="rf" id="buttoncontainer" href="javascript:;">开始直播</a>
+    <a class="rf" id="button1" href="javascript:;">开始直播</a>
+    <a class="rf hide" id="button2" href="javascript:;">停止直播</a>
   </header>
   <!-- header end -->
   <section class="mainbox">
@@ -312,6 +318,18 @@
       </table>
     </div>
   </footer>
+  <!-- 输入密码弹窗 -->
+  <div id="dialog-form" class="dialog-form" title="">
+  </div>
+  <div id="auth-dialog-form" class="dialog-form" title="密码验证">
+    <form>
+      <input type="password" name="authfield" id="authfield" class="text ui-widget-content ui-corner-all" />
+    </form>
+    <p id="authdiagerror" class="diagerror"></p>
+  </div>
+  <div id="oldversion-dialog-form" class="dialog-form" title="Detected Old Plugin Version">
+    <p id="version-notif" class="diagnotif"></p>
+  </div>
   <!-- footer end -->
   <div id="pptlist">
     <div id="Jtarget">
@@ -361,7 +379,17 @@
   <script src="/static/js/lib/sea.js" id="seajsnode"></script>
   <script src="http://139.196.195.238:8080/socket.io/socket.io.js"></script>
   <!-- <script src="http://192.168.0.100:8080/socket.io/socket.io.js"></script> -->
-
+  <script src="/static/js/lecture/version.js"></script>
+  <script src="/static/js/lecture/jquery-ui-1.10.0.custom.min.js"></script>
+  <script src="/static/js/lecture/cryptojs/sha256.js"></script>
+  <script src="/static/js/lecture/cryptojs/enc-base64-min.js"></script>
+  <script src="/static/js/lecture/resizeDiv.js"></script>
+  <script src="/static/js/lecture/websocket.js"></script>
+  <script src="/static/js/lecture/main.js"></script>
+  <script src="/static/js/lecture/scenelist.js"></script>
+  <script src="/static/js/lecture/sourcelist.js"></script>
+  <script src="/static/js/lecture/connectionmodal.js"></script>
+  <script src="/static/js/lecture/volumecontrol.js"></script>
   <script>
     // 全局变量
     var arrAdminT=['50'], //获取管理员数组

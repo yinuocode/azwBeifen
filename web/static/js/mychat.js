@@ -7,6 +7,9 @@ if ((typeof Range !== "undefined") && !Range.prototype.createContextualFragment)
     return frag;
   };
 }
+if(navigator.userAgent.indexOf('Firefox')==-1){
+  alert('为了更好地使用麦序功能，请使用火狐浏览器打开页面');
+}
 $(function(){
   // 定义变量
   var chatTextarea = $('.chat-textarea'),
@@ -256,6 +259,7 @@ $(function(){
           }else{
             kickedRoom ='<span class="icon-kicking iconfont icon" title="踢出房间" data-kstatus="'+data[x].kstatus+'" data-duid="'+data[x].uid+'"></span>';
           }
+          // 判断是否是管理员
           if($.inArray(data[x].uid?data[x].uid.toString():data[x].uid,arrAdminT)!=-1){
             bannedMake='';
             kickedRoom='管理员';
@@ -268,10 +272,11 @@ $(function(){
           }else{
             dUname='<span class="username hot" mid="'+data[x].uid+'" title="'+data[x].uname+'">'+data[x].uname+'</span><span class="icon-grade iconfont icon hot">&#xe642;</span>';
           }
+          // 判断当前用户是否是管理员
           if($.inArray(userMid,arrAdminT)!=-1){
-            str +='<li class="clearfix"><img src="http://placehold.it/32x32" alt="用户名" class="avatar">'+dUname+'<div class="banned-kick rf">'+bannedMake+'&nbsp;&nbsp;'+kickedRoom+'</div></li>';
-          }else{
             str +='<li class="clearfix"><img src="http://placehold.it/32x32" alt="用户名" class="avatar">'+dUname+'</li>';
+          }else{
+            str +='<li class="clearfix"><img src="http://placehold.it/32x32" alt="用户名" class="avatar">'+dUname+'<div class="banned-kick rf">'+bannedMake+'&nbsp;&nbsp;'+kickedRoom+'</div></li>';
           }
         }
       }

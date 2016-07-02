@@ -635,7 +635,9 @@ form.cmxform form.cmxform .gray * {
 .top-notice {
   border-bottom: 1px solid #E4E4E4;
   height:61px;
-  color: #666; }
+  color: #666;
+  background: #F5F5F5;
+}
 
 .top-notice > .clearfix {
   width: 1040px;
@@ -954,6 +956,8 @@ form.cmxform form.cmxform .gray * {
   background: #0E60AE;
   font-size: 16px;
   cursor: pointer;
+  text-align: center;
+  line-height: 36px;
   border: none; }
 .letter-item {
   width: 16%;

@@ -1,16 +1,12 @@
 define(function(require,exports,module){
   // 引入公共模块
   require('common');
-  require('main');
-  require('volumecontrol');
   require('palette');
   var galleriffic=require('galleriffic');
   require('uploadify');
   // 定义变量
   var $body=$("body"),
       $jTarget=$('#Jtarget'),
-      // $iconSpeak=$('.icon-speak'),
-      // $iconSpeakState=$('.icon-speak-state'),
       $palette=$('#palette');
   // 实现弹窗效果通用代码 poput.js
   $("#Jpopup").click(function(event){
@@ -36,10 +32,6 @@ define(function(require,exports,module){
     $palette.fadeIn();
     $('.image-wrapper').fadeOut();
   });
-  // // 麦序控制
-  // $('.icon-speak-state,.icon-speak').on('click',function(){
-  //   $iconSpeak.toggleClass('icon-speak-off').hasClass('icon-speak-off')?$iconSpeakState.html('开麦'):$iconSpeakState.html('禁麦');
-  // });
   // 上传 ppt
   $('#file-upload').uploadify({
     'formData'     : {

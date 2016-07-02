@@ -110,11 +110,11 @@
                 <div class="rf">
                 {{if type==1}}
                   <a href="javascript:;" data-uid="{{value.user_id}}" class="reply-letter">回复私信</a>
-                  <a href="javascript:;" class="look-all">查看全部</a>
+                  <a href="javascript:;" data-lid="{{value.letter_id}}" class="look-all {{if value.letter_read==0}}rcvd{{/if}}">查看全部</a>
                   <a href="javascript:;" data-lid="{{value.letter_id}}" class="delete-letter hide">x删除</a>
                 {{else}}
                   <a href="javascript:;" data-lid="{{value.letter_id}}" class="delete-letter">删除私信</a>
-                  <a href="javascript:;" class="look-all">查看全部</a>
+                  <a href="javascript:;" data-lid="{{value.letter_id}}" class="look-all">查看全部</a>
                 {{/if}}
                 </div>
               </div>
@@ -142,7 +142,7 @@
       </div>
       <div class="popup-body">
         <form method="post" id="letter-form" class="popup-form cmxform">
-<!--           <div class="form-group">
+          <!--<div class="form-group">
             <label class="control-label">收件人</label>
             <div class="form-controls">
               <input type="text" class="form-input" name="name" value="" required>
@@ -160,7 +160,7 @@
               <textarea name="content" id="" class="form-textarea" required></textarea>
             </div>
           </div>
-          <input type="hidden" name="uid" id="user-id" value="">
+          <input type="hidden" name="user_id" id="user-id" value="">
           <div class="form-group">
             <div class="form-submit">
               <button type="submit" class="button-submit">确认</button>

@@ -4,12 +4,14 @@ define(function(require,exports,module){
   // 分页
   var typeVal=1;
   var pageVal=1;
+  var noRead=0;
   // 按条件查找
   function runPostAjaxDatas(){
     main.postAjaxDatas('/website/letter-list',{classify:typeVal,page:pageVal},function(datas){
       console.log(datas);
       var tableCourseList = template('tableCourseList',datas);
       $('#table-course-list').html(tableCourseList);
+      noRead=datas.no_read;
     });
   }
   // 初始化
@@ -45,16 +47,27 @@ define(function(require,exports,module){
     }
   });
   // 查看全部
+  $('.table-course').on('click','.rcvd',function(){
+    var _this=$(this);
+    var lid=_this.attr('data-lid');
+    main.postAjaxDatas('/website/is-read',{lid:lid},function(datas){
+      _this.parent().prev().find('.name').removeClass('hot');
+    });
+    _this.removeClass('rcvd');
+    noRead--;
+    if(noRead===0){
+      $('.web-letter').remove();
+    }else{
+      $('.web-letter').html(noRead);
+    }
+  });
   $('.table-course').on('click','.look-all',function(){
     if($(this).html()=='查看全部'){
       $(this).html('收起');
     }else{
       $(this).html('查看全部');
     }
-    // main.postAjaxDatas('/coures/delete',{lid:lid},function(datas){
-      $(this).parent().prev().find('.name').removeClass('hot');
-      $(this).parent().parent().next().slideToggle();
-    // });
+    $(this).parent().parent().next().slideToggle();
   });
   // 回复私信
   $('.table-course').on('click','.reply-letter',function(){
@@ -66,9 +79,16 @@ define(function(require,exports,module){
   $('.table-course').on('click','.delete-letter',function(){
     var lid=$(this).attr('data-lid');
     if(confirm('您确定要删除吗?')){
-      main.postAjaxDatas('/coures/delete',{lid:lid},function(datas){
+      main.postAjaxDatas('/website/del-letter',{lid:lid},function(datas){
         if(datas.status==1){
-          runPostAjaxDatas();
+          window.location.reload();
+          // runPostAjaxDatas();
+          // noRead--;
+          // if(noRead===0){
+          //   $('.web-letter').remove();
+          // }else{
+          //   $('.web-letter').html(noRead);
+          // }
         }else{
           alert(datas.msg);
         }
@@ -80,12 +100,12 @@ define(function(require,exports,module){
     $('.popup').addClass('hide');
   });
   // ajax提交
-  $('#invite-form').validate({
+  $('#letter-form').validate({
     onsubmit:true,// 是否在提交时验证
     submitHandler: function(form){
-      var data = $('#invite-form').serialize();
+      var data = $('#letter-form').serialize();
       $.ajax({
-        url : '/coures/invite-letter',
+        url : '/myteach/letter',
         type : 'post',
         data : data,
         dataType:'json',

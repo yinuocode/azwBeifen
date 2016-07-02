@@ -90,6 +90,7 @@ html, body {
 body {
   color: #010101;
   font-size: 14px;
+  overflow: hidden;
   background: #fff; }
 
 .hot {
@@ -331,6 +332,7 @@ body {
   color: #008AD1; }
 
 /*视频麦克风*/
+.pure-u-1-3{width: 0}
 #video-container,#my-video{
   position: fixed;
   bottom:0;

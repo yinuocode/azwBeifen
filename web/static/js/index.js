@@ -42,6 +42,7 @@ define(function(require,exports,module){
       fSuccess:function(datas){
         var sec03Charm = template('sec03Charm',{list:datas});
         $('#sec03-charm').html(sec03Charm);
+        console.log(datas);
       }
     }
   ];
@@ -108,8 +109,9 @@ define(function(require,exports,module){
   var $searchDirection=$('#search-direction a');
   var $searchClass=$('#search-class');
   $searchDirection.on('click',function(){
-    $(this).addClass('active').siblings().removeClass('active');
-    $searchClass.val($(this).attr('val'));
+    var _this=$(this);
+    _this.addClass('active').siblings().removeClass('active');
+    $('#search-form').attr('action',_this.attr('data-url'));
   });
   // 排行榜切换
   var $sec03BtItem=$('.sec03-bt .item');

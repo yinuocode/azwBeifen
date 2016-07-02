@@ -128,14 +128,13 @@
     <div class="sec01-lf lf">
       <a href="javascript:;" target="_blank"><img src="/static/img/section01-lf.jpg" alt=""></a>
       <div class="search">
-        <form action="" method="post">
+        <form action="/curriculum/list" method="get" id="search-form">
           <div class="clearfix" id="search-direction">
-            <a href="javascript:;" class="active" val="0">课程</a>
-            <a href="javascript:;" val="1">讲师</a>
-            <input type="hidden" value='0' name="search-class" id="search-class">
+            <a href="javascript:;" class="active" data-url="/curriculum/list">课程</a>
+            <a href="javascript:;" data-url="/lecturer">讲师</a>
           </div>
           <div class="search-input clearfix">
-            <input type="text" class="search-txt" name="search-txt">
+            <input type="text" class="search-txt" name="key">
             <button type="submit" class="search-btn">搜索</button>
           </div>
         </form>
@@ -168,7 +167,7 @@
     {{/each}}
     </script>
     </ul>
-    <button class="course-all" herf="">全部课程</button>
+    <a class="course-all" href="/curriculum/recommend">全部课程</a>
   </section>
   <!-- section02 end -->
   <section class="section03" id="section03">
@@ -198,9 +197,9 @@
               {{/if}}
               </td>
               <td>
-                {{each value.gift as value i}}
-                  {{if i<8}}
-                  <img src="{{value.g.gimage}}" alt="">
+                {{each value.gift as values j}}
+                  {{if j<5}}
+                  <img src="{{values.gimage}}" alt="">
                   {{/if}}
                 {{/each}}
               </td>
@@ -286,7 +285,7 @@
         </a>
       </div>
       <div class="item-last">
-        <a href="http://www.baidu.com" target="_blank">
+        <a href="/curriculum/list" target="_blank">
           <img src="/static/img/sec03-item4.png" alt="全部课程">
           <p class="title">全部课程</p>
         </a>

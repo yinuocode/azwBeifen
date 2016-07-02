@@ -1,0 +1,97 @@
+/*场景*/
+#SceneList li {
+	text-align: left;
+	font-family: Verdana;
+	font-weight: bold;
+	font-size: 16px;
+	border:1px solid;
+	background: #444444;
+	margin: 4px;
+	height: 28px;
+	line-height: 28px;
+	background: #444444;
+	border-radius:3px;
+	border-color: #333333;
+	color: #DDDDDD;
+	padding-left: 5px;
+	padding-right: 5px;
+	white-space: nowrap;
+	overflow:hidden;
+	text-overflow: ellipsis;
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+  	-moz-user-select: none;     /* Firefox all */
+  	-ms-user-select: none;      /* IE 10+ */
+}
+#SceneList li:hover {
+	background: #555555;
+	cursor: pointer;
+}
+#SceneList li.sceneselect {
+	background: #777777;
+	cursor: pointer;
+	border:2px solid;
+	border-color: #FF9900;
+	height: 30px;
+	line-height: 26px;
+}
+/*视频源*/
+#SourceList li p{
+	position: absolute;
+	left: 25px;
+	right: 40px;
+	line-height: 28px;
+	text-align: left;
+	font-family: Verdana;
+	font-weight: bold;
+	font-size: 16px;
+	margin: 0px;
+	color: #DDDDDD;
+	white-space: nowrap;
+	overflow:hidden;
+	text-overflow: ellipsis;
+}
+#SourceList li {
+	margin: 4px;
+	height: 36px;
+	padding: 3px 0;
+	border:1px solid;
+	background: #444444;
+	border-radius:3px;
+	border-color: #333333;
+}
+#SourceList>li>div{position: relative;}
+#SourceList>li .arrow {
+	position: absolute;
+	top: 4px;
+	width: 16px;
+	height: 20px;
+	left: 4px;
+	background:url(../../img/doublearrowsmall.png);
+}
+#SourceList>li .eye {
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	width:37px;
+	height:20px;
+	background:url(../../img/eyesprite.png) 0 -40px;
+}
+#SourceList>li .eye:hover {
+	cursor: pointer;
+	background-position: 0 -60px;
+}
+#SourceList>li .eye.off {
+	background-position: 0 0px;
+}
+#SourceList>li .eye.off:hover {
+	background-position: 0 -20px;
+}
+#SourceList>li:hover {
+	background: #555555;
+}
+#SourceList>li p:hover {
+	cursor: default;
+}
+#SourceList>li.scene-placeholder {
+	background: #222222;
+}
