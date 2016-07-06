@@ -58,6 +58,8 @@
               <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
             </p>
           </video>
+          <div id="video-shade">
+          </div>
         </div>
         <div class="watermarkEmbedded"><input type="hidden" id="videoWatermarkEmbedded" value="0"></div>
         <div class="lesson-content lesson-content-audio" id="lesson-audio-content" ></div>
@@ -87,6 +89,22 @@
           <button class="btn btn-primary finish-btn"><span class="glyphicon glyphicon-unchecked"></span> 学过了</button>
         </div>
       </div> -->
+      <a class="enjoy main-icon" href="javascript:;" id="enjoy-con"></a>
+      <div class="enjoy-box hide">
+        <div class="clearfix">
+          <a href="javascript:;" class="enjoy-m lf" data-m="1">1元</a>
+          <a href="javascript:;" class="enjoy-m lf" data-m="2">2元</a>
+          <a href="javascript:;" class="enjoy-m lf" data-m="5">5元</a>
+          <a href="javascript:;" class="enjoy-m lf" data-m="10">10元</a>
+        </div>
+        其他金额：<input type="text" class="enjoy-input" id="enjoy-val" onkeyup="value=value.replace(/[^\d|]/g,'')" value="1">
+        <button type="button" class="enjoy-btn" id="enjoy-btn">确认</button>
+      </div>
+      <div class="bullet-con">
+        <a href="javascript:;" class="bullet-con-btn"></a>
+        <textarea name="" id="" class="chat-textarea"></textarea>
+        <button class="chat-submit btn">发送</button>
+      </div>
     </div>
     <div class="course-data">
       <div class="course-data-title" id="course-data-title"></div>
@@ -98,6 +116,7 @@
           讲师：<span id="teacher-name"></span>
         </div>
       </div>
+      <input type="hidden" id="lecturer-id" value="">
     </div>
     <div class="toolbar toolbar-open" id="lesson-dashboard-toolbar">
       <div class="toolbar-nav">
@@ -324,6 +343,9 @@
   <script src="/static/js/plugins/kindeditor/kindeditor-min.js?v=2"></script>
   <!-- 视频 -->
   <script src="http://vjs.zencdn.net/5.8.8/video.js"></script>
+  <!-- 弹幕 -->
+  <script src="http://localhost:8080/socket.io/socket.io.js"></script>
+  <script src="/static/js/video/barrage.js"></script>
   <script>
     // seajs
     seajs.config({

@@ -103,7 +103,7 @@
           {{else}}
             <li><a href="/coures/study">我的课程</a></li>
           {{/if}}
-            <li><a href="/home">我的主页</a></li>
+            <li><a href="/home?uid={{id}}">我的主页</a></li>
             <li><a href="/personage/setbase">个人设置</a></li>
             <li><a href="/website/letter">站内信
               {{if letter}}
@@ -145,7 +145,7 @@
       <div class="slider sec01-rf-side" id="sec01-side">
         <script id="sec01Side" type="text/html">
           {{each list as value i}}
-            <div><a href="{{value.href}}" target="_blank"><img src="{{value.portrait}}" alt="{{value.real_name}}"></a></div>
+            <div><a href="/home?uid={{value.id}}" target="_blank"><img src="{{value.portrait}}" alt="{{value.real_name}}"></a></div>
           {{/each}}
         </script>
       </div>
@@ -199,7 +199,7 @@
               <td>
                 {{each value.gift as values j}}
                   {{if j<5}}
-                  <img src="{{values.gimage}}" alt="">
+                  <img src="{{values.gimage}}" alt="" width="35">
                   {{/if}}
                 {{/each}}
               </td>
@@ -238,7 +238,7 @@
               <td>
                 {{each value.gift as values i}}
                   {{if i<8}}
-                  <img src="{{values}}" alt="">
+                  <img src="{{values}}" alt="" width="35">
                   {{/if}}
                 {{/each}}
               </td>

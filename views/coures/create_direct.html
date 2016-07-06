@@ -46,7 +46,7 @@
           <div class="form-group">
             <label class="control-label">标签</label>
             <div class="form-controls">
-              <input type="text" class="form-input" value="{{live_label}}" id="input-tag" name="Coures[live_label]" autocomplete="off">
+              <input type="text" class="form-input" value="{{each label_name as val i}}{{if i==0}}{{val.label_name}}{{else}},{{val.label_name}}{{/if}}{{/each}}" id="input-tag" name="Coures[live_label]" autocomplete="off">
               <p class="form-hint">将用于搜索相关课程使用，多个词之间用<strong class="hot">，</strong>逗号隔开</p>
               <ul class="form-tag" id="course-tag">
               </ul>
@@ -63,8 +63,7 @@
               </div>
             </div>
           </div>
-          {{if live_type!=0}}
-          <div id="course-price">
+          <div id="course-price" class="{{if live_type==0}}hide{{/if}}">
             <div class="form-group">
               <label class="control-label">课程价格</label>
               <div class="form-controls">
@@ -78,7 +77,6 @@
               </div>
             </div>
           </div>
-          {{/if}}
           <div class="form-group">
             <label class="control-label">课程介绍</label>
             <div class="form-controls">

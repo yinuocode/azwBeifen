@@ -199,3 +199,20 @@
     line-height: 0;
     float: left;
 }
+.uploader-list li {
+    background: url(bg.png) no-repeat;
+    position: relative;
+    overflow: hidden;
+    font-size: 12px;
+}
+.uploader-list .file-panel span{
+    width: 24px;
+    height: 24px;
+    display: inline;
+    float: right;
+    text-indent: -9999px;
+    overflow: hidden;
+    background: url(icons.png) no-repeat;
+    margin: 5px 1px 1px;
+    cursor: pointer;
+}

@@ -60,7 +60,7 @@ define(function(require,exports,module){
     }
   ];
   for(var i=0,len=ajaxDatas.length;i<len;i++){
-    postAjaxDatas(ajaxDatas[i].url,ajaxDatas[i].fSuccess);
+    postAjaxDatas(ajaxDatas[i].url,{cid:courseCid},ajaxDatas[i].fSuccess);
   }
   var jwplayer = require('jwplayer');
   // 视频播放
@@ -100,6 +100,9 @@ define(function(require,exports,module){
   }
   // 礼物功能
   function runGift(){
+    giftNr=$allGift.find('a:first').html(); // 礼物
+    giftTitle=$allGift.find('a:first').attr('title');
+    giftId=$allGift.find('a:first').attr('data-id');
     var $giftPrev=$('#gift-paging .prev'); // 分页按钮
     var $giftNext=$('#gift-paging .next'); // 分页按钮
     var giftHeight=$allGift.parent().height(); // 真实高度
@@ -129,6 +132,7 @@ define(function(require,exports,module){
       $(this).addClass('active').siblings().removeClass('active');
       giftNr=$(this).html();
       giftTitle=$(this).attr('title');
+      giftId=$(this).attr('data-id');
     });
     /*var $userAll=$('#user-all'); // 弹出所有用户
     var $userObject=$('#user-object'); // 选择送礼对象
@@ -158,15 +162,26 @@ define(function(require,exports,module){
   $shareLink.on('click',function(){
     $shareBlock.toggle();
   });
-  // 签到
-  $('#user-signin').one('click',function(){
-    var signinSpan=$(this).find('.signin-span');
-    signinSpan.show().animate({
-      top:-50,
-      opacity:0
-    },1000,function(){
-      signinSpan.hide();
-    }).parent().attr('title','已签到');
+  // 打赏
+  $('#enjoy-con').on('click',function(){
+    $('.enjoy-box').toggle();
   });
-
+  $('.enjoy-m').on('click',function(){
+    var dataM=$(this).attr('data-m');
+    $('#enjoy-val').val(dataM);
+  });
+  // 签到
+  // $('#user-signin').one('click',function(){
+  //   var signinSpan=$(this).find('.signin-span');
+  //   signinSpan.show().animate({
+  //     top:-50,
+  //     opacity:0
+  //   },1000,function(){
+  //     signinSpan.hide();
+  //   }).parent().attr('title','已签到');
+  // });
+  // 关闭弹窗
+  $('.popup-close,.p-close').on('click',function(){
+    $('.popup').addClass('hide');
+  });
 });

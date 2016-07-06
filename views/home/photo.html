@@ -1,0 +1,123 @@
+<!-- header -->
+<?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
+<!-- header end -->
+<link rel="stylesheet" href="/static/js/plugins/slick/slick.css">
+<link rel="stylesheet" href="/static/css/home.css">
+  <div class="home-head clearfix" id="home-header">
+    <script id="homeHeader" type="text/html">
+      <div class="lf user-base">
+        <h1>{{nick_name}}<span class="sex">{{if sex==0}}女{{else if sex==1}}男{{else}}未填写{{/if}}</span></h1>
+        <div class="row">
+          <div class="lf home-avatar"><img src="{{portrait}}" alt=""></div>
+          <div class="lf home-base">
+            <!-- <p>直播时通知我</p> -->
+            <p>职位：{{if identity==1}}讲师{{else}}会员{{/if}}</p>
+            <p>等级：<img src="{{grade}}" class="grade" alt=""></p>
+          </div>
+        </div>
+      </div>
+      <div class="lf signature">
+        <h2>个性签名</h2>
+        <p>{{if motto}}{{motto}}{{else}}主人很懒，暂未设置个性签名{{/if}}</p>
+      </div>
+      <div class="rf follow-fans">
+        <div class="row row1">
+          <div class="lf">
+            <p class="num">{{attention}}</p>
+            <p>关注</p>
+          </div>
+          <div class="lf">
+            <p class="num">{{fans}}</p>
+            <p>粉丝</p>
+          </div>
+        </div>
+        {{if is_login==1}}
+          {{if self==1}}
+          <div class="row row3 block">
+            {{if is_sign==0}}
+            <a href="javascript:;" id="user-signin">签到<span class="signin-span">+5</span></a>
+            {{else}}
+            <a href="javascript:;">已签到</a>
+            {{/if}}
+          </div>
+          {{else}}
+          <div class="row row2">
+            {{if relation==0}}
+            <a href="javascript:;" class="lf" id="attention">关注TA</a>
+            {{else}}
+            <a href="javascript:;" class="lf" id="cancel-attention">取消关注</a>
+            {{/if}}
+            <a href="javascript:;" class="lf" id="send-letter">私信TA</a>
+          </div>
+          {{/if}}
+        {{else}}
+        <div class="row row2">
+          <a href="javascript:;" class="click-login lf">关注TA</a>
+          <a href="javascript:;" class="click-login lf">私信TA</a>
+        </div>
+        {{/if}}
+      </div>
+    </script>
+  </div>
+  <section class="section-panel mt0">
+    <header class="panel-heading clearfix" id="course-head1">
+      <script id="courseHead" type="text/html">
+      <a href="/home">主页</a>
+      <a href="/home/photo" class="active">相册</a>
+      {{if identity}}
+      <a href="/home/course">TA的课程</a>
+      <a href="/home/fans">TA的粉丝</a>
+      <a href="/home/intro">简介</a>
+      {{/if}}
+      </script>
+    </header>
+    <div class="panel-body">
+      <p id="on-air" class="hide hot on-direct">我正在直播：<a href="javascript:;" target="_blank" class="btn">立刻进入</a></p>
+      <div class="panel-body-course clearfix">
+
+      </div>
+    </div>
+  </section>
+  <!-- 发送私信 -->
+  <div class="popup hide" id="letter-popup">
+    <div class="popup-modal">
+      <div class="popup-header">
+        <h1>发送私信</h1>
+        <button type="button" class="popup-close"></button>
+      </div>
+      <div class="popup-body">
+        <form method="post" id="letter-form" class="popup-form cmxform">
+          <div class="form-group">
+            <label class="control-label">标题</label>
+            <div class="form-controls">
+              <input type="text" class="form-input" name="title" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">内容</label>
+            <div class="form-controls">
+              <textarea name="content" id="" class="form-textarea" required></textarea>
+            </div>
+          </div>
+          <input type="hidden" value="" name="user_id" id="user-id">
+          <div class="form-group">
+            <div class="form-submit">
+              <button type="submit" class="button-submit">确认</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="popup-bg"></div>
+  </div>
+  <!-- footer -->
+  <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
+  <!-- footer end -->
+  <script src="/static/js/plugins/slick/slick.min.js"></script>
+  <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
+  <script src="/static/js/plugins/validate/messages_zh.js"></script>
+  <script>
+    seajs.use('/static/js/home/home.js');
+  </script>
+</body>
+</html>

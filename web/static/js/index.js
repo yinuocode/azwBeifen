@@ -42,7 +42,14 @@ define(function(require,exports,module){
       fSuccess:function(datas){
         var sec03Charm = template('sec03Charm',{list:datas});
         $('#sec03-charm').html(sec03Charm);
-        console.log(datas);
+      }
+    },
+    // 客服代码
+    {
+      url:'/index/service',
+      fSuccess:function(datas){
+        var floatConsult = template('floatConsult',datas);
+        $('#float-consult').html(floatConsult);
       }
     }
   ];

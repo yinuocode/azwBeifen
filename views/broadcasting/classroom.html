@@ -63,6 +63,7 @@
                   <a href="/lecturer?uid={{uid}}" target="_blank">
                     <img src="{{portrait}}" width="60px" height="60" alt="头像">
                   </a>
+                  <input type="hidden" id="lecturer-id" value="{{uid}}">
                 </div>
                 <div class="signature">{{motto}}</div>
               </div>
@@ -100,8 +101,18 @@
             </div>
           </div>
           <a class="invite main-icon" id="share-link" href="javascript:;">邀请</a>
-          <a class="signin main-icon" href="javascript:;" id="user-signin" title="未签到">签到<span class="signin-span">+5</span></a>
-          <a class="enjoy main-icon" href="javascript:;"></a>
+          <!-- <a class="signin main-icon" href="javascript:;" id="user-signin" title="未签到">签到<span class="signin-span">+5</span></a> -->
+          <a class="enjoy main-icon" href="javascript:;" id="enjoy-con"></a>
+          <div class="enjoy-box hide">
+            <div class="clearfix">
+              <a href="javascript:;" class="enjoy-m lf" data-m="1">1元</a>
+              <a href="javascript:;" class="enjoy-m lf" data-m="2">2元</a>
+              <a href="javascript:;" class="enjoy-m lf" data-m="5">5元</a>
+              <a href="javascript:;" class="enjoy-m lf" data-m="10">10元</a>
+            </div>
+            其他金额：<input type="text" class="enjoy-input" id="enjoy-val" onkeyup="value=value.replace(/[^\d|]/g,'')" value="1">
+            <button type="button" class="enjoy-btn" id="enjoy-btn">确认</button>
+          </div>
           <!-- <a class="share main-icon" id="share-link" href="javascript:;" title="分享"></a> -->
           <div class="share-block">
             <p class="link">Ctrl+c复制链接：<input id="current-link" type="text" value=""></p>
@@ -166,7 +177,7 @@
               <div class="clearfix" id="all-gift">
               <script id="allGift" type="text/html">
               {{each list as value i}}
-                <a href="javascript:;" data-id="{{value.gid}}" title="{{value.gname}}"><img src="{{value.gimage}}" alt="{{value.gname}}"></a>
+                <a href="javascript:;" data-id="{{value.gid}}" title="{{value.gname}} ￥{{value.price}}"><img src="{{value.gimage}}" alt="{{value.gname}}"></a>
               {{/each}}
               </script>
               </div>
@@ -190,14 +201,14 @@
                   </ul> -->
                 </div>
                 <div class="ranking-input clearfix">
-                  <div class="lf">数量</div><div class="count-box"><input class="count" id="gift-num" type="text" onkeyup="value=value.replace( /[^\d|]/g,'')" value="1"></div>
+                  <div class="lf">数量</div><div class="count-box"><input class="count" id="gift-num" type="text" onkeyup="value=value.replace(/[^\d|]/g,'')" value="1"></div>
                 </div>
                 <input type="hidden" name="gift" value="1">
               </div>
               <button class="lf send" id="gift-send"></button>
             </div>
-            <a href="javascript:;" class="game">比拼</a>
-            <a href="javascript:;" target="_blank" class="pay">充值</a>
+            <!-- <a href="javascript:;" class="game">比拼</a> -->
+            <a href="/account/recharge" target="_blank" class="pay">充值</a>
           </div>
         </div>
       </div>
@@ -259,6 +270,23 @@
       </div>
     </div>
   </div>
+  <!-- 支付弹窗 -->
+  <div class="popup hide" id="pay-popup">
+    <div class="popup-modal">
+      <div class="popup-header">
+        <h1>支付遇到问题</h1>
+        <button type="button" class="popup-close"></button>
+      </div>
+      <div class="popup-body">
+        <p class="popup-alert">你的账户余额不足，请充值或者选择其他方式付款</p>
+        <div class="clearfix popup-item">
+          <a href="/account/recharge" target="_blank" class="lf btn">立即充值</a>
+          <a href="javascript:;" class="rf btn p-close">返回</a>
+        </div>
+      </div>
+    </div>
+    <div class="popup-bg"></div>
+  </div>
   <!-- htmt 代码结束 -->
   <!-- js 脚本文件 -->
   <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
@@ -268,21 +296,21 @@
   <script src="/static/js/plugins/peer/script.js"></script> -->
   <script src="/static/js/lib/sea.js" id="seajsnode"></script>
   <script src="http://139.196.195.238:8080/socket.io/socket.io.js"></script>
-  <!-- <script src="http://192.168.0.100:8080/socket.io/socket.io.js"></script> -->
+  <!-- <script src="http://localhost:8080/socket.io/socket.io.js"></script> -->
   <!-- peer 麦克和摄像头 -->
   <script>
     // 定义全局变量
     var arrAdminT=['50'],//获取管理员数组
         socketUrl='http://139.196.195.238:8080/',
-        // socketUrl='http://192.168.0.100:8080/',
+        // socketUrl='http://localhost:8080/',
         userMid,
         userName,
         dataService='2',
         search=location.search,
         courseCid=search.substring(search.indexOf('cid=')+4),
         $allGift=$('#all-gift'), // 礼物
-        giftNr=$allGift.find('a:first').html(), // 礼物
-        giftTitle=$allGift.find('a:first').attr('title'),
+        giftNr=''; // 礼物
+        giftTitle='';
         giftId=1; // 礼物 id
     // seajs
     seajs.config({
@@ -296,11 +324,11 @@
       }
     });
     // ajax post 方法
-    function postAjaxDatas(_url,fSuccess){
+    function postAjaxDatas(_url,data,fSuccess){
       $.ajax({
         type:'post',
         url:_url,
-        data:{cid:courseCid},
+        data:data,
         dataType: 'json',
         success: function(datas){
           fSuccess(datas);
@@ -311,7 +339,7 @@
       });
     }
     // 会员信息
-    postAjaxDatas('/broadcasting/study',function(datas){
+    postAjaxDatas('/broadcasting/study',{cid:courseCid},function(datas){
       userMid=datas.id;
       userName=datas.uname;
       var userInfoOption = template('userInfoOption',datas);

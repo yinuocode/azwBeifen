@@ -1,129 +1,200 @@
 <!-- header -->
 <?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
 <!-- header end -->
-  <section class="section-panel">
-    <header class="panel-heading clearfix">
-      <a href="/coures/direct" class="active">主页</a>
-      <a href="/coures/course">相册</a>
-      <a href="/coures/teaching">动态</a>
+<link rel="stylesheet" href="/static/js/plugins/slick/slick.css">
+<link rel="stylesheet" href="/static/js/plugins/webupload/webupload.css">
+<link rel="stylesheet" href="/static/css/home.css">
+  <div class="home-head clearfix" id="home-header">
+    <script id="homeHeader" type="text/html">
+      <div class="lf user-base">
+        <h1>{{nick_name}}<span class="sex">{{if sex==0}}女{{else if sex==1}}男{{else}}未填写{{/if}}</span></h1>
+        <div class="row">
+          <div class="lf home-avatar"><img src="{{portrait}}" alt=""></div>
+          <div class="lf home-base">
+            <!-- <p>直播时通知我</p> -->
+            <p>职位：{{if identity==1}}讲师{{else}}会员{{/if}}</p>
+            <p>等级：<img src="{{grade}}" class="grade" alt=""></p>
+          </div>
+        </div>
+      </div>
+      <div class="lf signature">
+        <h2>个性签名</h2>
+        <p>{{if motto}}{{motto}}{{else}}主人很懒，暂未设置个性签名{{/if}}</p>
+      </div>
+      <div class="rf follow-fans">
+        <div class="row row1">
+          <div class="lf">
+            <p class="num">{{attention}}</p>
+            <p>关注</p>
+          </div>
+          <div class="lf">
+            <p class="num">{{fans}}</p>
+            <p>粉丝</p>
+          </div>
+        </div>
+        {{if is_login==1}}
+          {{if self==1}}
+          <div class="row row3 block">
+            {{if is_sign==0}}
+            <a href="javascript:;" id="user-signin">签到<span class="signin-span">+5</span></a>
+            {{else}}
+            <a href="javascript:;">已签到</a>
+            {{/if}}
+          </div>
+          {{else}}
+          <div class="row row2">
+            {{if relation==0}}
+            <a href="javascript:;" class="lf" id="attention">关注TA</a>
+            {{else}}
+            <a href="javascript:;" class="lf" id="cancel-attention">取消关注</a>
+            {{/if}}
+            <a href="javascript:;" class="lf" id="send-letter">私信TA</a>
+          </div>
+          {{/if}}
+        {{else}}
+        <div class="row row2">
+          <a href="javascript:;" class="click-login lf">关注TA</a>
+          <a href="javascript:;" class="click-login lf">私信TA</a>
+        </div>
+        {{/if}}
+      </div>
+    </script>
+  </div>
+  <section class="section-panel mt0">
+    <header class="panel-heading clearfix" id="course-head1">
+      <script id="courseHead" type="text/html">
+      <a href="/home" class="active">主页</a>
+      <a href="/home/photo">相册</a>
+      {{if identity}}
+      <a href="/home/course">TA的课程</a>
+      <a href="/home/fans">TA的粉丝</a>
+      <a href="/home/intro">简介</a>
+      {{/if}}
+      </script>
     </header>
     <div class="panel-body">
-      <div class="panel-body-course">
-        <table class="table-course" id="table-course-list">
-        <script id="tableCourseList" type="text/html">
-          <tbody>
-            <tr>
-              <th class="th1"><input type="checkbox" name="controlAll" id="controlAll"><label for="controlAll">全选</label></th>
-              <th class="th2">名称</th>
-              <th class="th3">图片</th>
-              <th class="th4">学员数</th>
-              <th class="th5">价格</th>
-              <!-- <th class="th6">发布状态</th> -->
-              <th class="th7">创建时间</th>
-              <th class="th8">操作</th>
-            </tr>
-            {{each list as value i}}
-            <tr>
-            {{if value.type==1}}
-              <td><input type="checkbox" name="selected" data-type="{{value.type}}" value="{{value.coures_id}}"></td>
-              <td><a href="/broadcasting?cid={{value.coures_id}}" target="_blank">{{value.coures_title}}</a></td>
-              <td><img src="{{value.coures_cover}}" alt=""></td>
-              <td>{{value.num}}</td>
-              <td>{{value.privilege_price}}</td>
-              <!-- <td>已发布</td> -->
-              <td>{{value.ctime}}</td>
-              <td class="handle">
-              {{if value.coures_status==1}}
-                <a href="/broadcasting?cid={{value.coures_id}}">进入课程</a>
-                <a href="javascript:;">推广链接</a>
-                <a href="javascript:;">课时管理</a>
-              {{else}}
-                <a href="javascript:;" class="start-issue" data-type="{{value.type}}" data-cid="{{value.coures_id}}">开始发布</a>
-              {{/if}}
-              </td>
-            {{else if value.type==0}}
-              <td><input type="checkbox" name="selected" data-type="{{value.type}}" value="{{value.live_id}}"></td>
-              <td><a href="/broadcasting?cid={{value.live_id}}" target="_blank">{{value.live_title}}</a></td>
-              <td><img src="{{value.live_cover}}" alt=""></td>
-              <td>{{value.num}}</td>
-              <td>{{value.privilege_price}}</td>
-              <!-- <td>已发布</td> -->
-              <td>{{value.ctime}}</td>
-              <td class="handle">
-              {{if value.live_state==1}}
-                <a href="/broadcasting?cid={{value.live_id}}">开始直播</a>
-                <a href="javascript:;">推广链接</a>
-                <a href="javascript:;" class="add-teaching" data-cid="{{value.live_id}}">添加助教</a>
-              {{else}}
-                <a href="javascript:;" class="start-issue" data-type="{{value.type}}" data-cid="{{value.live_id}}">开始发布</a>
-              {{/if}}
-              </td>
-            {{else}}
-              <td><input type="checkbox" name="selected" data-type="{{value.type}}" value="{{value.live_id}}"></td>
-              <td><a href="/broadcasting?cid={{value.live_id}}" target="_blank">{{value.live_title}}</a></td>
-              <td><img src="{{value.live_cover}}" alt=""></td>
-              <td>{{value.num}}</td>
-              <td>{{value.privilege_price}}</td>
-              <!-- <td>已发布</td> -->
-              <td>{{value.ctime}}</td>
-              <td class="handle">
-              {{if value.live_state==1}}
-                <a href="/broadcasting?cid={{value.live_id}}">开始助播</a>
-                <a href="javascript:;">推广链接</a>
-              {{else}}
-                <a href="javascript:;">尚未发布</a>
-              {{/if}}
-              </td>
-            {{/if}}
-            </tr>
-            {{/each}}
-          </tbody>
-        </script>
-        </table>
-        <div class="ajax-paging">
-          <div class="clearfix">
-            <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
-            <a href="javascript:;" id="paging-next" class="handle-icon right-arrows active"></a>
+      <p id="on-air" class="hide hot on-direct">我正在直播：<a href="javascript:;" target="_blank" class="btn">立刻进入</a></p>
+      <div class="panel-body-course sub clearfix">
+        <div class="lf home-main">
+          <div class="home-content">
+            <div class="publish">
+              <form id="publish-form" class="cmxform" method="post">
+                <div class="clearfix">
+                  <textarea name="Dynamic[details]" id="" cols="30" rows="10" class="publish-txt lf"></textarea>
+                  <div class="publish-select">
+                    <i class="talk-icon camera" id="talk-camera"></i>
+                  </div>
+                </div>
+                <div class="img-list clearfix">
+                  <div id="uploader-img1" class="lf">
+                    <div id="fileList1" class="uploader-list clearfix">
+                    </div>
+                    <a href="javascript:;" class="upload-btn" id="filePicker1">选择图片</a>
+                  </div>
+                  <div id="uploader-img2" class="lf">
+                    <div id="fileList2" class="uploader-list clearfix">
+                    </div>
+                    <a href="javascript:;" class="upload-btn" id="filePicker2">选择图片</a>
+                  </div>
+                  <div id="uploader-img3" class="lf">
+                    <div id="fileList3" class="uploader-list clearfix">
+                    </div>
+                    <a href="javascript:;" class="upload-btn" id="filePicker3">选择图片</a>
+                  </div>
+                  <div id="uploader-img4" class="lf">
+                    <div id="fileList4" class="uploader-list clearfix">
+                    </div>
+                    <a href="javascript:;" class="upload-btn" id="filePicker4">选择图片</a>
+                  </div>
+                </div>
+                <div id="input-img">
+                  <input type="hidden" name="Dynamic[dynamic_image_1]" value="">
+                  <input type="hidden" name="Dynamic[dynamic_image_2]" value="">
+                  <input type="hidden" name="Dynamic[dynamic_image_3]" value="">
+                  <input type="hidden" name="Dynamic[dynamic_image_4]" value="">
+                </div>
+                <p><button type="submit" class="btn talk-btn">发表</button></p>
+              </form>
+              <div class="publish-date">发表说说</div>
+            </div>
+            <ul class="talk-list" id="talk-list">
+              <script id="talkList" type="text/html">
+              {{each list as value i}}
+                <li>
+                  <p class="text">
+                    {{value.details}}
+                  </p>
+                  {{if value.dynimg.length>0}}
+                  <p class="img">
+                    {{each value.dynimg as src j}}
+                    <img src="{{src}}" alt="">
+                    {{/each}}
+                  </p>
+                  {{/if}}
+                  <p class="video"></p>
+                  <div class="handle-box">
+                    <div class="handle clearfix">
+                      <a href="javascript:;" class="publish-comment-btn" data-pid="{{value.dynamic_id}}" data-i={{i}}><i class="talk-icon comment"></i>评论{{if value.comment_sum!=0}}({{value.comment_sum}}){{/if}}</a>
+                      <!-- <a href="javascript:;" class="forward-btn" data-pid="{{value.dynamic_id}}"><i class="talk-icon forward"></i>转发</a> -->
+                      <a href="javascript:;" class="praise-btn" data-pid="{{value.dynamic_id}}"><i class="talk-icon favour"></i>赞{{if value.like_num!=0}}({{value.like_num}}){{/if}}</a>
+                      {{if value.self==1}}
+                      <a href="javascript:;" class="delete-btn" data-pid="{{value.dynamic_id}}"><i class="talk-icon delete"></i>删除</a>
+                      {{/if}}
+                    </div>
+                    {{if value.comment_sum!=0}}
+                    {{each value.comment as values i}}
+                    <div class="clearfix comment-list">
+                      <div class="lf avatar"><img src="{{values.portrait}}" width="45" height="45" alt=""></div>
+                      <div class="lf">
+                        <p class="comment-nr"><a href="/home?uid={{values.user_id}}" class="name hot">{{values.name}}：</a>{{values.comment_details}}</p>
+                        <p class="date">{{values.create_date}}</p>
+                      </div>
+                    </div>
+                    {{/each}}
+                    {{/if}}
+                  </div>
+                  <form class="comment-form{{i}} hide cmxform" method="post">
+                    <input type="hidden" name="DynamicComment[dynamic_id]" value="{{value.dynamic_id}}">
+                    <textarea name="DynamicComment[comment_details]" id="" cols="30" rows="10" class="publish-txt comment-textarea" placeholder="自古评论出人才。。" required></textarea>
+                    <p><button type="submit" class="btn talk-btn">发表</button></p>
+                  </form>
+                  <div class="publish-date"><i class="talk-icon talk"></i>{{value.create_date}}</div>
+                </li>
+              {{/each}}
+              </script>
+            </ul>
+          </div>
+        </div>
+        <div class="rf home-side">
+          <div class="h2">收藏的课程</div>
+          <div class="slider" id="collect-course">
+            <script id="collectCourse" type="text/html">
+              {{each list as value i}}
+                <div><a href="/couresdetail?cid={{value.cid}}&type={{value.type}}" target="_blank"><img src="{{value.cover}}" alt="{{value.title}}"></a></div>
+              {{/each}}
+            </script>
+          </div>
+          <div class="h2">学习的课程</div>
+          <div class="slider" id="study-course">
+            <script id="studyCourse" type="text/html">
+              {{each list as value i}}
+                <div><a href="/couresdetail?cid={{value.cid}}&type={{value.type}}" target="_blank"><img src="{{value.cover}}" alt="{{value.title}}"></a></div>
+              {{/each}}
+            </script>
           </div>
         </div>
       </div>
     </div>
   </section>
-  <!-- 添加助教 -->
-  <div class="popup hide" id="sub-teaching-popup">
+  <!-- 发送私信 -->
+  <div class="popup hide" id="letter-popup">
     <div class="popup-modal">
       <div class="popup-header">
-        <h1>添加助教</h1>
+        <h1>发送私信</h1>
         <button type="button" class="popup-close"></button>
       </div>
       <div class="popup-body">
-        <form method="post" id="sub-teaching" class="popup-form cmxform">
-          <div class="form-group">
-            <label class="control-label">助教id</label>
-            <div class="form-controls">
-              <input type="text" class="form-input" name="uid" number="true">
-            </div>
-          </div>
-          <input type="hidden" class="form-input" name="cid" value="">
-          <div class="form-group">
-            <div class="form-submit">
-              <button type="submit" class="button-submit">确认</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="popup-bg"></div>
-  </div>
-  <!-- 一键邀请 -->
-  <div class="popup hide" id="invite-popup">
-    <div class="popup-modal">
-      <div class="popup-header">
-        <h1>一键邀请</h1>
-        <button type="button" class="popup-close"></button>
-      </div>
-      <div class="popup-body">
-        <form method="post" id="invite-form" class="popup-form cmxform">
+        <form method="post" id="letter-form" class="popup-form cmxform">
           <div class="form-group">
             <label class="control-label">标题</label>
             <div class="form-controls">
@@ -136,7 +207,7 @@
               <textarea name="content" id="" class="form-textarea" required></textarea>
             </div>
           </div>
-          <input type="hidden" class="form-input" name="cid" id="invite-cid" value="">
+          <input type="hidden" value="" name="user_id" id="user-id">
           <div class="form-group">
             <div class="form-submit">
               <button type="submit" class="button-submit">确认</button>
@@ -150,10 +221,12 @@
   <!-- footer -->
   <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
   <!-- footer end -->
+  <script src="/static/js/plugins/slick/slick.min.js"></script>
   <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
   <script src="/static/js/plugins/validate/messages_zh.js"></script>
+  <script src="/static/js/plugins/webupload/webuploader.js"></script>
   <script>
-    seajs.use('/static/js/course/teaching.js');
+    seajs.use('/static/js/home/index.js');
   </script>
 </body>
 </html>

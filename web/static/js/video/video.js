@@ -45,7 +45,9 @@ define(function(require,exports,module){
   });
   // 讲师简介
   postAjaxDatas('/couresdetail/course-teach',getVal,function(datas){
+    console.log(datas);
     $('#teacher-name').html(datas.username);
+    $('#lecturer-id').val(data.user_id);
   });
   // 课时
   postAjaxDatas('/couresdetail/hour',getVal,function(datas){
@@ -246,5 +248,34 @@ define(function(require,exports,module){
   // 关闭侧边栏
   $('#close-sidebar').on('click',function(){
     $('.toolbar-pane-container').hide();
+  });
+  // 打赏
+  $('#enjoy-con').on('click',function(){
+    $('.enjoy-box').toggle();
+  });
+  $('.enjoy-m').on('click',function(){
+    var dataM=$(this).attr('data-m');
+    $('#enjoy-val').val(dataM);
+  });
+  // 打赏 socket.io
+  $('#enjoy-btn').on('click',function(){
+    var money=$('#enjoy-val').val();
+    var lid=$('#lecturer-id').val();
+    if(Number(money)!==0){
+      postAjaxDatas('/broadcasting/reward',{money:money,to_user_id:lid},function(datas){
+        if(datas.status==1){
+          $('.enjoy-box').hide();
+        }else{
+          $('#pay-popup').removeClass('hide');
+        }
+      });
+    }else{
+      alert('最起码打赏一元吧');
+    }
+  });
+  // 弹幕控制按钮
+  $('.bullet-con-btn').on('click',function(){
+    $(this).toggleClass('close');
+    $('#video-shade').toggle();
   });
 });

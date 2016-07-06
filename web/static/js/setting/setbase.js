@@ -85,11 +85,11 @@ define(function(require,exports,module){
     // 复制邀请链接
     copyToClipboard('profile-link','copy-link');
     // 上传图片
-    var $list = $('#fileList'),
+    var $list = $('.fileList'),
         // 优化retina, 在retina下这个值是2
         ratio = window.devicePixelRatio || 1,
         // 缩略图大小
-        thumbnailWidth = 100 * ratio,
+        thumbnailWidth = 260 * ratio,
         thumbnailHeight = 100 * ratio,
     // 初始化Web Uploader
     uploader = WebUploader.create({
@@ -101,28 +101,32 @@ define(function(require,exports,module){
         server: "/static/js/plugins/webupload/fileupload.php",
         // 选择文件的按钮。可选。
         // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-        pick: '#filePicker',
+        pick: '.filePicker',
         // 只允许选择图片文件。
         accept: {
             title: 'Images',
             extensions: 'gif,jpg,jpeg,bmp,png',
             mimeTypes: 'image/*'
         },
+        // 允许重复上传
+        duplicate : true,
         thumb: {
-            width: 110,
-            height: 110,
+            // width: 110,
+            // height: 110,
             // 图片质量，只有type为`image/jpeg`的时候才有效。
             quality: 70,
             // 是否允许放大，如果想要生成小图的时候不失真，此选项应该设置为false.
-            allowMagnify: false,
+            allowMagnify: true,
             // 是否允许裁剪。
-            crop: true,
+            crop: false,
             // 为空的话则保留原有图片格式。
             // 否则强制转换成指定的类型。
             type: 'image/jpeg'
         }
     });
     // 当有文件添加进来的时候
+    var _index=0;
+    $('.filePicker').on('click',function(){_index=$(this).attr('data-index');});
     uploader.on( 'fileQueued', function( file ) {
         var $li = $(
                 '<div id="' + file.id + '" class="file-item thumbnails">' +
@@ -132,7 +136,7 @@ define(function(require,exports,module){
                 ),
             $img = $li.find('img');
         // $list为容器jQuery实例
-        $list.html( $li );
+        $list.eq(_index).html( $li );
         // 创建缩略图
         // 如果为非图片文件，可以不用调用此方法。
         // thumbnailWidth x thumbnailHeight 为 100 x 100
@@ -158,10 +162,10 @@ define(function(require,exports,module){
     });
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on( 'uploadSuccess', function( file,resporse ) {
-      console.log(file);
-      console.log(resporse.date);
+      console.log(_index);
         $( '#'+file.id ).addClass('upload-state-done');
-        $('#img-path').val(main.imgPath+'/'+resporse.date+'/'+file.name);
+        $('.img-path').eq(_index).val(main.imgPath+'/'+resporse.date+'/'+file.name);
+        console.log($('.img-path').eq(_index).val());
     });
     // 文件上传失败，显示上传出错。
     uploader.on( 'uploadError', function( file ) {

@@ -234,6 +234,7 @@ $(function(){
     });
     socket.on('showmember',function(data){
       console.log('触发showmember');
+      console.log('-----------------------------------');
       console.log(data);
       var str = '';
       if(data.length){
@@ -283,7 +284,7 @@ $(function(){
       $studentList.html(str);
       getStorage($searchText.val());
       //禁言
-      $('.icon-banned').on('click',function(event){
+      $('#student-list').on('click','.icon-banned',function(event){
         var self = event.target;
         var cid = courseCid;
         var uid = $(self).attr('data-uid');
@@ -295,7 +296,7 @@ $(function(){
         event.preventDefault();
       });
       //踢人
-      $('.icon-kicking').on('click',function(event){
+      $('#student-list').on('click','.icon-kicking',function(event){
         var self = event.target;
         var cid = courseCid;
         var uid = $(self).attr('data-duid');
@@ -432,14 +433,49 @@ $(function(){
     // 送礼物
     $('#gift-send').on('click',function(){
       var num=$giftNum.val();
-      if (Number(num)<1000) {
-        var giftNrs='';
-        for(var i=0;i<num;i++){
-          giftNrs+=giftNr;
+      var lid=$('#lecturer-id').val();
+      if(Number(num)!==0){
+        if (Number(num)<500) {
+          // ajax post 方法
+          postAjaxDatas('/broadcasting/send-gift',{gid:giftId,quantity:num,to_user_id:lid},function(datas){
+            if(datas.status==1){
+              var giftNrs='';
+              for(var i=0;i<num;i++){
+                giftNrs+=giftNr;
+              }
+              showGift(courseCid,userMid,userName,giftNr,num,giftTitle);
+              socket.emit('input',{name:userName+'<span class="hot">送了'+num+'个'+giftTitle+'</span>',cid:courseCid,uid:userMid,message:giftNrs});
+              event.preventDefault();
+            }else{
+              console.log(12222222);
+              $('#pay-popup').removeClass('hide');
+            }
+          });
+        }else{
+          alert('土豪，礼物数不能大于500个，请分批送礼');
         }
-        showGift(courseCid,userMid,userName,giftNr,num,giftTitle);
-        socket.emit('input',{name:userName+'<span class="hot">送了'+num+'个'+giftTitle+'</span>',cid:courseCid,uid:userMid,message:giftNrs});
-        event.preventDefault();
+      }else{
+        alert('最少也要送一个吧');
+      }
+    });
+    // var admire=['你很牛，我看好你','讲的不错，学到了不少东西','拿去花，不谢','有钱，任性'];
+    // 打赏 socket.io
+    $('#enjoy-btn').on('click',function(){
+      var money=$('#enjoy-val').val();
+      var lid=$('#lecturer-id').val();
+      if(Number(money)!==0){
+        postAjaxDatas('/broadcasting/reward',{money:money,to_user_id:lid},function(datas){
+          if(datas.status==1){
+            // var index=Math.floor((Math.random()*admire.length));
+            $('.enjoy-box').hide();
+            // showGift(courseCid,userMid,userName,giftNr,num,giftTitle);
+            socket.emit('input',{name:userName,cid:courseCid,uid:userMid,message:'<span class="hot">给讲师打赏了'+money+'元'+'</span>'});
+          }else{
+            $('#pay-popup').removeClass('hide');
+          }
+        });
+      }else{
+        alert('最起码打赏一元吧');
       }
     });
   }

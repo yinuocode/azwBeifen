@@ -219,6 +219,7 @@ form.cmxform form.cmxform .gray * {
 .lesson-dashboard .lesson-content {
     height: 100%;
     position: relative;
+    background: #282828;
 }
 /*es-icon*/
 @font-face {font-family: "es-icon";
@@ -1568,4 +1569,88 @@ form.cmxform label.error, label.error{
 }
 #data-item-list .period{
   padding-left:20px;
+}
+/*打赏*/
+.main-icon {
+  background-image: url(../img/lecture/main-icon.png?v=2);
+  background-repeat: no-repeat;
+  z-index: 999999;
+}
+.enjoy {
+  background-position: -58px -98px;
+  height: 58px;
+  width: 58px;
+  position: absolute;
+  bottom: 1px;
+  right: 400px; }
+.enjoy-box{
+  position: absolute;
+  right: 460px;
+  bottom: 4px;
+  padding: 10px 15px;
+  background: #008AD1;
+  border-radius: 5px;
+  color: #fff;
+}
+.enjoy-box .lf{
+  color: #fff;
+  padding: 5px 10px;
+  background: #0068B7;
+  margin: 0 10px 10px 0;
+}
+.enjoy-input{
+  line-height: 30px;
+  color: #333;
+  padding: 0 6px;
+  width: 120px;
+}
+.enjoy-btn{
+  line-height: 30px;
+  background: #0068B7;
+  border: none;
+  padding: 0 10px;
+  cursor: pointer;
+}
+#video-shade{
+  width: 100%;
+  position: absolute;
+  height: 90%;
+  /*display: none;*/
+  top: 0;
+}
+.bullet-con{
+
+}
+.bullet-con .chat-textarea{
+  line-height: 20px;
+  padding: 5px 6px;
+  font-size: 14px;
+  color: #333;
+  position: absolute;
+  bottom: 10px;
+  right: 84px;
+  width: 220px;
+  height: 34px;
+  background: #e5e5e5;
+}
+.bullet-con .chat-submit{
+  position: absolute;
+  bottom: 10px;
+  right: 30px;
+  background: #4495D2;
+}
+.bullet-con-btn{
+  position: absolute;
+  background: url(../img/bullet-icon.png) no-repeat;
+  background-position: 0 0;
+  width:54px;
+  height:18px;
+  bottom:18px;
+  right: 330px;
+}
+.bullet-con-btn.close{
+  background-position: 0 -40px;
+}
+.bullet-con-btn.close:hover{
+  background-position: 0 -81px;
 }

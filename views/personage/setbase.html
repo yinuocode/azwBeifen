@@ -50,9 +50,20 @@
           <div class="control-label">当前头像</div>
           <div class="form-controls" id="user-avatar">
             <!-- <input type="file" name="file" id="head-set" value="选择图片"/> -->
-            <div id="uploader-img">
-              <div id="fileList" class="uploader-list"><img id="imghead" src="{{if data.portrait}}{{data.portrait}}{{else}}/static/img/default-avatar.jpg{{/if}}" class="avatar-img"></div>
-              <div id="filePicker" class="choose_img">选择图片</div>
+            <div class="uploader-img">
+              <div class="fileList" class="uploader-list"><img class="imghead avatar-img" src="{{if data.portrait}}{{data.portrait}}{{else}}/static/img/default-avatar.jpg{{/if}}"></div>
+              <div class="filePicker" class="choose_img" data-index="0">选择图片</div>
+              <input type="text" name="UserDetail[portrait]" class="img-path" value="{{if data.portrait}}{{data.portrait}}{{else}}/static/img/default-avatar.jpg{{/if}}">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="control-label">上传形象照</div>
+          <div class="form-controls">
+            <div class="uploader-img">
+              <div class="fileList" class="uploader-list"><img class="imghead" src="/static/img/default-hanmi.jpg"></div>
+              <div class="filePicker" class="choose_img" data-index="1">选择图片</div>
+              <input type="text" name="UserDetail[enterprise_img]" class="img-path" value="{{if data.enterprise_img}}{{data.enterprise_img}}{{else}}/static/img/default-avatar.jpg{{/if}}">
             </div>
           </div>
         </div>
@@ -116,7 +127,7 @@
             <button type="submit" class="button-submit">保存信息</button>
           </div>
         </div>
-        <input type="hidden" name="UserDetail[portrait]" id="img-path" value="{{if data.portrait}}{{data.portrait}}{{else}}/static/img/default-avatar.jpg{{/if}}">
+        <!-- <input type="hidden" name="UserDetail[portrait]" id="img-path" value="{{if data.portrait}}{{data.portrait}}{{else}}/static/img/default-avatar.jpg{{/if}}"> -->
         <input type="hidden" name="form-data" value ="#set-base-form"/>
         <input type="hidden" name="_url" value ="/personage/basic"/>
         </script>

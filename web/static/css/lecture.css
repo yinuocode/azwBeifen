@@ -434,10 +434,12 @@ body {
 
 #scenes {
   background: #2B2B2B;
+  overflow: auto;
   height: 40%; }
 
 #sources {
   height: 60%;
+  overflow: auto;
   background: #363636; }
 
 /* 侧边栏结束 */

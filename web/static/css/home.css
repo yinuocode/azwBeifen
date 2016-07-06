@@ -1,0 +1,334 @@
+.section-panel.mt0{
+  margin-top: 0
+}
+.home-head{
+  width: 1200px;
+  margin:25px auto 0;
+  height:214px;
+  background: url(../img/home-bj.jpg) no-repeat;
+  padding:20px 65px;
+  color:#fff;
+  font-size: 16px;
+}
+.user-base>h1{
+  font-size: 35px;
+  line-height: 45px;
+}
+.user-base>h1>span{
+  font-size: 14px;
+  margin-left:10px;
+}
+.home-avatar{
+  margin-right:20px;
+}
+.home-base{
+  line-height:40px;
+}
+.home-base .grade{
+  position: relative;
+  top: 4px;
+}
+.follow-fans{
+  text-align: center;
+  margin-top:35px;
+}
+.follow-fans .lf{
+  width: 95px;
+  margin-left:2px;
+}
+.follow-fans .row1 .lf{
+  background: #BADFF9;
+  height:80px;
+  color:#666;
+  line-height: 28px;
+  padding-top:12px;
+}
+.follow-fans .row1 .num{
+  font-size: 20px;
+  color:#333;
+}
+.follow-fans .row2 .lf,.follow-fans .row3>a{
+  background: #178EEE;
+  line-height: 48px;
+  height:48px;
+  border: 1px solid #1387E4;
+  color:#fff;
+  position: relative;
+}
+.block a,.block img{
+  display:block;
+}
+.signature{
+  margin-left: 120px;
+  text-align: center;
+  margin-top: 20px;
+  width: 350px;
+}
+.signature h2{
+  font-size: 24px;
+  line-height: 60px;
+}
+.signin-span {
+  position: absolute;
+  top: -12px;
+  color: red;
+  font-size: 14px;
+  display: none; }
+.on-direct{
+  line-height: 60px;
+  font-size: 20px;
+}
+.on-direct .btn{
+  padding: 4px 18px 6px;
+  height: 40px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+/*home-main*/
+.home-main{
+  width: 587px;
+  margin-left:145px;
+  padding: 0 30px;
+  border-left:1px solid #e2e1e1;
+  /*border-right: 1px solid #e2e1e1;*/
+  font-size: 16px;
+}
+.home-content{
+  /*height:500px;*/
+}
+.publish{
+  position: relative;
+  background: #E9EEF4;
+  padding:18px 15px;
+  margin-bottom:10px;
+}
+.publish-date{
+  position: absolute;
+  left: -120px;
+  top: 15px;
+  font-size: 14px;
+  width: 80px;
+  text-align: center;
+}
+.publish-txt{
+  width: 435px;
+  line-height: 20px;
+  height: 60px;
+  padding: 5px 6px;
+  font-size: 14px;
+  border: 1px solid #51AEF6;
+}
+.publish-select{
+  width: 60px;
+  float: right;
+  background: #0188EE;
+  position: relative;
+  height: 60px;
+}
+.talk-icon{
+  background: url(../img/talk-icon.png) no-repeat;
+  position: absolute;
+  cursor: pointer;
+}
+.talk-icon.camera{
+  width:28px;
+  height:24px;
+  background-position:-27px -6px;
+  left: 16px;
+  top: 18px;
+}
+/*.publish-option{
+  position: absolute;
+  top:60px;
+  background: #fff;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  line-height: 25px;
+}
+.publish-option>li{
+  border:1px solid #4faef6;
+  border-top:0;
+}*/
+.talk-btn{
+  padding: 3px 25px;
+  margin: 8px auto 0;
+  display: block;
+}
+.img-list .webuploader-pick{
+/*  display: block;
+  background: none;
+  padding: 0;
+  color: #010101;
+  border-radius: 0;*/
+  width: 100%;
+  font-size: 14px;
+  line-height: 28px;
+}
+/*图片上传*/
+.img-list{
+  padding: 5px 0;
+}
+.img-list .lf{
+  width: 23%;
+  margin-right:2%;
+}
+.img-list .lf img{
+  width: 100%;
+}
+.uploader-list .file-panel {
+  position: absolute;
+  height: 30px;
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr='#80000000', endColorstr='#80000000')\0;
+  background: rgba( 0, 0, 0, 0.5 );
+  width: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 300;
+}
+.uploader-list .file-panel span.cancel {
+  background-position: -48px -24px;
+}
+/*图片上传end*/
+.talk-icon.comment{
+  width:14px;
+  height:15px;
+  background-position:-96px -11px;
+  display: inline-block;
+  position: relative;
+  margin-right: 5px;
+  top: 2px;
+}
+.talk-icon.forward{
+  width:16px;
+  height:13px;
+  background-position:-111px -12px;
+  display: inline-block;
+  position: relative;
+  margin-right: 5px;
+  top: 0;
+}
+.talk-icon.favour{
+  width:15px;
+  height:16px;
+  background-position:-129px -11px;
+  display: inline-block;
+  position: relative;
+  margin-right: 5px;
+  top: 1px;
+}
+.talk-icon.delete{
+  width:16px;
+  height:16px;
+  background-position:-147px -13px;
+  display: inline-block;
+  position: relative;
+  margin-right: 5px;
+  top: 2px;
+}
+
+.talk-list>li{
+  position: relative;
+  background: #E9EEF4;
+  padding:18px 15px;
+  margin-bottom:10px;
+}
+.talk-list .text{
+  margin-bottom:5px;
+}
+.talk-list img{
+  max-width: 100%;
+}
+.talk-list .handle-box{
+  border: 1px solid #9FD1F8;
+  padding: 5px 10px;
+}
+.talk-list .handle{
+  text-align: center;
+}
+.talk-list .handle a{
+  float:left;
+  width:25%;
+  line-height: 16px;
+  border-right: 1px solid #B7D5EE;
+}
+.talk-list .handle a:last-child{
+  border-right:0;
+}
+.talk-list .comment-list{
+  margin: 10px 0 5px;
+}
+.talk-list .avatar{
+  margin-right: 10px;
+}
+.talk-list .comment-nr{
+  font-size: 14px;
+}
+.talk-list .handle-box .date{
+  font-size: 12px;
+  color:#999;
+}
+.comment-textarea{
+  width: 100%;
+  background: #DCE7F2;
+  border-top: 0;
+  margin-top: -1px;
+}
+
+.home-side{
+  width: 380px;
+  border-left: 1px solid #e2e1e1;
+}
+.home-side .h2{
+  line-height: 45px;
+  padding:0 20px;
+  background: #DEEAF3;
+  color:#222;
+}
+.home-side .slick-slider{
+  padding: 15px 0 10px;
+  height:440px;
+}
+.home-side .slick-slide img {
+  display: block;
+  width: 336px;
+  height:190px;
+  margin: 0 auto 8px;
+}
+.home-side .slick-prev,.home-side .slick-next{
+  display: block;
+  top: -23px;
+  right: 30px;
+  width:9px;
+  height:19px;
+  background: url(../img/home-arrows.png) no-repeat;
+}
+.home-side .slick-prev{
+  background-position: 0 0;
+  left: 310px;
+}
+.home-side .slick-next{
+  background-position: -8px 0;
+}
+/*简介*/
+.home-intro{
+  padding:50px 90px;
+}
+.home-intro .row1{
+  line-height: 30px;
+}
+.home-intro .picture{
+  margin-right: 20px;
+}
+.home-intro .intro-title{
+  border-left: 2px solid #4e9bd5;
+  line-height: 18px;
+  margin: 15px 0 5px;
+  padding-left: 5px;
+}
+.intro-nr{
+  line-height: 50px;
+  text-indent: 2em;
+  font-size: 16px;
+}

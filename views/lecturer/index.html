@@ -20,7 +20,7 @@
         <script id="lecturerList" type="text/html">
         {{each data as value i}}
           <li>
-            <a href="/home/?cid={{value.user_id}}" target="_blank">
+            <a href="/home?uid={{value.user_id}}" target="_blank">
               <img src="{{value.portrait}}" alt="">
               <div class="name"><img src="{{value.gimage}}" width="22" height="22" alt="">讲师：{{value.audit_name}}</div>
             </a>

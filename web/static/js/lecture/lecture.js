@@ -46,7 +46,7 @@ define(function(require,exports,module){
     'fileTypeExts' : '*.ppt',
     // 'debug'    : true,
     'swf'      : '/static/js/plugins/upload/uploadify.swf',
-    'uploader' : '/index.php?r=pptfile%2Fuploadhandleppt',
+    'uploader' : '/pptfile/uploadhandleppt',
     'onUploadSuccess' : function(file, data, response) {
       console.log(12345);
     },
@@ -110,7 +110,7 @@ define(function(require,exports,module){
   // 显示 ppt 文件
   function showfile(){
     $.ajax({
-      url:'/index.php?r=pptfile%2Fgetpptlist',
+      url:'/pptfile/getpptlist',
       type:"POST",
       data:{
        'mid':userMid,
@@ -143,7 +143,7 @@ define(function(require,exports,module){
     // var id = $(obj).attr('data-id');
     //var url ='/ppt2pngoutput/20160209/source/123457/';
     $.ajax({
-      url:'/index.php?r=pptfile%2Fgetpptpic',
+      url:'/pptfile/getpptpic',
       type:'POST',
       data:{
         url:url,
@@ -151,6 +151,7 @@ define(function(require,exports,module){
       },
       dataType:'json',
       success: function(data){
+        console.log(data);
         var result = data;
         // console.log(result);
         var str='';
@@ -161,7 +162,8 @@ define(function(require,exports,module){
             str+='<li><a class="thumb" name="leaf" href="'+imgarr[i]+'" title="">';
             str+='<img src="'+imgarr[i]+'" alt="" /></a></li>';
           }
-          $('.thumbs').html(str).on('click','li',function(){
+          $('.thumbs').html(str);
+          $('.thumbs').on('click','li',function(){
             $palette.fadeOut();
           });
           runGalleriffic();
