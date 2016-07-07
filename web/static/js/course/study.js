@@ -85,7 +85,7 @@ define(function(require,exports,module){
             cid1.push($selected.eq(i).val());
           }
         }
-        main.postAjaxDatas('/coures/study-delete',{cid1,cid2},function(datas){
+        main.postAjaxDatas('/coures/study-delete',{cid1:cid1,cid2:cid2},function(datas){
           console.log(datas);
           // 循环删除
           // for(var j=0,lens=$selected.length;j<lens;j++){

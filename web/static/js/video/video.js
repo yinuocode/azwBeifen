@@ -47,7 +47,7 @@ define(function(require,exports,module){
   postAjaxDatas('/couresdetail/course-teach',getVal,function(datas){
     console.log(datas);
     $('#teacher-name').html(datas.username);
-    $('#lecturer-id').val(data.user_id);
+    $('#lecturer-id').val(datas.user_id);
   });
   // 课时
   postAjaxDatas('/couresdetail/hour',getVal,function(datas){
@@ -265,6 +265,18 @@ define(function(require,exports,module){
       postAjaxDatas('/broadcasting/reward',{money:money,to_user_id:lid},function(datas){
         if(datas.status==1){
           $('.enjoy-box').hide();
+          $('#enjoy-effect').show().animate({
+            bottom:500,
+            fontSize:30
+          },4000,function(){
+            $('#enjoy-effect').fadeOut(1000,function(){
+              $(this).css({
+                'bottom':'4px',
+                'font-size':'16px',
+                'display':'none'
+              });
+            });
+          });
         }else{
           $('#pay-popup').removeClass('hide');
         }

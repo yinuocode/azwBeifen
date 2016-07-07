@@ -41,16 +41,30 @@ $(function(){
   }catch(e){
     //set status to warn user
   }
+  var colorArr=['red','blue','#000','green','#fff','yellow'];
   if(socket!==undefined){
     //加入教室
     socket.emit('joinroom',{cid:courseCid});
     // 输出函数
     socket.on('output',function(data){
+      var color=Math.floor((Math.random()*colorArr.length));
+      console.log(color);
       if(data.cid==courseCid){
-        message = '<div class="chat-message">'+data.message+'</div></div>';
+        message = '<div class="chat-message chat-message'+data.i+'" style="color:'+colorArr[color]+'">'+data.message+'</div></div>';
+        videoShade.append(message);
+        var setMsgs='setMsg'+data.i;
+        var i=0;
+        setMsgs=setInterval(function() {
+          i+=3;
+          if(i<1200){
+            $('.chat-message'+data.i).css('margin-right',i+'px');
+          }else{
+            clearInterval(setMsgs);
+            $('.chat-message'+data.i).remove();
+          }
+        }, 50);
       }
       //append
-      videoShade.append(message);
     });
   }
 });

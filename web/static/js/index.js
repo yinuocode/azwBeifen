@@ -43,14 +43,6 @@ define(function(require,exports,module){
         var sec03Charm = template('sec03Charm',{list:datas});
         $('#sec03-charm').html(sec03Charm);
       }
-    },
-    // 客服代码
-    {
-      url:'/index/service',
-      fSuccess:function(datas){
-        var floatConsult = template('floatConsult',datas);
-        $('#float-consult').html(floatConsult);
-      }
     }
   ];
   for(var i=0,len=ajaxDatas.length;i<len;i++){

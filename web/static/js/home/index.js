@@ -16,9 +16,12 @@ define(function(require,exports,module){
   function dynamicList(){
     main.postAjaxDatas('/dynamic/dynamic-list',{user_id:home.uid,page:pageVal},function(datas){
       console.log(datas);
-      var talkList = template('talkList',{list:datas});
+      var talkList = template('talkList',datas);
       $('#talk-list').html(talkList);
-      // runDynamic();
+      runDynamic();
+      if(datas.dynamic.length<pageVal*10){
+        swit=false;
+      }
     });
   }
   dynamicList();
@@ -30,7 +33,6 @@ define(function(require,exports,module){
       onsubmit:true,// 是否在提交时验证
       submitHandler: function(form){
         var data = $('.comment-form'+_index).serialize();
-        alert(data);
         $.ajax({
           url : '/dynamic/inst-dyn-comt',
           type : 'post',
@@ -59,11 +61,35 @@ define(function(require,exports,module){
       }
     });
   });
-  // 删除
+  // 取消点赞
+  $('.home-content').on('click','.cancel-praise-btn',function(){
+    var did=$(this).attr('data-pid');
+    main.postAjaxDatas('/dynamic/del-like',{did:did},function(datas){
+      if(datas.status==1){
+        dynamicList();
+      }else{
+        alert(datas.msg);
+      }
+    });
+  });
+  // 删除说说
   $('.home-content').on('click','.delete-btn',function(){
     var did=$(this).attr('data-pid');
     main.postAjaxDatas('/dynamic/del-dynamic',{did:did},function(datas){
       if(confirm("确认删除此条动态吗?")){
+        if(datas.status==1){
+          dynamicList();
+        }else{
+          alert(datas.msg);
+        }
+      }
+    });
+  });
+  // 删除评论
+  $('.home-content').on('click','.delete-comment',function(){
+    var mid=$(this).attr('data-mid');
+    main.postAjaxDatas('/dynamic/del-comment',{comm_id:mid},function(datas){
+      if(confirm("确认删除此条评论吗?")){
         if(datas.status==1){
           dynamicList();
         }else{
@@ -133,22 +159,58 @@ define(function(require,exports,module){
   // $('.home-main').on('click','#talk-camera',function(){
   //   $('#publish-option').toggle();
   // });
-  // 上传图片
-  uploadImg($('#filePicker1'),0,$('#fileList1'));
-  uploadImg($('#filePicker2'),1,$('#fileList2'));
-  uploadImg($('#filePicker3'),2,$('#fileList3'));
-  uploadImg($('#filePicker4'),3,$('#fileList4'));
-  // $('.home-main').on('click','.upload-btn',function(){
-  //   var _this=$(this);
-  //   var _index=_this.attr('data-i');
-  //   var listImg = _this.prev();
-  //   uploadImg(_this,_index,listImg);
-  // });
-  // $('#publish-option').on('click','a',function(){
-  //   $('#publish-option').hide();
-  // });
-  function uploadImg(_this,_index,listImg){
+  // 动态初始化
+  function runDynamic(){
     // 上传图片
+    uploadImg($('#filePicker1'),0,$('#fileList1'));
+    uploadImg($('#filePicker2'),1,$('#fileList2'));
+    uploadImg($('#filePicker3'),2,$('#fileList3'));
+    uploadImg($('#filePicker4'),3,$('#fileList4'));
+    // $('.home-main').on('click','.upload-btn',function(){
+    //   var _this=$(this);
+    //   var _index=_this.attr('data-i');
+    //   var listImg = _this.prev();
+    //   uploadImg(_this,_index,listImg);
+    // });
+    // $('#publish-option').on('click','a',function(){
+    //   $('#publish-option').hide();
+    // });
+    // 发表说说
+    $('#publish-form').validate({
+      onsubmit:true,// 是否在提交时验证
+      submitHandler: function(form){
+        var data = $('#publish-form').serialize();
+        $.ajax({
+          url : '/dynamic/inst-dynamic',
+          type : 'post',
+          data : data,
+          dataType :'json',
+          success : function(data){
+            if(data.status==1){
+              $('#publish-form')[0].reset();
+              dynamicList();
+            }else{
+              alert(data.msg);
+            }
+          }
+        });
+      }
+    });
+  }
+  // 滚动条滚动到底部获取数据
+  var swit=true;
+  $(window).bind('scroll', function() {
+    console.log(swit);
+    if(swit){
+      if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+        pageVal++;
+        dynamicList();
+        console.log(11111111111);
+      }
+    }
+  });
+  // 上传图片
+  function uploadImg(_this,_index,listImg){
     var $list = listImg,
         // 优化retina, 在retina下这个值是2
         ratio = window.devicePixelRatio || 1,
@@ -246,26 +308,5 @@ define(function(require,exports,module){
     $(this).parent().parent().remove();
     var _index=$(this).attr('data-i');
     $('#input-img input').eq(_index).val('');
-  });
-  // 发表说说
-  $('#publish-form').validate({
-    onsubmit:true,// 是否在提交时验证
-    submitHandler: function(form){
-      var data = $('#publish-form').serialize();
-      $.ajax({
-        url : '/dynamic/inst-dynamic',
-        type : 'post',
-        data : data,
-        dataType :'json',
-        success : function(data){
-          if(data.status==1){
-            $('#publish-form')[0].reset();
-            dynamicList();
-          }else{
-            alert(data.msg);
-          }
-        }
-      });
-    }
   });
 });

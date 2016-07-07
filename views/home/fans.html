@@ -62,40 +62,37 @@
   <section class="section-panel mt0">
     <header class="panel-heading clearfix" id="course-head1">
       <script id="courseHead" type="text/html">
-      <a href="/home">主页</a>
-      <a href="/home/photo">相册</a>
-      <a href="/home/course">TA的课程</a>
-      <a href="/home/fans" class="active">TA的粉丝</a>
-      <a href="/home/intro">简介</a>
+      <a href="/home?uid={{uid}}">主页</a>
+      <a href="/home/photo?uid={{uid}}">相册</a>
+      {{if self==1}}
+      <a href="/home/course?uid={{uid}}">我的课程</a>
+      <a href="/home/fans?uid={{uid}}" class="active">我的粉丝</a>
+      {{else}}
+      <a href="/home/course?uid={{uid}}">TA的课程</a>
+      <a href="/home/fans?uid={{uid}}" class="active">TA的粉丝</a>
+      {{/if}}
+      <a href="/home/intro?uid={{uid}}">简介</a>
       </script>
     </header>
     <div class="panel-body">
-      <p id="on-air" class="hide hot on-direct">我正在直播：<a href="javascript:;" target="_blank" class="btn">立刻进入</a></p>
-      <div class="panel-body-course sub clearfix">
-        <div class="sec03-top-item">
+      <div class="panel-body-course clearfix">
+        <div class="">
           <h1 class="sec03-title">
-            <img src="/static/img/sec03-title2.png" alt="财富榜">
+            <img src="/static/img/fans-wealth-title.png" alt="财富榜">
           </h1>
-          <div class="sec03-rank">
-            <table class="sec03-table" id="sec03-wealth">
-            <script id="sec03Wealth" type="text/html">
+          <div class="fans-wealth-list">
+            <table class="sec03-table" id="fans-wealth">
+            <script id="fansWealth" type="text/html">
               <tr>
                 <th class="th1">名次</th>
                 <th class="th2">昵称</th>
                 <th class="th3">礼物</th>
                 <th class="th4">数量</th>
-                <th class="th5">财富值</th>
               </tr>
               {{each list as value i}}
               <tr>
                 <td><span class="sec03-rank-icon sec03-rank{{i + 1}}">{{i + 1}}</span></td>
-                <td>
-                {{if value.nick_name}}
-                  {{value.nick_name}}
-                {{else}}
-                  {{value.username}}
-                {{/if}}
-                </td>
+                <td><a href="/home?uid={{value.user_id}}" target="_blank">{{value.uname}}</a></td>
                 <td>
                   {{each value.gift as values i}}
                     {{if i<8}}
@@ -103,12 +100,17 @@
                     {{/if}}
                   {{/each}}
                 </td>
-                <td>{{value.summation}}</td>
-                <td>{{value.sumprice}}</td>
+                <td>{{value.quantity_sum}}</td>
               </tr>
               {{/each}}
             </script>
             </table>
+            <div class="ajax-paging">
+              <div class="clearfix">
+                <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
+                <a href="javascript:;" id="paging-next" class="handle-icon right-arrows active"></a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -153,7 +155,7 @@
   <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
   <script src="/static/js/plugins/validate/messages_zh.js"></script>
   <script>
-    seajs.use('/static/js/home/home.js');
+    seajs.use('/static/js/home/fans.js');
   </script>
 </body>
 </html>

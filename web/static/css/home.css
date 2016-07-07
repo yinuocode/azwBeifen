@@ -191,6 +191,13 @@
   background-position: -48px -24px;
 }
 /*图片上传end*/
+.talk-icon.talk{
+  width: 24px;
+  height: 27px;
+  background-position: -1px -6px;
+  left: -30px;
+  top: 0;
+}
 .talk-icon.comment{
   width:14px;
   height:15px;
@@ -246,6 +253,7 @@
 }
 .talk-list .handle{
   text-align: center;
+  font-size: 15px;
 }
 .talk-list .handle a{
   float:left;
@@ -268,6 +276,13 @@
 .talk-list .handle-box .date{
   font-size: 12px;
   color:#999;
+  width:160px;
+}
+.talk-list .handle-box .date a{
+  color:#999;
+}
+.talk-list .handle-box .date a:hover{
+  color:#333;
 }
 .comment-textarea{
   width: 100%;
@@ -316,7 +331,7 @@
   padding:50px 90px;
 }
 .home-intro .row1{
-  line-height: 30px;
+  line-height: 35px;
 }
 .home-intro .picture{
   margin-right: 20px;
@@ -331,4 +346,15 @@
   line-height: 50px;
   text-indent: 2em;
   font-size: 16px;
+}
+/*粉丝排行榜*/
+.fans-wealth-list{
+  background-color: #4490CE;
+}
+/*相册*/
+.photo-list>li{
+  border:1px solid #eaeaea;
+}
+.photo-list>li .course-title{
+  text-align: center;
 }

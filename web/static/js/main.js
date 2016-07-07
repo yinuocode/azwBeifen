@@ -54,7 +54,11 @@ define(function(require,exports,module){
     var fNav = template('fNav',{list:datas});
     $('#f-nav').html(fNav);
   });
-
+  // 客服代码
+  main.getAjaxDatas('/index/service',function(datas){
+    var floatConsult = template('floatConsult',datas);
+    $('#float-consult').html(floatConsult);
+  });
   // 神猪飞天
   var toTop=$('#toTop');
   $(window).scroll(function() {

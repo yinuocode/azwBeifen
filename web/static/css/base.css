@@ -991,7 +991,9 @@ form.cmxform form.cmxform .gray * {
   color: #fff;
   font-size: 16px;
   border-left: 1px solid #2671B9; }
-
+.sec03-table a{
+  color:#fff;
+}
 .sec03-table th {
   text-align: center;
   font-size: 18px;
@@ -1267,6 +1269,7 @@ form.cmxform form.cmxform .gray * {
   float: left;
   position:relative;
   width: 475px;
+  font-size: 16px;
   line-height: 36px; }
 .form-controls select{
   width:100%;

@@ -62,44 +62,79 @@
   <section class="section-panel mt0">
     <header class="panel-heading clearfix" id="course-head1">
       <script id="courseHead" type="text/html">
-      <a href="/home">主页</a>
-      <a href="/home/photo" class="active">相册</a>
-      {{if identity}}
-      <a href="/home/course">TA的课程</a>
-      <a href="/home/fans">TA的粉丝</a>
-      <a href="/home/intro">简介</a>
+      <a href="/home?uid={{uid}}">主页</a>
+      <a href="/home/photo?uid={{uid}}" class="active">相册</a>
+      {{if identity==1}}
+      {{if self==1}}
+      <a href="/home/course?uid={{uid}}">我的课程</a>
+      <a href="/home/fans?uid={{uid}}">我的粉丝</a>
+      {{else}}
+      <a href="/home/course?uid={{uid}}">TA的课程</a>
+      <a href="/home/fans?uid={{uid}}">TA的粉丝</a>
+      {{/if}}
+      <a href="/home/intro?uid={{uid}}">简介</a>
       {{/if}}
       </script>
     </header>
     <div class="panel-body">
-      <p id="on-air" class="hide hot on-direct">我正在直播：<a href="javascript:;" target="_blank" class="btn">立刻进入</a></p>
-      <div class="panel-body-course clearfix">
-
+      <div class="panel-body-course" id="photo-list">
+      <script id="photoList" type="text/html">
+        {{if self==1}}
+        <div class="select-type clearfix">
+          <div class="rf"><a href="javascript:;" class="handle-icon delete" id="handle-delete">删除</a></div>
+          <div class="rf"><a href="javascript:;" class="handle-icon batch" id="handle-batch">批量处理</a></div>
+          <div class="rf"><a href="javascript:;" class="handle-icon add" id="add-photo">创建相册</a></div>
+          <div class="rf"><a href="javascript:;" class="handle-icon"><input type="checkbox" name="controlAll" id="controlAll"><label for="controlAll">全选</label></a></div>
+        </div>
+        {{/if}}
+        <ul class="course-list study-course photo-list clearfix">
+          {{each data as value i}}
+            <li>
+              <a href="/home/picture?uid={{value.user_id}}&amp;aid={{value.aid}}">
+                <img src="{{value.cover}}" alt="">
+                <span class="full"><b>查看相册</b></span>
+              </a>
+              <p class="course-title"><a href="/home/picture?uid={{value.user_id}}&amp;aid={{value.aid}}" target="_blank">{{value.album_name}}</a></p>
+              <div class="select-checkbox"><input type="checkbox" name="selected" value="{{value.aid}}"></div>
+            </li>
+          {{/each}}
+        </ul>
+        </script>
+        <div class="ajax-paging">
+          <div class="clearfix">
+            <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
+            <a href="javascript:;" id="paging-next" class="handle-icon right-arrows active"></a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
-  <!-- 发送私信 -->
-  <div class="popup hide" id="letter-popup">
+  <!-- 创建组 -->
+  <div class="popup hide" id="create-photo-popup">
     <div class="popup-modal">
       <div class="popup-header">
-        <h1>发送私信</h1>
+        <h1>创建相册</h1>
         <button type="button" class="popup-close"></button>
       </div>
       <div class="popup-body">
-        <form method="post" id="letter-form" class="popup-form cmxform">
+        <form method="post" id="create-photo-form" class="popup-form cmxform">
           <div class="form-group">
-            <label class="control-label">标题</label>
+            <label class="control-label">相册名称</label>
             <div class="form-controls">
-              <input type="text" class="form-input" name="title" required>
+              <input type="text" class="form-input" name="Album[album_name]" required>
             </div>
           </div>
           <div class="form-group">
-            <label class="control-label">内容</label>
+            <label class="control-label">权限设置</label>
             <div class="form-controls">
-              <textarea name="content" id="" class="form-textarea" required></textarea>
+              <select id="photo-limits" name="Album[visible]" class="" value="">
+                <option value="1">所有人可见</option>
+                <option value="2">我的关注</option>
+                <option value="3">我的粉丝</option>
+                <option value="4">仅自己</option>
+              </select>
             </div>
           </div>
-          <input type="hidden" value="" name="user_id" id="user-id">
           <div class="form-group">
             <div class="form-submit">
               <button type="submit" class="button-submit">确认</button>
@@ -113,11 +148,10 @@
   <!-- footer -->
   <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
   <!-- footer end -->
-  <script src="/static/js/plugins/slick/slick.min.js"></script>
   <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
   <script src="/static/js/plugins/validate/messages_zh.js"></script>
   <script>
-    seajs.use('/static/js/home/home.js');
+    seajs.use('/static/js/home/photo.js');
   </script>
 </body>
 </html>

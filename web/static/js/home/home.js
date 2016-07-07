@@ -23,13 +23,10 @@ define(function(require,exports,module){
     });
   }
   runHead();
-  // 登录站内信
-  main.getAjaxDatas('/index/letter',function(datas){
+  // 是否是讲师
+  main.postAjaxDatas('/home/is-teach',{user_id:getVal.uid},function(datas){
     var courseHead = template('courseHead',datas);
     $('#course-head1').html(courseHead);
-    $('#course-head1 a').each(function(){
-      $(this).attr('href',$(this).attr('href')+'?uid='+getVal.uid);
-    });
   });
   // 点击登录
   $('.home-head').on('click','.click-login',function(){

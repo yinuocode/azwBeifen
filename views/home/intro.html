@@ -62,11 +62,16 @@
   <section class="section-panel mt0">
     <header class="panel-heading clearfix" id="course-head1">
       <script id="courseHead" type="text/html">
-      <a href="/home">主页</a>
-      <a href="/home/photo">相册</a>
-      <a href="/home/course">TA的课程</a>
-      <a href="/home/fans">TA的粉丝</a>
-      <a href="/home/intro" class="active">简介</a>
+      <a href="/home?uid={{uid}}">主页</a>
+      <a href="/home/photo?uid={{uid}}">相册</a>
+      {{if self==1}}
+      <a href="/home/course?uid={{uid}}">我的课程</a>
+      <a href="/home/fans?uid={{uid}}">我的粉丝</a>
+      {{else}}
+      <a href="/home/course?uid={{uid}}">TA的课程</a>
+      <a href="/home/fans?uid={{uid}}">TA的粉丝</a>
+      {{/if}}
+      <a href="/home/intro?uid={{uid}}" class="active">简介</a>
       </script>
     </header>
     <div class="panel-body">

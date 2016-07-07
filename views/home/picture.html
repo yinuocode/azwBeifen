@@ -63,66 +63,43 @@
     <header class="panel-heading clearfix" id="course-head1">
       <script id="courseHead" type="text/html">
       <a href="/home?uid={{uid}}">主页</a>
-      <a href="/home/photo?uid={{uid}}">相册</a>
+      <a href="/home/photo?uid={{uid}}" class="active">相册</a>
+      {{if identity==1}}
       {{if self==1}}
-      <a href="/home/course?uid={{uid}}" class="active">我的课程</a>
+      <a href="/home/course?uid={{uid}}">我的课程</a>
       <a href="/home/fans?uid={{uid}}">我的粉丝</a>
       {{else}}
-      <a href="/home/course?uid={{uid}}" class="active">TA的课程</a>
+      <a href="/home/course?uid={{uid}}">TA的课程</a>
       <a href="/home/fans?uid={{uid}}">TA的粉丝</a>
       {{/if}}
       <a href="/home/intro?uid={{uid}}">简介</a>
+      {{/if}}
       </script>
     </header>
     <div class="panel-body">
-      <div class="panel-body-course">
+      <div class="panel-body-course" id="photo-list">
+      <script id="photoList" type="text/html">
+        {{if self==1}}
         <div class="select-type clearfix">
-          <div class="lf">
-            <a href="javascript:;" class="handle-icon triangle" id="handle-course">直播课程</a>
-            <ul class="select-items">
-              <li><a href="javascript:;" data-arg="0">直播课程</a></li>
-              <li><a href="javascript:;" data-arg="1">录播课程</a></li>
-            </ul>
-          </div>
+          <div class="rf"><a href="javascript:;" class="handle-icon delete" id="handle-delete">删除</a></div>
+          <div class="rf"><a href="javascript:;" class="handle-icon batch" id="handle-batch">批量处理</a></div>
+          <div class="rf"><a href="javascript:;" class="handle-icon add" id="add-photo">创建相册</a></div>
+          <div class="rf"><a href="javascript:;" class="handle-icon"><input type="checkbox" name="controlAll" id="controlAll"><label for="controlAll">全选</label></a></div>
         </div>
-        <ul class="course-list study-course clearfix" id="home-course">
-          <script id="homeCourse" type="text/html">
-          {{each list as value i}}
+        {{/if}}
+        <ul class="course-list study-course photo-list clearfix">
+          {{each data as value i}}
             <li>
-            {{if value.type!=0}}
-              <a href="/couresdetail?cid={{value.coures_id}}&type=1" target="_blank">
-                <img src="{{value.coures_cover}}" alt="">
-                <span class="full"><b>抓紧学习</b></span>
+              <a href="&amp;aid={{value.aid}}">
+                <img src="{{value.cover}}" alt="">
+                <span class="full"><b id="">查看相册</b></span>
               </a>
-              <p class="course-title"><a href="/couresdetail?cid={{value.coures_id}}&type=1" target="_blank">{{value.coures_title}}</a></p>
-              <div class="clearfix">
-                <div class="lf name"><img src="{{value.lecturer.grade}}" alt="">讲师：{{value.lecturer.audit_name}}</div>
-                <!-- <a href="javascript:;" class="rf chour">查看课时</a> -->
-              </div>
-              <div class="select-checkbox"><input type="checkbox" name="selected" data-type="{{value.type}}" value="{{value.coures_id}}"></div>
-            {{else}}
-              <a href="/couresdetail?cid={{value.live_id}}&type=0" target="_blank">
-                <img src="{{value.live_cover}}" alt="">
-                {{if value.time.state==0}}
-                <span class="full course-time"><div class="clearfix"><strong>距开始直播：</strong><b class="b">{{value.time.hour}}</b><strong>小时</strong><b class="b">{{value.time.min}}</b><strong>分</strong></div></span>
-                {{else if value.time.state==1}}
-                <span class="full"><b>开始直播</b></span>
-                {{else if value.time.state==2}}
-                <span class="full course-time"><div class="clearfix"><strong>开播时间：</strong><b class="b">{{value.time.start_time}}</b><strong>点到</strong><b class="b">{{value.time.end_time}}</b><strong>点</strong></div></span>
-                {{else if value.time.state==3}}
-                <span class="full"><b>课程已过期</b></span>
-                {{/if}}
-              </a>
-              <div class="row">
-                <p class="course-title"><a href="/couresdetail?cid={{value.live_id}}&type=0" target="_blank">{{value.live_title}}</a></p>
-                <!-- <a href="javascript:;" class="rf letter-item" data-uid="{{value.user_id}}">私信</a> -->
-              </div>
-              <div class="select-checkbox"><input type="checkbox" name="selected" data-type="{{value.type}}" value="{{value.live_id}}"></div>
-            {{/if}}
+              <p class="course-title"><a href="javascript:;" target="_blank">{{value.album_name}}</a></p>
+              <div class="select-checkbox"><input type="checkbox" name="selected" value="{{value.aid}}"></div>
             </li>
           {{/each}}
-          </script>
         </ul>
+        </script>
         <div class="ajax-paging">
           <div class="clearfix">
             <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
@@ -132,13 +109,49 @@
       </div>
     </div>
   </section>
+  <!-- 创建组 -->
+  <div class="popup hide" id="create-photo-popup">
+    <div class="popup-modal">
+      <div class="popup-header">
+        <h1>创建相册</h1>
+        <button type="button" class="popup-close"></button>
+      </div>
+      <div class="popup-body">
+        <form method="post" id="create-photo-form" class="popup-form cmxform">
+          <div class="form-group">
+            <label class="control-label">相册名称</label>
+            <div class="form-controls">
+              <input type="text" class="form-input" name="Album[album_name]" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">权限设置</label>
+            <div class="form-controls">
+              <select id="photo-limits" name="Album[visible]" class="" value="">
+                <option value="1">所有人可见</option>
+                <option value="2">我的关注</option>
+                <option value="3">我的粉丝</option>
+                <option value="4">仅自己</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-submit">
+              <button type="submit" class="button-submit">确认</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="popup-bg"></div>
+  </div>
   <!-- footer -->
   <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
   <!-- footer end -->
   <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
   <script src="/static/js/plugins/validate/messages_zh.js"></script>
   <script>
-    seajs.use('/static/js/home/course.js');
+    seajs.use('/static/js/home/photo.js');
   </script>
 </body>
 </html>
