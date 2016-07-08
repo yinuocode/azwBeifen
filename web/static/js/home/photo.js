@@ -7,13 +7,8 @@ define(function(require,exports,module){
   // 课程列表
   function runPostAjaxDatas(){
     main.postAjaxDatas('/album/album-list',{page:pageVal,user_id:home.uid},function(datas){
-      if(datas.status==1){
-        console.log(datas);
-        var photoList = template('photoList',datas);
-        $('#photo-list').html(photoList);
-      }else{
-        alert(datas.msg);
-      }
+      var photoList = template('photoList',datas);
+      $('#photo-list').html(photoList);
     });
   }
   runPostAjaxDatas();
@@ -69,6 +64,44 @@ define(function(require,exports,module){
   $('.panel-body').on('click','#handle-batch',function(){
     $('.select-checkbox').toggle();
   });
+  // 编辑相册
+  $('.panel-body').on('click','#handle-edit',function(){
+    var _this=$(this);
+    var $selected=$('input[name="selected"]:checked');
+    if($selected.length==1){
+      var aid=$selected.val();
+      main.postAjaxDatas('/album/update-album',{aid:aid},function(datas){
+        console.log(datas);
+        var editPhotoPopup = template('editPhotoPopup',datas);
+        $('#edit-photo-popup').html(editPhotoPopup).removeClass('hide');
+        // 编辑相册提交
+        $('#edit-photo-form').validate({
+          onsubmit:true,// 是否在提交时验证
+          submitHandler: function(form){
+            var data = $('#edit-photo-form').serialize();
+            $.ajax({
+              url : '/album/set-permission',
+              type : 'post',
+              data : data,
+              dataType:'json',
+              success : function(data){
+                if(data.status==1){
+                  alert('修改成功');
+                  $('.popup').addClass('hide');
+                  // 局部刷新
+                  runPostAjaxDatas();
+                }else{
+                  alert(data.msg);
+                }
+              }
+            });
+          }
+        });
+      });
+    }else{
+      alert('请选择具体修改的某个相册');
+    }
+  });
   // 删除相册
   $('.panel-body').on('click','#handle-delete',function(){
     var $selected=$('input[name="selected"]:checked');
@@ -100,7 +133,7 @@ define(function(require,exports,module){
     }
   });
   $('#paging-next').on('click',function(){
-    if($('.course-list li').length==9){
+    if($('.course-list li').length==12){
       $(this).addClass('active').siblings().removeClass('active');
       pageVal++;
       runPostAjaxDatas();

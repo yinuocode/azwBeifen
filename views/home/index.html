@@ -88,37 +88,13 @@
               <form id="publish-form" class="cmxform" method="post">
                 <div class="clearfix">
                   <textarea name="Dynamic[details]" id="" cols="30" rows="10" class="publish-txt lf" placeholder="你在想些什么呢。。"></textarea>
-                  <div class="publish-select">
-                    <i class="talk-icon camera" id="talk-camera"></i>
+                  <div id="uploader-img" class="publish-select">
+                    <div id="filePicker"><i class="talk-icon camera" id="talk-camera"></i></div>
                   </div>
                 </div>
-                <div class="img-list clearfix">
-                  <div id="uploader-img1" class="lf">
-                    <div id="fileList1" class="uploader-list clearfix">
-                    </div>
-                    <a href="javascript:;" class="upload-btn" id="filePicker1">选择图片</a>
-                  </div>
-                  <div id="uploader-img2" class="lf">
-                    <div id="fileList2" class="uploader-list clearfix">
-                    </div>
-                    <a href="javascript:;" class="upload-btn" id="filePicker2">选择图片</a>
-                  </div>
-                  <div id="uploader-img3" class="lf">
-                    <div id="fileList3" class="uploader-list clearfix">
-                    </div>
-                    <a href="javascript:;" class="upload-btn" id="filePicker3">选择图片</a>
-                  </div>
-                  <div id="uploader-img4" class="lf">
-                    <div id="fileList4" class="uploader-list clearfix">
-                    </div>
-                    <a href="javascript:;" class="upload-btn" id="filePicker4">选择图片</a>
-                  </div>
+                <div id="fileList" class="uploader-list clearfix">
                 </div>
                 <div id="input-img">
-                  <input type="hidden" name="Dynamic[dynamic_image_1]" value="">
-                  <input type="hidden" name="Dynamic[dynamic_image_2]" value="">
-                  <input type="hidden" name="Dynamic[dynamic_image_3]" value="">
-                  <input type="hidden" name="Dynamic[dynamic_image_4]" value="">
                 </div>
                 <p><button type="submit" class="btn talk-btn">发表</button></p>
               </form>
@@ -126,6 +102,7 @@
             </div>
             {{/if}}
             <ul class="talk-list" id="talk-list-d">
+              {{if dynamic.length>0}}
               {{each dynamic as value i}}
                 <li>
                   <p class="text">
@@ -182,92 +159,45 @@
                   <div class="publish-date"><i class="talk-icon talk"></i>{{value.create_date}}</div>
                 </li>
               {{/each}}
+              {{else}}
+              <li class="no-data">暂无动态</li>
+              {{/if}}
             </ul>
             </script>
           </div>
         </div>
+        <!-- 左侧说说 -->
         <div class="rf home-side">
           <div class="h2">收藏的课程</div>
           <div class="slider" id="collect-course">
             <script id="collectCourse" type="text/html">
+              {{if list.length>0}}
               {{each list as value i}}
-                <div><a href="/couresdetail?cid={{value.cid}}&type={{value.type}}" target="_blank"><img src="{{value.cover}}" alt="{{value.title}}"></a></div>
+                <div><a href="/couresdetail?cid={{value.cid}}&amp;type={{value.type}}" target="_blank"><img src="{{value.cover}}" alt="{{value.title}}"></a></div>
               {{/each}}
+              {{else}}
+              <div class="no-data">暂无收藏课程</div>
+              {{/if}}
             </script>
           </div>
           <div class="h2">学习的课程</div>
           <div class="slider" id="study-course">
             <script id="studyCourse" type="text/html">
+              {{if list.length>0}}
               {{each list as value i}}
-                <div><a href="/couresdetail?cid={{value.cid}}&type={{value.type}}" target="_blank"><img src="{{value.cover}}" alt="{{value.title}}"></a></div>
+                <div><a href="/couresdetail?cid={{value.cid}}&amp;type={{value.type}}" target="_blank"><img src="{{value.cover}}" alt="{{value.title}}"></a></div>
               {{/each}}
+              {{else}}
+              <div class="no-data">暂无学习课程</div>
+              {{/if}}
             </script>
           </div>
         </div>
+        <!-- 右侧推荐课程 -->
       </div>
     </div>
   </section>
-  <div id="add-talk-list">
-    <script id="addTalkList" type="text/html">
-      {{each dynamic as value i}}
-        <li>
-          <p class="text">
-            {{value.details}}
-          </p>
-          <p class="img">
-            {{each value.dynimg as src j}}
-            <img src="{{src}}" alt="">
-            {{/each}}
-          </p>
-          <p class="video"></p>
-          <div class="handle-box">
-            <div class="handle clearfix">
-              <a href="javascript:;" class="publish-comment-btn" data-pid="{{value.dynamic_id}}" data-i={{i}}>
-                <i class="talk-icon comment"></i>评论{{if value.comment_sum!=0}}({{value.comment_sum}}){{/if}}
-              </a>
-              <!-- <a href="javascript:;" class="forward-btn" data-pid="{{value.dynamic_id}}"><i class="talk-icon forward"></i>转发</a> -->
-              {{if value.islike==1}}
-              <a href="javascript:;" class="cancel-praise-btn" data-pid="{{value.dynamic_id}}">
-                <i class="talk-icon favour"></i>
-                取消赞({{value.like_num}})
-              </a>
-              {{else}}
-              <a href="javascript:;" class="praise-btn" data-pid="{{value.dynamic_id}}">
-                <i class="talk-icon favour"></i>
-                赞{{if value.like_num!=0}}({{value.like_num}}){{/if}}
-              </a>
-              {{/if}}
-              {{if self==1}}
-              <a href="javascript:;" class="delete-btn" data-pid="{{value.dynamic_id}}"><i class="talk-icon delete"></i>删除</a>
-              {{/if}}
-            </div>
-            {{if value.comment_sum!=0}}
-            {{each value.comment as values i}}
-            <div class="clearfix comment-list">
-              <div class="lf avatar"><img src="{{values.portrait}}" width="45" height="45" alt=""></div>
-              <div class="lf">
-                <p class="comment-nr"><a href="/home?uid={{values.user_id}}" class="name hot">{{values.name}}：</a>{{values.comment_details}}</p>
-                <p class="date clearfix">{{values.create_date}}
-                  {{if values.user_id==uid}}
-                  <a href="javascript:;" class="rf delete-comment" data-mid="{{values.comm_id}}">删除</a>
-                  {{/if}}
-                </p>
-              </div>
-            </div>
-            {{/each}}
-            {{/if}}
-          </div>
-          <form class="comment-form{{i}} hide cmxform" method="post">
-            <input type="hidden" name="DynamicComment[dynamic_id]" value="{{value.dynamic_id}}">
-            <textarea name="DynamicComment[comment_details]" id="" cols="30" rows="10" class="publish-txt comment-textarea" placeholder="自古评论出人才。。" required></textarea>
-            <p><button type="submit" class="btn talk-btn">发表</button></p>
-          </form>
-          <div class="publish-date"><i class="talk-icon talk"></i>{{value.create_date}}</div>
-        </li>
-      {{/each}}
-    </script>
-  </div>
-  <!-- 发送私信 -->
+  <!-- 主要内容结束 -->
   <div class="popup hide" id="letter-popup">
     <div class="popup-modal">
       <div class="popup-header">
@@ -299,6 +229,7 @@
     </div>
     <div class="popup-bg"></div>
   </div>
+  <!-- 发送私信 -->
   <!-- footer -->
   <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
   <!-- footer end -->

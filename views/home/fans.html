@@ -89,6 +89,7 @@
                 <th class="th3">礼物</th>
                 <th class="th4">数量</th>
               </tr>
+              {{if list.length>0}}
               {{each list as value i}}
               <tr>
                 <td><span class="sec03-rank-icon sec03-rank{{i + 1}}">{{i + 1}}</span></td>
@@ -103,6 +104,9 @@
                 <td>{{value.quantity_sum}}</td>
               </tr>
               {{/each}}
+              {{else}}
+              <tr><th colspan="4">暂无粉丝</th></tr>
+              {{/if}}
             </script>
             </table>
             <div class="ajax-paging">

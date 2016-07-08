@@ -1,7 +1,9 @@
 <!-- header -->
 <?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
 <!-- header end -->
-<link rel="stylesheet" href="/static/js/plugins/slick/slick.css">
+<link rel="stylesheet" href="/static/js/plugins/webupload/webupload.css">
+<link rel="stylesheet" href="/static/js/plugins/lightGallery/lightGallery.css">
+<link rel="stylesheet" href="/static/css/home.css">
 <link rel="stylesheet" href="/static/css/home.css">
   <div class="home-head clearfix" id="home-header">
     <script id="homeHeader" type="text/html">
@@ -77,67 +79,94 @@
       </script>
     </header>
     <div class="panel-body">
-      <div class="panel-body-course" id="photo-list">
-      <script id="photoList" type="text/html">
-        {{if self==1}}
+      <div class="panel-body-course" id="picture-list">
+      <script id="pictureList" type="text/html">
         <div class="select-type clearfix">
+          <div class="lf handle-txt"><span class="hot">{{data.album_name}}</span> 相册</div>
+          {{if self==1}}
           <div class="rf"><a href="javascript:;" class="handle-icon delete" id="handle-delete">删除</a></div>
-          <div class="rf"><a href="javascript:;" class="handle-icon batch" id="handle-batch">批量处理</a></div>
-          <div class="rf"><a href="javascript:;" class="handle-icon add" id="add-photo">创建相册</a></div>
+          <div class="rf"><a href="javascript:;" class="handle-icon batch" id="handle-batch">选择</a></div>
+          <div class="rf"><a href="javascript:;" class="handle-icon batch" id="set-cover">设为封面</a></div>
+          <div class="rf"><a href="javascript:;" class="handle-icon add" id="add-picture">上传图片</a></div>
           <div class="rf"><a href="javascript:;" class="handle-icon"><input type="checkbox" name="controlAll" id="controlAll"><label for="controlAll">全选</label></a></div>
+          {{/if}}
         </div>
-        {{/if}}
-        <ul class="course-list study-course photo-list clearfix">
-          {{each data as value i}}
-            <li>
-              <a href="&amp;aid={{value.aid}}">
-                <img src="{{value.cover}}" alt="">
-                <span class="full"><b id="">查看相册</b></span>
-              </a>
-              <p class="course-title"><a href="javascript:;" target="_blank">{{value.album_name}}</a></p>
-              <div class="select-checkbox"><input type="checkbox" name="selected" value="{{value.aid}}"></div>
-            </li>
+        {{if status==1}}
+        <ul id="auto-loop" class="gallery course-list study-course picture-list block clearfix">
+          {{each data.album_detail as value i}}
+          <li data-src="{{value.image_address}}">
+            <a href="#">
+              <img src="{{value.image_address}}" />
+              <!-- <span class="full"><b>查看大图</b></span> -->
+            </a>
+            <div class="select-checkbox"><input type="checkbox" name="selected" value="{{value.id}}"></div>
+          </li>
           {{/each}}
         </ul>
+        {{else}}
+        <p class="no-data">该相册暂无照片</p>
+        {{/if}}
         </script>
-        <div class="ajax-paging">
-          <div class="clearfix">
-            <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
-            <a href="javascript:;" id="paging-next" class="handle-icon right-arrows active"></a>
-          </div>
-        </div>
       </div>
     </div>
   </section>
-  <!-- 创建组 -->
-  <div class="popup hide" id="create-photo-popup">
+  <!-- 发送私信 -->
+  <div class="popup hide" id="letter-popup">
     <div class="popup-modal">
       <div class="popup-header">
-        <h1>创建相册</h1>
+        <h1>发送私信</h1>
         <button type="button" class="popup-close"></button>
       </div>
       <div class="popup-body">
-        <form method="post" id="create-photo-form" class="popup-form cmxform">
+        <form method="post" id="letter-form" class="popup-form cmxform">
           <div class="form-group">
-            <label class="control-label">相册名称</label>
+            <label class="control-label">标题</label>
             <div class="form-controls">
-              <input type="text" class="form-input" name="Album[album_name]" required>
+              <input type="text" class="form-input" name="title" required>
             </div>
           </div>
           <div class="form-group">
-            <label class="control-label">权限设置</label>
+            <label class="control-label">内容</label>
             <div class="form-controls">
-              <select id="photo-limits" name="Album[visible]" class="" value="">
-                <option value="1">所有人可见</option>
-                <option value="2">我的关注</option>
-                <option value="3">我的粉丝</option>
-                <option value="4">仅自己</option>
-              </select>
+              <textarea name="content" id="" class="form-textarea" required></textarea>
             </div>
           </div>
+          <input type="hidden" value="" name="user_id" id="user-id">
           <div class="form-group">
             <div class="form-submit">
               <button type="submit" class="button-submit">确认</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="popup-bg"></div>
+  </div>
+  <!-- 上传照片 -->
+  <div class="popup hide" id="add-picture-popup">
+    <div class="popup-modal">
+      <div class="popup-header">
+        <h1>上传图片</h1>
+        <button type="button" class="popup-close"></button>
+      </div>
+      <div class="popup-body">
+        <form method="post" id="add-picture-form" class="popup-form cmxform" enctype="multipart/form-data" action="/album/album-addimg">
+          <div class="form-group">
+            <label class="control-label">选择照片</label>
+            <div class="form-controls">
+              <div id="uploader-img">
+                <a href="javascript:;" class="upload-btn" id="filePicker">选择图片</a>
+                <div id="fileList" class="uploader-list clearfix">
+                </div>
+              </div>
+              <div id="input-img">
+              </div>
+            </div>
+          </div>
+          <input type="hidden" name="aid" id="photo-aid" value="">
+          <div class="form-group">
+            <div class="form-submit">
+              <button type="submit" class="button-submit">开始上传</button>
             </div>
           </div>
         </form>
@@ -150,8 +179,10 @@
   <!-- footer end -->
   <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
   <script src="/static/js/plugins/validate/messages_zh.js"></script>
+  <script src="/static/js/plugins/lightGallery/lightGallery.min.js"></script>
+  <script src="/static/js/plugins/webupload/webuploader.js"></script>
   <script>
-    seajs.use('/static/js/home/photo.js');
+    seajs.use('/static/js/home/picture.js');
   </script>
 </body>
 </html>

@@ -40,7 +40,7 @@ define(function(require,exports,module){
     }
   });
   $('#paging-next').on('click',function(){
-    if($('.course-list li').length==9){
+    if($('.course-list li').length==12){
       $(this).addClass('active').siblings().removeClass('active');
       pageVal++;
       runPostAjaxDatas();

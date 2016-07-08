@@ -37,7 +37,7 @@ define(function(require,exports,module){
     $('#letter-popup').removeClass('hide');
   });
   // 关闭弹窗
-  $('.popup-close').on('click',function(){
+  $('body').on('click','.popup-close',function(){
     $('.popup').addClass('hide');
   });
   // 私信表单
@@ -95,5 +95,6 @@ define(function(require,exports,module){
   // uid
   var home={};
   home.uid=getVal.uid;
+  home.getVal=getVal;
   module.exports=home;
 });

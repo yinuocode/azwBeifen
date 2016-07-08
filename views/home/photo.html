@@ -82,12 +82,14 @@
         {{if self==1}}
         <div class="select-type clearfix">
           <div class="rf"><a href="javascript:;" class="handle-icon delete" id="handle-delete">删除</a></div>
-          <div class="rf"><a href="javascript:;" class="handle-icon batch" id="handle-batch">批量处理</a></div>
+          <div class="rf"><a href="javascript:;" class="handle-icon edit" id="handle-edit">编辑</a></div>
+          <div class="rf"><a href="javascript:;" class="handle-icon batch" id="handle-batch">选择</a></div>
           <div class="rf"><a href="javascript:;" class="handle-icon add" id="add-photo">创建相册</a></div>
           <div class="rf"><a href="javascript:;" class="handle-icon"><input type="checkbox" name="controlAll" id="controlAll"><label for="controlAll">全选</label></a></div>
         </div>
         {{/if}}
         <ul class="course-list study-course photo-list clearfix">
+          {{if status==1}}
           {{each data as value i}}
             <li>
               <a href="/home/picture?uid={{value.user_id}}&amp;aid={{value.aid}}">
@@ -98,18 +100,53 @@
               <div class="select-checkbox"><input type="checkbox" name="selected" value="{{value.aid}}"></div>
             </li>
           {{/each}}
+          {{else}}
+          <p class="no-data">还没有可见的相册</p>
+          {{/if}}
         </ul>
         </script>
-        <div class="ajax-paging">
-          <div class="clearfix">
-            <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
-            <a href="javascript:;" id="paging-next" class="handle-icon right-arrows active"></a>
-          </div>
+      </div>
+      <div class="ajax-paging">
+        <div class="clearfix">
+          <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
+          <a href="javascript:;" id="paging-next" class="handle-icon right-arrows active"></a>
         </div>
       </div>
     </div>
   </section>
-  <!-- 创建组 -->
+  <!-- 发送私信 -->
+  <div class="popup hide" id="letter-popup">
+    <div class="popup-modal">
+      <div class="popup-header">
+        <h1>发送私信</h1>
+        <button type="button" class="popup-close"></button>
+      </div>
+      <div class="popup-body">
+        <form method="post" id="letter-form" class="popup-form cmxform">
+          <div class="form-group">
+            <label class="control-label">标题</label>
+            <div class="form-controls">
+              <input type="text" class="form-input" name="title" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">内容</label>
+            <div class="form-controls">
+              <textarea name="content" id="" class="form-textarea" required></textarea>
+            </div>
+          </div>
+          <input type="hidden" value="" name="user_id" id="user-id">
+          <div class="form-group">
+            <div class="form-submit">
+              <button type="submit" class="button-submit">确认</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="popup-bg"></div>
+  </div>
+  <!-- 创建相册 -->
   <div class="popup hide" id="create-photo-popup">
     <div class="popup-modal">
       <div class="popup-header">
@@ -144,6 +181,45 @@
       </div>
     </div>
     <div class="popup-bg"></div>
+  </div>
+  <!-- 编辑相册 -->
+  <div class="popup hide" id="edit-photo-popup">
+    <script id="editPhotoPopup" type="text/html">
+      <div class="popup-modal">
+        <div class="popup-header">
+          <h1>编辑相册</h1>
+          <button type="button" class="popup-close"></button>
+        </div>
+        <div class="popup-body">
+          <form method="post" id="edit-photo-form" class="popup-form cmxform">
+            <div class="form-group">
+              <label class="control-label">相册名称</label>
+              <div class="form-controls">
+                <input type="text" class="form-input" name="album_name" value="{{album_name}}" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label">权限设置</label>
+              <div class="form-controls">
+                <select id="photo-limits" name="visible" class="" value="">
+                  <option value="1" {{if visible==1}}selected{{/if}}>所有人可见</option>
+                  <option value="2" {{if visible==2}}selected{{/if}}>我的关注</option>
+                  <option value="3" {{if visible==3}}selected{{/if}}>我的粉丝</option>
+                  <option value="4" {{if visible==4}}selected{{/if}}>仅自己</option>
+                </select>
+              </div>
+            </div>
+            <input type="hidden" name="aid" value="{{aid}}">
+            <div class="form-group">
+              <div class="form-submit">
+                <button type="submit" class="button-submit">确认</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="popup-bg"></div>
+    </script>
   </div>
   <!-- footer -->
   <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>

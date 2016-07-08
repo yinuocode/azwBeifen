@@ -162,10 +162,7 @@ define(function(require,exports,module){
   // 动态初始化
   function runDynamic(){
     // 上传图片
-    uploadImg($('#filePicker1'),0,$('#fileList1'));
-    uploadImg($('#filePicker2'),1,$('#fileList2'));
-    uploadImg($('#filePicker3'),2,$('#fileList3'));
-    uploadImg($('#filePicker4'),3,$('#fileList4'));
+    uploadImg();
     // $('.home-main').on('click','.upload-btn',function(){
     //   var _this=$(this);
     //   var _index=_this.attr('data-i');
@@ -210,8 +207,8 @@ define(function(require,exports,module){
     }
   });
   // 上传图片
-  function uploadImg(_this,_index,listImg){
-    var $list = listImg,
+  function uploadImg(){
+    var $list = $('#fileList'),
         // 优化retina, 在retina下这个值是2
         ratio = window.devicePixelRatio || 1,
         // 缩略图大小
@@ -227,7 +224,7 @@ define(function(require,exports,module){
         server: "/static/js/plugins/webupload/fileupload.php",
         // 选择文件的按钮。可选。
         // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-        pick: _this,
+        pick: $('#filePicker'),
         // 只允许选择图片文件。
         accept: {
             title: 'Images',
@@ -254,12 +251,12 @@ define(function(require,exports,module){
         var $li = $(
                 '<li id="' + file.id + '" class="file-item thumbnails">' +
                     '<img>' +
-                    '<div class="file-panel"><span class="cancel" data-i="'+_index+'">删除</span></div>'+
+                    '<div class="file-panel"><span class="cancel">删除</span></div>'+
                 '</li>'
                 ),
             $img = $li.find('img');
         // $list为容器jQuery实例
-        $list.html( $li );
+        $list.append( $li );
         // 创建缩略图
         // 如果为非图片文件，可以不用调用此方法。
         // thumbnailWidth x thumbnailHeight 为 100 x 100
@@ -286,7 +283,7 @@ define(function(require,exports,module){
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on( 'uploadSuccess', function( file,resporse ) {
         $( '#'+file.id ).addClass('upload-state-done');
-        $('#input-img input').eq(_index).val(main.imgPath+'/'+resporse.date+'/'+file.name);
+        $('#input-img').append('<input type="hidden" name="attach[]" value="'+main.imgPath+'/'+resporse.date+'/'+file.name+'">');
     });
     // 文件上传失败，显示上传出错。
     uploader.on( 'uploadError', function( file ) {
@@ -304,9 +301,9 @@ define(function(require,exports,module){
     });
   }
   // 删除图片
-  $('.uploader-list').on('click','.cancel',function(){
+  $('.home-content').on('click','.cancel',function(){
+    var _index=$(this).parent().parent().index();
     $(this).parent().parent().remove();
-    var _index=$(this).attr('data-i');
-    $('#input-img input').eq(_index).val('');
+    $('#input-img input').eq(_index).remove();
   });
 });

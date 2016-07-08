@@ -1432,7 +1432,7 @@ form.cmxform form.cmxform .gray * {
   display: block;
   padding: 0 12px 0 40px;
   position: relative; }
-
+.handle-txt{padding-left:15px;}
 .handle-icon.triangle {
   padding: 0 45px 0 32px;
   border-right: 1px solid #d4d4d4; }
@@ -1901,4 +1901,9 @@ input[name="selected"], #controlAll {
 }
 .star-0 {
   background-position: 0 -80px;
+}
+/*没数据*/
+.no-data{
+  text-align: center;
+  line-height: 60px;
 }

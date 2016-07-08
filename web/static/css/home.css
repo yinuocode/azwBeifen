@@ -125,6 +125,10 @@
   position: relative;
   height: 60px;
 }
+.publish-select .webuploader-container,.publish-select .webuploader-container .webuploader-pick{
+  height:100%;
+  width: 100%
+}
 .talk-icon{
   background: url(../img/talk-icon.png) no-repeat;
   position: absolute;
@@ -176,6 +180,16 @@
 .img-list .lf img{
   width: 100%;
 }
+#publish-form .uploader-list{
+  padding-top:10px;
+}
+.uploader-list>li{
+  float:left;
+  width: 120px;
+  height:100px;
+  margin-right: 6px;
+}
+.uploader-list>li img{width: 100%;max-height: 100%;}
 .uploader-list .file-panel {
   position: absolute;
   height: 30px;
@@ -186,6 +200,11 @@
   left: 0;
   overflow: hidden;
   z-index: 300;
+  display: none;
+  transition: 300ms;
+}
+.uploader-list li:hover .file-panel{
+  display: block;
 }
 .uploader-list .file-panel span.cancel {
   background-position: -48px -24px;
@@ -303,7 +322,6 @@
 }
 .home-side .slick-slider{
   padding: 15px 0 10px;
-  height:440px;
 }
 .home-side .slick-slide img {
   display: block;
@@ -358,3 +376,15 @@
 .photo-list>li .course-title{
   text-align: center;
 }
+/*查看相册*/
+.course-list.study-course.picture-list li{
+  width:200px;
+  margin: 6px;
+}
+.course-list.picture-list>li>a{
+  height: 140px;
+}
+/*.picture-list li img{
+  width: 100%;
+  max-height:100%;
+}*/
