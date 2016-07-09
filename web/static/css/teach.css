@@ -1,0 +1,178 @@
+/* 聊天窗口 */
+.group-chat{
+  margin-bottom:20px;
+}
+.chatbox {
+  width: 70%;
+  position: relative;
+  color:#fff;
+}
+.chatbox.chatbox-lecture {
+  width: 25%;
+  max-width: 320px; }
+.chat-head {
+  background: #008AD1;
+  height: 45px;
+  line-height: 45px;
+  padding: 0 2%;
+  font-size: 16px;
+  overflow: hidden;
+  word-break: break-all;
+  color:#fff;
+}
+.chat-body {
+  color: #666;
+  background: #fff;
+  font-size: 16px;
+  height: 327px;
+  border-right: 1px solid #eee;
+}
+.lecturer-order {
+  color: #333;
+  font-size: 14px;
+  padding: 10px 5%;
+  background: #fff; }
+.lecturer-order .state {
+  color: #999; }
+.lecturer-list {
+  border-bottom: 1px solid #ddd;
+  padding: 0 5%;
+  height: 30%;
+  overflow: auto; }
+.lecturer-list li {
+  height: 40px;
+  line-height: 40px;
+  overflow: hidden; }
+.lecturer-list .point-icon:before {
+  content: '';
+  background-image: url(../img/lecture/point-icon.png);
+  width: 12px;
+  height: 12px;
+  float: left;
+  margin: 14px 7px 0 0; }
+.lecturer-list .point-icon-off:before {
+  background-position: 0 12px; }
+.lecturer-list .usernamesub {
+  font-size: 12px;
+  color: #008AD1; }
+.lecturer-list .avatar {
+  margin-top: 4px; }
+.chat {
+  padding: 0 5% 5px;
+  height: 100%;
+  overflow: auto;
+}
+.chat-username {
+  line-height: 36px; }
+.chat-usertext {
+  text-indent: 2em;
+  font-size: 14px; }
+.chat-bot {
+  background: #008AD1;
+  padding: 5px 3px;
+}
+.chat-bot-bd {
+  border: 4px solid #0091DC; }
+.chat-tool {
+  line-height: 30px;
+  position: relative;
+}
+#iconlist {
+  width: 100%;
+  height: 94px;
+  overflow-y: scroll;
+  background: #aaa;
+  position: absolute;
+  top: -103px;
+  left: -7px;
+  display: none;
+}
+#iconlist img {
+  cursor: pointer;
+  padding: 2px;
+  width: 30px;
+  display: block;
+  float: left;
+  height: 30px;
+}
+.chat-input {
+  height: 80px;
+}
+.chat-textarea {
+  height: 75px;
+  padding: 2px 8px;
+  overflow: auto;
+  border: none;
+  outline: none;
+}
+.chat-submit {
+  float: right;
+  border: none;
+  background: #fff;
+  border-radius: 6px;
+  height: 28px;
+  width: 70px;
+  color: #666;
+  font-size: 16px;
+  margin-top: -25px;
+}
+.icon-face, .icon-flower, .chatbox .inform:before {
+  display: block;
+  float: left;
+  width: 29px;
+  height: 29px;
+  background-image: url(../img/lecture/icon-chat.png); }
+.icon-face {
+  margin: 0 5px;
+  background-position: -29px 0; }
+.icon-flower {
+  background-position: 0 0; }
+/* 聊天窗口 end */
+/*学员*/
+.group-member{
+  width: 30%;
+  background: #fff;
+  height: 500px;
+}
+.member-list{
+  font-size: 16px;
+  line-height: 30px;
+  padding: 10px 15px;
+  height: 455px;
+  overflow: auto;
+}
+.member-list>li{
+  margin-bottom:6px;
+}
+.member-list .avatar{
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+  margin: 0 5px;
+  float: left;
+  transition: 300ms;
+  -ms-transition: 300ms;   /* IE 9 */
+  -moz-transition: 300ms;  /* Firefox */
+  -webkit-transition: 300ms; /* Safari 和 Chrome */
+  -o-transition: 300ms;  /* Opera */
+}
+.member-list>li:hover .avatar{
+  transform:rotate(360deg);
+  -ms-transform:rotate(360deg);   /* IE 9 */
+  -moz-transform:rotate(360deg);  /* Firefox */
+  -webkit-transform:rotate(360deg); /* Safari 和 Chrome */
+  -o-transform:rotate(360deg);  /* Opera */
+}
+/*组动态*/
+.home-main.home-main-group{
+  margin:0 auto;
+}
+.group-talk-user{
+  line-height: 40px;
+}
+.group-talk-user .avatar{
+  border-radius: 50%;
+  width:40px;
+  height:40px;
+}

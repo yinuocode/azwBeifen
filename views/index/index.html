@@ -191,11 +191,7 @@
               <td><span class="sec03-rank-icon sec03-rank{{i + 1}}">{{i + 1}}</span></td>
               <td>
               <a href="/home?uid={{value.user_id}}" target="_blank">
-              {{if value.nick_name}}
                 {{value.nick_name}}
-              {{else}}
-                {{value.username}}
-              {{/if}}
               </a>
               </td>
               <td>
@@ -232,17 +228,13 @@
               <td><span class="sec03-rank-icon sec03-rank{{i + 1}}">{{i + 1}}</span></td>
               <td>
               <a href="/home?uid={{value.user_id}}" target="_blank">
-              {{if value.nick_name}}
                 {{value.nick_name}}
-              {{else}}
-                {{value.username}}
-              {{/if}}
               </a>
               </td>
               <td>
                 {{each value.gift as values i}}
                   {{if i<8}}
-                  <img src="{{values.g.gimage}}" alt="" width="35">
+                  <img src="{{values.gimage}}" alt="" width="35">
                   {{/if}}
                 {{/each}}
               </td>

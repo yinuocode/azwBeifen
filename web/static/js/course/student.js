@@ -198,7 +198,7 @@ define(function(require,exports,module){
   // 进入聊天室
   $('#chat-room').on('click',function(){
     if(groupId){
-      // window.open('course?id='+groupId);
+      window.open('/group/group-chat?gid='+groupId);
     }else{
       alert('请先选择一个组');
     }

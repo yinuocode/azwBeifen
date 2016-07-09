@@ -468,6 +468,18 @@ $(function(){
           if(datas.status==1){
             // var index=Math.floor((Math.random()*admire.length));
             $('.enjoy-box').hide();
+            $('#enjoy-effect').show().animate({
+              bottom:300,
+              fontSize:30
+            },4000,function(){
+              $('#enjoy-effect').fadeOut(1000,function(){
+                $(this).css({
+                  'bottom':'4px',
+                  'font-size':'16px',
+                  'display':'none'
+                });
+              });
+            });
             // showGift(courseCid,userMid,userName,giftNr,num,giftTitle);
             socket.emit('input',{name:userName,cid:courseCid,uid:userMid,message:'<span class="hot">给讲师打赏了'+money+'元'+'</span>'});
           }else{

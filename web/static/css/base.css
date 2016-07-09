@@ -1542,6 +1542,8 @@ form.cmxform form.cmxform .gray * {
   top: 38px;
   border: 1px solid #d4d4d4;
   margin-left: -1px;
+  max-height: 150px;
+  overflow: auto;
   display: none; }
 
 .select-items.active {

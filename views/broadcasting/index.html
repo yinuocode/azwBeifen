@@ -90,7 +90,7 @@
           <div class="content-body">
             <div id="palette">
               <div class="canvas-out">
-                <canvas id="canvas" width="700" height="380">您的浏览器不支持画板，请更换较新浏览器使用!</canvas>
+                <canvas id="canvas" width="700" height="455">您的浏览器不支持画板，请更换较新浏览器使用!</canvas>
               </div>
               <form class="clearfix">
                 <div class="w33lf">
@@ -151,7 +151,7 @@
                     </dd>
                   </dl>
                 </div>
-                <div class="w33lf">
+<!--                 <div class="w33lf">
                   <dl>
                     <dt class="left">
                       <label for="textFont">字体朝向:</label>
@@ -166,7 +166,7 @@
                       </select>
                     </dd>
                   </dl>
-                </div>
+                </div> -->
                 <div class="w33lf">
                   <dl>
                     <dt class="left">
@@ -187,7 +187,7 @@
                     </dd>
                   </dl>
                 </div>
-                <div class="w33lf">
+            <!--     <div class="w33lf">
                   <dl>
                     <dt class="left">
                       <label for="textBaseline">文本基线:</label>
@@ -203,8 +203,8 @@
                       </select>
                     </dd>
                   </dl>
-                </div>
-                <div class="w33lf">
+                </div> -->
+       <!--          <div class="w33lf">
                   <dl>
                     <dt class="left">
                       <label for="fontStyle">字体风格:</label>
@@ -217,7 +217,7 @@
                       </select>
                     </dd>
                   </dl>
-                </div>
+                </div> -->
               </form>
             </div>
             <div class="slideshow-container">
@@ -402,6 +402,7 @@
         pTtoken,
         // noticeNr,
         search=location.search,
+        isUpWin=false,
         courseCid=search.substring(search.indexOf('cid=')+4);
     // seajs
     seajs.config({
@@ -411,7 +412,7 @@
         'modernizr': '/static/js/polyfills/modernizr.min',
         'main' : '/static/js/lecture/main.js',
         'volumecontrol' : '/static/js/lecture/volumecontrol.js',
-        'palette' : '/static/js/lecture/palette.app.js',
+        'palette' : '/static/js/lecture/palette.app.js?v=1',
         'galleriffic' : '/static/js/plugins/galleriffic/jquery.galleriffic.js',
         'uploadify' : '/static/js/plugins/upload/jquery.uploadify.js',
         'uploadifymin' : '/static/js/plugins/upload/jquery.uploadify.min.js',

@@ -1130,3 +1130,9 @@ body {
   width: 100%; }
 
 /* footer end */
+/*打赏效果*/
+#enjoy-effect {
+  position: absolute;
+  right: 300px;
+  bottom: 4px;
+}

@@ -1,0 +1,57 @@
+<!-- header -->
+<?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
+<!-- header end -->
+  <section class="section-panel">
+    <header class="panel-heading clearfix">
+      <a href="/coures/study">我的学习</a>
+      <a href="/coures/note">我的笔记</a>
+      <a href="/group/my-group" class="active">我的小组</a>
+    </header>
+    <div class="panel-body">
+      <div class="panel-body-course">
+        <table class="table-course" id="group-list">
+        <script id="groupList" type="text/html">
+          <tbody>
+            <tr>
+              <th>小组名称</th>
+              <th>小组人数</th>
+              <th>加入时间</th>
+              <th>操作</th>
+            </tr>
+            {{if list.length>0}}
+            {{each list as value i}}
+            <tr>
+              <td>{{value.group_name}}</td>
+              <td>{{value.group_sum}}</td>
+              <td>{{value.update_date}}</td>
+              <td>
+                <a href="/group/group-chat?gid={{value.group_id}}" target="_blank">进入聊天室</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="javascript:;" class="exit-group" data-gid="{{value.group_id}}">退出组</a>
+              </td>
+            </tr>
+            {{/each}}
+            {{else}}
+            <tr>
+              <td colspan="4" class="no-data">暂无加入的小组</td>
+            </tr>
+            {{/if}}
+          </tbody>
+        </script>
+        </table>
+        <div class="ajax-paging">
+          <div class="clearfix">
+            <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
+            <a href="javascript:;" id="paging-next" class="handle-icon right-arrows active"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- footer -->
+  <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
+  <!-- footer end -->
+  <script>
+    seajs.use('/static/js/course/my_group.js');
+  </script>
+</body>
+</html>

@@ -4,7 +4,6 @@ define(function(require,exports,module){
   var home = require('/static/js/home/home');
   // 判断有无正在直播课程
   main.postAjaxDatas('/home/live',{user_id:home.uid},function(datas){
-    console.log(datas);
     if(datas.length!==0){
       $('#on-air').removeClass('hide').find('a').attr('href','/couresdetail?cid='+datas.live_id+'&type=0');
     }else{
@@ -15,7 +14,6 @@ define(function(require,exports,module){
   // 动态列表
   function dynamicList(){
     main.postAjaxDatas('/dynamic/dynamic-list',{user_id:home.uid,page:pageVal},function(datas){
-      console.log(datas);
       var talkList = template('talkList',datas);
       $('#talk-list').html(talkList);
       runDynamic();
@@ -39,7 +37,6 @@ define(function(require,exports,module){
           data : data,
           dataType :'json',
           success : function(data){
-            console.log(data);
             if(data.status==1){
               dynamicList();
             }else{
@@ -75,39 +72,37 @@ define(function(require,exports,module){
   // 删除说说
   $('.home-content').on('click','.delete-btn',function(){
     var did=$(this).attr('data-pid');
-    main.postAjaxDatas('/dynamic/del-dynamic',{did:did},function(datas){
-      if(confirm("确认删除此条动态吗?")){
+    if(confirm("确认删除此条动态吗?")){
+      main.postAjaxDatas('/dynamic/del-dynamic',{did:did},function(datas){
         if(datas.status==1){
           dynamicList();
         }else{
           alert(datas.msg);
         }
-      }
-    });
+      });
+    }
   });
   // 删除评论
   $('.home-content').on('click','.delete-comment',function(){
     var mid=$(this).attr('data-mid');
-    main.postAjaxDatas('/dynamic/del-comment',{comm_id:mid},function(datas){
-      if(confirm("确认删除此条评论吗?")){
+    if(confirm("确认删除此条评论吗?")){
+      main.postAjaxDatas('/dynamic/del-comment',{comm_id:mid},function(datas){
         if(datas.status==1){
           dynamicList();
         }else{
           alert(datas.msg);
         }
-      }
-    });
+      });
+    }
   });
   // 收藏的课程
   main.postAjaxDatas('/home/person-enshrine',{user_id:home.uid},function(datas){
-    console.log(datas);
     var collectCourse = template('collectCourse',{list:datas});
     $('#collect-course').html(collectCourse);
     runCollectSide();
   });
   // 学习的课程
   main.postAjaxDatas('/home/my-coures',{user_id:home.uid},function(datas){
-    console.log(datas);
     var studyCourse = template('studyCourse',{list:datas});
     $('#study-course').html(studyCourse);
     runStudySide();
@@ -197,12 +192,10 @@ define(function(require,exports,module){
   // 滚动条滚动到底部获取数据
   var swit=true;
   $(window).bind('scroll', function() {
-    console.log(swit);
     if(swit){
       if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
         pageVal++;
         dynamicList();
-        console.log(11111111111);
       }
     }
   });

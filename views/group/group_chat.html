@@ -1,0 +1,163 @@
+<!-- header -->
+<?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
+<!-- header end -->
+<link rel="stylesheet" href="/static/js/plugins/webupload/webupload.css">
+<link rel="stylesheet" href="/static/css/home.css">
+<link rel="stylesheet" href="/static/css/teach.css">
+  <section class="section-panel">
+    <header class="panel-heading clearfix" id="course-head">
+    <script id="courseHead" type="text/html">
+    {{if identity}}
+      <a href="/coures/direct">创建直播</a>
+      <a href="/coures/course">创建录播</a>
+      <a href="/myteach/teaching">我的教学</a>
+    {{/if}}
+      <a href="/coures/study">我的学习</a>
+      <a href="/coures/note">我的笔记</a>
+    {{if identity}}
+      <a href="/coures/manage" class="active">学员管理</a>
+    {{else}}
+      <a href="/group/my-group" class="active">我的小组</a>
+    {{/if}}
+    </script>
+    </header>
+    <div class="panel-body">
+      <div class="crumbs"><span>群组聊天</span></div>
+      <div class="group-chat clearfix">
+        <div class="lf chatbox">
+          <header class="chat-head">
+            <div>组名称：<span id="group-name"></span></div>
+          </header>
+          <div class="chat-body">
+            <div class="chat" id="chat-messages">
+            </div>
+          </div>
+          <div class="chat-bot">
+            <div class="chat-bot-bd">
+              <div class="chat-tool">
+                <div id="iconlist">
+                </div>
+                <a href="javascript:;" id="face" class="icon iconfont icon-face"></a>&nbsp;&nbsp;
+                <a href="javascript:;" id="flower" class="icon iconfont icon-flower"></a>
+              </div>
+              <div class="chat-input clearfix">
+                <div contenteditable="true" class="chat-textarea" placeholder="type you message"></div><button class="chat-submit">发送</button>
+              </div>
+              <div class="chat-status hide">Status:<span>IDle</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="lf group-member">
+          <h2 class="chat-head">小组成员</h2>
+          <ul class="member-list" id="member-list">
+            <script id="memberList" type="text/html">
+            {{each list as value i}}
+              <li class="clearfix"><a href="/home?uid={{value.user_id}}" target="_blank"><img src="{{value.portrait}}" class="avatar" alt="">{{value.name}}</a></li>
+            {{/each}}
+            </script>
+          </ul>
+        </div>
+      </div>
+      <div class="home-main home-main-group">
+        <div class="home-content">
+          <div class="publish">
+            <form id="publish-form" class="cmxform" method="post">
+              <div class="clearfix">
+                <textarea name="Topic[topic_content]" id="" cols="30" rows="10" class="publish-txt lf" placeholder="输入群话题..."></textarea>
+                <div id="uploader-img" class="publish-select">
+                  <div id="filePicker"><i class="talk-icon camera" id="talk-camera"></i></div>
+                </div>
+              </div>
+              <input type="hidden" name="Topic[group_id]" value="" id="group-id">
+              <div id="fileList" class="uploader-list clearfix">
+              </div>
+              <div id="input-img">
+              </div>
+              <p><button type="submit" class="btn talk-btn">发表</button></p>
+            </form>
+            <div class="publish-date">发起群话题</div>
+          </div>
+          <ul class="talk-list" id="group-talk">
+            <script id="groupTalk" type="text/html">
+            {{if status==1}}
+            {{each topic as value i}}
+              <li>
+                <p class="group-talk-user clearfix">
+                  <span class="lf"><img src="{{value.topic_portrait}}" class="avatar" width="45" height="45" alt=""></span>
+                  <a href="/home?uid={{value.topic_user}}" class="lf" target="_blank">{{value.topic_uname}}</a>
+                </p>
+                <p class="text">
+                  {{value.topic_content}}
+                </p>
+                <p class="img">
+                  {{each value.topic_image as src j}}
+                  <img src="{{src}}" alt="">
+                  {{/each}}
+                </p>
+                <p class="video"></p>
+                <div class="handle-box">
+                  <div class="handle clearfix">
+                    <a href="javascript:;" class="publish-comment-btn" data-pid="{{value.topic_id}}" data-i={{i}}>
+                      <i class="talk-icon comment"></i>评论{{if value.comment_num!=0}}({{value.comment_num}}){{/if}}
+                    </a>
+                    <!-- <a href="javascript:;" class="forward-btn" data-pid="{{value.dynamic_id}}"><i class="talk-icon forward"></i>转发</a> -->
+                    {{if value.islike==1}}
+                    <a href="javascript:;" class="cancel-praise-btn" data-pid="{{value.topic_id}}">
+                      <i class="talk-icon favour"></i>
+                      取消赞({{value.like_num}})
+                    </a>
+                    {{else}}
+                    <a href="javascript:;" class="praise-btn" data-pid="{{value.topic_id}}">
+                      <i class="talk-icon favour"></i>
+                      赞{{if value.like_num!=0}}({{value.like_num}}){{/if}}
+                    </a>
+                    {{/if}}
+                    {{if value.topic_user==user_id}}
+                    <a href="javascript:;" class="delete-btn" data-pid="{{value.topic_id}}"><i class="talk-icon delete"></i>删除</a>
+                    {{/if}}
+                  </div>
+                  {{if value.comment_num!=0}}
+                  {{each value.topicComments as values i}}
+                  <div class="clearfix comment-list">
+                    <div class="lf avatar"><img src="{{values.comment_portrait}}" width="45" height="45" alt=""></div>
+                    <div class="lf">
+                      <p class="comment-nr"><a href="/home?uid={{values.comment_user}}" class="name hot">{{values.comment_uname}}：</a>{{values.comment_details}}</p>
+                      <p class="date clearfix">{{values.comment_date}}
+                        {{if values.comment_user==user_id}}
+                        <a href="javascript:;" class="rf delete-comment" data-mid="{{values.comm_id}}">删除</a>
+                        {{/if}}
+                      </p>
+                    </div>
+                  </div>
+                  {{/each}}
+                  {{/if}}
+                </div>
+                <form class="comment-form{{i}} hide cmxform" method="post">
+                  <input type="hidden" name="TopicComment[topic_id]" value="{{value.topic_id}}">
+                  <textarea name="TopicComment[comment_details]" id="" cols="30" rows="10" class="publish-txt comment-textarea" placeholder="自古评论出人才。。" required></textarea>
+                  <p><button type="submit" class="btn talk-btn">发表</button></p>
+                </form>
+                <div class="publish-date"><i class="talk-icon talk"></i>{{value.topic_date}}</div>
+              </li>
+            {{/each}}
+            {{else}}
+            <li class="no-data">暂无群话题</li>
+            {{/if}}
+            </script>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- footer -->
+  <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
+  <!-- footer end -->
+  <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
+  <script src="/static/js/plugins/validate/messages_zh.js"></script>
+  <script src="/static/js/plugins/webupload/webuploader.js"></script>
+  <script src="http://localhost:8080/socket.io/socket.io.js"></script>
+  <script>
+    seajs.use('/static/js/course/group_chat.js');
+  </script>
+</body>
+</html>

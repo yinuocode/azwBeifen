@@ -47,10 +47,19 @@ define(function(require,exports,module){
     // 'debug'    : true,
     'swf'      : '/static/js/plugins/upload/uploadify.swf',
     'uploader' : '/pptfile/uploadhandleppt',
-    'onUploadSuccess' : function(file, data, response) {
+    'onUploadSuccess' : function(file) {/*file, data, response*/
+      // console.log(file);
       console.log(12345);
     },
     'onUploadComplete' : function(file) {
+      var isSetI=setInterval(function() {
+        if(isUpWin){
+          clearInterval(isSetI);
+          isUpWin=false;
+          showfile(1);
+        }
+      }, 500);
+      // console.log(file);
       // alert('The file ' + file.name + ' finished processing.');
     },
     'onUploadError' : function(file, errorCode, errorMsg, errorString) {
@@ -108,7 +117,7 @@ define(function(require,exports,module){
     });
   }
   // 显示 ppt 文件
-  function showfile(){
+  function showfile(isCurrent){
     $.ajax({
       url:'/pptfile/getpptlist',
       type:"POST",
@@ -130,6 +139,9 @@ define(function(require,exports,module){
           $('#filelist li a').on('click',function(){
             useppt($(this));
           });
+          if(isCurrent==1){
+            useppt($('#filelist li:last-child a'));
+          }
         }
       }
     });
