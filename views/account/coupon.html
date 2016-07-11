@@ -24,6 +24,7 @@
               <th class="">到期日期</th>
               <th class="">价值金额</th>
             </tr>
+            {{if list.length>0}}
             {{each list as value i}}
             <tr>
               <td>{{value.cnum.coupon_info}}</td>
@@ -32,6 +33,9 @@
               <td>{{value.cnum.coupon_money}}</td>
             </tr>
             {{/each}}
+            {{else}}
+            <tr><td colspan="4" class="no-data">暂无优惠卷</td></tr>
+            {{/if}}
           </tbody>
         </script>
         </table>

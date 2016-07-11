@@ -59,7 +59,7 @@
             <tr>
             {{if value.type==1}}
               <td><input type="checkbox" name="selected" data-type="{{value.type}}" value="{{value.coures_id}}"></td>
-              <td><a href="/couresdetail?cid={{value.coures_id}}&type=1" target="_blank">{{value.coures_title}}</a></td>
+              <td><a href="/couresdetail?cid={{value.coures_id}}&amp;type=1" target="_blank">{{value.coures_title}}</a></td>
               <td><img src="{{value.coures_cover}}" alt=""></td>
               <td>{{value.num}}</td>
               <td>{{if value.coures_type==1}}{{value.privilege_price}}{{else}}免费{{/if}}</td>
@@ -67,8 +67,8 @@
               <td>{{value.ctime}}</td>
               <td class="handle">
               {{if value.coures_status==1}}
-                <a href="/couresdetail/video?cid={{value.coures_id}}&type=1">进入课程</a>
-                <a href="javascript:;">推广链接</a>
+                <a href="/couresdetail/video?cid={{value.coures_id}}&amp;type=1">进入课程</a>
+                <a href="javascript:;" class="generalize-link" data-url="http://demo.agodpig.com/couresdetail?cid={{value.coures_id}}&amp;type=1">推广链接</a>
                 <a href="hour-manage?cid={{value.coures_id}}">课时管理</a>
               {{else}}
                 <a href="javascript:;" class="start-issue" data-type="{{value.type}}" data-cid="{{value.coures_id}}">开始发布</a>
@@ -76,7 +76,7 @@
               </td>
             {{else if value.type==0}}
               <td><input type="checkbox" name="selected" data-type="{{value.type}}" value="{{value.live_id}}"></td>
-              <td><a href="/couresdetail?cid={{value.live_id}}&type=0" target="_blank">{{value.live_title}}</a></td>
+              <td><a href="/couresdetail?cid={{value.live_id}}&amp;type=0" target="_blank">{{value.live_title}}</a></td>
               <td><img src="{{value.live_cover}}" alt=""></td>
               <td>{{value.num}}</td>
               <td>{{if value.live_type==1}}{{value.privilege_price}}{{else}}免费{{/if}}</td>
@@ -85,15 +85,16 @@
               <td class="handle">
               {{if value.live_state==1}}
                 <a href="/broadcasting?cid={{value.live_id}}">开始直播</a>
-                <a href="javascript:;">推广链接</a>
+                <a href="javascript:;" data-url="http://demo.agodpig.com/couresdetail?cid={{value.live_id}}&amp;type=0" class="generalize-link">推广链接</a>
                 <a href="javascript:;" class="add-teaching" data-cid="{{value.live_id}}">添加助教</a>
+                <a href="javascript:;" class="add-service" data-cid="{{value.live_id}}">添加客服</a>
               {{else}}
                 <a href="javascript:;" class="start-issue" data-type="{{value.type}}" data-cid="{{value.live_id}}">开始发布</a>
               {{/if}}
               </td>
             {{else}}
               <td><input type="checkbox" name="selected" data-type="{{value.type}}" value="{{value.live_id}}"></td>
-              <td><a href="/directdetail?cid={{value.live_id}}&type=0" target="_blank">{{value.live_title}}</a></td>
+              <td><a href="/directdetail?cid={{value.live_id}}&amp;type=0" target="_blank">{{value.live_title}}</a></td>
               <td><img src="{{value.live_cover}}" alt=""></td>
               <td>{{value.num}}</td>
               <td>{{if value.live_type==1}}{{value.privilege_price}}{{else}}免费{{/if}}</td>
@@ -102,7 +103,7 @@
               <td class="handle">
               {{if value.live_state==1}}
                 <a href="/broadcasting?cid={{value.live_id}}">开始助播</a>
-                <a href="javascript:;">推广链接</a>
+                <a href="javascript:;" data-url="http://demo.agodpig.com/couresdetail?cid={{value.live_id}}&amp;type=0" class="generalize-link">推广链接</a>
               {{else}}
                 <a href="javascript:;">尚未发布</a>
               {{/if}}
@@ -134,7 +135,7 @@
           <div class="form-group">
             <label class="control-label">助教id</label>
             <div class="form-controls">
-              <input type="text" class="form-input" name="uid" number="true">
+              <input type="text" class="form-input" name="uid" number="true" required>
             </div>
           </div>
           <input type="hidden" class="form-input" name="cid" value="">
@@ -144,6 +145,45 @@
             </div>
           </div>
         </form>
+      </div>
+    </div>
+    <div class="popup-bg"></div>
+  </div>
+  <!-- 添加助教 -->
+  <div class="popup hide" id="sub-service-popup">
+    <div class="popup-modal">
+      <div class="popup-header">
+        <h1>添加客服</h1>
+        <button type="button" class="popup-close"></button>
+      </div>
+      <div class="popup-body">
+        <form method="post" id="sub-service" class="popup-form cmxform">
+          <div class="form-group">
+            <label class="control-label">客服id</label>
+            <div class="form-controls">
+              <input type="text" class="form-input" name="uid" number="true" required>
+            </div>
+          </div>
+          <input type="hidden" class="form-input" name="cid" value="">
+          <div class="form-group">
+            <div class="form-submit">
+              <button type="submit" class="button-submit">确认</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="popup-bg"></div>
+  </div>
+  <!-- 推广链接 -->
+  <div class="popup hide" id="sub-generalize-popup">
+    <div class="popup-modal">
+      <div class="popup-header">
+        <h1>推广链接</h1>
+        <button type="button" class="popup-close"></button>
+      </div>
+      <div class="popup-body">
+        <input type="text" value="" id="generalize-addr">
       </div>
     </div>
     <div class="popup-bg"></div>

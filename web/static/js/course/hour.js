@@ -226,6 +226,7 @@ define(function(require,exports,module){
     });
     // 当有文件添加进来的时候
     uploader.on( 'fileQueued', function( file ) {
+      $('#upload-status').html('视频正在上传...').addClass('disabled').prop('disabled',true);
         var $li = $(
                 '<div id="' + file.id + '" class="file-item thumbnails">' +
                     '<div class="info">' + file.name + '</div>' +
@@ -264,6 +265,7 @@ define(function(require,exports,module){
         $('#hour-fname').val(file.name);
         $('#hour-path').val('/'+resporse.date+'/'+file.name);
         $('#uploader-hour').find('.error').hide();
+        $('#upload-status').html('确认添加').removeClass('disabled').prop('disabled',false);
         console.log('/'+resporse.date+'/'+file.name);
     });
     // 文件上传失败，显示上传出错。
@@ -305,7 +307,7 @@ define(function(require,exports,module){
         accept: {
             title: 'zip',
             extensions: 'zip,rar,cab,arj,lzh,ace,7-zip,tar,gzip,uue,bz2,jar,iso',
-            mimeTypes: 'application/*'
+            mimeTypes: 'application/.zip'
         },
         thumb: {
           // width: 260,
@@ -323,6 +325,7 @@ define(function(require,exports,module){
     });
     // 当有文件添加进来的时候
     uploader.on( 'fileQueued', function( file ) {
+      $('#upload-status2').html('资料正在上传...').addClass('disabled').prop('disabled',true);
         var $li = $(
                 '<div id="' + file.id + '" class="file-item thumbnails">' +
                     '<div class="info">' + file.name + '</div>' +
@@ -359,6 +362,7 @@ define(function(require,exports,module){
         $( '#'+file.id ).addClass('upload-state-done');
         $('#data-path').val(main.imgPath+'/'+resporse.date+'/'+file.name);
         $('#uploader-data').find('.error').hide();
+        $('#upload-status2').html('确认添加').removeClass('disabled').prop('disabled',false);
         console.log(main.imgPath+'/'+resporse.date+'/'+file.name);
     });
     // 文件上传失败，显示上传出错。

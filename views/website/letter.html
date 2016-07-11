@@ -75,6 +75,7 @@
         <div class="table-course" id="table-course-list">
         <script id="tableCourseList" type="text/html">
           <ul class="letter-list">
+            {{if data.length>0}}
             {{each data as value i}}
             <li>
               <div class="clearfix">
@@ -121,6 +122,9 @@
               <div class="letter-content">{{value.letter_body}}</div>
             </li>
             {{/each}}
+            {{else}}
+            <li class="no-data">暂无站内信</li>
+            {{/if}}
           </ul>
         </script>
         </div>

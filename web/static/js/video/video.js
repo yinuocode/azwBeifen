@@ -35,6 +35,7 @@ define(function(require,exports,module){
   $('#current-course').attr('href','/couresdetail?cid='+getVal.cid+'&type='+getVal.type);
   // 课程基本信息
   postAjaxDatas('/couresdetail/detail',getVal,function(datas){
+    userMid=datas.user_id;
     if(datas.type==1){
       $('#course-data-title').html(datas.detail.coures_title);
       $('#grade-star').attr('class','lf star-'+datas.detail.score);
@@ -68,14 +69,17 @@ define(function(require,exports,module){
     $('#hour-title').html(liLessonItem.find('.title').html());
     // 视频播放
     $('#my-video_html5_api').attr('src',liLessonItem.attr('data-src'));
-    // 问答列表
+    runFaqs();
+  });
+  // 问答列表
+  function runFaqs(){
     postAjaxDatas('/comment/question-list',{hour_id:$('.hid').val()},function(datas){
       console.log(datas);
       template.config("escape", false);
       var faqList = template('faqList',{list:datas});
       $('#faq-list').html(faqList);
     });
-  });
+  }
   // 调用富文本文件 js
   var editor1;
   window.K = KindEditor;
@@ -154,6 +158,7 @@ define(function(require,exports,module){
           if(data.status==1){
             $('#faq-form')[0].reset();
             $('.ke-edit-iframe').contents().find('.ke-content').html('');
+            runFaqs();
           }else{
             alert(data.msg);
           }
@@ -266,9 +271,9 @@ define(function(require,exports,module){
         if(datas.status==1){
           $('.enjoy-box').hide();
           $('#enjoy-effect').show().animate({
-            bottom:500,
+            bottom:'50%',
             fontSize:30
-          },4000,function(){
+          },3000,function(){
             $('#enjoy-effect').fadeOut(1000,function(){
               $(this).css({
                 'bottom':'4px',
@@ -279,6 +284,7 @@ define(function(require,exports,module){
           });
         }else{
           $('#pay-popup').removeClass('hide');
+          alert(datas.msg);
         }
       });
     }else{

@@ -1257,7 +1257,9 @@ form.cmxform form.cmxform .gray * {
 .form-group {
   *zoom: 1;
   margin-bottom: 20px; }
-
+.form-group.mb0{
+  margin-bottom:0;
+}
 .control-label {
   float: left;
   text-align: right;
@@ -1351,7 +1353,10 @@ form.cmxform form.cmxform .gray * {
   width: 230px;
   height: 45px;
   cursor: pointer; }
-
+.button-submit.disabled{
+  background: #ddd;
+  cursor: auto;
+}
 /* safety */
 .safety-setting {
   font-size: 14px;
@@ -1676,7 +1681,13 @@ input[name="selected"], #controlAll {
 .handle a {
   display: block;
   margin: 3px 0; }
-
+#generalize-addr{
+  width: 570px;
+  display: block;
+  line-height: 30px;
+  margin: 50px auto;
+  padding: 5px 10px;
+}
 /* 我学习的课程 */
 .course-list.study-course {
   background: #F6F5F5;

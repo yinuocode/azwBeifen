@@ -112,6 +112,7 @@ define(function(require,exports,module){
         success : function(data){
           if(data.status==1){
             alert('发送成功');
+            $('#letter-form')[0].reset();
             $('.popup').addClass('hide');
           }else{
             alert(data.msg);

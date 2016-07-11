@@ -12,6 +12,7 @@
           <div class="lf home-avatar"><img src="{{portrait}}" alt=""></div>
           <div class="lf home-base">
             <!-- <p>直播时通知我</p> -->
+            <p>ID：{{uid}}</p>
             <p>职位：{{if identity==1}}讲师{{else}}会员{{/if}}</p>
             <p>等级：<img src="{{grade}}" class="grade" alt=""></p>
           </div>
@@ -87,9 +88,9 @@
             <div class="publish">
               <form id="publish-form" class="cmxform" method="post">
                 <div class="clearfix">
-                  <textarea name="Dynamic[details]" id="" cols="30" rows="10" class="publish-txt lf" placeholder="你在想些什么呢。。"></textarea>
+                  <textarea name="Dynamic[details]" id="" cols="30" rows="10" class="publish-txt lf" placeholder="你在想些什么呢..."></textarea>
                   <div id="uploader-img" class="publish-select">
-                    <div id="filePicker"><i class="talk-icon camera" id="talk-camera"></i></div>
+                    <div id="filePicker" title="上传图片"><i class="talk-icon camera" id="talk-camera"></i></div>
                   </div>
                 </div>
                 <div id="fileList" class="uploader-list clearfix">

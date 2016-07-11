@@ -35,8 +35,8 @@ define(function(require,exports,module){
   // 上传 ppt
   $('#file-upload').uploadify({
     'formData'     : {
-      'timestamp' : pTimestamp,
-      'token'     : pTtoken,
+      // 'timestamp' : pTimestamp,
+      // 'token'     : pTtoken,
       'cid':courseCid,
       'mid':userMid,
       '_csrf':$('input[name="_csrf"]').val()
@@ -67,7 +67,7 @@ define(function(require,exports,module){
       // alert('The file ' + file.name + ' could not be uploaded: ' + errorString);
     }
   });
-  $('#SWFUpload_Console').after('<input name="_csrf" type="hidden" value="'+pTtoken+'">');
+  // $('#SWFUpload_Console').after('<input name="_csrf" type="hidden" value="'+pTtoken+'">');
   // galleriffic 方法
   function runGalleriffic(){
     // additional styling for hover effect on thumbs
@@ -123,8 +123,8 @@ define(function(require,exports,module){
       type:"POST",
       data:{
        'mid':userMid,
-       'cid':courseCid,
-       '_csrf':pTtoken
+       'cid':courseCid
+       // '_csrf':pTtoken
       },
       dataType:"json",
       success: function(data){
@@ -158,8 +158,8 @@ define(function(require,exports,module){
       url:'/pptfile/getpptpic',
       type:'POST',
       data:{
-        url:url,
-        '_csrf':pTtoken
+        url:url
+        // '_csrf':pTtoken
       },
       dataType:'json',
       success: function(data){

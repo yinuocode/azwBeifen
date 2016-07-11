@@ -392,14 +392,14 @@
   <script src="/static/js/lecture/volumecontrol.js"></script>
   <script>
     // 全局变量
-    var arrAdminT=['50'], //获取管理员数组
+    var arrAdminT=[], //获取管理员数组
         userMid,
         userName,
         socketUrl='http://139.196.195.238:8080/',
         // socketUrl='http://192.168.0.100:8080/',
-        dataService,
-        pTimestamp,
-        pTtoken,
+        dataService='2',
+        // pTimestamp='1463728180';
+        // pTtoken='6a831e7598ad2eac5ca7c97234a0ec2c';
         // noticeNr,
         search=location.search,
         isUpWin=false,
@@ -420,28 +420,34 @@
         'mychat' : '/static/js/mychat.js'
       }
     });
+    // ajax post 方法
+    function postAjaxDatas(_url,data,fSuccess){
+      $.ajax({
+        type:'post',
+        url:_url,
+        data:data,
+        dataType: 'json',
+        success: function(datas){
+          fSuccess(datas);
+        },
+        error: function(xml,err){
+          console.log(err);
+        }
+      });
+    }
     // 请求页面数据
-    $.ajax({
-      // url:'/static/json/datas.json',
-      url:'/broadcasting/lecturer-live',
-      type:'POST',
-      data:{cid:courseCid},
-      dataType:'json',
-      success: function(datas){
-        console.log(datas);
-        // 变量赋值
-        userMid=datas.live_id;
-        userName=datas.uname;
-        dataService='2';
-        pTimestamp='1463728180';
-        pTtoken='6a831e7598ad2eac5ca7c97234a0ec2c';
-        $('#lecturer-name').html(userName);
-        $('#content-title').html(datas.live_title);
+    postAjaxDatas('/broadcasting/lecturer-live',{cid:courseCid},function(datas){
+      console.log(datas);
+      // 变量赋值
+      userMid=datas.user_id;
+      userName=datas.uname;
+      $('#lecturer-name').html(userName);
+      $('#content-title').html(datas.live_title);
+      // 获取管理员数组
+      postAjaxDatas('/broadcasting/adminid',{cid:courseCid,type:0},function(datas){
+        arrAdminT=datas.admin_id;
         seajs.use('lecture');
-      },
-      error: function(xml,err){
-        console.log(err);
-      }
+      });
     });
     // peer 麦克和摄像头
     function runMake(){

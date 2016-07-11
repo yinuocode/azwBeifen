@@ -31,6 +31,7 @@
               <th>状态</th>
               <th>操作</th>
             </tr>
+            {{if list.length>0}}
             {{each list as value i}}
             <tr>
               <td>{{value.add_date}}</td>
@@ -46,9 +47,12 @@
                 <a href="javascript:;">已完成</a>
                 {{/if}}
               </td>
-              <td><a href="javascript:;" data-oid="{{value.order_id}}">删除</a></td>
+              <td><a href="javascript:;" data-oid="{{value.order_id}}" class="delete-order">删除</a></td>
             </tr>
             {{/each}}
+            {{else}}
+            <tr><td colspan="6" class="no-data">暂无订单数据</td></tr>
+            {{/if}}
           </tbody>
         </script>
         </table>

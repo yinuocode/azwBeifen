@@ -13,6 +13,7 @@
           <div class="lf home-avatar"><img src="{{portrait}}" alt=""></div>
           <div class="lf home-base">
             <!-- <p>直播时通知我</p> -->
+            <p>ID：{{uid}}</p>
             <p>职位：{{if identity==1}}讲师{{else}}会员{{/if}}</p>
             <p>等级：<img src="{{grade}}" class="grade" alt=""></p>
           </div>
@@ -144,24 +145,24 @@
   </div>
   <!-- 上传照片 -->
   <div class="popup hide" id="add-picture-popup">
-    <div class="popup-modal">
+    <div class="popup-modal ab">
       <div class="popup-header">
         <h1>上传图片</h1>
         <button type="button" class="popup-close"></button>
       </div>
       <div class="popup-body">
         <form method="post" id="add-picture-form" class="popup-form cmxform" enctype="multipart/form-data" action="/album/album-addimg">
-          <div class="form-group">
+          <div class="form-group mb0">
             <label class="control-label">选择照片</label>
             <div class="form-controls">
               <div id="uploader-img">
                 <a href="javascript:;" class="upload-btn" id="filePicker">选择图片</a>
-                <div id="fileList" class="uploader-list clearfix">
-                </div>
               </div>
               <div id="input-img">
               </div>
             </div>
+          </div>
+          <div id="fileList" class="uploader-list clearfix">
           </div>
           <input type="hidden" name="aid" id="photo-aid" value="">
           <div class="form-group">

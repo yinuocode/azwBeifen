@@ -12,12 +12,16 @@
       <div class="panel-body-course">
         <ul class="get-gift-list clearfix" id="get-gift-list">
           <script id="getGiftList" type="text/html">
+          {{if list.length>0}}
           {{each list as value i}}
             <li>
               <img src="{{value.gimage}}" alt="">
               <p>数量：{{value.quantity_sum}}</p>
             </li>
           {{/each}}
+          {{else}}
+            <div class="no-data">暂未收到礼物</div>
+          {{/if}}
           </script>
         </ul>
       </div>

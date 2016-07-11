@@ -37,7 +37,7 @@ $(function(){
   $('.lecturer-list').on('click','.point-icon',function(){
     $(this).toggleClass('point-icon-off');
   });
-  console.log(arrAdminT);
+  // console.log(arrAdminT);
   // 搜索具体学员
   $searchText.on('input',function() {
     if($(this).val()===''){
@@ -157,7 +157,7 @@ $(function(){
       endSpeak(courseCid,userMid,userName);
     });
   }else{
-    console.log('讲师页面');
+    // console.log('讲师页面');
     // 开麦
     var openMake = function(cid,val){
       socket.emit('openMake',{cid:cid,val:val});
@@ -206,11 +206,11 @@ $(function(){
   };
   //获取教室人数
   var showcount = function(data){
-    console.log(data);
+    // console.log(data);
   };
   // 触发ppt改变时间
   $('.thumbs').on('click','li',function(){
-    console.log('传出成功');
+    // console.log('传出成功');
     var _index=$(this).index();
     var imgSite =$('#gallery_list li').eq(_index).find('img').attr('src').replace('thumb','source');
     joinroom(courseCid,userMid,userName,dataService,1,imgSite);
@@ -225,7 +225,7 @@ $(function(){
   }catch(e){
     //set status to warn user
   }
-  console.log(socket);
+  // console.log(socket);
   var cid = courseCid;
   if(socket!==undefined){
     joinroom(courseCid,userMid,userName,dataService,0,0);
@@ -244,13 +244,9 @@ $(function(){
           //禁言给样式
           var bannedMake='';
           var kickedRoom='';
+          var kickedRoom1='';
           if(data[x].sstatus=='1'){
             bannedArr.push(data[x].uid);
-              /*
-              <div class="banned-kick rf">
-                <span class="icon-banned iconfont icon" title="禁言" data-status="'+data[x].sstatus+'" data-uid="'+data[x].uid+'"></span>
-                <span class="icon-kicking iconfont icon" title="踢人" data-kstatus="'+data[x].kstatus+'" data-duid="'+data[x].uid+'"></span>
-              */
             bannedMake='<span class="icon-banned iconfont icon glare" title="取消禁言" data-status="'+data[x].sstatus+'" data-uid="'+data[x].uid+'"></span>';
           }else{
             bannedMake='<span class="icon-banned iconfont icon" title="禁言" data-status="'+data[x].sstatus+'" data-uid="'+data[x].uid+'"></span>';
@@ -261,23 +257,25 @@ $(function(){
             kickedRoom ='<span class="icon-kicking iconfont icon" title="踢出房间" data-kstatus="'+data[x].kstatus+'" data-duid="'+data[x].uid+'"></span>';
           }
           // 判断是否是管理员
-          if($.inArray(data[x].uid?data[x].uid.toString():data[x].uid,arrAdminT)!=-1){
+          if(data[x].isman!='0'){
             bannedMake='';
-            kickedRoom='管理员';
+            kickedRoom=kickedRoom1='管理员';
           }
           // 是否是自己
           if(data[x].uid==userMid){
             dUname='<span class="username current"><input type="text" mid="'+data[x].uid+'" id="amend-name" value="'+data[x].uname+'"></span>';
-          }else if(data[x].uid<200){// 是否是会员
-            dUname='<span class="username" mid="'+data[x].uid+'" title="'+data[x].uname+'">'+data[x].uname+'</span>';
+          // }else if(data[x].uid<200){// 是否是会员
+          //   dUname='<span class="username" mid="'+data[x].uid+'" title="'+data[x].uname+'">'+data[x].uname+'</span>';
           }else{
             dUname='<span class="username hot" mid="'+data[x].uid+'" title="'+data[x].uname+'">'+data[x].uname+'</span><span class="icon-grade iconfont icon hot">&#xe642;</span>';
           }
           // 判断当前用户是否是管理员
-          if($.inArray(userMid,arrAdminT)!=-1){
-            str +='<li class="clearfix"><img src="http://placehold.it/32x32" alt="用户名" class="avatar">'+dUname+'</li>';
-          }else{
+          // console.log(userMid);
+          // console.log(userMid.toString()+","+arrAdminT);
+          if($.inArray(userMid.toString(),arrAdminT)!=-1){
             str +='<li class="clearfix"><img src="http://placehold.it/32x32" alt="用户名" class="avatar">'+dUname+'<div class="banned-kick rf">'+bannedMake+'&nbsp;&nbsp;'+kickedRoom+'</div></li>';
+          }else{
+            str +='<li class="clearfix"><img src="http://placehold.it/32x32" alt="用户名" class="avatar">'+dUname+'<div class="rf">'+kickedRoom1+'</div></li>';
           }
         }
       }
@@ -285,10 +283,9 @@ $(function(){
       getStorage($searchText.val());
       //禁言
       $('#student-list').on('click','.icon-banned',function(event){
-        var self = event.target;
         var cid = courseCid;
-        var uid = $(self).attr('data-uid');
-        if($(self).attr('data-status')==1){
+        var uid = $(this).attr('data-uid');
+        if($(this).attr('data-status')==1){
           socket.emit('republish',{uid:uid,cid:cid});
         }else{
           socket.emit('nopublish',{uid:uid,cid:cid});
@@ -327,7 +324,7 @@ $(function(){
     });
     // 如果是学员页面
     if($('#is-index').val()==1){
-      console.log('进入学员页面');
+      // console.log('进入学员页面');
       // 开麦处理
       socket.on('onOpenMake',function(val){
         $('#me-speak,#end-speak').show();
@@ -339,19 +336,19 @@ $(function(){
       });
       // 礼物显示
       socket.on('onShowGift',function(data){
-        console.log(1234);
+        // console.log(1234);
         $('#real-satte-span').hide().html(data.uname+'送了'+data.gnr+data.num+'个'+data.gtitle).fadeIn('1000');
       });
     }else{
-      console.log('进入讲师页面');
+      // console.log('进入讲师页面');
     }
     // 同步ppt
     socket.on('syncPpt',function(imgSite){
-      console.log('数据返回成功');
+      // console.log('数据返回成功');
       //$('#gallery_list li').eq(_index).css('opacity','1').siblings().css('opacity','0.67');
       //var imgSite =$('#gallery_list li').eq(_index).find('img').attr('src').replace('thumb','source');
       //var imgSite =$('#gallery_list li').eq(_index).find('img').attr('src').replace('thumb','source');
-      console.log(imgSite);
+      // console.log(imgSite);
       if($('.image-wrapper.current').get(0)){
         $('.advance-link img').attr('src',imgSite);
       }else{
@@ -369,7 +366,7 @@ $(function(){
     socket.emit('getdata',{cid:courseCid});
     //listen for output
     socket.on('output',function(data){
-      console.log(data);
+      // console.log(data);
       if(data.length){
         //loop throuth restults
         for(var x=0;x<data.length;x++){
@@ -447,7 +444,7 @@ $(function(){
               socket.emit('input',{name:userName+'<span class="hot">送了'+num+'个'+giftTitle+'</span>',cid:courseCid,uid:userMid,message:giftNrs});
               event.preventDefault();
             }else{
-              console.log(12222222);
+              // console.log(12222222);
               $('#pay-popup').removeClass('hide');
             }
           });
@@ -469,7 +466,7 @@ $(function(){
             // var index=Math.floor((Math.random()*admire.length));
             $('.enjoy-box').hide();
             $('#enjoy-effect').show().animate({
-              bottom:300,
+              bottom:'50%',
               fontSize:30
             },4000,function(){
               $('#enjoy-effect').fadeOut(1000,function(){
@@ -522,7 +519,7 @@ $(function(){
       url: '/index.php?r=broadcasting%2Fupbase',
       data: {id:uid,name:uname},
       success: function(){
-        console.log('修改成功！');
+        // console.log('修改成功！');
       }
     });
   });

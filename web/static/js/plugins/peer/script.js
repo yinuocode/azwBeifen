@@ -3,7 +3,8 @@
 // 兼容性垫片
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 // PeerJS对象
-var peer = new Peer({ key: 'peerjs', debug: 3});
+// var peer = new Peer({ key: 'peerjs', debug: 3});
+var peer = new Peer({host:'139.196.195.238',port:9000,path:'/',key:'peerjs',debug:1,config:{'iceServers':[{url:'stun:139.196.195.238:3478'},{url:'turn:139.196.195.238:34780','username':'diti','credential':'123'}]}});
 peer.on('open', function(){
   $('#my-id').text(peer.id);
 });

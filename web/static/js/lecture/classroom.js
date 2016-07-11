@@ -34,8 +34,8 @@ define(function(require,exports,module){
     {
       url:'/broadcasting/guest',
       fSuccess:function(datas){
-        console.log(datas);
-        var rankigVip = template('rankigVip',datas);
+        // console.log(datas);
+        var rankigVip = template('rankigVip',{list:datas});
         $('#rankig-vip').html(rankigVip);
       }
     },
@@ -43,7 +43,7 @@ define(function(require,exports,module){
     {
       url:'/broadcasting/fans',
       fSuccess:function(datas){
-        console.log(datas);
+        // console.log(datas);
         var rankigVermicelli = template('rankigVermicelli',{list:datas});
         $('#rankig-vermicelli').html(rankigVermicelli);
       }
@@ -52,7 +52,7 @@ define(function(require,exports,module){
     {
       url:'/broadcasting/gift',
       fSuccess:function(datas){
-        console.log(datas);
+        // console.log(datas);
         var allGift = template('allGift',{list:datas});
         $('#all-gift').html(allGift);
         runGift();
@@ -65,7 +65,7 @@ define(function(require,exports,module){
   var jwplayer = require('jwplayer');
   // 视频播放
   function runVideo(videoUrl){
-    console.log(videoUrl);
+    // console.log(videoUrl);
     jwplayer.key="NIxzRzXFeCuptg0mr83yTWc9muAM872Um0sYWg==";
     jwplayer("botr_oSQWzFgF_8nLlWRv4_div").setup({
       aspectratio: "4:3",

@@ -52,7 +52,7 @@
           <!-- <iframe src="http://agodpig.com/course/26/lesson/66/player" name="viewerIframe" id="viewerIframe" width="100%" allowfullscreen="" webkitallowfullscreen="" height="100%" style="border:0px">
           </iframe> -->
           <video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" data-setup='{"autoplay":true}' width="100%" height="100%">
-            <source src="/static/123.mp4" type='video/mp4' id="video-mp4">
+            <source src="" type='video/mp4' id="video-mp4">
             <p class="vjs-no-js">
               To view this video please enable JavaScript, and consider upgrading to a web browser that
               <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
@@ -209,7 +209,7 @@
                   <a class="link-dark lf" href="/user/{{value.user_id}}">{{value.username}}</a>
                   &nbsp;发表于 {{value.create_date}}
                   <span class="bullet">&nbsp;•&nbsp;</span>
-                  <a href="javascript:;">{{value.num}}回答</a>
+                  <a href="javascript:;" class="faq-title" data-aid="{{value.answer_id}}">{{value.num}}回答</a>
                 </div>
               </li>
             {{/each}}
@@ -349,9 +349,10 @@
   <!-- 视频 -->
   <script src="http://vjs.zencdn.net/5.8.8/video.js"></script>
   <!-- 弹幕 -->
-  <script src="http://localhost:8080/socket.io/socket.io.js"></script>
+  <script src="http://139.196.195.238:8089/socket.io/socket.io.js"></script>
   <script src="/static/js/video/barrage.js"></script>
   <script>
+    var userMid;
     // seajs
     seajs.config({
       alias: {

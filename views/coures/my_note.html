@@ -92,6 +92,7 @@
         </div> -->
         <ul class="note-course clearfix" id="note-list">
         <script id="noteList" type="text/html">
+          {{if list.length>0}}
           {{each list as value i}}
           <li class="row">
             <div class="lf">
@@ -107,6 +108,9 @@
             </div>
           </li>
           {{/each}}
+          {{else}}
+            <div class="no-data">暂无笔记</div>
+          {{/if}}
         </script>
         </ul>
         <div id="note-nr-box">

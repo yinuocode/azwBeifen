@@ -39,7 +39,7 @@ define(function(require,exports,module){
     var chatTextarea = $('.chat-textarea'),
     chatMessages = $('#chat-messages'),
     chatSubmit=$('.chat-submit'),
-    socketUrl='http://localhost:8080/',
+    socketUrl='http://139.196.195.238:8089/',
     iconList = $('#iconlist'),
     flower = $('#flower'),
     socket;

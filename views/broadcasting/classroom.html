@@ -152,8 +152,8 @@
             <h2 class="title"><span>贵宾席</span></h2>
             <ul class="rankig-list" id="rankig-vip">
             <script id="rankigVip" type="text/html">
-            {{each guname as value i}}
-              <li>{{value}}</li>
+            {{each list as value i}}
+              <li><img class="grade" src="{{value.grade}}" alt="">{{value.uname}}</li>
             {{/each}}
             </script>
             </ul>
@@ -303,18 +303,30 @@
   <!-- peer 麦克和摄像头 -->
   <script>
     // 定义全局变量
-    var arrAdminT=['50'],//获取管理员数组
+    var arrAdminT=[],//获取管理员数组
         socketUrl='http://139.196.195.238:8080/',
         // socketUrl='http://localhost:8080/',
         userMid,
         userName,
-        dataService='2',
+        dataService='0',
         search=location.search,
-        courseCid=search.substring(search.indexOf('cid=')+4),
         $allGift=$('#all-gift'), // 礼物
         giftNr=''; // 礼物
         giftTitle='';
         giftId=1; // 礼物 id
+    // 获取get传值
+    function getArgs(){
+      var args = {};
+      var match = null;
+      var search = decodeURIComponent(location.search.substring(1));
+      var reg = /(?:([^&]+)=([^&]+))/g;
+      while((match = reg.exec(search))!==null){
+        args[match[1]] = match[2];
+      }
+      return args;
+    }
+    var getVal=getArgs();
+    var courseCid=getVal.cid;
     // seajs
     seajs.config({
       alias: {
@@ -343,11 +355,17 @@
     }
     // 会员信息
     postAjaxDatas('/broadcasting/study',{cid:courseCid},function(datas){
+      // console.log(datas);
       userMid=datas.id;
       userName=datas.uname;
       var userInfoOption = template('userInfoOption',datas);
       $('#user-info-option').html(userInfoOption);
-      seajs.use('classroom');
+      // 获取管理员数组
+      postAjaxDatas('/broadcasting/adminid',{cid:courseCid,type:0},function(datas){
+        arrAdminT=datas.admin_id;
+        dataService=datas.is_admin;
+        seajs.use('classroom');
+      });
     });
     function runMake(){
       $.getScript('/static/js/plugins/peer/peer.js',function(){

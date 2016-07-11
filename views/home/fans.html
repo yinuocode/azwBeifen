@@ -11,6 +11,7 @@
           <div class="lf home-avatar"><img src="{{portrait}}" alt=""></div>
           <div class="lf home-base">
             <!-- <p>直播时通知我</p> -->
+            <p>ID：{{uid}}</p>
             <p>职位：{{if identity==1}}讲师{{else}}会员{{/if}}</p>
             <p>等级：<img src="{{grade}}" class="grade" alt=""></p>
           </div>
@@ -97,7 +98,7 @@
                 <td>
                   {{each value.gift as values i}}
                     {{if i<8}}
-                    <img src="{{values}}" alt="" width="35">
+                    <img src="{{values.gimage}}" alt="" width="35">
                     {{/if}}
                   {{/each}}
                 </td>

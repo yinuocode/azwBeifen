@@ -151,8 +151,8 @@ define(function(require,exports,module){
     });
   }
   // 说说上传图片
-  // $('.home-main').on('click','#talk-camera',function(){
-  //   $('#publish-option').toggle();
+  // $('.home-main').on('click','.publish-select',function(){
+  //   $('.publish-option').toggle();
   // });
   // 动态初始化
   function runDynamic(){

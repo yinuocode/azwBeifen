@@ -40,6 +40,7 @@
               <th class="">支出金额</th>
               <th class="">消费名称</th>
             </tr>
+            {{if data.length>0}}
             {{each data as value i}}
             <tr>
               <td>{{value.con_date}}</td>
@@ -48,21 +49,30 @@
               <td>{{value.product_code}}</td>
             </tr>
             {{/each}}
+            {{else}}
+            <tr><td colspan="4" class="no-data">暂无消费记录</td></tr>
+            {{/if}}
           {{else}}
             <tr>
               <th class="">日期</th>
               <th class="">充值方式</th>
               <th class="">充值金额</th>
+              <!-- <th class="">充值状态</th> -->
               <th class="">流水号</th>
             </tr>
+            {{if data.length>0}}
             {{each data as value i}}
             <tr>
               <td>{{value.rec_date}}</td>
               <td>{{if value.rec_manner==0}}微信{{else}}支付宝{{/if}}</td>
               <td>{{value.rec_money}}</td>
+              <!-- <td>{{if value.rec_state==1}}已完成{{else}}<a href="/account/recharge?money={{value.rec_money}}">去充值</a>{{/if}}</td> -->
               <td>{{value.order_sn}}</td>
             </tr>
             {{/each}}
+            {{else}}
+            <tr><td colspan="4" class="no-data">暂无充值记录</td></tr>
+            {{/if}}
           {{/if}}
           </tbody>
         </script>

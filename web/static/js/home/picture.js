@@ -240,7 +240,7 @@ define(function(require,exports,module){
     if(swit){
       if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
         pageVal++;
-        dynamicList();
+        runPostAjaxDatas();
       }
     }
   });

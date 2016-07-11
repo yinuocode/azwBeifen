@@ -10,22 +10,21 @@
       <div class="panel-body-course">
         <ul class="course-list direct-course clearfix">
         <script id="directCourse" type="text/html">
+        {{if list.length>0}}
         {{each list as value i}}
           <li>
-            <a href="/couresdetail?cid={{value.coures_id}}&type=1" target="_blank">
-              <img src="{{value.coures_cover}}" alt="">
-              <span class="full"><b>抓紧学习</b></span>
+            <a href="/couresdetail?cid={{value.id}}&amp;type={{value.vtype}}" target="_blank">
+              <img src="{{value.cover}}" alt="">
+              <span class="full"><b>{{if value.vtype==0}}直播课{{else}}录播课{{/if}}</b></span>
             </a>
-            <div class="course-price">{{if value.coures_type==1}}￥{{value.privilege_price}}&nbsp;&nbsp;&nbsp;<span class="cost">原价：￥{{value.coures_price}}</span>{{else}}￥免费{{/if}}</div>
             <div class="row">
-              <p class="course-title"><a href="/couresdetail?cid={{value.coures_id}}&type=1" target="_blank">{{value.coures_title}}</a></p>
-              <!-- <a href="javascript:;" class="rf letter-item" data-uid="{{value.user_id}}">私信</a> -->
-            </div>
-            <div class="clearfix">
-              <div class="lf name"><img src="{{value.lecturer.grade}}" alt="">讲师：{{value.lecturer.audit_name}}</div>
+              <p class="course-title"><a href="/couresdetail?cid={{value.id}}&amp;type={{value.vtype}}" target="_blank">{{value.title}}</a></p>
             </div>
           </li>
         {{/each}}
+        {{else}}
+          <div class="no-data">暂无推荐课程</div>
+        {{/if}}
         </script>
         </ul>
         <div class="ajax-paging">

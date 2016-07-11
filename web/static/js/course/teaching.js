@@ -163,10 +163,22 @@ define(function(require,exports,module){
     $('#sub-teaching-popup').removeClass('hide');
     $('input[name="cid"]').val(cid);
   });
+  // 添加客服
+  $('.table-course').on('click','.add-service',function(){
+    var cid=$(this).attr('data-cid');
+    $('#sub-service-popup').removeClass('hide');
+    $('input[name="cid"]').val(cid);
+  });
+  // 添加客服
+  $('.table-course').on('click','.generalize-link',function(){
+    var url=$(this).attr('data-url');
+    $('#sub-generalize-popup').removeClass('hide');
+    $('#generalize-addr').val(url);
+  });
   $('.popup-close').on('click',function(){
     $('.popup').addClass('hide');
   });
-  // ajax提交
+  // 助教
   $('#sub-teaching').validate({
     onsubmit:true,// 是否在提交时验证
     submitHandler: function(form){
@@ -179,6 +191,29 @@ define(function(require,exports,module){
         success : function(data){
           if(data.status){
             alert('添加成功');
+            $('#sub-teaching')[0].reset();
+            $('.popup').addClass('hide');
+          }else{
+            alert(data.msg);
+          }
+        }
+      });
+    }
+  });
+  // 客服
+  $('#sub-service').validate({
+    onsubmit:true,// 是否在提交时验证
+    submitHandler: function(form){
+      var data = $('#sub-service').serialize();
+      $.ajax({
+        url : '/lecturer/inst-coumer',
+        type : 'post',
+        data : data,
+        dataType:'json',
+        success : function(data){
+          if(data.status){
+            alert('添加成功');
+            $('#sub-service')[0].reset();
             $('.popup').addClass('hide');
           }else{
             alert(data.msg);
@@ -199,6 +234,7 @@ define(function(require,exports,module){
         success : function(data){
           if(data.status==1){
             alert('邀请成功');
+            $('#invite-form')[0].reset();
             $('.popup').addClass('hide');
           }else{
             alert(data.msg);

@@ -15,14 +15,14 @@ $(function(){
   var chatTextarea = $('.chat-textarea'),
   videoShade = $('#video-shade'),
   chatSubmit=$('.chat-submit'),
-  socketUrl='http://localhost:8080/',
+  socketUrl='http://139.196.195.238:8089/',
   courseCid= getVal.cid,
   socket;
   // 发送弹幕
   chatTextarea.on('keydown',function(event){
     if(event.which===13 && event.shiftKey===false){
       if(chatTextarea.val()!==''){
-        socket.emit('sendText',{cid:courseCid,message:chatTextarea.val()});
+        socket.emit('sendText',{cid:courseCid,uid:userMid,message:chatTextarea.val()});
         chatTextarea.val('');
         event.preventDefault();
       }
@@ -30,8 +30,7 @@ $(function(){
   });
   chatSubmit.on('click',function(event){
     if(chatTextarea.val()!==''){
-      console.log(123);
-      socket.emit('sendText',{cid:courseCid,message:chatTextarea.val()});
+      socket.emit('sendText',{cid:courseCid,uid:userMid,message:chatTextarea.val()});
       chatTextarea.val('');
       event.preventDefault();
     }
@@ -48,23 +47,27 @@ $(function(){
     // 输出函数
     socket.on('output',function(data){
       var color=Math.floor((Math.random()*colorArr.length));
-      console.log(color);
       if(data.cid==courseCid){
-        message = '<div class="chat-message chat-message'+data.i+'" style="color:'+colorArr[color]+'">'+data.message+'</div></div>';
+        message = '<div class="chat-message chat-message'+data.uid+data.i+'" style="color:'+colorArr[color]+'">'+data.message+'</div></div>';
         videoShade.append(message);
-        var setMsgs='setMsg'+data.i;
-        var i=0;
-        setMsgs=setInterval(function() {
-          i+=3;
-          if(i<1200){
-            $('.chat-message'+data.i).css('margin-right',i+'px');
-          }else{
-            clearInterval(setMsgs);
-            $('.chat-message'+data.i).remove();
-          }
-        }, 50);
+        var setMsgs='setMsg'+data.uid+data.i;
+        newThread(setMsgs,data);
       }
       //append
     });
+  }
+  //
+  function newThread(setMsgs,data){
+    console.log(setMsgs);
+    var i=0;
+    setMsgs=setInterval(function() {
+      i+=3;
+      if(i<1200){
+        $('.chat-message'+data.uid+data.i).css('margin-right',i+'px');
+      }else{
+        clearInterval(setMsgs);
+        $('.chat-message'+data.uid+data.i).remove();
+      }
+    }, 50);
   }
 });

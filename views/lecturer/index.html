@@ -18,6 +18,7 @@
         </div>
         <ul class="lecture-list clearfix">
         <script id="lecturerList" type="text/html">
+        {{if data.length>0}}
         {{each data as value i}}
           <li>
             <a href="/home?uid={{value.user_id}}" target="_blank">
@@ -39,6 +40,9 @@
             </div>
           </li>
         {{/each}}
+        {{else}}
+          <div class="no-data">暂无讲师</div>
+        {{/if}}
         </script>
         </ul>
         <div class="ajax-paging">

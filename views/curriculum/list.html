@@ -43,12 +43,12 @@
         <script id="listCourse" type="text/html">
         {{each list as value i}}
           <li>
-            <a href="/couresdetail?cid={{value.id}}&type={{value.vtype}}" target="_blank">
+            <a href="/couresdetail?cid={{value.id}}&amp;type={{value.vtype}}" target="_blank">
               <img src="{{value.cover}}" alt="">
               <span class="full"><b>{{if value.vtype==0}}直播课{{else}}录播课{{/if}}</b></span>
             </a>
             <div class="row">
-              <p class="course-title"><a href="/couresdetail?cid={{value.id}}&type={{value.vtype}}" target="_blank">{{value.title}}</a></p>
+              <p class="course-title"><a href="/couresdetail?cid={{value.id}}&amp;type={{value.vtype}}" target="_blank">{{value.title}}</a></p>
             </div>
           </li>
         {{/each}}

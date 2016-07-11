@@ -21,8 +21,12 @@
 .home-avatar{
   margin-right:20px;
 }
+.home-avatar img{
+  width: 130px;
+  max-height: 130px;
+}
 .home-base{
-  line-height:40px;
+  line-height:32px;
 }
 .home-base .grade{
   position: relative;
@@ -149,6 +153,7 @@
   text-align: center;
   font-size: 14px;
   line-height: 25px;
+  display: none;
 }
 .publish-option>li{
   border:1px solid #4faef6;
@@ -381,10 +386,21 @@
   width:200px;
   margin: 6px;
 }
+#add-picture-form .uploader-list{
+  padding:0 10px;
+}
 .course-list.picture-list>li>a{
   height: 140px;
 }
+
 /*.picture-list li img{
   width: 100%;
   max-height:100%;
 }*/
+/*群组动态*/
+.group-dynamic-title{
+  line-height: 40px;
+  border-bottom: 1px solid #ccc;
+  color: #4E9BD5;
+  margin-bottom: 10px;
+}

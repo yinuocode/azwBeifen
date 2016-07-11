@@ -126,7 +126,7 @@
   <!-- header end -->
   <section class="section01 clearfix">
     <div class="sec01-lf lf">
-      <a href="javascript:;" target="_blank"><img src="/static/img/section01-lf.jpg" alt=""></a>
+      <a href="/curriculum/direct-list" target="_blank"><img src="/static/img/section01-lf.jpg" alt=""></a>
       <div class="search">
         <form action="/curriculum/list" method="get" id="search-form">
           <div class="clearfix" id="search-direction">
@@ -157,14 +157,18 @@
     <h1 class="sec02-title">推荐课程</h1>
     <ul class="course-list clearfix" id="course-list">
     <script id="courseList" type="text/html">
+    {{if list.length>0}}
     {{each list as value i}}
       <li>
-        <a href="{{value.coures_href}}" target="_blank">
-          <img src="{{value.coures_cover}}" alt="">
-          <span>{{value.coures_title}}</span>
+        <a href="/couresdetail?cid={{value.id}}&amp;type={{value.vtype}}" target="_blank">
+          <img src="{{value.cover}}" alt="">
+          <span>{{value.title}}</span>
         </a>
       </li>
     {{/each}}
+    {{else}}
+      <div class="no-data">暂无推荐课程</div>
+    {{/if}}
     </script>
     </ul>
     <a class="course-all" href="/curriculum/recommend">全部课程</a>

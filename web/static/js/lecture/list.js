@@ -86,13 +86,14 @@ define(function(require,exports,module){
     submitHandler: function(form){
       var data = $('#letter-form').serialize();
       $.ajax({
-        url : '/coures/letter',
+        url : '/myteach/letter',
         type : 'post',
         data : data,
         dataType:'json',
         success : function(data){
           if(data.status==1){
             alert('发送成功');
+            $('#letter-form')[0].reset();
             $('.popup').addClass('hide');
           }else{
             alert(data.msg);

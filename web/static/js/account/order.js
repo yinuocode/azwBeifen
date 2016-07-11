@@ -57,4 +57,17 @@ define(function(require,exports,module){
     endTime=$('#endDate').val();
     runPostAjaxDatas();
   });
+  // 删除评论
+  $('.order-table').on('click','.delete-order',function(){
+    var oid=$(this).attr('data-oid');
+    if(confirm("确认删除此条订单吗?")){
+      main.postAjaxDatas('/account/del-order',{oid:oid},function(datas){
+        if(datas.status==1){
+          runPostAjaxDatas();
+        }else{
+          alert(datas.msg);
+        }
+      });
+    }
+  });
 });

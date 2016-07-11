@@ -9,7 +9,7 @@
       <a href="/coures/study">我的学习</a>
       <a href="/coures/note">我的笔记</a>
       <a href="/coures/manage">学员管理</a>
-      <a href="my_datum.html" class="mydatum-btn">我的资料库</a>
+      <!-- <a href="my_datum.html" class="mydatum-btn">我的资料库</a> -->
     </header>
     <div class="panel-body">
       <div class="crumbs"><a href="teaching">我的教学</a><span> &gt; 课时管理</span></div>
@@ -39,7 +39,7 @@
             {{each data as value i}}
             <tr>
               <td><input type="checkbox" name="selected" data-type="{{type}}" value="{{value.hour_id}}"></td>
-              <td class="td2"><a href="/couresdetail/video?cid={{value.hour_id}}" class="hour-title {{if value.is_free==1}}free{{/if}}"target="_blank">{{value.hour_title}}</a></td>
+              <td class="td2"><a href="/couresdetail/video?cid={{value.coures_id}}&amp;type={{type}}&amp;hid={{value.hour_id}}" class="hour-title {{if value.is_free==1}}free{{/if}}"target="_blank">{{value.hour_title}}</a></td>
               <td>{{value.video_time}}</td>
               <td>
               {{if value.hour_state==1}}
@@ -126,6 +126,10 @@
                 <div id="fileList1" class="uploader-list"></div>
                 <div id="filePicker1" class="choose_img choose_hour">上传课时</div>
                 <input type="text" name="ClassHour[video_address]" class="file-path" id="hour-path" value="" required>
+             <!--    <div class="progress">
+                  <span class="text">0%</span>
+                  <span class="percentage"></span>
+                </div> -->
               </div>
               <p class="hot f14">请上传mp4格式文件</p>
             </div>
@@ -135,7 +139,7 @@
           <input type="hidden" class="form-input course-id" name="ClassHour[coures_id]" value="">
           <div class="form-group">
             <div class="form-submit">
-              <button type="submit" class="button-submit">确认</button>
+              <button type="submit" class="button-submit" id="upload-status">确认</button>
             </div>
           </div>
         </form>
@@ -172,7 +176,7 @@
           <input type="hidden" class="form-input course-id" name="CouresDatum[coures_id]" value="">
           <div class="form-group">
             <div class="form-submit">
-              <button type="submit" class="button-submit">确认</button>
+              <button type="submit" class="button-submit" id="upload-status2">确认</button>
             </div>
           </div>
         </form>

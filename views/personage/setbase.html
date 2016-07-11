@@ -61,7 +61,7 @@
           <div class="control-label">上传形象照</div>
           <div class="form-controls">
             <div class="uploader-img">
-              <div class="fileList" class="uploader-list"><img class="imghead" src="/static/img/default-hanmi.jpg"></div>
+              <div class="fileList" class="uploader-list"><img class="imghead" src="{{if data.enterprise_img}}{{data.enterprise_img}}{{else}}/static/img/default-avatar.jpg{{/if}}"></div>
               <div class="filePicker" class="choose_img" data-index="1">选择图片</div>
               <input type="text" name="UserDetail[enterprise_img]" class="img-path" value="{{if data.enterprise_img}}{{data.enterprise_img}}{{else}}/static/img/default-avatar.jpg{{/if}}">
             </div>
@@ -119,7 +119,7 @@
         <div class="form-group">
           <label class="control-label">qq</label>
           <div class="form-controls">
-            <input type="text" class="form-input" value="{{data.user_qq}}" name="UserDetail[user_qq]">
+            <input type="text" class="form-input" value="{{data.user_qq}}" number="true" name="UserDetail[user_qq]">
           </div>
         </div>
         <div class="form-group">
