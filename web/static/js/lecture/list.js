@@ -14,41 +14,36 @@ define(function(require,exports,module){
   }
   var getVal=getArgs();
   // 分页
-  var pageVal=1;
+  // var pageVal=1;
+  main.count=9;
   var cClassify=1;
   var searchVal=getVal.key||'';
   $('#search-val').val(getVal.key||'');
   // 按条件查找
-  function runPostAjaxDatas(){
-    main.postAjaxDatas('/lecturer/teach-list',{page:pageVal,classify:cClassify,search:searchVal},function(datas){
+  main.runPostAjaxDatas=function(){
+    main.postAjaxDatas('/lecturer/teach-list',{page:main.pageVal,classify:cClassify,search:searchVal},function(datas){
       var lecturerList = template('lecturerList',datas);
       $('.lecture-list').html(lecturerList);
-      console.log(datas);
+      // 是否显示分页
+      if(main.pageVal==1){
+        if(datas.data.length<9){
+          $('.ajax-paging').hide();
+        }else{
+          $('.ajax-paging').show();
+        }
+      }
     });
-  }
+  };
   // 初始化
-  runPostAjaxDatas();
+  main.runPostAjaxDatas();
   // 类型选择
   $('.panel-heading').on('click','a',function(){
     $(this).addClass('active').siblings().removeClass('active');
     cClassify=$(this).attr('data-type');
-    runPostAjaxDatas();
+    main.runPostAjaxDatas();
   });
   // 分页
-  $('#paging-prev').on('click',function(){
-    if(pageVal>1){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal--;
-      runPostAjaxDatas();
-    }
-  });
-  $('#paging-next').on('click',function(){
-    if($('.lecture-list>li').length==12){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal++;
-      runPostAjaxDatas();
-    }
-  });
+  main.paging('.lecture-list li');
   // 发私信
   $('.lecture-list').on('click','.letter-item',function(){
     $('#user-id').val($(this).attr('data-uid'));
@@ -58,7 +53,7 @@ define(function(require,exports,module){
   $('.lecture-list').on('click','.attention',function(){
     var dataUid=$(this).attr('data-uid');
     main.postAjaxDatas('/lecturer/attention',{user_id:dataUid},function(datas){
-      runPostAjaxDatas();
+      main.runPostAjaxDatas();
     });
   });
   // 未登录点击关注
@@ -73,7 +68,7 @@ define(function(require,exports,module){
   $('.lecture-list').on('click','.cancel-attention',function(){
     var dataUid=$(this).attr('data-uid');
     main.postAjaxDatas('/lecturer/del-attention',{user_id:dataUid},function(datas){
-      runPostAjaxDatas();
+      main.runPostAjaxDatas();
     });
   });
   // 关闭弹窗
@@ -105,12 +100,12 @@ define(function(require,exports,module){
   // 搜索讲师
   $('#search-btn').on('click',function(){
     searchVal=$('#search-val').val();
-    runPostAjaxDatas();
+    main.runPostAjaxDatas();
   });
   $('input').keyup(function (event) {
     if (event.keyCode == "13") {
       searchVal=$('#search-val').val();
-      runPostAjaxDatas();
+      main.runPostAjaxDatas();
     }
   });
 });

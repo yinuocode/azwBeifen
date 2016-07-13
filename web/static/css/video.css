@@ -487,7 +487,7 @@ form.cmxform form.cmxform .gray * {
 .course-item-list-in-toolbar-pane {
     position: absolute;
     top: 0;
-    /*bottom: 0;*/
+    bottom: 0;
     width: 100%;
     overflow-y: hidden;
     overflow-x: hidden;
@@ -501,6 +501,11 @@ form.cmxform form.cmxform .gray * {
     margin-bottom: 0;
     padding-left: 0;
     list-style-type: none;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    overflow: auto;
 }
 .period-list > li {
     margin-bottom: 10px;
@@ -1649,6 +1654,7 @@ form.cmxform label.error, label.error{
   bottom: 10px;
   right: 30px;
   background: #4495D2;
+  height:34px;
 }
 .bullet-con-btn{
   position: absolute;

@@ -92,7 +92,7 @@
           <div class="rf"><a href="javascript:;" class="handle-icon"><input type="checkbox" name="controlAll" id="controlAll"><label for="controlAll">全选</label></a></div>
           {{/if}}
         </div>
-        {{if status==1}}
+        {{if data.album_detail>0}}
         <ul id="auto-loop" class="gallery course-list study-course picture-list block clearfix">
           {{each data.album_detail as value i}}
           <li data-src="{{value.image_address}}">

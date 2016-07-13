@@ -712,7 +712,10 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden; }
-
+.main-play .user-info-option .user-remain-money{
+  left: 80px;
+  bottom: 5px;
+}
 .main-play .user-avatar {
   width: 70px;
   height: 70px;

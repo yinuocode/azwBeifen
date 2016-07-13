@@ -3,17 +3,25 @@ define(function(require,exports,module){
   var main = require('main');
   var home = require('/static/js/home/home');
   // 分页
-  var pageVal=1;
+  // var pageVal=1;
+  main.count=12;
   var typeVal=0;
   // 课程列表
-  function runPostAjaxDatas(){
-    main.postAjaxDatas('/lectcourfan/lect-coures',{page:pageVal,user_id:home.uid,type:typeVal},function(datas){
-      console.log(datas);
+  main.runPostAjaxDatas=function(){
+    main.postAjaxDatas('/lectcourfan/lect-coures',{page:main.pageVal,user_id:home.uid,type:typeVal},function(datas){
       var homeCourse = template('homeCourse',{list:datas});
       $('#home-course').html(homeCourse);
+      // 是否显示分页
+      if(main.pageVal==1){
+        if(datas.length<main.count){
+          $('.ajax-paging').hide();
+        }else{
+          $('.ajax-paging').show();
+        }
+      }
     });
-  }
-  runPostAjaxDatas();
+  };
+  main.runPostAjaxDatas();
   // 下拉菜单
   $('.handle-icon.triangle').on('click',function(){
     $(this).parent().siblings().find('.select-items').removeClass('active');
@@ -26,24 +34,12 @@ define(function(require,exports,module){
   $('.select-items').on('click','a',function(){
     var _this=$(this);
     typeVal=_this.attr('data-arg');
+    main.pageVal=1;
     _this.parent().parent().prev().html(_this.html());
     $('.select-items').removeClass('active');
     // 执行查找
-    runPostAjaxDatas();
+    main.runPostAjaxDatas();
   });
   // 分页
-  $('#paging-prev').on('click',function(){
-    if(pageVal>1){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal--;
-      runPostAjaxDatas();
-    }
-  });
-  $('#paging-next').on('click',function(){
-    if($('.course-list li').length==12){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal++;
-      runPostAjaxDatas();
-    }
-  });
+  main.paging('.course-list li');
 });

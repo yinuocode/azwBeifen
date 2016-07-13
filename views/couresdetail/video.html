@@ -14,7 +14,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <link rel="stylesheet" href="/static/css/rely/reset.css">
-  <!-- <link rel="stylesheet" href="/static/js/plugins/slick/slick.css"> -->
   <!-- <link rel="stylesheet" href="/static/css/base.css"> -->
   <!-- 让低版本ie浏览器更好的兼容 -->
   <!--[if lt IE 7]>
@@ -32,63 +31,38 @@
   <!--[if lt IE 9]>
     <script src="/static/js/polyfills/html5shiv.min.js"></script>
     <script src="/static/css/video_files/respond.min.js?6.17.0"></script>
+    <script src="/static/js/plugins/video/ie8/videojs-ie8.min.js"></script>
   <![endif]-->
   <link rel="stylesheet" href="/static/css/video.css">
-  <link href="/static/css/video-js.css" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="/static/css/video-js.css"> -->
+  <link rel="stylesheet" href="/static/js/plugins/video/video-js.min.css">
   <!-- If you'd like to support IE8 -->
-  <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
 </head>
 <body>
   <div class="lesson-dashboard">
     <div class="dashboard-content">
       <a class="btn btn-primary nav-btn back-course-btn" href="javascript:;" id="current-course"><span class="glyphicon glyphicon-chevron-left"></span> 返回课程</a>
-    <!--   <a class="btn btn-primary nav-btn prev-lesson-btn" href="javascript:" title=""><span class="glyphicon glyphicon-chevron-up" title="上一课时"></span></a>
-      <a class="btn btn-primary nav-btn next-lesson-btn" href="javascript:" title=""><span class="glyphicon glyphicon-chevron-down"></span></a> -->
+      <!-- <a class="btn btn-primary nav-btn next-lesson-btn" href="javascript:" title=""><span class="glyphicon glyphicon-chevron-down"></span></a> -->
       <div class="course-pay-title">
         <p id="hour-title"></p>
       </div>
       <div class="dashboard-body">
         <div class="lesson-content" id="lesson-video-content">
-          <!-- <iframe src="http://agodpig.com/course/26/lesson/66/player" name="viewerIframe" id="viewerIframe" width="100%" allowfullscreen="" webkitallowfullscreen="" height="100%" style="border:0px">
-          </iframe> -->
-          <video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" data-setup='{"autoplay":true}' width="100%" height="100%">
-            <source src="" type='video/mp4' id="video-mp4">
-            <p class="vjs-no-js">
-              To view this video please enable JavaScript, and consider upgrading to a web browser that
-              <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-            </p>
-          </video>
-          <div id="video-shade">
-          </div>
+          <script id="lessonVideoContent" type="text/html">
+            <video id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" width="100%" height="100%" data-setup='{"autoplay":true}'>
+              <source src="{{data}}" type="video/mp4" id="video-mp4">
+              <!-- <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
+              <source src="http://vjs.zencdn.net/v/oceans.ogv" type="video/ogg">
+              <track kind="captions" src="../shared/example-captions.vtt" srclang="en" label="English"></track> -->
+              <!-- Tracks need an ending tag thanks to IE9 -->
+              <!-- <track kind="subtitles" src="../shared/example-captions.vtt" srclang="en" label="English"></track> -->
+              <!-- Tracks need an ending tag thanks to IE9 -->
+              <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+            </video>
+          </script>
         </div>
-        <div class="watermarkEmbedded"><input type="hidden" id="videoWatermarkEmbedded" value="0"></div>
-        <div class="lesson-content lesson-content-audio" id="lesson-audio-content" ></div>
-        <div class="lesson-content" id="lesson-swf-content"></div>
-        <div class="lesson-content" id="lesson-iframe-content"></div>
-        <div class="lesson-content lesson-content-text" id="lesson-text-content">
-          <div class="lesson-content-text-body"></div>
-        </div>
-        <div class="lesson-content lesson-content-document" id="lesson-document-content">
-          <div class="lesson-content-document-body"></div>
-        </div>
-        <div class="lesson-content lesson-content-text" id="lesson-live-content">
-          <div class="lesson-content-text-body"></div>
-        </div>
-        <div class="lesson-content lesson-content-text" id="lesson-unpublished-content">
-          <div class="lesson-content-text-body">当前课时正在编辑中，暂时无法观看。</div>
-        </div>
-        <div class="lesson-content lesson-content-text" id="lesson-testpaper-content">
-          <div class="lesson-content-text-body"></div>
-        </div>
-        <div class="lesson-content lesson-content-text" id="lesson-ppt-content">
-          <div class="lesson-content-text-body"></div>
-        </div>
+        <div id="video-shade"></div>
       </div>
-  <!--     <div class="dashboard-footer clearfix">
-        <div class="rf">
-          <button class="btn btn-primary finish-btn"><span class="glyphicon glyphicon-unchecked"></span> 学过了</button>
-        </div>
-      </div> -->
       <!-- 打赏 -->
       <div id="enjoy-effect" class="hide">
         多谢打赏，阿猪会通知讲师的
@@ -107,7 +81,7 @@
       <!-- 弹幕 -->
       <div class="bullet-con">
         <a href="javascript:;" class="bullet-con-btn"></a>
-        <textarea name="" id="" class="chat-textarea"></textarea>
+        <input name="" id="" class="chat-textarea"></input>
         <button class="chat-submit btn">发送</button>
       </div>
     </div>
@@ -165,7 +139,7 @@
             <script id="hourItemList" type="text/html">
             {{each hour as value i}}
               <li class="period lesson-item lesson-item-66" data-hid="{{value.hour_id}}" data-src="{{value.hour_src}}">
-                <a href="/couresdetail/video?cid={{cid}}&type={{type}}&hid={{value.hour_id}}" title="如何更好的使用阿猪网学习">
+                <a href="/couresdetail/video?cid={{cid}}&amp;type={{type}}&amp;hid={{value.hour_id}}" title="如何更好的使用阿猪网学习">
                   <i class="es-icon es-icon-doing color-primary status-icon"></i>
                   <span class="title">   课时{{i+1}}：{{value.hour_title}}</span>
                   <!-- <i class="es-icon es-icon-filedownload mls" title="资料"></i> -->
@@ -324,7 +298,7 @@
             <script id="dataItemList" type="text/html">
             {{each list as value i}}
               <li class="period lesson-item lesson-item-66">
-                <a href="{{datum_address}}" download class="download-data" data-did="{{value.datum_id}}">
+                <a href="{{value.datum_address}}" download class="download-data" data-did="{{value.datum_id}}">
                   <span class="title">{{value.datum_title}}</span>
                   <i class="es-icon es-icon-filedownload mls" title="资料"></i>
                   <span class="date">{{value.create_date}}</span>
@@ -347,7 +321,8 @@
   <script src="/static/js/plugins/validate/messages_zh.js"></script>
   <script src="/static/js/plugins/kindeditor/kindeditor-min.js?v=2"></script>
   <!-- 视频 -->
-  <script src="http://vjs.zencdn.net/5.8.8/video.js"></script>
+  <!-- <script src="/static/js/plugins/video/video.min.js"></script> -->
+  get
   <!-- 弹幕 -->
   <script src="http://139.196.195.238:8089/socket.io/socket.io.js"></script>
   <script src="/static/js/video/barrage.js"></script>

@@ -2,19 +2,27 @@ define(function(require,exports,module){
   // 引入主要模块模块
   var main = require('main');
   // 分页
-  var pageVal=1;
+  // var pageVal=1;
+  main.count=12;
   // 按条件查找
-  function runPostAjaxDatas(){
+  main.runPostAjaxDatas=function(){
     var typeVal=$('#handle-course').attr('data-val');
     var timeVal=$('#handle-date').attr('data-val');
-    main.postAjaxDatas('/coures/my-study',{type:typeVal,time:timeVal,page:pageVal},function(datas){
-      console.log(datas);
+    main.postAjaxDatas('/coures/my-study',{type:typeVal,time:timeVal,page:main.pageVal},function(datas){
       var studyCourse = template('studyCourse',{list:datas});
       $('.study-course').html(studyCourse);
+      // 是否显示分页
+      if(main.pageVal==1){
+        if(datas.length<main.count){
+          $('.ajax-paging').hide();
+        }else{
+          $('.ajax-paging').show();
+        }
+      }
     });
-  }
+  };
   // 初始化
-  runPostAjaxDatas();
+  main.runPostAjaxDatas();
   // 下拉菜单
   $('.handle-icon.triangle').on('click',function(){
     $(this).parent().siblings().find('.select-items').removeClass('active');
@@ -54,23 +62,10 @@ define(function(require,exports,module){
     _this.parent().parent().prev().html(_this.html()).attr('data-val',dataArg);
     $('.select-items').removeClass('active');
     // 执行查找
-    runPostAjaxDatas();
+    main.runPostAjaxDatas();
   });
   // 分页
-  $('#paging-prev').on('click',function(){
-    if(pageVal>1){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal--;
-      runPostAjaxDatas();
-    }
-  });
-  $('#paging-next').on('click',function(){
-    if($('.course-list li').length==9){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal++;
-      runPostAjaxDatas();
-    }
-  });
+  main.paging('.course-list li');
   // 删除
   $('#handle-delete').on('click',function(){
     var $selected=$('input[name="selected"]:checked');
@@ -92,7 +87,7 @@ define(function(require,exports,module){
           //   $selected.eq(j).parent().parent().remove();
           // }
           // 局部刷新
-          runPostAjaxDatas();
+          main.runPostAjaxDatas();
         });
 
       }

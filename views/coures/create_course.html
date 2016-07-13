@@ -24,7 +24,7 @@
             <div class="form-group">
               <label class="control-label">副标题</label>
               <div class="form-controls">
-                <input type="text" name="Coures[coures_title_r]" class="form-input" value="{{coures_title_r}}" maxlength="300">
+                <input type="text" name="Coures[coures_title_r]" class="form-input" value="{{coures_title_r}}" maxlength="300" required>
               </div>
             </div>
             <div class="form-group">
@@ -40,7 +40,7 @@
             <div class="form-group">
               <label class="control-label">标签</label>
               <div class="form-controls">
-                <input type="text" class="form-input" value="{{each label_name as val i}}{{if i==0}}{{val.label_name}}{{else}},{{val.label_name}}{{/if}}{{/each}}" id="input-tag" name="Coures[coures_label]" autocomplete="off">
+                <input type="text" class="form-input" value="{{each label_name as val i}}{{if i==0}}{{val.label_name}}{{else}},{{val.label_name}}{{/if}}{{/each}}" id="input-tag" name="Coures[coures_label]" autocomplete="off" required>
                 <p class="form-hint">将用于搜索相关课程使用，多个词之间用<strong class="hot">，</strong>逗号隔开</p>
                 <ul class="form-tag" id="course-tag">
                 </ul>
@@ -61,13 +61,13 @@
               <div class="form-group">
                 <label class="control-label">课程价格</label>
                 <div class="form-controls">
-                  <input type="text" class="form-input" id="course-price1" min='1' value="{{if coures_price}}{{coures_price}}{{else}}{{/if}}" name="Coures[coures_price]" required number="true">
+                  <input type="text" class="form-input" id="course-price1" min='1' value="{{if coures_price}}{{coures_price}}{{/if}}" name="Coures[coures_price]" required number="true">
                 </div>
               </div>
               <div class="form-group">
                 <label class="control-label">促销价格</label>
                 <div class="form-controls">
-                  <input type="text" class="form-input" id="course-price2" range="[1,2]" value="{{if privilege_price}}{{privilege_price}}{{else}}{{/if}}" name="Coures[privilege_price]" required number="true">
+                  <input type="text" class="form-input" id="course-price2" range="[1,2]" value="{{if privilege_price}}{{privilege_price}}{{/if}}" name="Coures[privilege_price]" required number="true">
                 </div>
               </div>
             </div>

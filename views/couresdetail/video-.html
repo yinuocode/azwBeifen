@@ -34,31 +34,61 @@
     <script src="/static/css/video_files/respond.min.js?6.17.0"></script>
   <![endif]-->
   <link rel="stylesheet" href="/static/css/video.css">
-  <link rel="stylesheet" href="/static/css/video-js.css">
-  <!-- <link rel="stylesheet" href="/static/js/plugins/video/video-js.css"> -->
+  <link href="/static/css/video-js.css" rel="stylesheet">
   <!-- If you'd like to support IE8 -->
+  <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
 </head>
 <body>
   <div class="lesson-dashboard">
     <div class="dashboard-content">
       <a class="btn btn-primary nav-btn back-course-btn" href="javascript:;" id="current-course"><span class="glyphicon glyphicon-chevron-left"></span> 返回课程</a>
-      <!-- <a class="btn btn-primary nav-btn next-lesson-btn" href="javascript:" title=""><span class="glyphicon glyphicon-chevron-down"></span></a> -->
+    <!--   <a class="btn btn-primary nav-btn prev-lesson-btn" href="javascript:" title=""><span class="glyphicon glyphicon-chevron-up" title="上一课时"></span></a>
+      <a class="btn btn-primary nav-btn next-lesson-btn" href="javascript:" title=""><span class="glyphicon glyphicon-chevron-down"></span></a> -->
       <div class="course-pay-title">
         <p id="hour-title"></p>
       </div>
       <div class="dashboard-body">
         <div class="lesson-content" id="lesson-video-content">
-          <video id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto" data-setup="{'autoplay':true}" width="100%" height="100%">
-           <source src="/static/123.mp4" type='video/mp4' id="video-mp4"/>
-           <p class="vjs-no-js">
-             To view this video please enable JavaScript, and consider upgrading to a web browser that
-             <!-- <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a> -->
-           </p>
+          <!-- <iframe src="http://agodpig.com/course/26/lesson/66/player" name="viewerIframe" id="viewerIframe" width="100%" allowfullscreen="" webkitallowfullscreen="" height="100%" style="border:0px">
+          </iframe> -->
+          <video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" data-setup='{"autoplay":true}' width="100%" height="100%">
+            <source src="" type='video/mp4' id="video-mp4">
+            <p class="vjs-no-js">
+              To view this video please enable JavaScript, and consider upgrading to a web browser that
+              <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+            </p>
           </video>
           <div id="video-shade">
           </div>
         </div>
+        <div class="watermarkEmbedded"><input type="hidden" id="videoWatermarkEmbedded" value="0"></div>
+        <div class="lesson-content lesson-content-audio" id="lesson-audio-content" ></div>
+        <div class="lesson-content" id="lesson-swf-content"></div>
+        <div class="lesson-content" id="lesson-iframe-content"></div>
+        <div class="lesson-content lesson-content-text" id="lesson-text-content">
+          <div class="lesson-content-text-body"></div>
+        </div>
+        <div class="lesson-content lesson-content-document" id="lesson-document-content">
+          <div class="lesson-content-document-body"></div>
+        </div>
+        <div class="lesson-content lesson-content-text" id="lesson-live-content">
+          <div class="lesson-content-text-body"></div>
+        </div>
+        <div class="lesson-content lesson-content-text" id="lesson-unpublished-content">
+          <div class="lesson-content-text-body">当前课时正在编辑中，暂时无法观看。</div>
+        </div>
+        <div class="lesson-content lesson-content-text" id="lesson-testpaper-content">
+          <div class="lesson-content-text-body"></div>
+        </div>
+        <div class="lesson-content lesson-content-text" id="lesson-ppt-content">
+          <div class="lesson-content-text-body"></div>
+        </div>
       </div>
+  <!--     <div class="dashboard-footer clearfix">
+        <div class="rf">
+          <button class="btn btn-primary finish-btn"><span class="glyphicon glyphicon-unchecked"></span> 学过了</button>
+        </div>
+      </div> -->
       <!-- 打赏 -->
       <div id="enjoy-effect" class="hide">
         多谢打赏，阿猪会通知讲师的
@@ -317,10 +347,7 @@
   <script src="/static/js/plugins/validate/messages_zh.js"></script>
   <script src="/static/js/plugins/kindeditor/kindeditor-min.js?v=2"></script>
   <!-- 视频 -->
-  <script src="/static/js/plugins/video/video.dev.js"></script>
-  <script>
-    videojs.options.flash.swf = '/static/js/plugins/video/video-js.swf';
-  </script>
+  <script src="http://vjs.zencdn.net/5.8.8/video.js"></script>
   <!-- 弹幕 -->
   <script src="http://139.196.195.238:8089/socket.io/socket.io.js"></script>
   <script src="/static/js/video/barrage.js"></script>

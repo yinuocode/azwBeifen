@@ -3,15 +3,24 @@ define(function(require,exports,module){
   var main = require('main');
   var home = require('/static/js/home/home');
   // 分页
-  var pageVal=1;
+  // var pageVal=1;
+  main.count=12;
   // 课程列表
-  function runPostAjaxDatas(){
-    main.postAjaxDatas('/album/album-list',{page:pageVal,user_id:home.uid},function(datas){
+  main.runPostAjaxDatas=function(){
+    main.postAjaxDatas('/album/album-list',{page:main.pageVal,user_id:home.uid},function(datas){
       var photoList = template('photoList',datas);
       $('#photo-list').html(photoList);
+      // 是否显示分页
+      if(main.pageVal==1){
+        if(datas.data.length<main.count){
+          $('.ajax-paging').hide();
+        }else{
+          $('.ajax-paging').show();
+        }
+      }
     });
-  }
-  runPostAjaxDatas();
+  };
+  main.runPostAjaxDatas();
   // 创建相册
   $('.panel-body').on('click','#add-photo',function(){
     $('#create-photo-popup').removeClass('hide');
@@ -32,7 +41,7 @@ define(function(require,exports,module){
             alert('创建成功');
             $('.popup').addClass('hide');
             // 局部刷新
-            runPostAjaxDatas();
+            main.runPostAjaxDatas();
           }else{
             alert(data.msg);
           }
@@ -89,7 +98,7 @@ define(function(require,exports,module){
                   alert('修改成功');
                   $('.popup').addClass('hide');
                   // 局部刷新
-                  runPostAjaxDatas();
+                  main.runPostAjaxDatas();
                 }else{
                   alert(data.msg);
                 }
@@ -114,7 +123,7 @@ define(function(require,exports,module){
         main.postAjaxDatas('/album/delete-album',{aid:aid},function(datas){
           if(datas.status==1){
             // 局部刷新
-            runPostAjaxDatas();
+            main.runPostAjaxDatas();
           }else{
             alert(datas.msg);
           }
@@ -125,18 +134,5 @@ define(function(require,exports,module){
     }
   });
   // 分页
-  $('#paging-prev').on('click',function(){
-    if(pageVal>1){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal--;
-      runPostAjaxDatas();
-    }
-  });
-  $('#paging-next').on('click',function(){
-    if($('.course-list li').length==12){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal++;
-      runPostAjaxDatas();
-    }
-  });
+  main.paging('.photo-list li');
 });

@@ -38,20 +38,20 @@
         {{if list.length>0}}
         {{each list as value i}}
           <li>
-            <a href="/couresdetail?cid={{value.live_id}}&type=0" target="_blank">
+            <a href="/couresdetail?cid={{value.live_id}}&amp;type=0" target="_blank">
               <img src="{{value.live_cover}}" alt="">
               {{if value.time.state==0}}
               <span class="full course-time"><div class="clearfix"><strong>距开始直播：</strong><b class="b">{{value.time.hour}}</b><strong>小时</strong><b class="b">{{value.time.min}}</b><strong>分</strong></div></span>
               {{else if value.time.state==1}}
-              <span class="full"><b>开始直播</b></span>
+              <span class="full"><b>正在直播</b></span>
               {{else if value.time.state==2}}
               <span class="full course-time"><div class="clearfix"><strong>开播时间：</strong><b class="b">{{value.time.start_time}}</b><strong>点到</strong><b class="b">{{value.time.end_time}}</b><strong>点</strong></div></span>
               {{else if value.time.state==3}}
-              <span class="full"><b>课程已过期</b></span>
+              <span class="full"><b>查看回放</b></span>
               {{/if}}
             </a>
             <div class="row">
-              <p class="course-title"><a href="/couresdetail?cid={{value.live_id}}&type=0" target="_blank">{{value.live_title}}</a></p>
+              <p class="course-title"><a href="/couresdetail?cid={{value.live_id}}&amp;type=0" target="_blank">{{value.live_title}}</a></p>
               <!-- <a href="javascript:;" class="rf letter-item" data-uid="{{value.user_id}}">私信</a> -->
             </div>
           </li>
@@ -61,7 +61,7 @@
         {{/if}}
         </script>
         </ul>
-        <div class="ajax-paging">
+        <div class="ajax-paging hide">
           <div class="clearfix">
             <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
             <a href="javascript:;" id="paging-next" class="handle-icon right-arrows active"></a>

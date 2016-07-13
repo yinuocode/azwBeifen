@@ -2,20 +2,28 @@ define(function(require,exports,module){
   // 引入主要模块模块
   var main = require('main');
   // 分页
-  var pageVal=1;
+  // var pageVal=1;
+  main.count=13;
   // 按条件查找
-  function runPostAjaxDatas(){
+  main.runPostAjaxDatas=function(){
     var typeVal=$('#handle-course').attr('data-val');
     var statusVal=$('#handle-status').attr('data-val');
     var timeVal=$('#handle-date').attr('data-val');
-    main.postAjaxDatas('/myteach/my-teach',{type:typeVal,status:statusVal,time:timeVal,page:pageVal},function(datas){
-      console.log(datas);
+    main.postAjaxDatas('/myteach/my-teach',{type:typeVal,status:statusVal,time:timeVal,page:main.pageVal},function(datas){
       var tableCourseList = template('tableCourseList',{list:datas});
       $('#table-course-list').html(tableCourseList);
+      // 是否显示分页
+      if(main.pageVal==1){
+        if(datas.length<main.count-1){
+          $('.ajax-paging').hide();
+        }else{
+          $('.ajax-paging').show();
+        }
+      }
     });
-  }
+  };
   // 初始化
-  runPostAjaxDatas();
+  main.runPostAjaxDatas();
   // 下拉菜单
   $('.handle-icon.triangle').on('click',function(){
     $(this).parent().siblings().find('.select-items').removeClass('active');
@@ -29,7 +37,7 @@ define(function(require,exports,module){
     _this.parent().parent().prev().html(_this.html()).attr('data-val',dataArg);
     $('.select-items').removeClass('active');
     // 执行查找
-    runPostAjaxDatas();
+    main.runPostAjaxDatas();
   });
   // 选择操作目标
   $('#table-course-list').on('click','#controlAll',function(){
@@ -55,20 +63,7 @@ define(function(require,exports,module){
     $('.handle-icon.invite').removeClass('hide');
   });
   // 分页
-  $('#paging-prev').on('click',function(){
-    if(pageVal>1){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal--;
-      runPostAjaxDatas();
-    }
-  });
-  $('#paging-next').on('click',function(){
-    if($('#table-course-list tr').length==9){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal++;
-      runPostAjaxDatas();
-    }
-  });
+  main.paging('#table-course-list tr');
   // 编辑
   $('#handle-edit').on('click',function(){
     var _this=$(this);
@@ -109,7 +104,7 @@ define(function(require,exports,module){
         alert('服务器忙，请稍后。。。');
       }
       // 局部刷新
-      runPostAjaxDatas();
+      main.runPostAjaxDatas();
     });
   });
   // $('#handle-edit').on('click',function(){
@@ -141,9 +136,9 @@ define(function(require,exports,module){
         main.postAjaxDatas('/myteach/delete',{cid1:cid1,cid2:cid2},function(datas){
           console.log(datas);
           if(datas.status==1){
-            alert('删除成功');
+            // alert('删除成功');
             // 局部刷新
-            runPostAjaxDatas();
+            main.runPostAjaxDatas();
           }else{
             alert(datas.msg);
           }

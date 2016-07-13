@@ -41,6 +41,7 @@
         </div>
         <ul class="course-list direct-course clearfix" id="list-course">
         <script id="listCourse" type="text/html">
+        {{if list.length>0}}
         {{each list as value i}}
           <li>
             <a href="/couresdetail?cid={{value.id}}&amp;type={{value.vtype}}" target="_blank">
@@ -52,6 +53,9 @@
             </div>
           </li>
         {{/each}}
+        {{else}}
+          <div class="no-data">暂无直播课程</div>
+        {{/if}}
         </script>
         </ul>
         <div class="ajax-paging">

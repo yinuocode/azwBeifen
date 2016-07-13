@@ -42,7 +42,6 @@ define(function(require,exports,module){
   main.postAjaxDatas('/couresdetail/course-teach',getVal,function(datas){
     var lecturerModule = template('lecturerModule',datas);
     $('#lecturer-module').html(lecturerModule);
-    console.log(datas);
     $('#user-id').val(datas.user_id);
   });
   // 课程评论

@@ -2,19 +2,27 @@ define(function(require,exports,module){
   // 引入主要模块模块
   var main = require('main');
   // 分页
-  var pageVal=1;
+  // var pageVal=1;
+  main.count=9;
   var cClassify='';
   // 按条件查找
-  function runPostAjaxDatas(){
+  main.runPostAjaxDatas=function(){
     var grade=$('#handle-grade').attr('data-val');
-    main.postAjaxDatas('/curriculum/recorded-list',{page:pageVal,difficulty:grade,classify:cClassify},function(datas){
+    main.postAjaxDatas('/curriculum/recorded-list',{page:main.pageVal,difficulty:grade,classify:cClassify},function(datas){
       var directCourse = template('directCourse',{list:datas});
       $('.direct-course').html(directCourse);
-      console.log(datas);
+      // 是否显示分页
+      if(main.pageVal==1){
+        if(datas.length<9){
+          $('.ajax-paging').hide();
+        }else{
+          $('.ajax-paging').show();
+        }
+      }
     });
-  }
+  };
   // 初始化
-  runPostAjaxDatas();
+  main.runPostAjaxDatas();
   // 下拉菜单
   $('.handle-icon.triangle').on('click',function(){
     $(this).parent().siblings().find('.select-items').removeClass('active');
@@ -27,35 +35,29 @@ define(function(require,exports,module){
     _this.parent().parent().prev().html(_this.html()).attr('data-val',dataArg);
     $('.select-items').removeClass('active');
     // 执行查找
-    runPostAjaxDatas();
+    main.runPostAjaxDatas();
   });
   // 分页
-  $('#paging-prev').on('click',function(){
-    if(pageVal>1){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal--;
-      runPostAjaxDatas();
-    }
-  });
-  $('#paging-next').on('click',function(){
-    if($('.direct-course>li').length==9){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal++;
-      runPostAjaxDatas();
-    }
-  });
+  main.paging('.course-list li');
   // 分类
   main.getAjaxDatas('/coures/classify',function(datas){
     var panelHeading = template('panelHeading',{list:datas});
     $('.header-tag').html(panelHeading);
   });
-  // 标签
-  $('.header-tag').on('click','a',function(){
+  // 课程标签
+  $('.header-tag').on('click','.li-tag>a',function(){
+    $('.header-tag-sub a').removeClass('active');
     $(this).parents('.li-tag').addClass('active').siblings().removeClass('active');
     $('.header-tag-sub').removeClass('active');
     $(this).parents('.li-tag').find('.header-tag-sub').addClass('active');
     cClassify=$(this).attr('data-tid');
-    runPostAjaxDatas();
+    main.runPostAjaxDatas();
+  });
+  // 子类选择
+  $('.header-tag').on('click','.header-tag-sub>li>a',function(){
+    console.log(1234);
+    $('.header-tag-sub a').removeClass('active');
+    $(this).addClass('active');
   });
   // 发私信
   $('.course-list').on('click','.letter-item',function(){

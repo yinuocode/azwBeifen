@@ -245,6 +245,7 @@ $(function(){
           var bannedMake='';
           var kickedRoom='';
           var kickedRoom1='';
+          var avatar='';
           if(data[x].sstatus=='1'){
             bannedArr.push(data[x].uid);
             bannedMake='<span class="icon-banned iconfont icon glare" title="取消禁言" data-status="'+data[x].sstatus+'" data-uid="'+data[x].uid+'"></span>';
@@ -257,25 +258,31 @@ $(function(){
             kickedRoom ='<span class="icon-kicking iconfont icon" title="踢出房间" data-kstatus="'+data[x].kstatus+'" data-duid="'+data[x].uid+'"></span>';
           }
           // 判断是否是管理员
-          if(data[x].isman!='0'){
+          if(data[x].isman=='1'){
             bannedMake='';
             kickedRoom=kickedRoom1='管理员';
           }
+          if(data[x].headpic){
+            avatar='<img src="'+data[x].headpic+'" alt="用户名" class="avatar">';
+          }else{
+            avatar='<img src="http://image.agodpig.com/default/coverdefault.png" alt="用户名" class="avatar">';
+          }
           // 是否是自己
           if(data[x].uid==userMid){
-            dUname='<span class="username current"><input type="text" mid="'+data[x].uid+'" id="amend-name" value="'+data[x].uname+'"></span>';
+            // dUname='<span class="username current"><input type="text" mid="'+data[x].uid+'" id="amend-name" value="'+data[x].uname+'"></span>';
+            dUname='<span class="username hot" mid="'+data[x].uid+'" title="'+data[x].uname+'">'+data[x].uname+'</span><span class="icon-grade iconfont icon hot">&#xe642;</span>';
           // }else if(data[x].uid<200){// 是否是会员
           //   dUname='<span class="username" mid="'+data[x].uid+'" title="'+data[x].uname+'">'+data[x].uname+'</span>';
           }else{
-            dUname='<span class="username hot" mid="'+data[x].uid+'" title="'+data[x].uname+'">'+data[x].uname+'</span><span class="icon-grade iconfont icon hot">&#xe642;</span>';
+            dUname='<span class="username" mid="'+data[x].uid+'" title="'+data[x].uname+'">'+data[x].uname+'</span><span class="icon-grade iconfont icon hot">&#xe642;</span>';
           }
           // 判断当前用户是否是管理员
           // console.log(userMid);
           // console.log(userMid.toString()+","+arrAdminT);
           if($.inArray(userMid.toString(),arrAdminT)!=-1){
-            str +='<li class="clearfix"><img src="http://placehold.it/32x32" alt="用户名" class="avatar">'+dUname+'<div class="banned-kick rf">'+bannedMake+'&nbsp;&nbsp;'+kickedRoom+'</div></li>';
+            str +='<li class="clearfix">'+avatar+dUname+'<div class="banned-kick rf">'+bannedMake+'&nbsp;&nbsp;'+kickedRoom+'</div></li>';
           }else{
-            str +='<li class="clearfix"><img src="http://placehold.it/32x32" alt="用户名" class="avatar">'+dUname+'<div class="rf">'+kickedRoom1+'</div></li>';
+            str +='<li class="clearfix">'+avatar+dUname+'<div class="rf">'+kickedRoom1+'</div></li>';
           }
         }
       }
@@ -436,6 +443,7 @@ $(function(){
           // ajax post 方法
           postAjaxDatas('/broadcasting/send-gift',{gid:giftId,quantity:num,to_user_id:lid},function(datas){
             if(datas.status==1){
+              getDeposit();
               var giftNrs='';
               for(var i=0;i<num;i++){
                 giftNrs+=giftNr;
@@ -463,6 +471,7 @@ $(function(){
       if(Number(money)!==0){
         postAjaxDatas('/broadcasting/reward',{money:money,to_user_id:lid},function(datas){
           if(datas.status==1){
+            getDeposit();
             // var index=Math.floor((Math.random()*admire.length));
             $('.enjoy-box').hide();
             $('#enjoy-effect').show().animate({
@@ -511,16 +520,16 @@ $(function(){
   setTimeout(function(){
     updateinfo(courseCid);
   },1200);
-  $studentList.on('blur','#amend-name',function(){
-    var uid=$(this).attr('mid');
-    var uname=$(this).val();
-    $.ajax({
-      type: 'POST',
-      url: '/index.php?r=broadcasting%2Fupbase',
-      data: {id:uid,name:uname},
-      success: function(){
-        // console.log('修改成功！');
-      }
-    });
-  });
+  // $studentList.on('blur','#amend-name',function(){
+  //   var uid=$(this).attr('mid');
+  //   var uname=$(this).val();
+  //   $.ajax({
+  //     type: 'POST',
+  //     url: '/index.php?r=broadcasting%2Fupbase',
+  //     data: {id:uid,name:uname},
+  //     success: function(){
+  //       console.log('修改成功！');
+  //     }
+  //   });
+  // });
 });

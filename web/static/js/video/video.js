@@ -16,7 +16,6 @@ define(function(require,exports,module){
   var getVal=getArgs();
   // 封装方法
   function postAjaxDatas(_url,_datas,fSuccess){
-    console.log(_datas);
     $.ajax({
       type:'post',
       url:_url,
@@ -26,7 +25,6 @@ define(function(require,exports,module){
         fSuccess(datas);
       },
       error: function(xml,err){
-        console.log(err);
       }
     });
   }
@@ -46,13 +44,11 @@ define(function(require,exports,module){
   });
   // 讲师简介
   postAjaxDatas('/couresdetail/course-teach',getVal,function(datas){
-    console.log(datas);
     $('#teacher-name').html(datas.username);
     $('#lecturer-id').val(datas.user_id);
   });
   // 课时
   postAjaxDatas('/couresdetail/hour',getVal,function(datas){
-    console.log(datas);
     // datas.cid=getVal.cid;
     // datas.type=getVal.type;
     var hourItemList = template('hourItemList',datas);
@@ -68,13 +64,16 @@ define(function(require,exports,module){
     liLessonItem.addClass('item-active');
     $('#hour-title').html(liLessonItem.find('.title').html());
     // 视频播放
-    $('#my-video_html5_api').attr('src',liLessonItem.attr('data-src'));
+    // $('#example_video_1_html5_api').attr('src',liLessonItem.attr('data-src'));
+    // 加载视频
+    var lessonVideoContent = template('lessonVideoContent',{data:liLessonItem.attr('data-src')});
+    $('#lesson-video-content').html(lessonVideoContent);
+    $.getScript('/static/js/plugins/video/video.min.js');
     runFaqs();
   });
   // 问答列表
   function runFaqs(){
     postAjaxDatas('/comment/question-list',{hour_id:$('.hid').val()},function(datas){
-      console.log(datas);
       template.config("escape", false);
       var faqList = template('faqList',{list:datas});
       $('#faq-list').html(faqList);
@@ -107,7 +106,6 @@ define(function(require,exports,module){
   });
   function runAnswer(aid){
     postAjaxDatas('/comment/reply-detail',{answer_id:aid},function(datas){
-      console.log(datas);
       template.config("escape", false);
       var answersDetails = template('answersDetails',datas);
       $('#answers-details').html(answersDetails);
@@ -166,6 +164,16 @@ define(function(require,exports,module){
       });
     }
   });
+  // 笔记内容
+  postAjaxDatas('/comment/get-comment',{cid:getVal.cid},function(datas){
+    if(datas.score){
+      $('#star-con').attr('class','star-'+datas.score);
+    }
+    if(datas.content){
+      $('#comment-form .ke-edit-iframe').contents().find('.ke-content').html(datas.content);
+      $('#form-comment-nr').val(datas.content);
+    }
+  });
   // 评论表单
   $('#comment-form').validate({
     onsubmit:true,// 是否在提交时验证
@@ -178,7 +186,7 @@ define(function(require,exports,module){
         dataType:'json',
         success : function(data){
           if(data.status==1){
-            $('#comment-form .ke-edit-iframe').contents().find('.ke-content').html('');
+            // $('#comment-form .ke-edit-iframe').contents().find('.ke-content').html('');
             $('#comment-succeed').fadeIn().fadeOut(3500);
           }else{
             alert(data.msg);
@@ -189,7 +197,6 @@ define(function(require,exports,module){
   });
   // 笔记内容
   postAjaxDatas('/comment/get-note',{cid:getVal.cid},function(datas){
-    console.log(datas);
     template.config('escape', false);
     var noteContent = template('noteContent',{list:datas});
     $('#note-content').html(noteContent);
@@ -209,7 +216,6 @@ define(function(require,exports,module){
     onsubmit:true,// 是否在提交时验证
     submitHandler: function(form){
       var data = $('#note-form').serialize();
-      console.log(data);
       $.ajax({
         url : '/comment/mynote',
         type : 'post',
@@ -234,7 +240,6 @@ define(function(require,exports,module){
   // 课程资料
   $('.toolbar-nav').one('click','.glyphicon-download-data',function(){
     postAjaxDatas('/comment/datum',{cid:getVal.cid},function(datas){
-      console.log(datas);
       var dataItemList = template('dataItemList',{list:datas});
       $('#data-item-list').html(dataItemList);
     });
@@ -243,7 +248,6 @@ define(function(require,exports,module){
   $('.period-list').on('click','.download-data',function(){
     var did=$(this).attr('data-did');
     postAjaxDatas('/myteach/downloads',{did:did},function(datas){
-      console.log(datas);
     });
   });
   // 二维码

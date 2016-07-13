@@ -60,7 +60,7 @@
             <script id="mainSideTop" type="text/html">
               <div class="lecturer-info clearfix">
                 <div class="lf">
-                  <a href="/lecturer?uid={{uid}}" target="_blank">
+                  <a href="/home?uid={{uid}}" target="_blank">
                     <img src="{{portrait}}" width="60px" height="60" alt="头像">
                   </a>
                   <input type="hidden" id="lecturer-id" value="{{uid}}">
@@ -90,11 +90,12 @@
           <div class="user-info main-icon">
             <div class="user-info-option" id="user-info-option">
             <script id="userInfoOption" type="text/html">
-              <a href="javascript:;" target="_blank" class="user-avatar"><img class="user-avatar" src="{{portrait}}" alt="头像"></a>
+              <a href="/home?uid={{id}}" target="_blank" class="user-avatar"><img class="user-avatar" src="{{portrait}}" alt="头像"></a>
               <a href="javascript:;" class="rank main-icon">{{grade}}</a>
               <!-- <a href="javascript:;" class="set" target="_blank"></a> -->
-              <a href="javascript:;" class="name">{{uname}}</a>
-<!--               <a href="javascript:;" class="concern">关注</a>
+              <a href="/home?uid={{id}}" class="name">{{uname}}</a>
+              <a href="javascript:;" class="user-remain-money">当前余额：<strong id="remain-money" class="hot">{{deposit}}</strong></a>
+              <!-- <a href="javascript:;" class="concern">关注</a>
               <a href="javascript:;" class="vermicelli" title="343">粉丝</a>
               <a href="javascript:;" class="member" target="_blank">vip 会员</a> -->
             </script>
@@ -353,6 +354,20 @@
         }
       });
     }
+    // ajax get 方法
+    function getAjaxDatas(_url,fSuccess){
+      $.ajax({
+        type:'get',
+        url:_url,
+        dataType: 'json',
+        success: function(datas){
+          fSuccess(datas);
+        },
+        error: function(xml,err){
+          console.log(err);
+        }
+      });
+    }
     // 会员信息
     postAjaxDatas('/broadcasting/study',{cid:courseCid},function(datas){
       // console.log(datas);
@@ -362,8 +377,10 @@
       $('#user-info-option').html(userInfoOption);
       // 获取管理员数组
       postAjaxDatas('/broadcasting/adminid',{cid:courseCid,type:0},function(datas){
-        arrAdminT=datas.admin_id;
-        dataService=datas.is_admin;
+        arrAdminT=datas.admin;
+        if(datas.is_admin!='0'){
+          dataService='1';
+        }
         seajs.use('classroom');
       });
     });
@@ -372,6 +389,13 @@
         $.getScript('/static/js/plugins/peer/script.js');
       });
     }
+    // 获取余额
+    function getDeposit(){
+      getAjaxDatas('/broadcasting/deposit',function(datas){
+        $('#remain-money').html(datas);
+      });
+    }
+    getDeposit();
   </script>
 </body>
 </html>

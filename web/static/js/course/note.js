@@ -2,32 +2,27 @@ define(function(require,exports,module){
   // 引入主要模块模块
   var main = require('main');
   // 分页
-  var pageVal=1;
+  // var pageVal=1;
+  main.count=12;
   // 按条件查找
-  function runPostAjaxDatas(){
-    main.postAjaxDatas('/mynote/my-note',{page:pageVal},function(datas){
-      console.log(datas);
+  main.runPostAjaxDatas=function(){
+    main.postAjaxDatas('/mynote/my-note',{page:main.pageVal},function(datas){
       var noteList = template('noteList',{list:datas});
       $('#note-list').html(noteList);
+      // 是否显示分页
+      if(main.pageVal==1){
+        if(datas.length<main.count){
+          $('.ajax-paging').hide();
+        }else{
+          $('.ajax-paging').show();
+        }
+      }
     });
-  }
+  };
   // 初始化
-  runPostAjaxDatas();
+  main.runPostAjaxDatas();
   // 分页
-  $('#paging-prev').on('click',function(){
-    if(pageVal>1){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal--;
-      runPostAjaxDatas();
-    }
-  });
-  $('#paging-next').on('click',function(){
-    if($('.note-course li').length==12){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal++;
-      runPostAjaxDatas();
-    }
-  });
+  main.paging('#note-list li');
   // 查看笔记
   $('.note-course').on('click','.look-note',function(){
     var cid=$(this).attr('data-cid');
@@ -48,7 +43,7 @@ define(function(require,exports,module){
     if(confirm('笔记删除将不可恢复，是否继续！')){
       main.postAjaxDatas('/mynote/del-note',{nid:nid},function(datas){
         if(datas.status==1){
-          runPostAjaxDatas();
+          main.runPostAjaxDatas();
         }else{
           alert(datas.msg);
         }

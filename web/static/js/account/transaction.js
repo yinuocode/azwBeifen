@@ -2,17 +2,25 @@ define(function(require,exports,module){
   // 引入主要模块模块
   var main = require('main');
   // 分页
-  var pageVal=1;
+  // var pageVal=1;
+  main.count=13;
   var typeVal=2;
   var startTime='';
   var endTime='';
   // 按条件查找
-  function runPostAjaxDatas(){
-    main.postAjaxDatas('/wealth/recharge-list',{type:typeVal,page:pageVal,start_time:startTime,end_time:endTime},function(datas){
+  main.runPostAjaxDatas=function(){
+    main.postAjaxDatas('/wealth/recharge-list',{type:typeVal,page:main.pageVal,start_time:startTime,end_time:endTime},function(datas){
       datas.type=typeVal;
-      console.log(datas);
       var tableCourseList = template('tableCourseList',datas);
       $('#table-course-list').html(tableCourseList);
+      // 是否显示分页
+      if(main.pageVal==1){
+        if(datas.data.length<main.count-1){
+          $('.ajax-paging').hide();
+        }else{
+          $('.ajax-paging').show();
+        }
+      }
       // 日期搜索
       var start = {
         elem: '#startDate',
@@ -36,9 +44,9 @@ define(function(require,exports,module){
       laydate(start);
       laydate(end);
     });
-  }
+  };
   // 初始化
-  runPostAjaxDatas();
+  main.runPostAjaxDatas();
   // 下拉菜单
   $('.handle-icon.triangle').on('click',function(){
     $(this).parent().siblings().find('.select-items').removeClass('active');
@@ -51,26 +59,14 @@ define(function(require,exports,module){
     _this.parent().parent().prev().html(_this.html());
     $('.select-items').removeClass('active');
     // 执行查找
-    runPostAjaxDatas();
+    main.runPostAjaxDatas();
   });
   // 分页
-  $('#paging-prev').on('click',function(){
-    if(pageVal>1){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal--;
-      runPostAjaxDatas();
-    }
-  });
-  $('#paging-next').on('click',function(){
-    if($('#table-course-list tr').length==13){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal++;
-      runPostAjaxDatas();
-    }
-  });
+  main.paging('.table-course tr');
+  // 日期查找
   $('#date-submit').on('click',function(){
     startTime=$('#startDate').val();
     endTime=$('#endDate').val();
-    runPostAjaxDatas();
+    main.runPostAjaxDatas();
   });
 });

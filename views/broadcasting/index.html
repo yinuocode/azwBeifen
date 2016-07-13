@@ -42,7 +42,7 @@
 </head>
 <body>
   <header class="header clearfix">
-    <h1 class="clearfix lf"><a href="/" target="_blank" class="logo lf"><img src="/static/img/lecture/logo-sub.png" alt="阿猪网"></a><hgroup class="lf">课程直播中心</hgroup></h1>
+    <h1 class="clearfix lf"><a href="/" target="_blank" class="logo lf"><img src="/static/img/lecture/logo-sub.png" alt="阿猪网"></a><hgroup class="lf">课程直播中心——<span id="content-title"></span></hgroup></h1>
     <a class="rf" id="button1" href="javascript:;">开始直播</a>
     <a class="rf hide" id="button2" href="javascript:;">停止直播</a>
   </header>
@@ -84,9 +84,9 @@
           </div>
         </aside>
         <section class="content-nr">
-          <header class="content-head">
-            <h1 id="content-title"></h1>
-          </header>
+        <!--   <header class="content-head">
+
+          </header> -->
           <div class="content-body">
             <div id="palette">
               <div class="canvas-out">
@@ -369,6 +369,23 @@
       <p>Your id: <span id="my-id">...</span></p>
     </div>
   </div>
+  <!-- 是否生成回放的弹窗 -->
+  <div class="popup hide" id="playback-popup">
+    <div class="popup-modal">
+      <div class="popup-header">
+        <h1>是否生成回放？</h1>
+        <button type="button" class="popup-close"></button>
+      </div>
+      <div class="popup-body">
+        <p class="popup-alert">是否生成回放？</p>
+        <div class="clearfix popup-item">
+          <a href="javascript:;" id="start-playback" class="lf btn">生成回放</a>
+          <a href="javascript:;" class="rf btn p-close">放弃生成</a>
+        </div>
+      </div>
+    </div>
+    <div class="popup-bg"></div>
+  </div>
   <!-- js 脚本文件 -->
   <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="/static/js/lib/jquery-1.9.1.min.js"><\/script>')</script>
@@ -397,7 +414,7 @@
         userName,
         socketUrl='http://139.196.195.238:8080/',
         // socketUrl='http://192.168.0.100:8080/',
-        dataService='2',
+        dataService='1',
         // pTimestamp='1463728180';
         // pTtoken='6a831e7598ad2eac5ca7c97234a0ec2c';
         // noticeNr,
@@ -445,8 +462,20 @@
       $('#content-title').html(datas.live_title);
       // 获取管理员数组
       postAjaxDatas('/broadcasting/adminid',{cid:courseCid,type:0},function(datas){
-        arrAdminT=datas.admin_id;
+        arrAdminT=datas.admin;
         seajs.use('lecture');
+      });
+    });
+    // 生成回放
+    $('.popup').on('click','#start-playback',function(){
+      postAjaxDatas('/couresdetail/create-playback',{cid:courseCid},function(datas){
+        console.log(datas);
+        if(datas.status==1){
+          $('#playback-popup').addClass('hide');
+          alert('恭喜，回放已生成');
+        }else{
+          alert(datas.msg);
+        }
       });
     });
     // peer 麦克和摄像头

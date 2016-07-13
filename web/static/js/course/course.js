@@ -194,10 +194,12 @@ define(function(require,exports,module){
     });
     // 是否显示价格
     $('#course-type1').on('click',function(){
+      $('#course-price1,#course-price2').val('0');
       $('#course-price').hide();
     });
     $('#course-type0').on('click',function(){
       $('#course-price').show();
+      $('#course-price1,#course-price2').val('');
     });
     // 标签
     var formTag=$('.form-tag');

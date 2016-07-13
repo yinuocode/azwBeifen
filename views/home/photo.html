@@ -90,7 +90,7 @@
         </div>
         {{/if}}
         <ul class="course-list study-course photo-list clearfix">
-          {{if status==1}}
+          {{if data.length>0}}
           {{each data as value i}}
             <li>
               <a href="/home/picture?uid={{value.user_id}}&amp;aid={{value.aid}}">

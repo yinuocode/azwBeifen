@@ -3,19 +3,27 @@ define(function(require,exports,module){
   var main = require('main');
   // 分页
   var typeVal=1;
-  var pageVal=1;
+  // var pageVal=1;
+  main.count=13;
   var noRead=0;
   // 按条件查找
-  function runPostAjaxDatas(){
-    main.postAjaxDatas('/website/letter-list',{classify:typeVal,page:pageVal},function(datas){
-      console.log(datas);
+  main.runPostAjaxDatas=function(){
+    main.postAjaxDatas('/website/letter-list',{classify:typeVal,page:main.pageVal},function(datas){
       var tableCourseList = template('tableCourseList',datas);
       $('#table-course-list').html(tableCourseList);
       noRead=datas.no_read;
+      // 是否显示分页
+      if(main.pageVal==1){
+        if(datas.data.length<main.count-1){
+          $('.ajax-paging').hide();
+        }else{
+          $('.ajax-paging').show();
+        }
+      }
     });
-  }
+  };
   // 初始化
-  runPostAjaxDatas();
+  main.runPostAjaxDatas();
   // 下拉菜单
   $('.handle-icon.triangle').on('click',function(){
     $(this).parent().siblings().find('.select-items').removeClass('active');
@@ -26,26 +34,14 @@ define(function(require,exports,module){
     $('.handle-icon.invite').addClass('hide');
     var _this=$(this);
     typeVal=_this.attr('data-arg');
+    main.pageVal=1;
     _this.parent().parent().prev().html(_this.html());
     $('.select-items').removeClass('active');
     // 执行查找
-    runPostAjaxDatas();
+    main.runPostAjaxDatas();
   });
   // 分页
-  $('#paging-prev').on('click',function(){
-    if(pageVal>1){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal--;
-      runPostAjaxDatas();
-    }
-  });
-  $('#paging-next').on('click',function(){
-    if($('#table-course-list tr').length==10){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal++;
-      runPostAjaxDatas();
-    }
-  });
+  main.paging('#table-course-list tr');
   // 查看全部
   $('.table-course').on('click','.rcvd',function(){
     var _this=$(this);

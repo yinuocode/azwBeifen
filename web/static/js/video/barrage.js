@@ -40,7 +40,7 @@ $(function(){
   }catch(e){
     //set status to warn user
   }
-  var colorArr=['red','blue','#000','green','#fff','yellow'];
+  var colorArr=['red','blue','green','#fff','yellow'];
   if(socket!==undefined){
     //加入教室
     socket.emit('joinroom',{cid:courseCid});
@@ -56,15 +56,15 @@ $(function(){
       //append
     });
   }
-  //
+  // 开启一个新线程
   function newThread(setMsgs,data){
-    console.log(setMsgs);
     var i=0;
     setMsgs=setInterval(function() {
       i+=3;
       if(i<1200){
         $('.chat-message'+data.uid+data.i).css('margin-right',i+'px');
       }else{
+        // 关闭线程
         clearInterval(setMsgs);
         $('.chat-message'+data.uid+data.i).remove();
       }

@@ -14,21 +14,29 @@ define(function(require,exports,module){
   }
   var getVal=getArgs();
   // 分页
-  var pageVal=1;
+  // var pageVal=1;
+  main.count=9;
   var cClassify='';
   var grade='';
   var searchVal=getVal.key||'';
   $('#search-val').val(getVal.key||'');
   // 按条件查找
-  function runPostAjaxDatas(){
-    main.postAjaxDatas('/index/all-coures',{page:pageVal,difficulty:grade,classify:cClassify},function(datas){
+  main.runPostAjaxDatas=function(){
+    main.postAjaxDatas('/index/all-coures',{page:main.pageVal,difficulty:grade,classify:cClassify},function(datas){
       var listCourse = template('listCourse',{list:datas});
       $('#list-course').html(listCourse);
-      console.log(datas);
+      // 是否显示分页
+      if(main.pageVal==1){
+        if(datas.length<9){
+          $('.ajax-paging').hide();
+        }else{
+          $('.ajax-paging').show();
+        }
+      }
     });
-  }
+  };
   // 初始化
-  runPostAjaxDatas();
+  main.runPostAjaxDatas();
   // 下拉菜单
   $('.handle-icon.triangle').on('click',function(){
     $(this).parent().siblings().find('.select-items').removeClass('active');
@@ -41,35 +49,29 @@ define(function(require,exports,module){
     _this.parent().parent().prev().html(_this.html());
     $('.select-items').removeClass('active');
     // 执行查找
-    runPostAjaxDatas();
+    main.runPostAjaxDatas();
   });
   // 分页
-  $('#paging-prev').on('click',function(){
-    if(pageVal>1){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal--;
-      runPostAjaxDatas();
-    }
-  });
-  $('#paging-next').on('click',function(){
-    if($('.direct-course>li').length==9){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal++;
-      runPostAjaxDatas();
-    }
-  });
+  main.paging('.course-list li');
   // 分类
   main.getAjaxDatas('/coures/classify',function(datas){
     var panelHeading = template('panelHeading',{list:datas});
     $('.header-tag').html(panelHeading);
   });
   // 课程标签
-  $('.header-tag').on('click','a',function(){
+  $('.header-tag').on('click','.li-tag>a',function(){
+    $('.header-tag-sub a').removeClass('active');
     $(this).parents('.li-tag').addClass('active').siblings().removeClass('active');
     $('.header-tag-sub').removeClass('active');
     $(this).parents('.li-tag').find('.header-tag-sub').addClass('active');
     cClassify=$(this).attr('data-tid');
-    runPostAjaxDatas();
+    main.runPostAjaxDatas();
+  });
+  // 子类选择
+  $('.header-tag').on('click','.header-tag-sub>li>a',function(){
+    console.log(1234);
+    $('.header-tag-sub a').removeClass('active');
+    $(this).addClass('active');
   });
   // 搜索课程
   $('#search-btn').on('click',function(){

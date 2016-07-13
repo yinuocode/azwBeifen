@@ -366,8 +366,8 @@ function startStreaming()
 	sendMessage(myJSONRequest);
 }
 
-function startPreview()
-{
+function startPreview(){
+  $('#playback-popup').removeClass('hide');
 	var myJSONRequest = {};
 	myJSONRequest["request-type"] = "StartStopStreaming";
 	myJSONRequest["preview-only"] = true;

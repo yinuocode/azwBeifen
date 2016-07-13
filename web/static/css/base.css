@@ -5,28 +5,22 @@ textarea:focus, input:focus {
   outline: 0;
   outline: thin dotted \9;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6); }
-
 .container, [class*='section'] {
   width: 1200px;
   margin: 0 auto;
   overflow: hidden; }
-
 body {
   color: #010101;
   font-size: 12px;
   background: #fff; }
-
 a {
   text-decoration: none;
   color: #010101; }
-
 a:hover {
   text-decoration: none;
   color: #a00001; }
-
 .show {
   display: block; }
-
 .hide {
   display: none; }
 .hot{color:#4e9bd5;}
@@ -35,51 +29,39 @@ a:hover {
 /*cmxform.css*/
 form.cmxform fieldset {
   margin-bottom: 10px; }
-
 form.cmxform legend {
   padding: 0 2px;
   font-weight: bold;
   _margin: 0 -7px;
   /* IE Win */ }
-
 form.cmxform fieldset fieldset legend {
   padding: 0 0 5px;
   font-weight: normal; }
-
 form.cmxform fieldset fieldset label {
   display: block;
   width: auto; }
-
 form.cmxform legend {
   padding-left: 0; }
-
 form.cmxform fieldset {
   border: none;
   border-top: 1px solid #C9DCA6;
   background-color: #F8FDEF; }
-
 form.cmxform fieldset fieldset {
   background: none; }
-
 form.cmxform label.error, label.error {
   color: red;
   font-size: 16px;
   font-weight: normal !important; }
-
 form.cmxform div.error {
   display: none; }
-
 form.cmxform input.error, form.cmxform textarea.error {
   border: 1px dotted red; }
-
 form.cmxform form.cmxform .gray * {
   color: gray; }
-
 /*cmxform.css end*/
 /*登录注册*/
 #registration{
   display: none; }
-
 .registration-bg,.popup-bg{
   opacity: 0.75;
   filter: alpha(opacity=75);
@@ -90,7 +72,6 @@ form.cmxform form.cmxform .gray * {
   left: 0;
   z-index: 1040;
   background-color: #000; }
-
 .registration-modal {
   position: fixed;
   background: #fff;
@@ -106,19 +87,16 @@ form.cmxform form.cmxform .gray * {
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;
   -o-transition: all 0.2s;*/ }
-
 .registration-header {
   position: relative;
   padding: 0 20px;
   margin-bottom: 30px; }
-
 .registration-header h1 {
   font-size: 16px;
   line-height: 49px;
   height: 49px;
   color: #787d82;
   border-bottom: 1px solid #d0d6d9; }
-
 .registration-header h1 span {
   float: left;
   width: 80px;
@@ -126,11 +104,9 @@ form.cmxform form.cmxform .gray * {
   height: 49px;
   line-height: 49px;
   cursor: pointer; }
-
 .registration-header .active-title, .registration-header span:hover {
   border-bottom: 1px solid #4E9BD5;
   color: #4E9BD5; }
-
 .registration-header .rl-close {
   position: absolute;
   top: 17px;
@@ -144,16 +120,13 @@ form.cmxform form.cmxform .gray * {
   -moz-transition: transform 0.2s;
   -o-transition: transform 0.2s;
   border: none; }
-
 .registration-header .rl-close:hover {
   background-position: 0 -21px;
   transform: scale(1.1);
   -webkit-transform: scale(1.1);
   -moz-transform: scale(1.1); }
-
 .registration-body {
   padding: 0 30px; }
-
 .registration-body .ipt {
   width: 100%;
   /*width:300px;
@@ -170,13 +143,10 @@ form.cmxform form.cmxform .gray * {
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   -moz-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s; }
-
 .registration-body .ipt.error {
   color: #f00; }
-
 .registration-body .ipt-email {
   background-position: 0 0; }
-
 .registration-body .btn-full {
   color: #ffffff;
   background-color: #4E9BD5;
@@ -190,11 +160,9 @@ form.cmxform form.cmxform .gray * {
   line-height: 50px;
   font-size: 16px;
   font-family: "Microsoft Yahei", "Hiragino Sans GB", Helvetica, "Helvetica Neue", "微软雅黑", Tahoma, Arial, sans-serif; }
-
 .registration-body .btn-full:hover {
   background-color: #71AFDD;
   border-color: #71AFDD; }
-
 .registration-body .rlf-tip-wrap {
   font-size: 12px;
   height: 20px;
@@ -202,43 +170,34 @@ form.cmxform form.cmxform .gray * {
   color: #f01400;
   opacity: 0;
   filter: alpha(opacity=0); }
-
 .registration-body .rlf-tip-wrap.error {
   height: 30px;
   line-height: 30px;
   opacity: 1;
   filter: alpha(opacity=100); }
-
 .registration-body .rlf-appendix {
   margin-bottom: 20px; }
-
 .registration-body .rlf-appendix .auto-cbx {
   margin-right: 10px;
   vertical-align: -1px; }
-
 .registration-body .ipt:focus {
   border-color: #98a1a6; }
-
 @font-face {
   font-family: 'icomoon';
   src: url("../fonts/icomoon.eot?d841nx");
   src: url("../fonts/icomoon.eot?d841nx#iefix") format("embedded-opentype"), url("../fonts/icomoon.ttf?d841nx") format("truetype"), url("../fonts/icomoon.woff?d841nx") format("woff"), url("../fonts/icomoon.svg?d841nx#icomoon") format("svg");
   font-weight: normal;
   font-style: normal; }
-
 /*#signup-form{display: none;}*/
 .registration-footer {
   padding: 20px 30px 4px; }
-
 .registration-footer .pop-login-sns {
   text-align: center;
   font-size: 14px; }
-
 .registration-footer .pop-login-sns span {
   color: #b5b9bc;
   display: inline-block;
   margin-top: 4px; }
-
 .registration-footer .pop-login-sns a {
   font-size: 14px;
   margin-left: 21px;
@@ -247,7 +206,6 @@ form.cmxform form.cmxform .gray * {
   color: #c8cdd2;
   transition: color .2s;
   float: right; }
-
 .registration-footer [class^="icon-"], .registration-footer [class*=" icon-"] {
   font-family: 'icomoon' !important;
   speak: none;
@@ -258,40 +216,30 @@ form.cmxform form.cmxform .gray * {
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
-
 .registration-footer .pop-login-sns i {
   font-size: 29px;
   vertical-align: -3px;
   transition: color .2s;
   color: #b5b9bc; }
-
 .registration-footer .icon-weibo:before {
   content: "\e63c"; }
-
 .registration-footer .icon-qq:before {
   content: "\e63b"; }
-
 .registration-footer .icon-weixin:before {
   content: "\e63e"; }
-
 .registration-footer .icon-weibo:hover {
   color: #f01400; }
-
 .registration-footer .icon-qq:hover {
   color: #0088cc; }
-
 .registration-footer .icon-weixin:hover {
   color: #00b33b; }
-
 .registration .error {
   color: #f01400; }
 #error-massage,#error-massage2{
   color:red;
   margin-bottom: 10px;
   margin-left: 2px;}
-
 /*登录注册结束*/
-
 /*弹窗共用代码*/
 .popup-modal{
   position: fixed;
@@ -368,10 +316,8 @@ form.cmxform form.cmxform .gray * {
   height: 143px;
   z-index: 1000;
   display: none; }
-
 #toTop img {
   width: 50px; }
-
 /*右侧客服*/
 .float-consult {
   position: fixed;
@@ -379,10 +325,8 @@ form.cmxform form.cmxform .gray * {
   top: 40%;
   /*visibility: hidden;*/
   z-index: 999; }
-
 .btn-group-vertical {
   width: 44px; }
-
 .float-consult .popover {
   width: 250px;
   color: #444;
@@ -391,18 +335,14 @@ form.cmxform form.cmxform .gray * {
   -moz-user-select: text;
   -ms-user-select: text;
   user-select: text; }
-
 .float-consult .popover .qrcode {
   max-width: 220px; }
-
 .float-consult .consult-contents {
   display: none; }
-
 @font-face {
   font-family: "consultfont";
   src: url("../fonts/consult-font.eot");
   src: url("../fonts/consult-font.eot?#iefix") format("embedded-opentype"), url("../fonts/consult-font.woff") format("woff"), url("../fonts/consult-font.ttf") format("truetype"), url("../fonts/consult-font.svg#consultfont") format("svg"); }
-
 .float-consult .icon {
   font-family: "consultfont" !important;
   font-size: 20px;
@@ -410,33 +350,24 @@ form.cmxform form.cmxform .gray * {
   -webkit-font-smoothing: antialiased;
   -webkit-text-stroke-width: 0.2px;
   -moz-osx-font-smoothing: grayscale; }
-
 .float-consult .icon-phone:before {
   content: "\e600"; }
-
 .float-consult .icon-email:before {
   content: "\e601"; }
-
 .float-consult .icon-qq:before {
   content: "\e603"; }
-
 .float-consult .icon-weixin:before {
   content: "\e606"; }
-
 .float-consult .icon-qqgroup:before {
   content: "\e608"; }
-
 #float-consult h3.popover-title {
   padding: 8px 14px; }
-
 .float-consult-qq-btn .popover img {
   width: 25px;
   height: 25px;
   vertical-align: middle; }
-
 .float-consult-qq-btn .popover p {
   margin: 0 0 6px; }
-
 .float-consult .btn {
   padding: 6px 12px;
   -webkit-border-radius: 0;
@@ -444,39 +375,30 @@ form.cmxform form.cmxform .gray * {
   border-radius: 0;
   display: block;
   color: #fff; }
-
 .float-consult .btn:first-child {
   border-top-left-radius: 2px;
   border-top-right-radius: 2px; }
-
 .float-consult .btn:last-child {
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 2px; }
-
 .float-consult .btn-consult-default {
   background: #4E9BD5;
   border-color: #35b26a; }
-
 .float-consult .btn-consult-default:hover {
   background: #35b26a;
   border-color: #24a159; }
-
 .float-consult .btn-consult-warning {
   background: #4495D2;
   border-bottom: 1px solid #3084BC; }
-
 .float-consult .btn-consult-warning:hover {
   background: #3084BC;
   border-color: #236DB6; }
-
 .float-consult .btn-consult-danger {
   background: #e83d2c;
   border-color: #d72c1b; }
-
 .float-consult .btn-consult-danger:hover {
   background: #d72c1b;
   border-color: #c61b0a; }
-
 .popover {
   position: absolute;
   top: 0;
@@ -502,20 +424,15 @@ form.cmxform form.cmxform .gray * {
   -o-transition: 300ms;
   -ms-transition: 300ms;
   transition: 300ms; }
-
 .popover.top {
   margin-top: -10px; }
-
 .popover.right {
   margin-left: 10px; }
-
 .popover.bottom {
   margin-top: 10px; }
-
 .popover.left {
   margin-left: -10px;
   left: -251px; }
-
 .popover-title {
   margin: 0;
   padding: 8px 14px;
@@ -523,10 +440,8 @@ form.cmxform form.cmxform .gray * {
   background-color: #f7f7f7;
   border-bottom: 1px solid #ebebeb;
   border-radius: 1px 1px 0 0; }
-
 .popover-content {
   padding: 9px 14px; }
-
 .popover > .arrow,
 .popover > .arrow:after {
   position: absolute;
@@ -535,14 +450,11 @@ form.cmxform form.cmxform .gray * {
   height: 0;
   border-color: transparent;
   border-style: solid; }
-
 .popover > .arrow {
   border-width: 11px; }
-
 .popover > .arrow:after {
   border-width: 10px;
   content: ""; }
-
 .popover.top > .arrow {
   left: 50%;
   margin-left: -11px;
@@ -550,14 +462,12 @@ form.cmxform form.cmxform .gray * {
   border-top-color: #999999;
   border-top-color: rgba(0, 0, 0, 0.25);
   bottom: -11px; }
-
 .popover.top > .arrow:after {
   content: " ";
   bottom: 1px;
   margin-left: -10px;
   border-bottom-width: 0;
   border-top-color: #ffffff; }
-
 .popover.right > .arrow {
   top: 50%;
   left: -11px;
@@ -565,14 +475,12 @@ form.cmxform form.cmxform .gray * {
   border-left-width: 0;
   border-right-color: #999999;
   border-right-color: rgba(0, 0, 0, 0.25); }
-
 .popover.right > .arrow:after {
   content: " ";
   left: 1px;
   bottom: -10px;
   border-left-width: 0;
   border-right-color: #ffffff; }
-
 .popover.bottom > .arrow {
   left: 50%;
   margin-left: -11px;
@@ -580,14 +488,12 @@ form.cmxform form.cmxform .gray * {
   border-bottom-color: #999999;
   border-bottom-color: rgba(0, 0, 0, 0.25);
   top: -11px; }
-
 .popover.bottom > .arrow:after {
   content: " ";
   top: 1px;
   margin-left: -10px;
   border-top-width: 0;
   border-bottom-color: #ffffff; }
-
 .popover.left > .arrow {
   top: 50%;
   right: -11px;
@@ -595,29 +501,22 @@ form.cmxform form.cmxform .gray * {
   border-right-width: 0;
   border-left-color: #999999;
   border-left-color: rgba(0, 0, 0, 0.25); }
-
 .popover.left > .arrow:after {
   content: " ";
   right: 1px;
   border-right-width: 0;
   border-left-color: #ffffff;
   bottom: -10px; }
-
 .float-consult-qq-btn .popover {
   top: -53px; }
-
 .float-consult-qqgroup-btn .popover {
   top: 10px; }
-
 .float-consult-phone-btn .popover {
   top: 35px; }
-
 .float-consult-weixin-btn .popover {
   top: 50px; }
-
 .btn-consult-warning:hover .popover {
   display: block; }
-
 /* 右侧客服 */
 /* top-banner */
 .top-banner{
@@ -629,8 +528,6 @@ form.cmxform form.cmxform .gray * {
   width:100%;
   max-width: 1920px;
 }
-
-
 /* 公告 */
 .top-notice {
   border-bottom: 1px solid #E4E4E4;
@@ -638,7 +535,6 @@ form.cmxform form.cmxform .gray * {
   color: #666;
   background: #F5F5F5;
 }
-
 .top-notice > .clearfix {
   width: 1040px;
   height: 60px;
@@ -646,48 +542,39 @@ form.cmxform form.cmxform .gray * {
   line-height: 24px;
   overflow: hidden;
   padding: 6px 0; }
-
 .top-notice .list li {
   width: 980px;
   height: 24px;
   overflow: hidden; }
-
 .top-notice-icon {
   width: 26px;
   height: 35px;
   background: url(../img/top-notice-icon.png) no-repeat;
   margin-right: 15px;
   margin-top: 5px; }
-
 /* header */
 .header {
   height: 155px;
   background: url(../img/header-bg.jpg) repeat-x;
   margin-bottom: 2px;
   border-top: 1px solid #fff; }
-
 .header-row1 {
   padding-top: 10px;
   padding-left: 45px;
   color: #333;
   font-size: 18px;
   height: 108px; }
-
 .header-row1 .logo img {
   height: 95px;
   display: block; }
-
 .nav {
   padding-top: 8px; }
-
 .nav li {
   float: left;
   margin: 0 35px;
   position: relative; }
-
 .nav li.active {
   background: #eee; }
-
 .nav li.active:before {
   content: '';
   position: absolute;
@@ -695,15 +582,12 @@ form.cmxform form.cmxform .gray * {
   height: 20px;
   width: 100%;
   background: #eee; }
-
 .nav li.active strong {
   background: url(../img/nav-item-bg.jpg) repeat-x;
   color: #fff;
   min-width: 73px; }
-
 .nav a {
   display: block; }
-
 .nav li strong {
   font-weight: normal;
   display: block;
@@ -712,7 +596,6 @@ form.cmxform form.cmxform .gray * {
   line-height: 40px;
   text-align: center;
   padding: 0 5px; }
-
 .nav-icon {
   display: block;
   width: 46px;
@@ -720,22 +603,16 @@ form.cmxform form.cmxform .gray * {
   background-image: url(../img/nav-icon.png);
   background-repeat: no-repeat;
   margin: 0 auto; }
-
 .nav1-icon {
   background-position: 0 0; }
-
 .nav2-icon {
   background-position: -50px 0; }
-
 .nav3-icon {
   background-position: -96px 0; }
-
 .nav4-icon {
   background-position: -141px 0; }
-
 .nav5-icon {
   background-position: -188px 0; }
-
 .header-row2 {
   color: #fff;
   line-height: 48px;
@@ -761,7 +638,6 @@ form.cmxform form.cmxform .gray * {
   color: #fff;
   line-height: 27px;
   position: relative; }
-
 .web-letter {
   position: absolute;
   top: 4px;
@@ -773,21 +649,23 @@ form.cmxform form.cmxform .gray * {
   text-align: center;
   line-height: 20px;
   border-radius: 50%; }
-
+.top-coupon{
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 10000;
+}
 /* section01 */
 .section01 {
   height: 627px; }
-
 .sec01-lf {
   position: relative;
   width: 888px; }
-
 .search {
   position: absolute;
   top: 0;
   left: 275px;
   width: 380px; }
-
 #search-direction a {
   float: left;
   font-size: 14px;
@@ -799,18 +677,15 @@ form.cmxform form.cmxform .gray * {
   border-radius: 5px;
   margin-right: 5px;
   text-align: center; }
-
 #search-direction .active {
   color: #fff;
   background: #368ED3; }
-
 .search-input {
   position: relative;
   border: 1px solid #2671B9;
   border-radius: 3px;
   height: 40px;
   background: #2487D3; }
-
 .search-txt {
   height: 38px;
   font-size: 12px;
@@ -821,7 +696,6 @@ form.cmxform form.cmxform .gray * {
   float: left;
   color:#fff;
   background: #2487D3; }
-
 .search-btn {
   float: right;
   height: 38px;
@@ -831,24 +705,20 @@ form.cmxform form.cmxform .gray * {
   color: #fff;
   background: #368ED3;
   cursor: pointer; }
-
 /* search end */
 .sec01-rf {
   width: 308px;
   position: relative;
   height: 627px; }
-
 .sec01-rf-top {
   background: url(../img/sec01-rf-top.jpg) repeat-x;
   height: 50px; }
-
 .sec01-rf-bt {
   background: url(../img/sec01-rf-bt.jpg) repeat-x;
   height: 50px;
   position: absolute;
   bottom: 0;
   width: 100%; }
-
 .sec01-rf .slick-prev, .sec01-rf .slick-next {
   top: auto;
   bottom: -38px;
@@ -856,29 +726,22 @@ form.cmxform form.cmxform .gray * {
   width: 30px;
   height: 16px;
   z-index: 1000; }
-
 .sec01-rf .slick-slide img {
   display: block;
   height: 175px;
   width: 100%; }
-
 .sec01-rf .slick-list {
   height: 525px !important; }
-
 .sec01-rf .slick-prev.no {
   background-position: -37px 0; }
-
 .sec01-rf .slick-prev {
   left: 80px;
   background-position: 0 -16px; }
-
 .sec01-rf .slick-next.no {
   background-position: -37px -16px; }
-
 .sec01-rf .slick-next {
   right: 60px;
   background-position: 0 0; }
-
 .sec02-title {
   height: 101px;
   background: url(../img/section02-title-bg.jpg);
@@ -887,7 +750,6 @@ form.cmxform form.cmxform .gray * {
   font-size: 34px;
   line-height: 110px;
   color: #fff; }
-
 .course-list {
   background: #2671B9;
   padding: 25px 0; }
@@ -905,23 +767,19 @@ form.cmxform form.cmxform .gray * {
   width: 365px;
   float: left;
   margin: 25px 17px;}
-
 .course-list>li>a {
   position: relative;
   height: 210px;
   overflow: hidden;
   display: block; }
-
 .course-list>li>a:hover span {
   opacity: 1; }
-
 .course-list li a:hover img {
   -webkit-transform: scale(1.1, 1.1);
   -moz-transform: scale(1.1, 1.1);
   -ms-transform: scale(1.1, 1.1);
   -o-transform: scale(1.1, 1.1);
   transform: scale(1.1, 1.1); }
-
 .course-list>li>a>img {
   width: 100%;
   height: 100%;
@@ -930,7 +788,6 @@ form.cmxform form.cmxform .gray * {
   -moz-transition: 300ms;
   -o-transition: 300ms;
   transition: 300ms; }
-
 .course-list li a span {
   position: absolute;
   bottom: 0;
@@ -947,7 +804,6 @@ form.cmxform form.cmxform .gray * {
   -moz-transition: 300ms;
   -o-transition: 300ms;
   transition: 300ms; }
-
 .course-all {
   display: block;
   width: 100%;
@@ -970,20 +826,16 @@ form.cmxform form.cmxform .gray * {
 /* section03 */
 .sec03-top-item {
   display: none; }
-
 .sec03-top-item.active {
   display: block; }
-
 .sec03-title {
   height: 67px;
   background: url(../img/sec03-title.jpg);
   padding: 18px 30px; }
-
 .sec03-rank {
   height: 208px;
   background: url(../img/sec03-bg.jpg) repeat-x;
   overflow: auto; }
-
 .sec03-table {
   width: 900px;
   margin: 0 auto;
@@ -998,31 +850,23 @@ form.cmxform form.cmxform .gray * {
   text-align: center;
   font-size: 18px;
   width: 20%; }
-
 .sec03-table .th1 {
   width: 150px; }
-
 .sec03-table .th2 {
   width: 170px; }
-
 .sec03-table .th3 {
   width: 285px; }
-
 .sec03-table .th4 {
   width: 110px; }
-
 .sec03-table .th5 {
   width: 110px; }
-
 .sec03-table tr {
   height: 46px;
   word-break: break-all; }
-
 .sec03-table td, .sec03-table th {
   border-bottom: 1px solid #2671B9;
   border-right: 1px solid #2671B9;
   padding: 10px; }
-
 .sec03-rank-icon {
   width: 94px;
   height: 31px;
@@ -1030,46 +874,35 @@ form.cmxform form.cmxform .gray * {
   display: block;
   margin: 0 auto;
   background: transparent; }
-
 .sec03-rank1, .sec03-rank2, .sec03-rank3 {
   background-image: url(../img/sec03-rank-icon.png);
   background-repeat: no-repeat;
   text-indent: -99999px; }
-
 .sec03-rank1 {
   background-position: 0 0; }
-
 .sec03-rank2 {
   background-position: 0 -32px; }
-
 .sec03-rank3 {
   background-position: 0 -64px; }
-
 .sec03-platform {
   padding: 12px 20px 0; }
-
 .sec03-platform li {
   float: left;
   margin: 0 8px 10px;
   box-shadow: 5px 5px 10px #2671B9; }
-
 .sec03-platform img {
   display: block; }
-
 .sec03-bt {
   height: 237px;
   background: url(../img/sec03-bt-bg.jpg) no-repeat center bottom;
   padding: 50px 50px 0; }
-
 .sec03-bt .item, .sec03-bt .item-last {
   float: left;
   width: 25%;
   position: relative;
   overflow: hidden; }
-
 .sec03-bt .item.active {
   overflow: visible; }
-
 .sec03-bt .item:before {
   content: '';
   position: absolute;
@@ -1079,29 +912,24 @@ form.cmxform form.cmxform .gray * {
   top: -50px;
   left: 110px;
   display: block; }
-
 .sec03-bt .item a, .sec03-bt .item-last a {
   display: block;
   width: 145px;
   margin: 0 auto;
   text-align: center;
   background: #fff; }
-
 .sec03-bt .item .title, .sec03-bt .item-last .title {
   line-height: 42px;
   font-size: 16px; }
-
 /*Customize Scrollbar Appearance in Chrome */
 .section03 ::-webkit-scrollbar {
   width: 10px;
   height: 10px; }
-
 .section03 ::-webkit-scrollbar-thumb:vertical {
   height: 50px;
   background-color: #41B9FF;
   border: 1px solid #41B9FF;
   -webkit-border-radius: 6px; }
-
 /* footer */
 .footer {
   background: #4e9bd5;
@@ -1110,40 +938,30 @@ form.cmxform form.cmxform .gray * {
   padding: 20px 125px 20px 136px;
   color: #fff;
   font-size: 14px; }
-
 .footer a {
   color: #fff; }
-
 .copyright {
   font-size: 12px;
   text-align: center;
   line-height: 25px; }
-
 .footer > .lf {
   width: 760px; }
-
 .f-line {
   background: url(../img/f-line.png) no-repeat center center;
   width: 100%;
   height: 2px;
   margin: 20px 0 8px; }
-
 .f-nav {
   text-align: center;
   line-height: 35px; }
-
 .f-nav a {
   margin: 0 10px; }
-
 .f-links {
   padding: 10px 0 0; }
-
 .f-links a {
   margin: 0 5px; }
-
 .f-link {
   width: 685px; }
-
 /* 个人设置页面 */
 .section-panel {
   margin-top: 20px;
@@ -1156,14 +974,12 @@ form.cmxform form.cmxform .gray * {
   font-size: 20px;
   line-height: 56px;
   border-bottom: 1px solid #d4d4d4; }
-
 .panel-heading a {
   float: left;
   display: block;
   padding: 0 24px;
   position: relative;
   color: #555; }
-
 .panel-heading a.active,.header-tag .li-tag.active>a{
   border-bottom: 2px solid #4E9BD5;
   color: #4E9BD5; }
@@ -1184,7 +1000,8 @@ form.cmxform form.cmxform .gray * {
 .header-tag-sub.active{display: block;}
 /*.header-tag-sub li{float:left;}*/
 .header-tag{position: relative;}
-.header-tag .active a{color: #4E9BD5;}
+/*.header-tag .active a{color: #4E9BD5;}*/
+.header-tag li a.active{color: #4E9BD5;}
 .panel-heading a.active:after,.header-tag .li-tag.active>a:after{
   content: '';
   display: block;
@@ -1198,7 +1015,6 @@ form.cmxform form.cmxform .gray * {
   border-right: solid 5px transparent;
   border-left: solid 5px transparent;
   margin-left: -5px; }
-
 .panel-body {
   border-top: 1px solid #fff;
   font-size: 18px; }
@@ -1231,29 +1047,22 @@ form.cmxform form.cmxform .gray * {
   line-height: 50px;
   color: #a4a4a4;
   padding-left: 20px; }
-
 .panel-crumbs > a {
   color: #a4a4a4; }
-
 .panel-title {
   text-align: center;
   font-size: 20px;
   line-height: 120px; }
-
 .w600 {
   width: 600px;
   margin: 0 auto; }
-
 .row:before, .row:after, .form-group:before, .form-group:after {
   display: table;
   content: " "; }
-
 .row:after, .form-group:after {
   clear: both; }
-
 .row {
   *zoom: 1; }
-
 .form-group {
   *zoom: 1;
   margin-bottom: 20px; }
@@ -1266,7 +1075,6 @@ form.cmxform form.cmxform .gray * {
   padding-right: 15px;
   line-height: 36px;
   width: 125px; }
-
 .form-controls {
   float: left;
   position:relative;
@@ -1318,7 +1126,6 @@ form.cmxform form.cmxform .gray * {
 }
 .required {
   position: relative; }
-
 .required:after {
   content: '*';
   position: absolute;
@@ -1326,25 +1133,19 @@ form.cmxform form.cmxform .gray * {
   right: -18px;
   font-size: 22px;
   color: #C50606; }
-
 .form-textarea {
   width: 100%;
   padding: 2px 10px; }
-
 #form-radio label {
   margin-right: 20px; }
-
 .form-hint {
   font-size: 14px;
   line-height: 28px;
   color: #a4a4a4; }
-
 .form-controls a {
   color: #4E9BD5; }
-
 .form-submit {
   margin-left: 100px; }
-
 .button-submit {
   background: #188eee;
   display: block;
@@ -1361,43 +1162,33 @@ form.cmxform form.cmxform .gray * {
 .safety-setting {
   font-size: 14px;
   line-height: 40px; }
-
 .safety-setting .row {
   margin-bottom: 30px; }
-
 .safety-icon {
   background-image: url(../img/safety-icon.png);
   background-repeat: no-repeat;
   width: 39px;
   height: 40px;
   float: left; }
-
 .safety-icon.qq {
   background-position: 0 0; }
-
 .safety-icon.weixin {
   background-position: 0 -40px; }
-
 .safety-icon.password {
   background-position: 0 -80px; }
-
 .safety-icon.phone {
   background-position: 0 -120px; }
-
 .safety-setting .set-name {
   float: left;
   margin-left: 20px;
   color: #555; }
-
 .safety-setting .set-info {
   margin-left: 60px;
   float: left;
   color: #a4a4a4;
   width: 330px; }
-
 .safety-setting .row:last-child .set-info {
   line-height: 20px; }
-
 .safety-setting .rf {
   padding: 0 12px;
   background: #4E9BD5;
@@ -1406,7 +1197,6 @@ form.cmxform form.cmxform .gray * {
   line-height: 34px;
   margin-top: 7px;
   cursor: pointer; }
-
 /* 我的教学 */
 .panel-heading .mydatum-btn {
   float: right;
@@ -1416,7 +1206,6 @@ form.cmxform form.cmxform .gray * {
   line-height: 44px;
   margin-top: 6px;
   letter-spacing: 5px; }
-
 .panel-body-course {
   margin-top: 25px;
   margin-bottom: 5px;
@@ -1429,10 +1218,8 @@ form.cmxform form.cmxform .gray * {
   border-bottom: 1px solid #d4d4d4;
   line-height: 38px;
   font-size: 16px; }
-
 .select-type > .lf {
   position: relative; }
-
 .handle-icon {
   display: block;
   padding: 0 12px 0 40px;
@@ -1440,8 +1227,12 @@ form.cmxform form.cmxform .gray * {
 .handle-txt{padding-left:15px;}
 .handle-icon.triangle {
   padding: 0 45px 0 32px;
-  border-right: 1px solid #d4d4d4; }
-
+  border-right: 1px solid #d4d4d4;
+  min-width: 142px;
+  max-width: 200px;
+  height: 38px;
+  overflow: hidden;
+}
 .handle-icon:before {
   content: '';
   position: absolute;
@@ -1452,7 +1243,6 @@ form.cmxform form.cmxform .gray * {
   height: 7px;
   top: 15px;
   right: 15px; }
-
 .handle-icon.delete,.handle-icon.edit,.handle-icon.batch,.handle-icon.add{
   border-left: 1px solid #d4d4d4; }
 .handle-icon.batch{padding-left:15px;}
@@ -1462,7 +1252,6 @@ form.cmxform form.cmxform .gray * {
   height: 16px;
   left: 15px;
   top: 11px; }
-
 .handle-icon.edit:before {
   background-position: -12px 0;
   width: 20px;
@@ -1484,7 +1273,6 @@ form.cmxform form.cmxform .gray * {
   height: 34px;
   top: 7px;
   left: 60px; }
-
 .handle-icon.right-arrows:before {
   background-position: -62px -24px; }
 .handle-icon.right-arrows.active:before {
@@ -1524,11 +1312,13 @@ form.cmxform form.cmxform .gray * {
   left: 16px;
   top: 10px;
 }
+.ajax-paging{
+  display: none;
+}
 .ajax-paging .clearfix {
   padding: 20px 0;
   width: 400px;
   margin: 0 auto; }
-
 #paging-prev, #paging-next {
   display: block;
   float: left;
@@ -1536,7 +1326,6 @@ form.cmxform form.cmxform .gray * {
   margin: 0 35px;
   height: 48px;
   background: #4E9BD5; }
-
 .select-items {
   position: absolute;
   background: #F6F5F5;
@@ -1550,50 +1339,37 @@ form.cmxform form.cmxform .gray * {
   max-height: 150px;
   overflow: auto;
   display: none; }
-
 .select-items.active {
   display: block; }
-
 .select-items a {
   display: block; }
-
 .table-course {
   width: 100%;
   text-align: center;
   color: #666;
   font-size: 16px;
   border-bottom: 1px solid #d4d4d4; }
-
 .table-course th {
   text-align: center;
   font-size: 18px;
   width: 20%;
   color: #333; }
-
 .table-course img {
   max-width: 100%; }
-
 .table-course .th1 {
   width: 8%; }
-
 .table-course .th2 {
   width: 19%; }
-
 .table-course .th3 {
   width: 17%; }
-
 .table-course .th4 {
   width: 10%; }
-
 .table-course .th5 {
   width: 10%; }
-
 .table-course .th6 {
   width: 10%; }
-
 .table-course .th7 {
   width: 14%; }
-
 .table-course .th8 {
   width: 12%; }
 .table-course.hour .td2{
@@ -1642,15 +1418,12 @@ form.cmxform form.cmxform .gray * {
 .table-course tr {
   height: 46px;
   word-break: break-all; }
-
 .table-course td, .table-course th {
   border-bottom: 1px solid #d4d4d4;
   border-right: 1px solid #d4d4d4;
   padding: 10px; }
-
 .table-course td:last-child, .table-course th:last-child {
   border-right: 0; }
-
 input[name="selected"], #controlAll {
   width: 20px;
   height: 20px;
@@ -1677,7 +1450,6 @@ input[name="selected"], #controlAll {
 }
 .table-course a {
   color: #4E9BD5; }
-
 .handle a {
   display: block;
   margin: 3px 0; }
@@ -1692,7 +1464,6 @@ input[name="selected"], #controlAll {
 .course-list.study-course {
   background: #F6F5F5;
   padding: 25px; }
-
 .course-list.study-course li {
   width: 334px;
   position: relative;
@@ -1720,7 +1491,6 @@ input[name="selected"], #controlAll {
   line-height: 30px;
   padding: 0 12px;
 }
-
 /*直播课程列表*/
 .course-list.direct-course{
   padding: 10px 8px;
@@ -1789,7 +1559,7 @@ input[name="selected"], #controlAll {
 }
 /*讲师列表*/
 .lecture-list{
-  padding: 10px 8px;
+  padding: 10px 8px 60px;
   background: #F6F5F5;
   font-size: 16px;
 }
@@ -1860,7 +1630,6 @@ input[name="selected"], #controlAll {
   background: #217BBF;
   color:#fff;
 }*/
-
 /*课时管理*/
 /*面包屑*/
 .crumbs{

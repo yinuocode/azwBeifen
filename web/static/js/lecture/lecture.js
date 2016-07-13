@@ -5,7 +5,7 @@ define(function(require,exports,module){
   var galleriffic=require('galleriffic');
   require('uploadify');
   // 定义变量
-  var $body=$("body"),
+  var $body=$('body'),
       $jTarget=$('#Jtarget'),
       $palette=$('#palette');
   // 实现弹窗效果通用代码 poput.js
@@ -27,6 +27,10 @@ define(function(require,exports,module){
     $body.removeClass('Jonbody');
     $jTarget.hide();
   }
+  // 关闭弹窗
+  $('body').on('click','.popup-close,.p-close',function(){
+    $('.popup').addClass('hide');
+  });
   // 画板
   $('.palette-con').click(function(){
     $palette.fadeIn();

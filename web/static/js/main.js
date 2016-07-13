@@ -5,6 +5,10 @@ define(function(require,exports,module){
   // 配置js 图片上传路径变量
   main.imgPath='http://image.agodpig.com';
   main.videoPath='http://video.agodpig.com';
+  // 页数默认1
+  main.pageVal=1;
+  // 每页显示数量默认9
+  main.count=9;
   // ajax 取数据
   main.getAjaxDatas=function(_url,fSuccess){
     $.ajax({
@@ -21,7 +25,6 @@ define(function(require,exports,module){
   };
   // ajax post 方法
   main.postAjaxDatas=function(_url,_datas,fSuccess){
-    console.log(_datas);
     $.ajax({
       type:'post',
       url:_url,
@@ -32,6 +35,25 @@ define(function(require,exports,module){
       },
       error: function(xml,err){
         console.log(err);
+      }
+    });
+  };
+  // 分页数据
+  main.runPostAjaxDatas=function(){};
+  // 分页
+  main.paging=function(obj){
+    $('.panel-body').on('click','#paging-prev',function(){
+      if(main.pageVal>1){
+        $(this).addClass('active').siblings().removeClass('active');
+        main.pageVal--;
+        main.runPostAjaxDatas();
+      }
+    });
+    $('.panel-body').on('click','#paging-next',function(){
+      if($(obj).length==main.count){
+        $(this).addClass('active').siblings().removeClass('active');
+        main.pageVal++;
+        main.runPostAjaxDatas();
       }
     });
   };
@@ -58,6 +80,17 @@ define(function(require,exports,module){
   main.getAjaxDatas('/index/service',function(datas){
     var floatConsult = template('floatConsult',datas);
     $('#float-consult').html(floatConsult);
+  });
+  // 领取优惠卷
+  $('#top-right').on('click','#get-coupon',function(){
+    // main.getAjaxDatas('/index/service',function(datas){
+      $('.top-coupon').remove();
+      $('#get-coupon-popup').removeClass('hide');
+    // });
+  });
+  // 关闭弹窗
+  $('body').on('click','.popup-close,.p-close',function(){
+    $('.popup').addClass('hide');
   });
   // 神猪飞天
   var toTop=$('#toTop');

@@ -2,16 +2,24 @@ define(function(require,exports,module){
   // 引入主要模块模块
   var main = require('main');
   // 分页
-  var pageVal=1;
+  // var pageVal=1;
+  main.count=13;
   var groupId='';
   // 按条件查找
-  function runPostAjaxDatas(){
-    main.postAjaxDatas('/coures/student-manage',{group_id:groupId,page:pageVal},function(datas){
-      console.log(datas);
+  main.runPostAjaxDatas=function(){
+    main.postAjaxDatas('/coures/student-manage',{group_id:groupId,page:main.pageVal},function(datas){
       var studentList = template('studentList',{list:datas});
       $('#student-list').html(studentList);
+      // 是否显示分页
+      if(main.pageVal==1){
+        if(datas.length<main.count-1){
+          $('.ajax-paging').hide();
+        }else{
+          $('.ajax-paging').show();
+        }
+      }
     });
-  }
+  };
   // 课程小组名称
   function runGetAjaxGroup(){
     main.getAjaxDatas('/coures/get-group',function(datas){
@@ -22,7 +30,7 @@ define(function(require,exports,module){
   }
   // 初始化
   runGetAjaxGroup();
-  runPostAjaxDatas();
+  main.runPostAjaxDatas();
   // 下拉菜单
   $('.handle-icon.triangle').on('click',function(){
     $(this).parent().siblings().find('.select-items').removeClass('active');
@@ -37,7 +45,7 @@ define(function(require,exports,module){
     _this.parent().parent().prev().html(_this.html());
     $('.select-items').removeClass('active');
     // 执行查找
-    runPostAjaxDatas();
+    main.runPostAjaxDatas();
   });
   // 选择操作目标
   $('.table-course').on('click','#controlAll',function(){
@@ -54,20 +62,7 @@ define(function(require,exports,module){
     }
   });
   // 分页
-  $('#paging-prev').on('click',function(){
-    if(pageVal>1){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal--;
-      runPostAjaxDatas();
-    }
-  });
-  $('#paging-next').on('click',function(){
-    if($('#table-course-list tr').length==13){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal++;
-      runPostAjaxDatas();
-    }
-  });
+  main.paging('#student-list tr');
   // 删除组
   $('#delete-group').on('click',function(){
     if(groupId){
@@ -76,7 +71,7 @@ define(function(require,exports,module){
           console.log(datas);
           // 局部刷新
           runGetAjaxGroup();
-          runPostAjaxDatas();
+          main.runPostAjaxDatas();
         });
       }
     }else{
@@ -97,7 +92,7 @@ define(function(require,exports,module){
             console.log(datas);
             // 局部刷新
             runGetAjaxGroup();
-            runPostAjaxDatas();
+            main.runPostAjaxDatas();
           });
         }
       }else{
@@ -139,7 +134,7 @@ define(function(require,exports,module){
             $('.popup').addClass('hide');
             // 局部刷新
             runGetAjaxGroup();
-            runPostAjaxDatas();
+            main.runPostAjaxDatas();
           }else{
             alert(data.msg);
           }
@@ -163,7 +158,7 @@ define(function(require,exports,module){
             alert('添加成功');
             $('.popup').addClass('hide');
             // 局部刷新
-            runPostAjaxDatas();
+            main.runPostAjaxDatas();
           }else{
             alert(data.msg);
           }
