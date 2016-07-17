@@ -1,49 +1,154 @@
-@charset "UTF-8";
-a {
-  color: #010101; }
-
-a:hover {
-  color: #a00001; }
-
-textarea:focus, input:focus {
-  border-color: rgba(82, 168, 236, 0.8);
-  outline: 0;
-  outline: thin dotted \9;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6); }
-
-[class*='container'] {
-  width: 1200px;
+/* top-banner */
+.top-banner{
+  max-height:150px;
+  overflow: hidden;
+}
+.top-banner img{
+  max-height:150px;
+  width:100%;
+  max-width: 1920px;
+}
+/* 公告 */
+.top-notice {
+  border-bottom: 1px solid #E4E4E4;
+  height:61px;
+  color: #666;
+  background: #F5F5F5;
+}
+.top-notice > .clearfix {
+  width: 1040px;
+  height: 60px;
   margin: 0 auto;
+  line-height: 24px;
+  overflow: hidden;
+  padding: 6px 0; }
+.top-notice .list li {
+  width: 980px;
+  height: 24px;
   overflow: hidden; }
-
-i {
-  font-style: normal; }
-
-body {
-  color: #010101;
-  font-size: 12px;
-  background: #fff; }
-
-/*头部*/
-.header {
-  height: 80px;
-  padding-top: 30px;
+.top-notice-icon {
+  width: 26px;
+  height: 35px;
+  background: url(../img/top-notice-icon.png) no-repeat;
+  margin-right: 15px;
+  margin-top: 5px; }
+/* section01 */
+.section01 {
+  height: 627px; }
+.sec01-lf {
+  position: relative;
+  width: 888px; }
+.search {
+  position: absolute;
+  top: 0;
+  left: 275px;
+  width: 380px; }
+#search-direction a {
+  float: left;
   font-size: 14px;
-  color: #010101;
-  line-height: 24px; }
-
-.header li:last-child {
-  color: green; }
-
-article {
-  width: 200px; }
-
-/*ie7*/
-.lt-ie8 .slick-dots {
-  height: 20px;
-  width: 350px;
-  left: 40%;
+  padding: 1px 4px;
+  color: #fff;
+  width: 40px;
+  height: 32px;
+  line-height: 30px;
+  border-radius: 5px;
+  margin-right: 5px;
+  text-align: center; }
+#search-direction .active {
+  color: #fff;
+  background: #368ED3; }
+/* search end */
+.sec01-rf {
+  width: 308px;
+  position: relative;
+  height: 627px; }
+.sec01-rf-top {
+  background: url(../img/sec01-rf-top.jpg) repeat-x;
+  height: 50px; }
+.sec01-rf-bt {
+  background: url(../img/sec01-rf-bt.jpg) repeat-x;
+  height: 50px;
+  position: absolute;
+  bottom: 0;
+  width: 100%; }
+.sec01-rf .slick-prev, .sec01-rf .slick-next {
+  top: auto;
+  bottom: -38px;
+  background: url(../img/section02-side-icon.png) no-repeat;
+  width: 30px;
+  height: 16px;
+  z-index: 1000; }
+.sec01-rf .slick-slide img {
+  display: block;
+  height: 175px;
+  width: 100%; }
+.sec01-rf .slick-list {
+  height: 525px !important; }
+.sec01-rf .slick-prev.no {
+  background-position: -37px 0; }
+.sec01-rf .slick-prev {
+  left: 80px;
+  background-position: 0 -16px; }
+.sec01-rf .slick-next.no {
+  background-position: -37px -16px; }
+.sec01-rf .slick-next {
+  right: 60px;
+  background-position: 0 0; }
+.sec02-title {
+  height: 101px;
+  background: url(../img/section02-title-bg.jpg);
+  text-align: center;
+  text-indent: 1.5em;
+  font-size: 34px;
+  line-height: 110px;
+  color: #fff; }
+.course-all {
+  display: block;
+  width: 100%;
+  height: 36px;
+  color: #fff;
+  background: #0E60AE;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  line-height: 36px;
+  border: none; }
+/* section03-bt */
+.sec03-bt {
+  height: 237px;
+  background: url(../img/sec03-bt-bg.jpg) no-repeat center bottom;
+  padding: 50px 50px 0; }
+.sec03-bt .item, .sec03-bt .item-last {
+  float: left;
+  width: 25%;
+  position: relative;
   overflow: hidden; }
-
-.lt-ie8 .slick-dots li {
-  float: left; }
+.sec03-bt .item.active {
+  overflow: visible; }
+.sec03-bt .item:before {
+  content: '';
+  position: absolute;
+  width: 54px;
+  height: 32px;
+  background: url(../img/sec03-rank-icon.png) no-repeat -20px -96px;
+  top: -50px;
+  left: 110px;
+  display: block; }
+.sec03-bt .item a, .sec03-bt .item-last a {
+  display: block;
+  width: 145px;
+  margin: 0 auto;
+  text-align: center;
+  background: #fff; }
+.sec03-bt .item .title, .sec03-bt .item-last .title {
+  line-height: 42px;
+  font-size: 16px; }
+/*Customize Scrollbar Appearance in Chrome */
+.section03 ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px; }
+.section03 ::-webkit-scrollbar-thumb:vertical {
+  height: 50px;
+  background-color: #41B9FF;
+  border: 1px solid #41B9FF;
+  -webkit-border-radius: 6px; }

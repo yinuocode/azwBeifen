@@ -1,61 +1,6 @@
 <!-- header -->
 <?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
 <!-- header end -->
-<style>
-  .letter-list{
-    padding:10px 0;
-  }
-  .letter-list>li{
-    padding:10px 35px;
-    border-bottom:1px solid #d4d4d4;
-  }
-  .letter-list>li:last-child{
-    border-bottom:0;
-  }
-  .letter-list>li>.clearfix>.lf{
-    margin-right:15px;
-    text-align: left;
-    line-height: 26px;
-  }
-  .letter-list .avatar{
-    display: block;
-    border-radius: 50%;
-    width:80px;
-    height:80px;
-  }
-  .letter-list>li>.clearfix>.rf{
-    position: relative;
-  }
-  .letter-list>li>.clearfix>.rf a{
-    display: block;
-    line-height: 35px;
-  }
-  .letter-list>li>.clearfix>.rf .delete-letter.hide{
-    position: absolute;
-    bottom:0;
-    left:-60px;
-    display: none;
-  }
-  .letter-list>li:hover .delete-letter.hide{
-    display: block !important;
-  }
-  .letter-list .name{
-    color:#969696;
-  }
-  .letter-list .name.hot{
-    color: #4E9BD5
-  }
-  .letter-list .date{
-    color:#969696;
-    font-size: 12px;
-  }
-  .letter-content{
-    padding:10px 30px;
-    text-align: left;
-    text-indent: 2em;
-    display: none;
-  }
-</style>
   <section class="section-panel">
     <header class="panel-heading clearfix">
       <a href="/coures/teaching" class="active">站内信</a>
@@ -128,11 +73,11 @@
           </ul>
         </script>
         </div>
-        <div class="ajax-paging">
-          <div class="clearfix">
-            <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
-            <a href="javascript:;" id="paging-next" class="handle-icon right-arrows active"></a>
-          </div>
+      </div>
+      <div class="ajax-paging">
+        <div class="clearfix">
+          <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
+          <a href="javascript:;" id="paging-next" class="handle-icon right-arrows active"></a>
         </div>
       </div>
     </div>

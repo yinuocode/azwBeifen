@@ -1,0 +1,151 @@
+<!-- header -->
+<?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
+<!-- header end -->
+  <section class="section-panel">
+    <header class="panel-heading clearfix">
+      <a href="/personage/setbase">基础信息</a>
+      <a href="/personage/setsafety">安全设置</a>
+      <a href="/personage/setlecturer" id="apply-lecturer-btn">讲师申请</a>
+      <a href="/personage/settled" class="active">公司入驻申请</a>
+    </header>
+    <div class="panel-body hide" id="panel-body-state3">
+      <h2 class="panel-title">公司入驻申请</h2>
+      <form id="lecturer-form" class="w600 cmxform" method="post">
+        <div class="form-group">
+          <label class="control-label" for="profile-truename">公司名称</label>
+          <div class="form-controls required">
+            <input type="text" id="profile-truename" name="AuditFirm[firm_name]" class="form-input" value="" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="profile-truename">法人姓名</label>
+          <div class="form-controls required">
+            <input type="text" id="profile-truename" name="AuditFirm[legal_name]" class="form-input" value="" required maxlength="30">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="profile-idcard">身份证号</label>
+          <div class="form-controls required">
+            <input type="text" id="profile-idcard" name="AuditFirm[legal_card]" class="form-input" value="" required isIdCardNo="true">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="control-label">上传半身照</div>
+          <div class="form-controls required">
+            <div class="uploader-img">
+              <div class="fileList" class="uploader-list"><img class="imghead" src="/static/img/default-hanmi.jpg"></div>
+              <div class="filePicker" class="choose_img" data-index="0">选择图片</div>
+              <input type="text" name="AuditFirm[whole_image]" class="img-path" required value="">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="control-label">身份证正面照</div>
+          <div class="form-controls required">
+            <div class="uploader-img">
+              <div class="fileList" class="uploader-list"><img class="imghead" src="/static/img/default-front.jpg"></div>
+              <div class="filePicker" class="choose_img" data-index="1">选择图片</div>
+              <input type="text" name="AuditFirm[positive_image]" class="img-path" required value="">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="control-label">身份证反面照</div>
+          <div class="form-controls required">
+            <div class="uploader-img">
+              <div class="fileList" class="uploader-list"><img class="imghead" src="/static/img/default-reverse.jpg"></div>
+              <div class="filePicker" class="choose_img" data-index="2">选择图片</div>
+              <input type="text" name="AuditFirm[reverse_image]" class="img-path" required value="">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="control-label">营业执照</div>
+          <div class="form-controls required">
+            <div class="uploader-img">
+              <div class="fileList" class="uploader-list"><img class="imghead" src="/static/img/default-license.jpg"></div>
+              <div class="filePicker" class="choose_img" data-index="3">选择图片</div>
+              <input type="text" name="AuditFirm[business_image]" class="img-path" required value="">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="control-label">公司品牌</div>
+          <div class="form-controls required">
+            <div class="uploader-img">
+              <div class="fileList" class="uploader-list"><img class="imghead" src="/static/img/default-firm-logo.jpg"></div>
+              <div class="filePicker" class="choose_img" data-index="4">选择图片</div>
+              <input type="text" name="AuditFirm[firm_logo]" class="img-path" required value="">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label">主营业务</label>
+          <div class="form-controls required">
+            <input type="text" class="form-input" value="" name="AuditFirm[main_business]" required maxlength="30">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label">讲师数量</label>
+          <div class="form-controls required">
+            <input type="text" class="form-input" value="" name="AuditFirm[lecturer_number]" required number="true">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label">公司简介</label>
+          <div class="form-controls required">
+            <textarea name="AuditFirm[firm_brief]" rows="4" id="form-richtext" class="form-textarea" required></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label">公司地址</label>
+          <div class="form-controls required">
+            <input type="text" class="form-input" value="" name="AuditFirm[firm_address]" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="profile-mobile" class="control-label">手机号码</label>
+          <div class="form-controls required">
+            <input type="text" id="profile-mobile" class="form-input" value="" name="AuditFirm[firm_phone]" required isMobile="true">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label">邮箱</label>
+          <div class="form-controls required">
+            <input type="text" class="form-input" value="" required name="AuditFirm[firm_email]" email="true">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-submit">
+            <button type="submit" class="button-submit">提交</button>
+          </div>
+        </div>
+        <input type="hidden" name="form-data" value ="#lecturer-form"/>
+        <input type="hidden" name="_url" value ="/personage/conpany-apply"/>
+      </form>
+    </div>
+    <div class="panel-body hide" id="panel-body-state0">
+      <div class="panel-body-state-title"><span>正在审核中，请耐心等待。。。</span></div>
+    </div>
+    <div class="panel-body hide" id="panel-body-state1">
+      <div class="panel-body-state-title"><span>恭喜，审核已经通过！</span></div>
+      <a href="/personage/addlecturer" class="btn apply-pass-btn">添加讲师</a>
+    </div>
+    <div class="panel-body hide" id="panel-body-state2">
+      <div class="panel-body-state-title"><span>审核失败：<strong id="defeated-cause"></strong></span></div>
+      <a href="javascript:;" class="btn apply-pass-btn" id="anew-apply">重新申请</a>
+    </div>
+  </section>
+  <!-- main end -->
+  <!-- footer -->
+  <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
+  <!-- footer end -->
+  <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
+  <script src="/static/js/plugins/validate/messages_zh.js"></script>
+  <script src="/static/js/plugins/kindeditor/kindeditor-min.js?v=2"></script>
+  <script src="/static/js/plugins/webupload/webuploader.js"></script>
+  <script>
+    seajs.use('/static/js/setting/settled.js');
+  </script>
+</body>
+</html>

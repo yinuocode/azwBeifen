@@ -20,6 +20,7 @@
               <li><a href="javascript:;" data-arg="liveCoures" id="live-pitch">直播课程</a></li>
               <li><a href="javascript:;" data-arg="coures">录播课程</a></li>
               <li><a href="javascript:;" data-arg="assis">助播课程</a></li>
+              <li><a href="javascript:;" data-arg="">全部课程</a></li>
             </ul>
           </div>
           <div class="lf">
@@ -55,6 +56,7 @@
               <th class="th7">创建时间</th>
               <th class="th8">操作</th>
             </tr>
+            {{if list.length>0}}
             {{each list as value i}}
             <tr>
             {{if value.type==1}}
@@ -111,14 +113,19 @@
             {{/if}}
             </tr>
             {{/each}}
+            {{else}}
+            <tr>
+              <td colspan="7" class="no-data">暂无课程</td>
+            </tr>
+            {{/if}}
           </tbody>
         </script>
         </table>
-        <div class="ajax-paging">
-          <div class="clearfix">
-            <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
-            <a href="javascript:;" id="paging-next" class="handle-icon right-arrows active"></a>
-          </div>
+      </div>
+      <div class="ajax-paging">
+        <div class="clearfix">
+          <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
+          <a href="javascript:;" id="paging-next" class="handle-icon right-arrows active"></a>
         </div>
       </div>
     </div>
@@ -132,6 +139,22 @@
       </div>
       <div class="popup-body">
         <form method="post" id="sub-teaching" class="popup-form cmxform">
+          <div class="form-group">
+            <label class="control-label">现有助教</label>
+            <div class="form-controls clearfix" id="now-sub-steacher">
+              <script id="nowSubSteacher" type="text/html">
+              {{if list.length>0}}
+              {{each list as value i}}
+                <div class="icon-tag">{{value.user_id}}
+                  <a href="javascript:;" class="icon-btn-x delete-sub-s" data-aid="{{value.assistant_id}}">×</a>
+                </div>
+              {{/each}}
+              {{else}}
+              <div class="icon-tag">暂未添加助教</div>
+              {{/if}}
+              </script>
+            </div>
+          </div>
           <div class="form-group">
             <label class="control-label">助教id</label>
             <div class="form-controls">
@@ -158,6 +181,22 @@
       </div>
       <div class="popup-body">
         <form method="post" id="sub-service" class="popup-form cmxform">
+          <div class="form-group">
+            <label class="control-label">现有客服</label>
+            <div class="form-controls clearfix" id="now-service">
+              <script id="nowService" type="text/html">
+              {{if list.length>0}}
+              {{each list as value i}}
+                <div class="icon-tag">{{value.user_id}}
+                  <a href="javascript:;" class="icon-btn-x delete-service" data-aid="{{value.id}}">×</a>
+                </div>
+              {{/each}}
+              {{else}}
+              <div class="icon-tag">暂未添加客服</div>
+              {{/if}}
+              </script>
+            </div>
+          </div>
           <div class="form-group">
             <label class="control-label">客服id</label>
             <div class="form-controls">

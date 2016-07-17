@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="/static/css/rely/reset.css">
   <link rel="stylesheet" href="/static/js/plugins/slick/slick.css">
   <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/style.css">
   <!-- 让低版本ie浏览器更好的兼容 -->
   <!--[if lt IE 7]>
     <script>
@@ -169,9 +170,13 @@
       <div class="sec01-rf-top"></div>
       <div class="slider sec01-rf-side" id="sec01-side">
         <script id="sec01Side" type="text/html">
+          {{if list.length>0}}
           {{each list as value i}}
             <div><a href="/home?uid={{value.id}}" target="_blank"><img src="{{value.portrait}}" alt="{{value.real_name}}"></a></div>
           {{/each}}
+          {{else}}
+            <div class="no-data">暂无讲师</div>
+          {{/if}}
         </script>
       </div>
       <div class="sec01-rf-bt"></div>
@@ -215,6 +220,7 @@
               <th class="th4">数量</th>
               <th class="th5">魅力值</th>
             </tr>
+            {{if list.length>0}}
             {{each list as value i}}
             <tr>
               <td><span class="sec03-rank-icon sec03-rank{{i + 1}}">{{i + 1}}</span></td>
@@ -234,6 +240,9 @@
               <td>{{value.charm}}</td>
             </tr>
             {{/each}}
+            {{else}}
+              <tr><td colspan="5" class="no-data">暂无数据</td></tr>
+            {{/if}}
           </script>
           </table>
         </div>
@@ -252,6 +261,7 @@
               <th class="th4">数量</th>
               <th class="th5">财富值</th>
             </tr>
+            {{if list.length>0}}
             {{each list as value i}}
             <tr>
               <td><span class="sec03-rank-icon sec03-rank{{i + 1}}">{{i + 1}}</span></td>
@@ -271,6 +281,9 @@
               <td>{{value.sumprice}}</td>
             </tr>
             {{/each}}
+            {{else}}
+              <tr><td colspan="5" class="no-data">暂无数据</td></tr>
+            {{/if}}
           </script>
           </table>
         </div>
@@ -282,9 +295,13 @@
         <div class="sec03-rank">
           <ul class="sec03-platform clearfix">
           <script id="sec03Platform" type="text/html">
+          {{if list.length>0}}
           {{each list as value i}}
-            <li><a href="{{value.address}}" target="_blank"><img src="{{value.logo}}" alt="{{value.fname}}"></a></li>
+            <li><a href="/firm?fid={{value.fid}}" target="_blank" title="{{value.fname}}"><img src="{{value.logo}}" alt="{{value.fname}}"></a></li>
           {{/each}}
+          {{else}}
+            <div class="no-data">暂无入驻公司</div>
+          {{/if}}
           </script>
           </ul>
         </div>

@@ -29,6 +29,7 @@
         <table class="table-course hour" id="table-course-list">
         <script id="tableCourseList" type="text/html">
           <tbody>
+          {{if data.length>0}}
           {{if type==1}}
             <tr>
               <th class="th1"><input type="checkbox" name="controlAll" id="controlAll"><label for="controlAll">全选</label></th>
@@ -64,14 +65,19 @@
             </tr>
             {{/each}}
           {{/if}}
+          {{else}}
+            <tr>
+              <td colspan="4" class="no-data">暂无课时</td>
+            </tr>
+          {{/if}}
           </tbody>
         </script>
         </table>
-        <div class="ajax-paging">
-          <div class="clearfix">
-            <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
-            <a href="javascript:;" id="paging-next" class="handle-icon right-arrows active"></a>
-          </div>
+      </div>
+      <div class="ajax-paging">
+        <div class="clearfix">
+          <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
+          <a href="javascript:;" id="paging-next" class="handle-icon right-arrows active"></a>
         </div>
       </div>
     </div>

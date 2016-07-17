@@ -8,6 +8,12 @@ define(function(require,exports,module){
     $('#set-base-form').html(setBaseForm);
     runForm();
   });
+  // 是否是公司
+  main.getAjaxDatas('/firm/is-firm',function(datas){
+    if(datas==1){
+      $('#apply-lecturer-btn').html('添加讲师').attr('href','/personage/addlecturer');
+    }
+  });
   // 复制文本
   function copyToClipboard(txt,id){
     var clip = new ZeroClipboard.Client(); // 新建一个对象

@@ -67,11 +67,10 @@
       <a href="/home/photo?uid={{uid}}">相册</a>
       {{if self==1}}
       <a href="/home/course?uid={{uid}}">我的课程</a>
-      <a href="/home/fans?uid={{uid}}" class="active">我的粉丝</a>
       {{else}}
       <a href="/home/course?uid={{uid}}">TA的课程</a>
-      <a href="/home/fans?uid={{uid}}" class="active">TA的粉丝</a>
       {{/if}}
+      <a href="/home/fans?uid={{uid}}" class="active">送礼排行榜</a>
       <a href="/home/intro?uid={{uid}}">简介</a>
       </script>
     </header>
@@ -110,13 +109,13 @@
               {{/if}}
             </script>
             </table>
-            <div class="ajax-paging">
-              <div class="clearfix">
-                <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
-                <a href="javascript:;" id="paging-next" class="handle-icon right-arrows active"></a>
-              </div>
-            </div>
           </div>
+        </div>
+      </div>
+      <div class="ajax-paging">
+        <div class="clearfix">
+          <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
+          <a href="javascript:;" id="paging-next" class="handle-icon right-arrows active"></a>
         </div>
       </div>
     </div>

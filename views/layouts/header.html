@@ -38,7 +38,7 @@
   <header class="header">
     <div class="container">
       <div class="header-row1 clearfix">
-        <h1 class="logo lf"><a href="/"><img src="/static/img/logo.png" alt="阿猪网"></a></h1>
+        <h1 class="logo lf"><a href="/"><img src="/static/img/logo.png" onerror="javascript:this.src='/static/img/logo.png';" alt="阿猪网"></a></h1>
         <nav class="rf nav">
           <ul class="clearfix">
             <li class="active">
@@ -77,7 +77,7 @@
       <div class="header-row2 clearfix" id="header-login">
         <script id="headerLogin" type="text/html">
         {{if isLogin}}
-          <img src="{{if portrait}}{{portrait}}{{else}}/static/img/logo.png{{/if}}" class="user-avatar" width="42" height="42" alt="头像">
+          <img src="{{if portrait}}{{portrait}}{{else}}/static/img/logo.png{{/if}}" onerror="javascript:this.src='/static/img/logo.png';" class="user-avatar" width="42" height="42" alt="头像">
           <div class="lf">{{name}} 欢迎来到阿猪网！</div>
           <ul class="rf clearfix">
             <li><a href="/account">财富中心</a></li>

@@ -34,6 +34,7 @@ define(function(require,exports,module){
     $('.handle-icon.invite').addClass('hide');
     var _this=$(this);
     var dataArg=_this.attr('data-arg');
+    main.pageVal=1;
     _this.parent().parent().prev().html(_this.html()).attr('data-val',dataArg);
     $('.select-items').removeClass('active');
     // 执行查找
@@ -157,14 +158,46 @@ define(function(require,exports,module){
     var cid=$(this).attr('data-cid');
     $('#sub-teaching-popup').removeClass('hide');
     $('input[name="cid"]').val(cid);
+    main.postAjaxDatas('/myteach/assis-list',{cid:cid},function(datas){
+      var nowSubSteacher = template('nowSubSteacher',{list:datas});
+      $('#now-sub-steacher').html(nowSubSteacher);
+    });
   });
   // 添加客服
   $('.table-course').on('click','.add-service',function(){
     var cid=$(this).attr('data-cid');
     $('#sub-service-popup').removeClass('hide');
     $('input[name="cid"]').val(cid);
+    main.postAjaxDatas('/lecturer/coumer-list',{cid:cid},function(datas){
+      var nowService = template('nowService',{list:datas});
+      $('#now-service').html(nowService);
+    });
   });
-  // 添加客服
+  // 删除助教
+  $('.popup').on('click','.delete-sub-s',function(){
+    var $this=$(this);
+    var aid=$this.attr('data-aid');
+    main.postAjaxDatas('/myteach/delete-assis',{aid:aid},function(datas){
+      if(datas.status==1){
+        $this.parent().remove();
+      }else{
+        alert(datas.msg);
+      }
+    });
+  });
+  // 删除客服
+  $('.popup').on('click','.delete-service',function(){
+    var $this=$(this);
+    var aid=$this.attr('data-aid');
+    main.postAjaxDatas('/lecturer/del-coumer',{id:aid},function(datas){
+      if(datas.status==1){
+        $this.parent().remove();
+      }else{
+        alert(datas.msg);
+      }
+    });
+  });
+  // 推广链接
   $('.table-course').on('click','.generalize-link',function(){
     var url=$(this).attr('data-url');
     $('#sub-generalize-popup').removeClass('hide');

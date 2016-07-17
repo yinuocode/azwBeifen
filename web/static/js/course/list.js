@@ -46,6 +46,7 @@ define(function(require,exports,module){
   $('.select-items').on('click','a',function(){
     var _this=$(this);
     grade=_this.attr('data-arg');
+    main.pageVal=1;
     _this.parent().parent().prev().html(_this.html());
     $('.select-items').removeClass('active');
     // 执行查找
@@ -65,6 +66,7 @@ define(function(require,exports,module){
     $('.header-tag-sub').removeClass('active');
     $(this).parents('.li-tag').find('.header-tag-sub').addClass('active');
     cClassify=$(this).attr('data-tid');
+    main.pageVal=1;
     main.runPostAjaxDatas();
   });
   // 子类选择
@@ -72,6 +74,9 @@ define(function(require,exports,module){
     console.log(1234);
     $('.header-tag-sub a').removeClass('active');
     $(this).addClass('active');
+    cClassify=$(this).attr('data-tid');
+    main.pageVal=1;
+    main.runPostAjaxDatas();
   });
   // 搜索课程
   $('#search-btn').on('click',function(){

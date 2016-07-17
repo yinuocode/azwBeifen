@@ -51,8 +51,8 @@ define(function(require,exports,module){
     var _this=$(this);
     if(profileMobile.val()!==''&&!(profileMobile.hasClass('error'))){
       main.postAjaxDatas('/pay/note',{mobile:profileMobile.val()},function(datas){
-        var ceshi=datas;
-        $('#verify-code').prop('disabled',true);
+        $('#verify-code').prop('disabled',false);
+        // var ceshi=datas;
         getCode(_this);
       });
     }

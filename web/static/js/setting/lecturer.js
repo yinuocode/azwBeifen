@@ -16,9 +16,25 @@ define(function(require,exports,module){
         // copyToClipboard('profile-link','copy-link');
       // });
     }
-    if(state==3){
-      runForm();
+    if(state==2){
+      $('#defeated-cause').html(datas.audit_reason);
     }
+    if(state==3){
+      main.getAjaxDatas('/personage/perfect-basic',function(datas){
+        if(datas.status==='0'){
+          alert('请先完善基本资料');
+          window.location.href='/personage/setbase';
+        }else{
+          runForm();
+        }
+      });
+    }
+  });
+  // 点击重新申请
+  $('.panel-body').on('click','#anew-apply',function(){
+    main.getAjaxDatas('/personage/del-audit',function(datas){
+      location.reload();
+    });
   });
   // 复制文本
   // function copyToClipboard(txt,id){

@@ -20,6 +20,7 @@
   <link rel="stylesheet" type="text/css" href="/static/css/video/jquery-ui-1.10.0.custom.min.css"/>
   <!-- end -->
   <link rel="stylesheet" href="/static/js/plugins/upload/uploadify.css">
+  <link rel="stylesheet" href="/static/css/common.css">
   <link rel="stylesheet" href="/static/css/lecture.css">
   <!-- 让低版本ie浏览器更好的兼容 -->
   <!--[if lt IE 8]>
@@ -412,6 +413,8 @@
     var arrAdminT=[], //获取管理员数组
         userMid,
         userName,
+        headpic,
+        level,
         socketUrl='http://139.196.195.238:8080/',
         // socketUrl='http://192.168.0.100:8080/',
         dataService='1',
@@ -456,8 +459,10 @@
     postAjaxDatas('/broadcasting/lecturer-live',{cid:courseCid},function(datas){
       console.log(datas);
       // 变量赋值
-      userMid=datas.user_id;
+      userMid=datas.user_id.toString();
       userName=datas.uname;
+      headpic=datas.portrait;
+      level=datas.level.toString();
       $('#lecturer-name').html(userName);
       $('#content-title').html(datas.live_title);
       // 获取管理员数组

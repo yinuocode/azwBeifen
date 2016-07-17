@@ -78,11 +78,11 @@
                   {{/if}}
                   <div class="row operate" id="operate-status">
                     {{if status.is_login==1}}
-                    {{if status.buy==1||detail.live_type==0}}
+                    {{if status.buy==1||detail.live_type==0||self==1}}
                       {{if isend==0}}
                       <a href="/broadcasting/classroom?cid={{detail.live_id}}" class="lf">立即观看</a>
                       {{else}}
-                      <a href="/couresdetail/video?cid={{detail.live_id}}&amp;type={{type}}" class="lf">立即观看</a>
+                      <a href="/couresdetail/direct-video?cid={{detail.live_id}}&amp;type={{detail.live_type}}" class="lf">观看回放</a>
                       {{/if}}
                     {{else}}
                     <a href="javascript:;" id="course-buy" data-cid="{{detail.live_id}}" data-title="{{detail.live_title}}" data-type="{{detail.live_type}}" class="lf">立即购买</a>
@@ -135,14 +135,14 @@
                   该课程暂无介绍
                 </div>
                 <div class="hour">
-                  <h2 class="head hour-head">本课课时</h2>
+                  <h2 class="head hour-head hide">本课课时</h2>
                   <ul class="hour-list">
                   <script id="hourList" type="text/html">
                   {{if hour_num>0}}
                   {{each hour as value i}}
                     <li class="clearfix">
                       {{if is_login==1}}
-                        {{if buy==1||free==0||value.is_free==1}}
+                        {{if buy==1||free==0||value.is_free==1||self==1}}
                           <a href="/couresdetail/video?cid={{cid}}&amp;type={{type}}&amp;hid={{value.hour_id}}">
                             <span class="hour-title {{if value.is_free==1}}free{{/if}}">{{value.hour_title}}</span>
                             <span class="rf hour-time">{{value.video_time}}</span>

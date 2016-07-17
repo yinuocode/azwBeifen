@@ -61,7 +61,7 @@ $(function(){
     var i=0;
     setMsgs=setInterval(function() {
       i+=3;
-      if(i<1200){
+      if(i<videoShade.width()-100){
         $('.chat-message'+data.uid+data.i).css('margin-right',i+'px');
       }else{
         // 关闭线程

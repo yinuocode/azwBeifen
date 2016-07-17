@@ -46,27 +46,27 @@ define(function(require,exports,module){
   });
   // 课程评论
   if(getVal.type==1){
-    $('#comment-btn').removeClass('hide');
+    $('#comment-btn,.hour-head').removeClass('hide');
     main.postAjaxDatas('/couresdetail/comment',getVal,function(datas){
       template.config("escape", false);
       var commentList = template('commentList',datas);
       $('.comment-list').html(commentList);
       console.log(datas);
     });
+    // 课时
+    main.postAjaxDatas('/couresdetail/hour',getVal,function(datas){
+      var hourList = template('hourList',datas);
+      $('.hour-list').html(hourList);
+      console.log(datas);
+    });
+    // 课时评价切换
+    $('#course-about-head').on('click','a',function(){
+      var _this=$(this);
+      var _index=_this.index();
+      _this.addClass('active').siblings().removeClass('active');
+      $('#course-about-body .body-item').eq(_index).removeClass('hide').siblings().addClass('hide');
+    });
   }
-  // 课时
-  main.postAjaxDatas('/couresdetail/hour',getVal,function(datas){
-    var hourList = template('hourList',datas);
-    $('.hour-list').html(hourList);
-    console.log(datas);
-  });
-  // 课时评价切换
-  $('#course-about-head').on('click','a',function(){
-    var _this=$(this);
-    var _index=_this.index();
-    _this.addClass('active').siblings().removeClass('active');
-    $('#course-about-body .body-item').eq(_index).removeClass('hide').siblings().addClass('hide');
-  });
   // 点击登录
   $('.panel-body').on('click','.click-login',function(){
     main.registration(0);
@@ -127,7 +127,7 @@ define(function(require,exports,module){
       if(datas.status==1){
         _this.attr('id','cancel-collect').html('取消收藏');
       }else{
-        alert(datas.msg);
+        // alert(datas.msg);
       }
     });
   });
@@ -138,8 +138,14 @@ define(function(require,exports,module){
       if(datas.status==1){
         _this.attr('id','collect').html('点击收藏');
       }else{
-        alert(datas.msg);
+        // alert(datas.msg);
       }
     });
   });
+  // 立即观看
+  // $('.panel-body').on('click','#start-look',function(){
+  //   main.postAjaxDatas('/couresdetail/enroll',getVal,function(datas){
+  //     console.log(datas);
+  //   });
+  // });
 });

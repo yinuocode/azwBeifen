@@ -55,7 +55,7 @@ define(function(require,exports,module){
           $('#pay-popup').removeClass('hide');
         }
       }else if($('#wxpay').hasClass('active')){
-        main.postAjaxDatas('/pay/wechat',{title:cTitle,paymoney:paymoney},function(datas){
+        main.postAjaxDatas('/pay/wechat',{title:cTitle,paymoney:paymoney,order:getVal.order},function(datas){
           $('.form-paytype').attr('action','/pay/wechat-pay?url='+datas).submit();
         });
       }else{

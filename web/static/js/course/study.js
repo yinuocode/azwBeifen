@@ -59,6 +59,7 @@ define(function(require,exports,module){
   $('.select-items').on('click','a',function(){
     var _this=$(this);
     var dataArg=_this.attr('data-arg');
+    main.pageVal=1;
     _this.parent().parent().prev().html(_this.html()).attr('data-val',dataArg);
     $('.select-items').removeClass('active');
     // 执行查找

@@ -25,16 +25,16 @@
               <th>课程名称</th>
               <th>金额</th>
               <th>日期</th>
-              <th>操作</th>
+              <!-- <th>操作</th> -->
             </tr>
             {{if list.length>0}}
             {{each list as value i}}
             <tr>
-              <td><a href="/couresdetail?cid={{value.goods_id}}&amp;type={{value.type}}">{{value.goods_name}}</a></td>
-              <td>{{value.order_sn}}</td>
-              <td>{{value.pay_amount}}</td>
-              <td>{{value.add_date}}</td>
-              <td><a href="javascript:;" data-oid="{{value.order_id}}" class="delete-order">删除</a></td>
+              <td><a href="/home?uid={{value.user_id}}" target="_blank">{{value.uname}}</a></td>
+              <td>{{value.title}}</td>
+              <td>{{value.money}}</td>
+              <td>{{value.create_date}}</td>
+              <!-- <td><a href="javascript:;" data-oid="{{value.order_id}}" class="delete-order">删除</a></td> -->
             </tr>
             {{/each}}
             {{else}}
@@ -55,7 +55,7 @@
   <!-- footer -->
   <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
   <!-- footer end -->
-  <script src="/static/js/plugins/laydate/laydate.dev.js"></script>
+  <script src="/static/js/plugins/laydate/laydate.js"></script>
   <script>
     seajs.use('/static/js/account/reward.js');
   </script>

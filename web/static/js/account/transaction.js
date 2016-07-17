@@ -56,6 +56,7 @@ define(function(require,exports,module){
   $('.select-items').on('click','a',function(){
     var _this=$(this);
     typeVal=_this.attr('data-arg');
+    main.pageVal=1;
     _this.parent().parent().prev().html(_this.html());
     $('.select-items').removeClass('active');
     // 执行查找
@@ -65,6 +66,7 @@ define(function(require,exports,module){
   main.paging('.table-course tr');
   // 日期查找
   $('#date-submit').on('click',function(){
+    main.pageVal=1;
     startTime=$('#startDate').val();
     endTime=$('#endDate').val();
     main.runPostAjaxDatas();

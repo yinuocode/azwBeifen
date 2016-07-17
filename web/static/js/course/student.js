@@ -41,6 +41,7 @@ define(function(require,exports,module){
     $('.handle-icon.invite').addClass('hide');
     var _this=$(this);
     groupId=_this.attr('data-gid');
+    main.pageVal=1;
     $('#group-id,#group-id2').val(groupId);
     _this.parent().parent().prev().html(_this.html());
     $('.select-items').removeClass('active');

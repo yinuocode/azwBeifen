@@ -6,7 +6,6 @@ define(function(require,exports,module){
   main.count=9;
   // 按条件查找
   main.runPostAjaxDatas=function(){
-    var grade=$('#handle-grade').attr('data-val');
     main.postAjaxDatas('/curriculum/recommend-coures',{page:main.pageVal,classify:cClassify},function(datas){
       var directCourse = template('directCourse',{list:datas});
       $('.direct-course').html(directCourse);
@@ -25,6 +24,7 @@ define(function(require,exports,module){
   // 类型选择
   $('.panel-heading').on('click','a',function(){
     $(this).addClass('active').siblings().removeClass('active');
+    main.pageVal=1;
     cClassify=$(this).attr('data-type');
     main.runPostAjaxDatas();
   });

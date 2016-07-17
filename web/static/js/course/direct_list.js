@@ -6,9 +6,9 @@ define(function(require,exports,module){
   // 一页显示多少条
   main.count=9;
   var cClassify='';
+  var grade='';
   // 按条件查找
   main.runPostAjaxDatas=function(){
-    var grade=$('#handle-grade').attr('data-val');
     main.postAjaxDatas('/curriculum/live-list',{page:main.pageVal,difficulty:grade,classify:cClassify},function(datas){
       var directCourse = template('directCourse',{list:datas});
       $('.direct-course').html(directCourse);
@@ -32,8 +32,9 @@ define(function(require,exports,module){
   // 类型查找
   $('.select-items').on('click','a',function(){
     var _this=$(this);
-    var dataArg=_this.attr('data-arg');
-    _this.parent().parent().prev().html(_this.html()).attr('data-val',dataArg);
+    grade=_this.attr('data-arg');
+    main.pageVal=1;
+    _this.parent().parent().prev().html(_this.html());
     $('.select-items').removeClass('active');
     // 执行查找
     main.runPostAjaxDatas();
@@ -52,6 +53,7 @@ define(function(require,exports,module){
     $('.header-tag-sub').removeClass('active');
     $(this).parents('.li-tag').find('.header-tag-sub').addClass('active');
     cClassify=$(this).attr('data-tid');
+    main.pageVal=1;
     main.runPostAjaxDatas();
   });
   // 子类选择
@@ -59,6 +61,9 @@ define(function(require,exports,module){
     console.log(1234);
     $('.header-tag-sub a').removeClass('active');
     $(this).addClass('active');
+    cClassify=$(this).attr('data-tid');
+    main.pageVal=1;
+    main.runPostAjaxDatas();
   });
   // 发私信
   $('.course-list').on('click','.letter-item',function(){

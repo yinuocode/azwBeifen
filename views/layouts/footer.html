@@ -21,7 +21,7 @@
     <div class="copyright">上海缔醍信息科技有限公司版权所有 | 京 ICP 备 13046642 号 -2</div>
   </div>
   <div class="rf f-erweima">
-    <img src="/static/img/erweima.jpg" alt="">
+    <img src="/static/img/erweima.jpg" onerror="javascript:this.src='/static/img/erweima.jpg';" alt="">
   </div>
 </footer>
 <!-- footer end -->
@@ -79,7 +79,7 @@
         <div class="arrow"></div>
         <h3 class="popover-title">微信公众号</h3>
         <div class="popover-content">
-          <img src="/static/img/erweima.jpg" class="qrcode center-block">
+          <img src="/static/img/erweima.jpg" onerror="javascript:this.src='/static/img/erweima.jpg';" class="qrcode center-block">
         </div>
       </div>
     </span>
@@ -88,7 +88,7 @@
 
 </div>
 <!-- right service end -->
-<div id="toTop"><img src="/static/img/totop.png" title="神猪飞天"></div>
+<div id="toTop"><img src="/static/img/totop.png" onerror="javascript:this.src='/static/img/totop.png';" title="神猪飞天"></div>
 <!-- to-top end -->
 <!-- 登录注册弹窗代码 -->
 <div class="registration" id="registration">
@@ -143,9 +143,9 @@
     <div class="registration-footer">
       <div class="pop-login-sns clearfix">
         <span class="lf">其他方式登录</span>
-        <a href="javascript:void(0)" class="pop-sns-weibo"><i class="icon-weibo"></i></a>
-        <a href="javascript:void(0)" class="pop-sns-qq"><i class="icon-qq"></i></a>
-        <a href="javascript:void(0)" class="pop-sns-weixin"><i class="icon-weixin"></i></a>
+        <a href="javascript:;" class="pop-sns-weibo" id="weibo-login"><i class="icon-weibo"></i></a>
+        <a href="https://graph.qq.com/oauth2.0/authorize?response_type=code&amp;client_id=101260854&amp;redirect_uri=http%3A%2F%2Fdemo.agodpig.com%2Ftposlogin%2Fqq-login" class="pop-sns-qq" id="qq-login" target="_blank"><i class="icon-qq"></i></a>
+        <a href="javascript:void(0)" class="pop-sns-weixin" id="weixin-login"><i class="icon-weixin"></i></a>
       </div>
     </div>
   </div>

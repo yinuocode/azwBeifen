@@ -1,0 +1,102 @@
+<!-- header -->
+<?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
+<!-- header end -->
+<link rel="stylesheet" href="/static/js/plugins/slick/slick.css">
+<link rel="stylesheet" href="/static/css/home.css">
+  <div class="home-head clearfix" id="firm-header">
+    <script id="firmHeader" type="text/html">
+      <div class="lf user-base">
+        <h1>{{fname}}</h1>
+        <div class="row">
+          <div class="lf home-avatar"><img src="{{logo}}" alt=""></div>
+          <div class="lf home-base">
+            <!-- <p>直播时通知我</p> -->
+            <p>法人姓名：{{legal_name}}</p>
+            <p>联系方式：{{firm_phone}}</p>
+            <p>公司邮箱：{{firm_email}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="lf signature firm-business">
+        <h2>主营业务</h2>
+        <p>{{main_business}}</p>
+      </div>
+      <div class="rf firm-address">
+        <div class="row row3 block">
+          公司地址：
+          {{address}}
+        </div>
+      </div>
+    </script>
+  </div>
+  <section class="section-panel2 panel-body">
+    <div class="clearfix title">
+      <h2>讲师团队</h2>
+      <hr>
+    </div>
+    <div class="slider firm-lecturer" id="firm-lecturer">
+      <script id="firmLecturer" type="text/html">
+        {{if list.length>0}}
+        {{each list as value i}}
+          <div class="item">
+            <a href="/home?uid={{value.user_id}}" target="_blank">
+              <img src="{{value.portrait}}" alt="{{value.audit_name}}">
+              <span class="name">
+                <span class="blcok">{{value.audit_name}}</span>
+                <span>{{value.gname}}讲师</span>
+              </span>
+            </a>
+          </div>
+        {{/each}}
+        {{else}}
+        <div class="no-data">暂无讲师</div>
+        {{/if}}
+      </script>
+    </div>
+    <div class="clearfix title">
+      <h2>课程列表</h2>
+      <hr>
+    </div>
+    <ul class="course-list firm-course clearfix" id="firm-course">
+    <script id="firmCourse" type="text/html">
+    {{if list.length>0}}
+    {{each list as value i}}
+      <li>
+        <a href="/couresdetail?cid={{value.id}}&amp;type={{value.vtype}}" target="_blank">
+          <img src="{{value.cover}}" alt="">
+          <span class="full"><b>{{if value.vtype==0}}直播课{{else}}录播课{{/if}}</b></span>
+        </a>
+        <div class="row">
+          <p class="course-title"><a href="/couresdetail?cid={{value.id}}&amp;type={{value.vtype}}" target="_blank">{{value.title}}</a></p>
+        </div>
+      </li>
+    {{/each}}
+    {{else}}
+      <div class="no-data">暂无课程</div>
+    {{/if}}
+    </script>
+    </ul>
+    <div class="ajax-paging hide">
+      <div class="clearfix">
+        <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
+        <a href="javascript:;" id="paging-next" class="handle-icon right-arrows active"></a>
+      </div>
+    </div>
+    <div class="clearfix title">
+      <h2>公司简介</h2>
+      <hr>
+    </div>
+    <div class="firm-intro" id="firm-intro">
+      暂无简介
+    </div>
+  </section>
+  <!-- 发送私信 -->
+  <!-- footer -->
+  <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
+  <!-- footer end -->
+  <script src="/static/js/plugins/slick/slick.min.js"></script>
+  <script>
+    seajs.use('/static/js/firm/index.js');
+  </script>
+</body>
+</html>

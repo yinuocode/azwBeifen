@@ -40,6 +40,7 @@ define(function(require,exports,module){
   $('.panel-heading').on('click','a',function(){
     $(this).addClass('active').siblings().removeClass('active');
     cClassify=$(this).attr('data-type');
+    main.pageVal=1;
     main.runPostAjaxDatas();
   });
   // 分页
@@ -99,11 +100,13 @@ define(function(require,exports,module){
   });
   // 搜索讲师
   $('#search-btn').on('click',function(){
+    main.pageVal=1;
     searchVal=$('#search-val').val();
     main.runPostAjaxDatas();
   });
   $('input').keyup(function (event) {
     if (event.keyCode == "13") {
+      main.pageVal=1;
       searchVal=$('#search-val').val();
       main.runPostAjaxDatas();
     }

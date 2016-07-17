@@ -208,6 +208,7 @@ form.cmxform form.cmxform .gray * {
     bottom: 60px;
     width: 94%;
     left: 4%;
+    overflow: hidden;
 }
 .lesson-dashboard .lesson-content {
     height: 100%;

@@ -2,21 +2,26 @@ define(function(require,exports,module){
   // 引入主要模块模块
   var main = require('main');
   // 分页
-  var pageVal=1;
+  // var pageVal=1;
+  main.count=13;
   var classify=1;
   var search=location.search,
   courseCid=search.substring(search.indexOf('cid=')+4);
   // 按条件查找
-  function runPostAjaxDatas(){
-    // var typeVal=$('#handle-course').attr('data-val');
-    // var statusVal=$('#handle-status').attr('data-val');
-    // var timeVal=$('#handle-date').attr('data-val');
-    main.postAjaxDatas('/myteach/period',{cid:courseCid,classify:classify,page:pageVal},function(datas){
-      console.log(datas);
+  main.runPostAjaxDatas=function(){
+    main.postAjaxDatas('/myteach/period',{cid:courseCid,classify:classify,page:main.pageVal},function(datas){
       var tableCourseList = template('tableCourseList',datas);
       $('#table-course-list').html(tableCourseList);
+      // 是否显示分页
+      if(main.pageVal==1){
+        if(datas.data.length<main.count-1){
+          $('.ajax-paging').hide();
+        }else{
+          $('.ajax-paging').show();
+        }
+      }
     });
-  }
+  };
   // 判断是否是免费课程
   main.postAjaxDatas('/myteach/isfree',{cid:courseCid},function(datas){
     if(datas.free==0){
@@ -24,7 +29,7 @@ define(function(require,exports,module){
     }
   });
   // 初始化
-  runPostAjaxDatas();
+  main.runPostAjaxDatas();
   // 下拉菜单
   $('.handle-icon.triangle').on('click',function(){
     $(this).parent().siblings().find('.select-items').removeClass('active');
@@ -35,10 +40,11 @@ define(function(require,exports,module){
     var _this=$(this);
     var dataArg=_this.attr('data-arg');
     classify=dataArg;
+    main.pageVal=1;
     _this.parent().parent().prev().html(_this.html());
     $('.select-items').removeClass('active');
     // 执行查找
-    runPostAjaxDatas();
+    main.runPostAjaxDatas();
   });
   // 选择操作目标
   $('#table-course-list').on('click','#controlAll',function(){
@@ -55,20 +61,7 @@ define(function(require,exports,module){
     }
   });
   // 分页
-  $('#paging-prev').on('click',function(){
-    if(pageVal>1){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal--;
-      runPostAjaxDatas();
-    }
-  });
-  $('#paging-next').on('click',function(){
-    if($('#table-course-list tr').length==10){
-      $(this).addClass('active').siblings().removeClass('active');
-      pageVal++;
-      runPostAjaxDatas();
-    }
-  });
+  main.paging('#table-course-list tr');
   // 删除
   $('#handle-delete').on('click',function(){
     var $selected=$('input[name="selected"]:checked');
@@ -88,7 +81,7 @@ define(function(require,exports,module){
           if(datas.status==1){
             alert('删除成功');
             // 局部刷新
-            runPostAjaxDatas();
+            main.runPostAjaxDatas();
           }else{
             alert(datas.msg);
           }
@@ -137,7 +130,7 @@ define(function(require,exports,module){
           if(data.status==1){
             alert('添加成功');
             $('.popup').addClass('hide');
-            runPostAjaxDatas();
+            main.runPostAjaxDatas();
           }else{
             alert(data.msg);
           }
@@ -163,7 +156,7 @@ define(function(require,exports,module){
           if(data.status==1){
             alert('添加成功');
             $('.popup').addClass('hide');
-            runPostAjaxDatas();
+            main.runPostAjaxDatas();
           }else{
             alert(data.msg);
           }
@@ -175,14 +168,14 @@ define(function(require,exports,module){
   $('.table-course').on('click','#issue',function(){
     var thisId=$(this).attr('data-hid');
     main.postAjaxDatas('/myteach/hour-state',{hour_id:thisId},function(datas){
-      runPostAjaxDatas();
+      main.runPostAjaxDatas();
     });
   });
   // 取消发布
   $('.table-course').on('click','#cancel-issue',function(){
     var thisId=$(this).attr('data-hid');
     main.postAjaxDatas('/myteach/hour-stateno',{hour_id:thisId},function(datas){
-      runPostAjaxDatas();
+      main.runPostAjaxDatas();
     });
   });
   function uploadVideo(){

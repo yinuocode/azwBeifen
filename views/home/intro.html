@@ -67,11 +67,10 @@
       <a href="/home/photo?uid={{uid}}">相册</a>
       {{if self==1}}
       <a href="/home/course?uid={{uid}}">我的课程</a>
-      <a href="/home/fans?uid={{uid}}">我的粉丝</a>
       {{else}}
       <a href="/home/course?uid={{uid}}">TA的课程</a>
-      <a href="/home/fans?uid={{uid}}">TA的粉丝</a>
       {{/if}}
+      <a href="/home/fans?uid={{uid}}">送礼排行榜</a>
       <a href="/home/intro?uid={{uid}}" class="active">简介</a>
       </script>
     </header>
@@ -80,7 +79,7 @@
         <div class="home-intro" id="home-intro">
          <script id="homeIntro" type="text/html">
            <div class="clearfix row1">
-             <div class="lf picture"><img src="{{if enterprise_img}}{{enterprise_img}}{{else}}{{/if}}" alt=""></div>
+             <div class="lf picture"><img src="{{if enterprise_img}}{{enterprise_img}}{{else}}{{/if}}" width="306" height="175" alt=""></div>
              <div class="lf">
                <p>姓名：{{audit_name}}</p>
                <p>讲师等级：{{gname}}讲师</p>

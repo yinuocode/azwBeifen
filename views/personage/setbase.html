@@ -5,7 +5,8 @@
     <header class="panel-heading clearfix">
       <a href="/personage/setbase" class="active">基础信息</a>
       <a href="/personage/setsafety">安全设置</a>
-      <a href="/personage/setlecturer">讲师申请</a>
+      <a href="/personage/setlecturer" id="apply-lecturer-btn">讲师申请</a>
+      <a href="/personage/settled">公司入驻申请</a>
     </header>
     <div class="panel-body" id="panel-body1">
       <h2 class="panel-title">基础信息</h2>
@@ -55,6 +56,7 @@
               <div class="filePicker" class="choose_img" data-index="0">选择图片</div>
               <input type="text" name="UserDetail[portrait]" class="img-path" value="{{if data.portrait}}{{data.portrait}}{{else}}/static/img/default-avatar.jpg{{/if}}">
             </div>
+            <div class="form-hint">建议图片大小为180*180</div>
           </div>
         </div>
         <div class="form-group">
@@ -65,6 +67,7 @@
               <div class="filePicker" class="choose_img" data-index="1">选择图片</div>
               <input type="text" name="UserDetail[enterprise_img]" class="img-path" value="{{if data.enterprise_img}}{{data.enterprise_img}}{{else}}/static/img/default-avatar.jpg{{/if}}">
             </div>
+            <div class="form-hint">建议图片大小为306*175</div>
           </div>
         </div>
         <div class="form-group">

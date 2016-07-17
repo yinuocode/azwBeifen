@@ -49,6 +49,7 @@ define(function(require,exports,module){
   main.paging('#table-course-list tr');
   // 日期查询
   $('#date-submit').on('click',function(){
+    main.pageVal=1;
     startTime=$('#startDate').val();
     endTime=$('#endDate').val();
     main.runPostAjaxDatas();

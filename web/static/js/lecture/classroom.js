@@ -6,12 +6,12 @@ define(function(require,exports,module){
 
   var ajaxDatas=[
     // 视频地址
-    {
-      url:'/broadcasting/get-gurl',
-      fSuccess:function(datas){
-        runVideo(datas);
-      }
-    },
+    // {
+    //   url:'/broadcasting/get-gurl',
+    //   fSuccess:function(datas){
+    //     runVideo(datas);
+    //   }
+    // },
     // 课程信息 会员 倒计时
     {
       url:'/broadcasting/teach-class',
@@ -28,6 +28,8 @@ define(function(require,exports,module){
         $('#lecturer-name').html(datas.nick_name);
         var mainSideTop = template('mainSideTop',datas);
         $('#main-side-top').html(mainSideTop);
+        // 视频地址
+        runVideo(datas.coures_gurl);
       }
     },
     // 贵宾席
@@ -65,7 +67,6 @@ define(function(require,exports,module){
   var jwplayer = require('jwplayer');
   // 视频播放
   function runVideo(videoUrl){
-    // console.log(videoUrl);
     jwplayer.key="NIxzRzXFeCuptg0mr83yTWc9muAM872Um0sYWg==";
     jwplayer("botr_oSQWzFgF_8nLlWRv4_div").setup({
       aspectratio: "4:3",

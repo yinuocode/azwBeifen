@@ -66,11 +66,21 @@ define(function(require,exports,module){
     // 视频播放
     // $('#example_video_1_html5_api').attr('src',liLessonItem.attr('data-src'));
     // 加载视频
-    var lessonVideoContent = template('lessonVideoContent',{data:liLessonItem.attr('data-src')});
-    $('#lesson-video-content').html(lessonVideoContent);
-    $.getScript('/static/js/plugins/video/video.min.js');
+    var url=liLessonItem.attr('data-src');
+    if(url==1){
+      alert('该课程需要购买后才能观看');
+      // $('#buy-popup').removeClass('hide');
+    }else{
+      var lessonVideoContent = template('lessonVideoContent',{data:url});
+      $('#lesson-video-content').html(lessonVideoContent);
+      $.getScript('/static/js/plugins/video/video.min.js');
+    }
     runFaqs();
   });
+  // 关闭弹窗
+  // $('.popup-close,.p-close').on('click',function(){
+  //   $('.popup').addClass('hide');
+  // });
   // 问答列表
   function runFaqs(){
     postAjaxDatas('/comment/question-list',{hour_id:$('.hid').val()},function(datas){
@@ -271,7 +281,7 @@ define(function(require,exports,module){
     var money=$('#enjoy-val').val();
     var lid=$('#lecturer-id').val();
     if(Number(money)!==0){
-      postAjaxDatas('/broadcasting/reward',{money:money,to_user_id:lid},function(datas){
+      postAjaxDatas('/broadcasting/reward',{money:money,to_user_id:lid,cid:getVal.cid,type:1},function(datas){
         if(datas.status==1){
           $('.enjoy-box').hide();
           $('#enjoy-effect').show().animate({

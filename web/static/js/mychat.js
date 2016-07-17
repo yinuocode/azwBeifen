@@ -194,8 +194,8 @@ $(function(){
     socket.emit('showGift',{cid:cid,uid:uid,uname:uname,gnr:gnr,num:num,gtitle:gtitle});
   };
   //加入教室
-  var joinroom = function(cid,uid,uname,isman,isNo,_index){
-    socket.emit('joinroom',{uid:uid,uname:uname,cid:cid,isman:isman,isNo:isNo,_index:_index});
+  var joinroom = function(cid,uid,uname,isman,headpic,level,isNo,_index){
+    socket.emit('joinroom',{uid:uid,uname:uname,cid:cid,isman:isman,headpic:headpic,level:level,isNo:isNo,_index:_index});
   };
   var updateinfo = function(cid){
     socket.emit('updateinfo',{cid:cid});
@@ -213,7 +213,7 @@ $(function(){
     // console.log('传出成功');
     var _index=$(this).index();
     var imgSite =$('#gallery_list li').eq(_index).find('img').attr('src').replace('thumb','source');
-    joinroom(courseCid,userMid,userName,dataService,1,imgSite);
+    joinroom(courseCid,userMid,userName,dataService,headpic,level,1,imgSite);
   });
   // 触发学员离开房间
   $(window).on('beforeunload',function(){
@@ -228,7 +228,7 @@ $(function(){
   // console.log(socket);
   var cid = courseCid;
   if(socket!==undefined){
-    joinroom(courseCid,userMid,userName,dataService,0,0);
+    joinroom(courseCid,userMid,userName,dataService,headpic,level,0,0);
     socket.on('showcount',function(data){
       $('#count').html(data);
     });
@@ -258,9 +258,12 @@ $(function(){
             kickedRoom ='<span class="icon-kicking iconfont icon" title="踢出房间" data-kstatus="'+data[x].kstatus+'" data-duid="'+data[x].uid+'"></span>';
           }
           // 判断是否是管理员
-          if(data[x].isman=='1'){
-            bannedMake='';
-            kickedRoom=kickedRoom1='管理员';
+          if(data[x].uid){
+            if($.inArray(data[x].uid.toString(),arrAdminT)!=-1){
+              bannedMake='';
+              kickedRoom='管理员';
+              kickedRoom1='管理员';
+            }
           }
           if(data[x].headpic){
             avatar='<img src="'+data[x].headpic+'" alt="用户名" class="avatar">';
@@ -269,8 +272,8 @@ $(function(){
           }
           // 是否是自己
           if(data[x].uid==userMid){
-            // dUname='<span class="username current"><input type="text" mid="'+data[x].uid+'" id="amend-name" value="'+data[x].uname+'"></span>';
-            dUname='<span class="username hot" mid="'+data[x].uid+'" title="'+data[x].uname+'">'+data[x].uname+'</span><span class="icon-grade iconfont icon hot">&#xe642;</span>';
+            dUname='<span class="username current hot"><input type="text" mid="'+data[x].uid+'" id="amend-name" value="'+data[x].uname+'"></span>';
+            // dUname='<span class="username hot" mid="'+data[x].uid+'" title="'+data[x].uname+'">'+data[x].uname+'</span><span class="icon-grade iconfont icon hot">&#xe642;</span>';
           // }else if(data[x].uid<200){// 是否是会员
           //   dUname='<span class="username" mid="'+data[x].uid+'" title="'+data[x].uname+'">'+data[x].uname+'</span>';
           }else{
@@ -288,29 +291,29 @@ $(function(){
       }
       $studentList.html(str);
       getStorage($searchText.val());
-      //禁言
-      $('#student-list').on('click','.icon-banned',function(event){
-        var cid = courseCid;
-        var uid = $(this).attr('data-uid');
-        if($(this).attr('data-status')==1){
-          socket.emit('republish',{uid:uid,cid:cid});
-        }else{
-          socket.emit('nopublish',{uid:uid,cid:cid});
-        }
-        event.preventDefault();
-      });
-      //踢人
-      $('#student-list').on('click','.icon-kicking',function(event){
-        var self = event.target;
-        var cid = courseCid;
-        var uid = $(self).attr('data-duid');
-        if($(self).attr('data-kstatus')==1){
-          socket.emit('allowmember',{cid:cid,uid:uid});
-        }else{
-          socket.emit('deletemember',{cid:cid,uid:uid});
-        }
-        event.preventDefault();
-      });
+    });
+    //禁言
+    $('#student-list').on('click','.icon-banned',function(event){
+      var cid = courseCid;
+      var uid = $(this).attr('data-uid');
+      if($(this).attr('data-status')==1){
+        socket.emit('republish',{uid:uid,cid:cid});
+      }else{
+        socket.emit('nopublish',{uid:uid,cid:cid});
+      }
+      event.preventDefault();
+    });
+    //踢人
+    $('#student-list').on('click','.icon-kicking',function(event){
+      var self = event.target;
+      var cid = courseCid;
+      var uid = $(self).attr('data-duid');
+      if($(self).attr('data-kstatus')==1){
+        socket.emit('allowmember',{cid:cid,uid:uid});
+      }else{
+        socket.emit('deletemember',{cid:cid,uid:uid});
+      }
+      event.preventDefault();
     });
     // 我要发言处理
     socket.on('onMeSpeak',function(data){
@@ -343,7 +346,7 @@ $(function(){
       });
       // 礼物显示
       socket.on('onShowGift',function(data){
-        // console.log(1234);
+        console.log(1234);
         $('#real-satte-span').hide().html(data.uname+'送了'+data.gnr+data.num+'个'+data.gtitle).fadeIn('1000');
       });
     }else{
@@ -430,12 +433,14 @@ $(function(){
     });
     // 发公告
     $('#notice').on('click',function(event){
-      // socket.emit('input',{name:userName,cid:courseCid,uid:userMid,message:'<div class="inform">'+noticeNr+'</div>'});
-      socket.emit('input',{name:userName,cid:courseCid,uid:userMid,message:'<div class="inform">'+chatTextarea.html()+'</div>'});
-      event.preventDefault();
+      if(chatTextarea.html()!==''){
+        // socket.emit('input',{name:userName,cid:courseCid,uid:userMid,message:'<div class="inform">'+noticeNr+'</div>'});
+        socket.emit('input',{name:userName,cid:courseCid,uid:userMid,message:'<div class="inform">'+chatTextarea.html()+'</div>'});
+        event.preventDefault();
+      }
     });
     // 送礼物
-    $('#gift-send').on('click',function(){
+    $('#gift-send').on('click',function(event){
       var num=$giftNum.val();
       var lid=$('#lecturer-id').val();
       if(Number(num)!==0){
@@ -469,7 +474,7 @@ $(function(){
       var money=$('#enjoy-val').val();
       var lid=$('#lecturer-id').val();
       if(Number(money)!==0){
-        postAjaxDatas('/broadcasting/reward',{money:money,to_user_id:lid},function(datas){
+        postAjaxDatas('/broadcasting/reward',{money:money,to_user_id:lid,cid:courseCid,type:0},function(datas){
           if(datas.status==1){
             getDeposit();
             // var index=Math.floor((Math.random()*admire.length));
@@ -520,16 +525,21 @@ $(function(){
   setTimeout(function(){
     updateinfo(courseCid);
   },1200);
-  // $studentList.on('blur','#amend-name',function(){
-  //   var uid=$(this).attr('mid');
-  //   var uname=$(this).val();
-  //   $.ajax({
-  //     type: 'POST',
-  //     url: '/index.php?r=broadcasting%2Fupbase',
-  //     data: {id:uid,name:uname},
-  //     success: function(){
-  //       console.log('修改成功！');
-  //     }
-  //   });
-  // });
+  // 修改昵称
+
+  $studentList.on('blur','#amend-name',function(){
+    var uid=$(this).attr('mid');
+    var uname=$(this).val();
+    if(uname!=userName){
+      $.ajax({
+        type: 'POST',
+        url: '/index.php?r=broadcasting%2Fupbase',
+        data: {id:uid,name:uname},
+        success: function(){
+          console.log('修改成功！');
+          userName=uname;
+        }
+      });
+    }
+  });
 });

@@ -138,7 +138,7 @@
             <ul class="period-list" id="hour-item-list">
             <script id="hourItemList" type="text/html">
             {{each hour as value i}}
-              <li class="period lesson-item lesson-item-66" data-hid="{{value.hour_id}}" data-src="{{value.hour_src}}">
+              <li class="period lesson-item lesson-item-66" data-hid="{{value.hour_id}}" data-src="{{if value.is_free==1||buy==1||self==1}}{{value.hour_src}}{{else}}1{{/if}}">
                 <a href="/couresdetail/video?cid={{cid}}&amp;type={{type}}&amp;hid={{value.hour_id}}" title="如何更好的使用阿猪网学习">
                   <i class="es-icon es-icon-doing color-primary status-icon"></i>
                   <span class="title">   课时{{i+1}}：{{value.hour_title}}</span>
@@ -312,6 +312,19 @@
       </div>
     </div>
   </div>
+  <!-- 购买弹窗 -->
+  <!-- <div class="popup hide" id="buy-popup">
+    <div class="popup-modal">
+      <div class="popup-header">
+        <h1>尚未购买</h1>
+        <button type="button" class="popup-close"></button>
+      </div>
+      <div class="popup-body">
+        <p class="popup-alert">该课程需要购买后才能观看</p>
+      </div>
+    </div>
+    <div class="popup-bg"></div>
+  </div> -->
   <!-- js -->
   <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="/static/js/lib/jquery-1.9.1.min.js"><\/script>')</script>

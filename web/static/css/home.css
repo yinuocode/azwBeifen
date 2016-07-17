@@ -9,9 +9,10 @@
   padding:20px 65px;
   color:#fff;
   font-size: 16px;
+  position: relative;
 }
 .user-base>h1{
-  font-size: 35px;
+  font-size: 30px;
   line-height: 45px;
 }
 .user-base>h1>span{
@@ -69,7 +70,7 @@
   width: 350px;
 }
 .signature h2{
-  font-size: 24px;
+  font-size: 20px;
   line-height: 60px;
 }
 .signin-span {
@@ -268,8 +269,11 @@
 .talk-list .text{
   margin-bottom:5px;
 }
-.talk-list img{
-  max-width: 100%;
+.talk-list .img img{
+  max-width: 48%;
+  float: left;
+  margin-right: 2%;
+  margin-bottom: 10px;
 }
 .talk-list .handle-box{
   border: 1px solid #9FD1F8;
@@ -403,4 +407,129 @@
   border-bottom: 1px solid #ccc;
   color: #4E9BD5;
   margin-bottom: 10px;
+}
+/*入驻公司首页*/
+.firm-address{
+  background: #363636;
+  width: 360px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  padding: 38px;
+}
+.firm-business.signature{
+  margin-left:0;
+}
+.section-panel2{
+  color:#333;
+  font-size: 18px;
+}
+.section-panel2 .title{
+  padding:40px 0;
+}
+.section-panel2 .title h2{
+  float:left;
+  font-size: 30px;
+  border-left: 20px solid #1796ED;
+  line-height: 32px;
+  padding-left: 16px;
+}
+.section-panel2 .title hr{
+  float: right;
+  width: 1040px;
+  margin-top: 16px;
+  height: 0px;
+  border: 0;
+  border-bottom: 1px solid #ccc;
+}
+.firm-lecturer{
+  height:225px;
+  margin:10px 0 30px;
+  padding:0 75px;
+}
+.firm-lecturer .item{
+  height:225px;
+  width:225px !important;
+  border-radius: 50%;
+  overflow: hidden;
+  border:10px solid #ccc;
+  margin-right:38px;
+}
+.firm-lecturer .item a{
+  display: block;
+  position: relative;
+}
+.firm-lecturer .item img{
+  display: block;
+  width: 205px;
+  height: 205px;
+}
+.firm-lecturer .item .name{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  background: rgba(0,0,0,.7);
+  text-align: center;
+  padding: 70px 0;
+  line-height: 40px;
+  font-size: 18px;
+  color: #fff;
+  display: none;
+  transition: 300ms;
+  -webkit-transition:300ms;
+  -ms-transition:300ms;
+  -o-transition:300ms;
+}
+.firm-lecturer .item .blcok{
+  font-size: 25px;
+  display: block;
+}
+.firm-lecturer .item:hover{
+  border-color:#80CBEC;
+}
+.firm-lecturer .item:hover .name{
+  display: block;
+}
+.firm-lecturer .slick-prev,.firm-lecturer .slick-next{
+  background: #999;
+  width:48px;
+  height:112px;
+  top: 30%;
+}
+.firm-lecturer .slick-prev:before,.firm-lecturer .slick-next:before{
+  content: '';
+  display: block;
+  width:19px;
+  height:29px;
+  background: url(../img/arrows-lr.png) no-repeat center center;
+  opacity: 1;
+  margin-left:15px;
+}
+.firm-lecturer .slick-prev:before{
+  background-position: 0 0;
+}
+.firm-lecturer .slick-next:before{
+  background-position: -20px 0;
+}
+.firm-lecturer .slick-prev{
+  left:0;
+}
+.firm-lecturer .slick-next{
+  right:0;
+}
+.firm-intro{
+  margin-bottom: 60px;
+  /*text-indent: 2em;*/
+}
+.firm-intro img{
+  max-width: 100%;
+}
+.course-list.firm-course{
+  background: #fff;
+  padding:0;
+}
+.course-list.firm-course li{
+  margin: 5px 17px;
 }

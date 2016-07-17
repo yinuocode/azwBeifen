@@ -8,7 +8,7 @@ define(function(require,exports,module){
   var endTime='';
   // 按条件查找
   main.runPostAjaxDatas=function(){
-    main.postAjaxDatas('/account/myorder',{page:main.pageVal,start_time:startTime,end_time:endTime},function(datas){
+    main.postAjaxDatas('/account/get-reward',{page:main.pageVal,start_time:startTime,end_time:endTime},function(datas){
       console.log(datas);
       var tableCourseList = template('tableCourseList',{list:datas});
       $('#table-course-list').html(tableCourseList);
@@ -50,6 +50,7 @@ define(function(require,exports,module){
   main.paging('#table-course-list tr');
   // 日期查询
   $('#date-submit').on('click',function(){
+    main.pageVal=1;
     startTime=$('#startDate').val();
     endTime=$('#endDate').val();
     main.runPostAjaxDatas();
