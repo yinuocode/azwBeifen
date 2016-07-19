@@ -1,5 +1,4 @@
-<!-- header -->
-<?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
+<input type="hidden" id="page-title" value="<?php use yii\helpers\Html; echo Html::encode($title)?>">
 <link rel="stylesheet" href="/static/css/course.css">
 <!-- header end -->
   <section class="section-panel news-panel">
@@ -24,32 +23,36 @@
                   {{/if}}
                   <div class="row operate" id="operate-status">
                     {{if status.is_login==1}}
-                    {{if status.buy==1||detail.coures_type==0}}
-                    <a href="/couresdetail/video?cid={{detail.coures_id}}&amp;type={{type}}" class="lf">立即观看</a>
+                    {{if status.buy==1||detail.coures_type==0||self==1}}
+                    <a href="/couresdetail/video?cid={{detail.coures_id}}&amp;type={{type}}" class="lf btn">立即观看</a>
                     {{else}}
-                    <a href="javascript:;" id="course-buy" data-cid="{{detail.coures_id}}" data-title="{{detail.coures_title}}" data-type="{{detail.coures_type}}" class="lf">立即购买</a>
+                    <a href="javascript:;" id="course-buy" data-cid="{{detail.coures_id}}" data-title="{{detail.coures_title}}" data-type="{{detail.coures_type}}" class="lf btn">立即购买</a>
                     {{/if}}
                     {{if status.enshrine==1}}
-                    <a href="javascript:;" class="lf" id="cancel-collect">取消收藏</a>
+                    <button class="lf btn" id="cancel-collect">取消收藏</button>
                     {{else}}
-                    <a href="javascript:;" class="lf" id="collect">点击收藏</a>
+                    <button class="lf btn" id="collect">点击收藏</button>
                     {{/if}}
-                    <a href="javascript:;" class="lf" id="send-letter">我要咨询</a>
+                    <button class="lf btn" id="send-letter">我要咨询</button>
                     {{else}}
                     {{if detail.coures_type==1}}
-                    <a href="javascript:;" class="lf click-login">立即购买</a>
+                    <button class="lf btn click-login">立即购买</button>
                     {{else}}
-                    <a href="javascript:;" class="lf click-login">立即观看</a>
+                    <button class="lf btn click-login">立即观看</button>
                     {{/if}}
-                    <a href="javascript:;" class="lf click-login">点击收藏</a>
-                    <a href="javascript:;" class="lf click-login">我要咨询</a>
+                    <button class="lf btn click-login">点击收藏</button>
+                    <button class="lf btn click-login">我要咨询</button>
                     {{/if}}
                   </div>
                 </div>
                 <div class="rf">
                   <div class="row row1">
                     <div class="lf row-lf"><p class="data">观看数</p><p>{{detail.watch_num}}次</p></div>
-                    <div class="rf row-rf"><p class="data">评分</p><p class="star-{{detail.score}}"></p></div>
+                    <div class="rf row-rf"><p class="data">评分</p><!-- <p class="star-{{detail.score}}"></p> -->
+                      <div class="star">
+                        <div class="star-ray" style="width:{{detail.score}}%"></div>
+                      </div>
+                    </div>
                   </div>
                   <div class="row">
                     <div class="lf row-lf"><p class="data">难度</p><p>{{if detail.difficulty==1}}初级{{else if detail.difficulty==2}}中级{{else}}高级{{/if}}</p></div>
@@ -80,27 +83,27 @@
                     {{if status.is_login==1}}
                     {{if status.buy==1||detail.live_type==0||self==1}}
                       {{if isend==0}}
-                      <a href="/broadcasting/classroom?cid={{detail.live_id}}" class="lf">立即观看</a>
+                      <a href="/broadcasting/classroom?cid={{detail.live_id}}" class="lf btn">立即观看</a>
                       {{else}}
-                      <a href="/couresdetail/direct-video?cid={{detail.live_id}}&amp;type={{detail.live_type}}" class="lf">观看回放</a>
+                      <a href="/couresdetail/direct-video?cid={{detail.live_id}}&amp;type={{type}}" class="lf btn">观看回放</a>
                       {{/if}}
                     {{else}}
-                    <a href="javascript:;" id="course-buy" data-cid="{{detail.live_id}}" data-title="{{detail.live_title}}" data-type="{{detail.live_type}}" class="lf">立即购买</a>
+                    <a href="javascript:;" id="course-buy" data-cid="{{detail.live_id}}" data-title="{{detail.live_title}}" data-type="{{detail.live_type}}" class="lf btn">立即购买</a>
                     {{/if}}
                     {{if status.enshrine==1}}
-                    <a href="javascript:;" class="lf" id="cancel-collect">取消收藏</a>
+                    <button class="lf btn" id="cancel-collect">取消收藏</button>
                     {{else}}
-                    <a href="javascript:;" class="lf" id="collect">点击收藏</a>
+                    <button class="lf btn" id="collect">点击收藏</button>
                     {{/if}}
-                    <a href="javascript:;" class="lf" id="send-letter">我要咨询</a>
+                    <button class="lf btn" id="send-letter">我要咨询</button>
                     {{else}}
                     {{if detail.live_type==1}}
-                    <a href="javascript:;" class="lf click-login">立即购买</a>
+                    <button class="lf btn click-login">立即购买</button>
                     {{else}}
-                    <a href="javascript:;" class="lf click-login">立即观看</a>
+                    <button class="lf btn click-login">立即观看</button>
                     {{/if}}
-                    <a href="javascript:;" class="lf click-login">点击收藏</a>
-                    <a href="javascript:;" class="lf click-login">我要咨询</a>
+                    <button class="lf btn click-login">点击收藏</button>
+                    <button class="lf btn click-login">我要咨询</button>
                     {{/if}}
                   </div>
                 </div>
@@ -142,7 +145,7 @@
                   {{each hour as value i}}
                     <li class="clearfix">
                       {{if is_login==1}}
-                        {{if buy==1||free==0||value.is_free==1||self==1}}
+                        {{if buy==1||value.is_free==1||self==1}}
                           <a href="/couresdetail/video?cid={{cid}}&amp;type={{type}}&amp;hid={{value.hour_id}}">
                             <span class="hour-title {{if value.is_free==1}}free{{/if}}">{{value.hour_title}}</span>
                             <span class="rf hour-time">{{value.video_time}}</span>

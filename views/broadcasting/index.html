@@ -380,8 +380,8 @@
       <div class="popup-body">
         <p class="popup-alert">是否生成回放？</p>
         <div class="clearfix popup-item">
-          <a href="javascript:;" id="start-playback" class="lf btn">生成回放</a>
-          <a href="javascript:;" class="rf btn p-close">放弃生成</a>
+          <button id="start-playback" class="lf btn">生成回放</button>
+          <button id="start-playback" class="rf btn p-close">放弃生成</button>
         </div>
       </div>
     </div>
@@ -464,7 +464,7 @@
       headpic=datas.portrait;
       level=datas.level.toString();
       $('#lecturer-name').html(userName);
-      $('#content-title').html(datas.live_title);
+      $('#content-title,title').html(datas.live_title);
       // 获取管理员数组
       postAjaxDatas('/broadcasting/adminid',{cid:courseCid,type:0},function(datas){
         arrAdminT=datas.admin;
@@ -473,10 +473,13 @@
     });
     // 生成回放
     $('.popup').on('click','#start-playback',function(){
+      var $this=$(this);
+      $this.html('正在处理...').prop('disabled',true);
       postAjaxDatas('/couresdetail/create-playback',{cid:courseCid},function(datas){
         console.log(datas);
         if(datas.status==1){
           $('#playback-popup').addClass('hide');
+          $this.prop('disabled',false);
           alert('恭喜，回放已生成');
         }else{
           alert(datas.msg);

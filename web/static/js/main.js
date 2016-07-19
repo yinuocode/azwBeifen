@@ -11,9 +11,10 @@ define(function(require,exports,module){
   main.count=9;
   // ajax 取数据
   main.getAjaxDatas=function(_url,fSuccess){
+    var getTimestamp=new Date().getTime();
     $.ajax({
       type:'get',
-      url:_url,
+      url:_url+'?timestamp='+getTimestamp,
       dataType: 'json',
       success: function(datas){
         fSuccess(datas);
@@ -23,6 +24,8 @@ define(function(require,exports,module){
       }
     });
   };
+  // 页面title
+  document.title = $('#page-title').val();
   // ajax post 方法
   main.postAjaxDatas=function(_url,_datas,fSuccess){
     $.ajax({

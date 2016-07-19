@@ -69,8 +69,7 @@ define(function(require,exports,module){
       submitHandler: function(form){
         var _url = $('input[name="_url"]').val();
         var data = $formData.serialize();
-        console.log(_url);
-        console.log(data);
+        $('.button-submit').html('正在处理').prop('disabled',true);
         $.ajax({
           url : _url,
           type : 'post',
@@ -78,6 +77,7 @@ define(function(require,exports,module){
           dataType :'json',
           success : function(data){
             if(data.status==1){
+              $('.button-submit').prop('disabled',false);
               alert("操作成功");
               window.location.href='/myteach/teaching';
             }else{
@@ -104,8 +104,8 @@ define(function(require,exports,module){
         // 优化retina, 在retina下这个值是2
         ratio = window.devicePixelRatio || 1,
         // 缩略图大小
-        thumbnailWidth = 260 * ratio,
-        thumbnailHeight = 146 * ratio,
+        thumbnailWidth = 355 * ratio,
+        thumbnailHeight = 210 * ratio,
     // 初始化Web Uploader
     uploader = WebUploader.create({
         // 选完文件后，是否自动上传。
@@ -124,14 +124,14 @@ define(function(require,exports,module){
             mimeTypes: 'image/*'
         },
         thumb: {
-            width: 260,
-            height: 146,
+            width: 355,
+            height: 210,
             // 图片质量，只有type为`image/jpeg`的时候才有效。
             quality: 70,
             // 是否允许放大，如果想要生成小图的时候不失真，此选项应该设置为false.
             allowMagnify: false,
             // 是否允许裁剪。
-            crop: false,
+            crop: true,
             // 为空的话则保留原有图片格式。
             // 否则强制转换成指定的类型。
             type: 'image/jpeg'

@@ -1574,10 +1574,20 @@ input[name="selected"], #controlAll {
   z-index: 100;
   border-top: 1px solid #bbb;
   box-shadow: 0 2px 12px -5px #000;
-  display: none;
+  -o-transition: 300ms;
+  -ms-transition: 300ms;
+  -webkit-transition: 300ms;
+  transition: 300ms;
+  filter: alpha(Opacity=0);
+  -moz-opacity: 0;
+  -khtml-opacity: 0;
+  opacity: 0;
 }
 .lecture-list>li:hover .row{
-  display: block;
+  filter: alpha(Opacity=100);
+  -moz-opacity: 1;
+  -khtml-opacity: 1;
+  opacity: 1;
 }
 .lecture-list>li .row .lf{
   line-height: 40px;
@@ -1672,6 +1682,19 @@ input[name="selected"], #controlAll {
 }
 .star-0 {
   background-position: 0 -80px;
+}
+/*new star*/
+.star{
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: middle;
+  width: 77px;
+  height: 15px;
+  background: url(../img/star.png) no-repeat;
+}
+.star-ray{
+  height: 15px;
+  background: url(../img/star-ray.png) no-repeat;
 }
 /*没数据*/
 .no-data{

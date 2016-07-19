@@ -90,13 +90,17 @@ define(function(require,exports,module){
     });
     // 复制邀请链接
     copyToClipboard('profile-link','copy-link');
+    uploadImg('#fileList1','#filePicker1','#img-path1',180,180);
+    uploadImg('#fileList2','#filePicker2','#img-path2',306,175);
+  }
+  function uploadImg(uObj,fileObj,imgSrc,tWidth,tHeight){
     // 上传图片
-    var $list = $('.fileList'),
+    var $list = $(uObj),
         // 优化retina, 在retina下这个值是2
         ratio = window.devicePixelRatio || 1,
         // 缩略图大小
-        thumbnailWidth = 260 * ratio,
-        thumbnailHeight = 100 * ratio,
+        thumbnailWidth = tWidth * ratio,
+        thumbnailHeight = tHeight * ratio,
     // 初始化Web Uploader
     uploader = WebUploader.create({
         // 选完文件后，是否自动上传。
@@ -107,7 +111,7 @@ define(function(require,exports,module){
         server: "/static/js/plugins/webupload/fileupload.php",
         // 选择文件的按钮。可选。
         // 内部根据当前运行是创建，可能是input元素，也可能是flash.
-        pick: '.filePicker',
+        pick: fileObj,
         // 只允许选择图片文件。
         accept: {
             title: 'Images',
@@ -117,22 +121,21 @@ define(function(require,exports,module){
         // 允许重复上传
         duplicate : true,
         thumb: {
-            // width: 110,
-            // height: 110,
+            width: tWidth,
+            height: tHeight,
             // 图片质量，只有type为`image/jpeg`的时候才有效。
             quality: 70,
             // 是否允许放大，如果想要生成小图的时候不失真，此选项应该设置为false.
-            allowMagnify: true,
+            allowMagnify: false,
             // 是否允许裁剪。
-            crop: false,
+            crop: true,
             // 为空的话则保留原有图片格式。
             // 否则强制转换成指定的类型。
             type: 'image/jpeg'
         }
     });
     // 当有文件添加进来的时候
-    var _index=0;
-    $('.filePicker').on('click',function(){_index=$(this).attr('data-index');});
+    $(fileObj).on('click',function(){_index=$(this).attr('data-index');});
     uploader.on( 'fileQueued', function( file ) {
         var $li = $(
                 '<div id="' + file.id + '" class="file-item thumbnails">' +
@@ -142,7 +145,7 @@ define(function(require,exports,module){
                 ),
             $img = $li.find('img');
         // $list为容器jQuery实例
-        $list.eq(_index).html( $li );
+        $list.html( $li );
         // 创建缩略图
         // 如果为非图片文件，可以不用调用此方法。
         // thumbnailWidth x thumbnailHeight 为 100 x 100
@@ -168,10 +171,9 @@ define(function(require,exports,module){
     });
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on( 'uploadSuccess', function( file,resporse ) {
-      console.log(_index);
         $( '#'+file.id ).addClass('upload-state-done');
-        $('.img-path').eq(_index).val(main.imgPath+'/'+resporse.date+'/'+file.name);
-        console.log($('.img-path').eq(_index).val());
+        $(imgSrc).val(main.imgPath+'/'+resporse.date+'/'+file.name);
+        console.log($(imgSrc).val());
     });
     // 文件上传失败，显示上传出错。
     uploader.on( 'uploadError', function( file ) {

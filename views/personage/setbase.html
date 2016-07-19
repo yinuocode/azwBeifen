@@ -1,5 +1,4 @@
-<!-- header -->
-<?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
+<input type="hidden" id="page-title" value="<?php use yii\helpers\Html; echo Html::encode($title)?>">
 <!-- header end -->
   <section class="section-panel">
     <header class="panel-heading clearfix">
@@ -52,9 +51,9 @@
           <div class="form-controls" id="user-avatar">
             <!-- <input type="file" name="file" id="head-set" value="选择图片"/> -->
             <div class="uploader-img">
-              <div class="fileList" class="uploader-list"><img class="imghead avatar-img" src="{{if data.portrait}}{{data.portrait}}{{else}}/static/img/default-avatar.jpg{{/if}}"></div>
-              <div class="filePicker" class="choose_img" data-index="0">选择图片</div>
-              <input type="text" name="UserDetail[portrait]" class="img-path" value="{{if data.portrait}}{{data.portrait}}{{else}}/static/img/default-avatar.jpg{{/if}}">
+              <div id="fileList1" class="uploader-list"><img class="imghead avatar-img" src="{{if data.portrait}}{{data.portrait}}{{else}}/static/img/default-avatar.jpg{{/if}}"></div>
+              <div id="filePicker1" class="choose_img" data-index="0">选择图片</div>
+              <input type="hidden" name="UserDetail[portrait]" id="img-path1" value="{{if data.portrait}}{{data.portrait}}{{else}}/static/img/default-avatar.jpg{{/if}}">
             </div>
             <div class="form-hint">建议图片大小为180*180</div>
           </div>
@@ -63,9 +62,9 @@
           <div class="control-label">上传形象照</div>
           <div class="form-controls">
             <div class="uploader-img">
-              <div class="fileList" class="uploader-list"><img class="imghead" src="{{if data.enterprise_img}}{{data.enterprise_img}}{{else}}/static/img/default-avatar.jpg{{/if}}"></div>
-              <div class="filePicker" class="choose_img" data-index="1">选择图片</div>
-              <input type="text" name="UserDetail[enterprise_img]" class="img-path" value="{{if data.enterprise_img}}{{data.enterprise_img}}{{else}}/static/img/default-avatar.jpg{{/if}}">
+              <div id="fileList2" class="uploader-list"><img class="imghead" src="{{if data.enterprise_img}}{{data.enterprise_img}}{{else}}/static/img/default-avatar.jpg{{/if}}"></div>
+              <div id="filePicker2" class="choose_img" data-index="1">选择图片</div>
+              <input type="hidden" name="UserDetail[enterprise_img]" id="img-path2" value="{{if data.enterprise_img}}{{data.enterprise_img}}{{else}}/static/img/default-avatar.jpg{{/if}}">
             </div>
             <div class="form-hint">建议图片大小为306*175</div>
           </div>

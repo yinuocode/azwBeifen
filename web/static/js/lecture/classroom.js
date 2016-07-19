@@ -18,6 +18,7 @@ define(function(require,exports,module){
       fSuccess:function(datas){
         var cHeader = template('cHeader', datas);
         $('#c-header').html(cHeader);
+        $('title').html(datas.coures.live_title+' - 阿猪直播课堂');
         runFavorites();
       }
     },
@@ -30,6 +31,14 @@ define(function(require,exports,module){
         $('#main-side-top').html(mainSideTop);
         // 视频地址
         runVideo(datas.coures_gurl);
+      }
+    },
+    // 左侧广告位
+    {
+      url:'/broadcasting/show',
+      fSuccess:function(datas){
+        var adRecommend = template('adRecommend',datas);
+        $('#ad-recommend').html(adRecommend);
       }
     },
     // 贵宾席

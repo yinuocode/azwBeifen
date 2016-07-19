@@ -44,29 +44,29 @@ define(function(require,exports,module){
     $('#teacher-name').html(datas.username);
     $('#lecturer-id').val(datas.user_id);
   });
-  // 课时
+  // 回放列表
   postAjaxDatas('/couresdetail/playback',getVal,function(datas){
     console.log(datas);
-    var hourItemList = template('hourItemList',datas);
+    var hourItemList = template('hourItemList',{list:datas});
     $('#hour-item-list').html(hourItemList);
     var liLessonItem;
-    if(getVal.hid){
-      liLessonItem=$('.lesson-item.lesson-item-66[data-hid='+getVal.hid+']');
-      $('.hid').val(getVal.hid);
+    if(getVal.vid){
+      liLessonItem=$('.lesson-item.lesson-item-66[data-vid='+getVal.vid+']');
     }else{
       liLessonItem=$('.lesson-item.lesson-item-66').eq(0);
-      $('.hid').val(liLessonItem.attr('data-hid'));
     }
     liLessonItem.addClass('item-active');
-    $('#hour-title').html(liLessonItem.find('.title').html());
+    $('#hour-title,title').html(liLessonItem.find('.title').html());
     // 加载视频
     var url=liLessonItem.attr('data-src');
     if(url==1){
       alert('该课程需要购买后才能观看');
-    }else{
+    }else if(url){
       var lessonVideoContent = template('lessonVideoContent',{data:url});
       $('#lesson-video-content').html(lessonVideoContent);
       $.getScript('/static/js/plugins/video/video.min.js');
+    }else{
+      alert('暂无回放内容');
     }
   });
   // 打赏
@@ -82,7 +82,7 @@ define(function(require,exports,module){
     var money=$('#enjoy-val').val();
     var lid=$('#lecturer-id').val();
     if(Number(money)!==0){
-      postAjaxDatas('/broadcasting/reward',{money:money,to_user_id:lid,cid:getVal.cid,type:1},function(datas){
+      postAjaxDatas('/broadcasting/reward',{money:money,to_user_id:lid,cid:getVal.cid,type:0},function(datas){
         if(datas.status==1){
           $('.enjoy-box').hide();
           $('#enjoy-effect').show().animate({

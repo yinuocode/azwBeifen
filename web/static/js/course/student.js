@@ -23,7 +23,6 @@ define(function(require,exports,module){
   // 课程小组名称
   function runGetAjaxGroup(){
     main.getAjaxDatas('/coures/get-group',function(datas){
-      console.log(datas);
       var selectItems = template('selectItems',{list:datas});
       $('.select-items').html(selectItems);
     });

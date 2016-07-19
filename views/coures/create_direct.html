@@ -1,5 +1,4 @@
-<!-- header -->
-<?php echo \Yii::$app->view->renderFile('@app/views/layouts/header.html');?>
+<input type="hidden" id="page-title" value="<?php use yii\helpers\Html; echo Html::encode($title)?>">
 <!-- header end -->
   <section class="section-panel">
     <header class="panel-heading clearfix">
@@ -74,7 +73,7 @@
             <div class="form-group">
               <label class="control-label">促销价格</label>
               <div class="form-controls">
-                <input type="text" class="form-input" range="[1,5]" value="{{if live_price}}{{live_price}}{{/if}}" id="course-price2"  name="LiveCoures[live_price]" number="true" required>
+                <input type="text" class="form-input" range="" value="{{if live_price}}{{live_price}}{{/if}}" id="course-price2"  name="LiveCoures[live_price]" number="true" required>
               </div>
             </div>
           </div>
@@ -220,7 +219,7 @@
       <!-- 分类选项 -->
       <script id="courseCategoryId" type="text/html">
       {{each list as value i}}
-      <option value="{{value.gc_id}}" {{if list.sid==value.gc_id}}selected{{/if}}>{{value.gc_name}}</option>
+      <option value="{{value.gc_id}}" disabled>{{value.gc_name}}</option>
       {{each value.ziji as val i}}
       <option value="{{val.gc_id}}" {{if list.sid==val.gc_id}}selected{{/if}}>&nbsp;&nbsp;&nbsp;{{val.gc_name}}</option>
       {{/each}}

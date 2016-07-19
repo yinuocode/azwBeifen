@@ -19,6 +19,12 @@
   font-size: 14px;
   margin-left:10px;
 }
+.home-head .firm-name{
+  position: absolute;
+  color: yellow;
+  top: 16px;
+  right: 65px;
+}
 .home-avatar{
   margin-right:20px;
 }
@@ -476,7 +482,10 @@
   line-height: 40px;
   font-size: 18px;
   color: #fff;
-  display: none;
+  filter: alpha(Opacity=0);
+  -moz-opacity: 0;
+  -khtml-opacity: 0;
+  opacity: 0;
   transition: 300ms;
   -webkit-transition:300ms;
   -ms-transition:300ms;
@@ -490,7 +499,10 @@
   border-color:#80CBEC;
 }
 .firm-lecturer .item:hover .name{
-  display: block;
+  filter: alpha(Opacity=100);
+  -moz-opacity: 1;
+  -khtml-opacity: 1;
+  opacity: 1;
 }
 .firm-lecturer .slick-prev,.firm-lecturer .slick-next{
   background: #999;
@@ -504,6 +516,9 @@
   width:19px;
   height:29px;
   background: url(../img/arrows-lr.png) no-repeat center center;
+  filter: alpha(Opacity=100);
+  -moz-opacity: 1;
+  -khtml-opacity: 1;
   opacity: 1;
   margin-left:15px;
 }

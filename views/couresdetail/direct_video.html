@@ -7,7 +7,7 @@
 <!--<![endif]-->
 <head>
   <meta charset="UTF-8">
-  <title>阿猪网首页</title>
+  <title>录播观看页面 - 阿猪网</title>
   <meta name="Keywords" content="阿猪网首页">
   <meta name="Description" content="阿猪网首页">
   <meta name="renderer" content="webkit">
@@ -101,12 +101,12 @@
           <div class="course-item-list-in-toolbar-pane ps-container show">
             <ul class="period-list" id="hour-item-list">
             <script id="hourItemList" type="text/html">
-            {{each hour as value i}}
-              <li class="period lesson-item lesson-item-66" data-hid="{{value.hour_id}}" data-src="{{if value.is_free==1||buy==1||self==1}}{{value.hour_src}}{{else}}1{{/if}}">
-                <a href="/couresdetail/video?cid={{cid}}&amp;type={{type}}&amp;hid={{value.hour_id}}" title="如何更好的使用阿猪网学习">
+            {{each list as value i}}
+              <li class="period lesson-item lesson-item-66" data-vid="{{value.vid}}" data-src="{{value.live_src}}">
+                <a href="/couresdetail/direct-video?cid={{value.live_id}}&amp;type=0&amp;vid={{value.vid}}" title="课程回放{{i+1}}">
                   <i class="es-icon es-icon-doing color-primary status-icon"></i>
-                  <span class="title">   课时{{i+1}}：{{value.hour_title}}</span>
-                  <span class="date" title="视频时长{{value.video_time}}">{{value.video_time}}</span>
+                  <span class="title">   回放{{i+1}}：课程回放{{i+1}}</span>
+                  <span class="date" title="视频时长{{value.create_date}}">{{value.create_date}}</span>
                 </a>
               </li>
             {{/each}}

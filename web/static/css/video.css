@@ -67,6 +67,20 @@ form.cmxform form.cmxform .gray * {
 .star-0 {
   background-position: 0 -80px;
 }
+/*new star*/
+.star{
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: middle;
+  width: 77px;
+  height: 15px;
+  background: url(../img/star.png) no-repeat;
+  margin-top: 2px;
+}
+.star-ray{
+  height: 15px;
+  background: url(../img/star-ray.png) no-repeat;
+}
 .btn {
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;

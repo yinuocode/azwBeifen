@@ -36,7 +36,7 @@ define(function(require,exports,module){
     userMid=datas.user_id;
     if(datas.type==1){
       $('#course-data-title').html(datas.detail.coures_title);
-      $('#grade-star').attr('class','lf star-'+datas.detail.score);
+      $('#grade-star').css('width',datas.detail.score+'%');
     }else{
       $('#course-data-title').html(datas.detail.live_title);
       $('#course-type-video').html('类型：直播');
@@ -62,7 +62,7 @@ define(function(require,exports,module){
       $('.hid').val(liLessonItem.attr('data-hid'));
     }
     liLessonItem.addClass('item-active');
-    $('#hour-title').html(liLessonItem.find('.title').html());
+    $('#hour-title,title').html(liLessonItem.find('.title').html());
     // 视频播放
     // $('#example_video_1_html5_api').attr('src',liLessonItem.attr('data-src'));
     // 加载视频

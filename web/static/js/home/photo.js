@@ -38,7 +38,7 @@ define(function(require,exports,module){
         dataType:'json',
         success : function(data){
           if(data.status==1){
-            alert('创建成功');
+            // alert('创建成功');
             $('.popup').addClass('hide');
             // 局部刷新
             main.runPostAjaxDatas();

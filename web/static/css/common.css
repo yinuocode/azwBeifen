@@ -25,6 +25,17 @@ textarea:focus, input:focus {
       margin: 0 auto;
       color: #fff;
       cursor: pointer;
+      border:2px solid #188eee;
+  }
+  .btn:hover{
+    background: #fff;
+    color: #188eee;
+  }
+  .btn:disabled,.btn:disabled:hover{
+    background: #bbb;
+    border-color: #bbb;
+    cursor: default;
+    color:#fff;
   }
   /*弹窗共用代码*/
   .popup-bg{
@@ -97,7 +108,7 @@ textarea:focus, input:focus {
     padding: 0 16px;
     margin: 10px 0;
     border-radius: 3px;
-    line-height: 35px;
+    line-height: 30px;
   }
   /*弹窗代码结束*/
 

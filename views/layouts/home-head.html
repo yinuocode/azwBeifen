@@ -1,0 +1,61 @@
+<link rel="stylesheet" href="/static/css/home.css">
+  <div class="home-head clearfix" id="home-header">
+    <script id="homeHeader" type="text/html">
+      <div class="lf user-base">
+        <h1>{{nick_name}}<span class="sex">{{if sex==0}}女{{else if sex==1}}男{{else}}未填写{{/if}}</span></h1>
+        <div class="row">
+          <div class="lf home-avatar"><img src="{{portrait}}" alt=""></div>
+          <div class="lf home-base">
+            <!-- <p>直播时通知我</p> -->
+            <p>ID：{{uid}}</p>
+            <p>职位：{{if identity==1}}讲师{{else}}会员{{/if}}</p>
+            <p>等级：<img src="{{grade}}" class="grade" alt=""></p>
+          </div>
+        </div>
+      </div>
+      <div class="lf signature">
+        <h2>个性签名</h2>
+        <p>{{if motto}}{{motto}}{{else}}主人很懒，暂未设置个性签名{{/if}}</p>
+      </div>
+      <div class="rf follow-fans">
+        {{if fid}}
+        <a href="/firm?fid={{fid}}" class="firm-name" target="_blank">所属公司：{{fname}}</a>
+        {{/if}}
+        <div class="row row1">
+          <div class="lf">
+            <p class="num">{{attention}}</p>
+            <p>关注</p>
+          </div>
+          <div class="lf">
+            <p class="num">{{fans}}</p>
+            <p>粉丝</p>
+          </div>
+        </div>
+        {{if is_login==1}}
+          {{if self==1}}
+          <div class="row row3 block">
+            {{if is_sign==0}}
+            <a href="javascript:;" id="user-signin">签到<span class="signin-span">+5</span></a>
+            {{else}}
+            <a href="javascript:;">已签到</a>
+            {{/if}}
+          </div>
+          {{else}}
+          <div class="row row2">
+            {{if relation==0}}
+            <a href="javascript:;" class="lf" id="attention">关注TA</a>
+            {{else}}
+            <a href="javascript:;" class="lf" id="cancel-attention">取消关注</a>
+            {{/if}}
+            <a href="javascript:;" class="lf" id="send-letter">私信TA</a>
+          </div>
+          {{/if}}
+        {{else}}
+        <div class="row row2">
+          <a href="javascript:;" class="click-login lf">关注TA</a>
+          <a href="javascript:;" class="click-login lf">私信TA</a>
+        </div>
+        {{/if}}
+      </div>
+    </script>
+  </div>

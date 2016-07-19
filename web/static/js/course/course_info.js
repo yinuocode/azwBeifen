@@ -132,15 +132,22 @@ define(function(require,exports,module){
     });
   });
   // 取消收藏
+  var cancelNum=0;
   $('.panel-body').on('click','#cancel-collect',function(){
     var _this=$(this);
-    main.postAjaxDatas('/couresdetail/delenshrine',getVal,function(datas){
-      if(datas.status==1){
-        _this.attr('id','collect').html('点击收藏');
-      }else{
-        // alert(datas.msg);
-      }
-    });
+    if(cancelNum<2){
+      cancelNum++;
+      main.postAjaxDatas('/couresdetail/delenshrine',getVal,function(datas){
+        if(datas.status==1){
+          _this.attr('id','collect').html('点击收藏');
+        }else{
+          // alert(datas.msg);
+        }
+      });
+    }else{
+      cancelNum=0;
+      alert('您操作过于频繁，请稍后重试');
+    }
   });
   // 立即观看
   // $('.panel-body').on('click','#start-look',function(){

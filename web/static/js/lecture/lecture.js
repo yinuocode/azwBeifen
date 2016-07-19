@@ -53,7 +53,6 @@ define(function(require,exports,module){
     'uploader' : '/pptfile/uploadhandleppt',
     'onUploadSuccess' : function(file) {/*file, data, response*/
       // console.log(file);
-      console.log(12345);
     },
     'onUploadComplete' : function(file) {
       var isSetI=setInterval(function() {

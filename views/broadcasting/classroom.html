@@ -7,7 +7,7 @@
 <!--<![endif]-->
 <head>
   <meta charset="UTF-8">
-  <title>课堂</title>
+  <title>阿猪直播课堂</title>
   <meta name="Keywords" content="课堂">
   <meta name="Description" content="课堂">
   <meta name="renderer" content="webkit">
@@ -57,23 +57,27 @@
     <section class="content-main lf">
       <div class="main-body clearfix">
         <aside class="main-side">
-          <div class="main-side-top" id="main-side-top">
-            <script id="mainSideTop" type="text/html">
-              <div class="lecturer-info clearfix">
-                <div class="lf">
-                  <a href="/home?uid={{uid}}" target="_blank">
-                    <img src="{{portrait}}" width="60px" height="60" alt="头像">
-                  </a>
-                  <input type="hidden" id="lecturer-id" value="{{uid}}">
-                </div>
-                <div class="signature">{{motto}}</div>
+          <div class="main-side-top">
+            <div class="lecturer-info clearfix" id="main-side-top">
+              <script id="mainSideTop" type="text/html">
+              <div class="lf">
+                <a href="/home?uid={{uid}}" target="_blank">
+                  <img src="{{portrait}}" width="60px" height="60" alt="头像">
+                </a>
+                <input type="hidden" id="lecturer-id" value="{{uid}}">
               </div>
-              <h1 class="ad-side">{{nick_name}}</h1>
+              <div class="signature">{{motto}}</div>
+              </script>
+            </div>
+            <div id="ad-recommend">
+              <script id="adRecommend" type="text/html">
+              <h1 class="ad-side">推荐</h1>
               <div class="recommend">
-                <a href="javascript:;"><img src="http://placehold.it/260x120" alt=""></a>
-                <p class="title"><a href="javascript:;">是多少分第三季度</a></p>
+                <a href="/couresdetail?cid={{id}}&amp;type={{type}}" target="_blank"><img src="{{cover}}" alt=""></a>
+                <p class="title"><a href="/couresdetail?cid={{id}}&amp;type={{type}}" target="_blank">{{title}}</a></p>
               </div>
-            </script>
+              </script>
+            </div>
           </div>
           <div class="main-side-bt">
             <div class="search-student clearfix">

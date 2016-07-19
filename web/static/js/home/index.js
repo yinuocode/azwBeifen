@@ -58,16 +58,27 @@ define(function(require,exports,module){
       }
     });
   });
+  // 点击登录
+  $('.panel-body').on('click','.click-login',function(){
+    main.registration(0);
+  });
   // 取消点赞
+  var cancelNum=0;
   $('.home-content').on('click','.cancel-praise-btn',function(){
     var did=$(this).attr('data-pid');
-    main.postAjaxDatas('/dynamic/del-like',{did:did},function(datas){
-      if(datas.status==1){
-        dynamicList();
-      }else{
-        alert(datas.msg);
-      }
-    });
+    if(cancelNum<2){
+      cancelNum++;
+      main.postAjaxDatas('/dynamic/del-like',{did:did},function(datas){
+        if(datas.status==1){
+          dynamicList();
+        }else{
+          alert(datas.msg);
+        }
+      });
+    }else{
+      cancelNum=0;
+      alert('您操作过于频繁，请稍后重试');
+    }
   });
   // 删除说说
   $('.home-content').on('click','.delete-btn',function(){
