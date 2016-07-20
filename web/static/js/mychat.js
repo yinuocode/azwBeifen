@@ -194,8 +194,12 @@ $(function(){
     socket.emit('showGift',{cid:cid,uid:uid,uname:uname,gnr:gnr,num:num,gtitle:gtitle});
   };
   //加入教室
-  var joinroom = function(cid,uid,uname,isman,headpic,level,isNo,_index){
-    socket.emit('joinroom',{uid:uid,uname:uname,cid:cid,isman:isman,headpic:headpic,level:level,isNo:isNo,_index:_index});
+  var joinroom = function(cid,uid,uname,isman,headpic,level){
+    socket.emit('joinroom',{uid:uid,uname:uname,cid:cid,isman:isman,headpic:headpic,level:level});
+  };
+  //触发ppt函数
+  var changePpt = function(cid,uid,pptI,imgSite){
+    socket.emit('changePpt',{cid:cid,uid:uid,pptI:pptI,imgSite:imgSite});
   };
   var updateinfo = function(cid){
     socket.emit('updateinfo',{cid:cid});
@@ -208,12 +212,17 @@ $(function(){
   var showcount = function(data){
     // console.log(data);
   };
-  // 触发ppt改变时间
+  // 触发ppt改变事件
+  var pptI='';
   $('.thumbs').on('click','li',function(){
-    // console.log('传出成功');
-    var _index=$(this).index();
-    var imgSite =$('#gallery_list li').eq(_index).find('img').attr('src').replace('thumb','source');
-    joinroom(courseCid,userMid,userName,dataService,headpic,level,1,imgSite);
+    pptI=$(this).index();
+    var imgSite =$('#thumbs li').eq(pptI).find('img').attr('src');
+    changePpt(courseCid,userMid,pptI,imgSite);
+  });
+  $('.content-nr').on('click','.advance-link',function(){
+    pptI+=1;
+    var imgSite =$('#thumbs li').eq(pptI).find('img').attr('src');
+    changePpt(courseCid,userMid,pptI,imgSite);
   });
   // 触发学员离开房间
   $(window).on('beforeunload',function(){
@@ -228,7 +237,7 @@ $(function(){
   // console.log(socket);
   var cid = courseCid;
   if(socket!==undefined){
-    joinroom(courseCid,userMid,userName,dataService,headpic,level,0,0);
+    joinroom(courseCid,userMid,userName,dataService,headpic,level);
     socket.on('showcount',function(data){
       $('#count').html(data);
     });
@@ -353,16 +362,15 @@ $(function(){
       // console.log('进入讲师页面');
     }
     // 同步ppt
-    socket.on('syncPpt',function(imgSite){
-      // console.log('数据返回成功');
-      //$('#gallery_list li').eq(_index).css('opacity','1').siblings().css('opacity','0.67');
-      //var imgSite =$('#gallery_list li').eq(_index).find('img').attr('src').replace('thumb','source');
-      //var imgSite =$('#gallery_list li').eq(_index).find('img').attr('src').replace('thumb','source');
-      // console.log(imgSite);
-      if($('.image-wrapper.current').get(0)){
-        $('.advance-link img').attr('src',imgSite);
-      }else{
-        $('#slideshow').append('<span class="image-wrapper current" style="opacity: 1;"><a class="advance-link" rel="history" title="">&nbsp;<img alt="" src="'+imgSite+'"></a></span>');
+    socket.on('syncPpt',function(data){
+      if($('#is-index').val()!=1){
+        // console.log('数据返回成功');
+        $('#thumb li').eq(data.pptI).css('opacity','1').siblings().css('opacity','0.67');
+        // if($('.image-wrapper.current').get(0)){
+        //   $('.advance-link img').attr('src',data.imgSite);
+        // }else{
+          $('#slideshow').html('<span class="image-wrapper current" style="opacity: 1;"><a class="advance-link" rel="history" title="">&nbsp;<img alt="" src="'+data.imgSite+'"></a></span>');
+        // }
       }
     });
     socket.on('updatestatus',function(data){

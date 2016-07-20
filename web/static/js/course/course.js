@@ -12,25 +12,25 @@ define(function(require,exports,module){
       $('#h-cid').val(ret);
       runCourseForm();
       var start = {
-          elem: '#startDate',
-          min: laydate.now(), //设定最小日期为当前日期
-          max: '2099-06-16 23:59:59', //最大日期
-          istime: true,
-          istoday: false,
-          choose: function(datas){
-               end.min = datas; //开始日选好后，重置结束日的最小日期
-               end.start = datas; //将结束日的初始值设定为开始日
-          }
+        elem: '#startDate',
+        min: laydate.now(), //设定最小日期为当前日期
+        max: '2099-06-16 23:59:59', //最大日期
+        istime: true,
+        istoday: false,
+        choose: function(datas){
+          end.min = datas; //开始日选好后，重置结束日的最小日期
+          end.start = datas; //将结束日的初始值设定为开始日
+        }
       };
       var end = {
-          elem: '#endDate',
-          min: laydate.now(),
-          max: '2099-06-16 23:59:59',
-          istime: true,
-          istoday: false,
-          choose: function(datas){
-              start.max = datas; //结束日选好后，重置开始日的最大日期
-          }
+        elem: '#endDate',
+        min: laydate.now(),
+        max: '2099-06-16 23:59:59',
+        istime: true,
+        istoday: false,
+        choose: function(datas){
+          start.max = datas; //结束日选好后，重置开始日的最大日期
+        }
       };
       laydate(start);
       laydate(end);
@@ -123,6 +123,8 @@ define(function(require,exports,module){
             extensions: 'gif,jpg,jpeg,bmp,png',
             mimeTypes: 'image/*'
         },
+        // 允许重复上传
+        duplicate : true,
         thumb: {
             width: 355,
             height: 210,
@@ -139,43 +141,49 @@ define(function(require,exports,module){
     });
     // 当有文件添加进来的时候
     uploader.on( 'fileQueued', function( file ) {
-        var $li = $(
-                '<div id="' + file.id + '" class="file-item thumbnails">' +
-                    '<img>' +
-                    '<div class="info">' + file.name + '</div>' +
-                '</div>'
-                ),
-            $img = $li.find('img');
+        // var $li = $(
+        //         '<div id="' + file.id + '" class="file-item thumbnails">' +
+        //             '<img>' +
+        //             '<div class="info">' + file.name + '</div>' +
+        //         '</div>'
+        //         ),
+        //     $img = $li.find('img');
         // $list为容器jQuery实例
-        $list.html( $li );
+        // $list.html( $li );
         // 创建缩略图
         // 如果为非图片文件，可以不用调用此方法。
         // thumbnailWidth x thumbnailHeight 为 100 x 100
-        uploader.makeThumb( file, function( error, src ) {
-            if ( error ) {
-                $img.replaceWith('<span>不能预览</span>');
-                return;
-            }
-            $img.attr( 'src', src );
-        }, thumbnailWidth, thumbnailHeight );
+        // uploader.makeThumb( file, function( error, src ) {
+        //     if ( error ) {
+        //         $img.replaceWith('<span>不能预览</span>');
+        //         return;
+        //     }
+        //     $img.attr( 'src', src );
+        // }, thumbnailWidth, thumbnailHeight );
     });
     // 文件上传过程中创建进度条实时显示。
     uploader.on( 'uploadProgress', function( file, percentage ) {
-        var $li = $( '#'+file.id ),
-            $percent = $li.find('.progress span');
-        // 避免重复创建
-        if ( !$percent.length ) {
-            $percent = $('<p class="progress"><span></span></p>')
-                    .appendTo( $li )
-                    .find('span');
-        }
-        $percent.css( 'width', percentage * 100 + '%' );
+        // var $li = $( '#'+file.id ),
+        //     $percent = $li.find('.progress span');
+        // // 避免重复创建
+        // if ( !$percent.length ) {
+        //     $percent = $('<p class="progress"><span></span></p>')
+        //             .appendTo( $li )
+        //             .find('span');
+        // }
+        // $percent.css( 'width', percentage * 100 + '%' );
     });
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on( 'uploadSuccess', function( file,resporse ) {
         $( '#'+file.id ).addClass('upload-state-done');
-        $('#img-path').val(main.imgPath+'/'+resporse.date+'/'+file.name);
-        $('#uploader-img').find('.error').hide();
+        var imgSrc=main.imgPath+'/'+resporse.date+'/'+file.name;
+        // $('#img-target,#preview2').attr('src',imgSrc);
+        // $('#img-src').val(imgSrc);
+        var imgUploadBox = template('imgUploadBox',{imgSrc:imgSrc});
+        $('#img-upload-box').html(imgUploadBox);
+        // 图片裁剪
+        imgCrop();
+        $('#img-upload-popup').removeClass('hide');
         console.log(main.imgPath+'/'+resporse.date+'/'+file.name);
     });
     // 文件上传失败，显示上传出错。
@@ -218,6 +226,76 @@ define(function(require,exports,module){
         inputTag.val(txt);
       }
       formTag.hide();
+    });
+  }
+
+  // 图片裁剪
+  function imgCrop(){
+    $.getScript('/static/js/plugins/jcrop/jquery.Jcrop.min.js',function(){
+      $('#img-target').Jcrop({
+        allowSelect: false,
+        minSize: [48,48],
+        setSelect: [0,0,190,190],
+        onChange: updatePreview,
+        // onSelect: updatePreview,
+        onSelect: updateCoords,
+        aspectRatio: 1
+      },
+      function(){
+        // Use the API to get the real image size
+        var bounds = this.getBounds();
+        boundx = bounds[0];
+        boundy = bounds[1];
+        // Store the API in the jcrop_api variable
+        jcrop_api = this;
+      });
+    });
+    // 图片裁剪 ajax提交
+    var $imgCutFrom = $('#img-cut-form');
+    $imgCutFrom.validate({
+      onsubmit:true,// 是否在提交时验证
+      submitHandler: function(form){
+        $('#img-upload-popup').addClass('hide');
+        $('.jcrop-holder').remove();
+        $('#fileList').html('<img class="imghead" src="'+'http://image.agodpig.com/20160720/-play-bj.jpg'+'">');
+        $('#img-path').val('http://image.agodpig.com/20160720/-play-bj.jpg');
+        $('#uploader-img').find('.error').hide();
+        // var data = $imgCutFrom.serialize();
+        // $.ajax({
+        //   url : '/album/cut-photo',
+        //   type : 'post',
+        //   data : data,
+        //   success : function(data){
+        //     console.log(data);
+        //     $('.img-upload-box').hide();
+        //     $('#fileList').html('<img class="imghead" src="'+data+'">');
+        //     $('#img-path').val(data);
+        //     $('#uploader-img').find('.error').hide();
+        //   }
+        // });
+      }
+    });
+  }
+  // Create variables (in this scope) to hold the API and image size
+  var jcrop_api, boundx, boundy;
+  // 设置坐标
+  function updateCoords(c){
+    $('#x').val(c.x);
+    $('#y').val(c.y);
+    $('#w').val(c.w);
+    $('#h').val(c.h);
+  }
+  // 实时显示裁剪图
+  function updatePreview(c){
+    var rx;
+    var ry;
+    rx = 199 / c.w;   //大头像预览Div的大小
+    ry = 199 / c.h;
+    $('#preview2').css({
+      width: Math.round(rx * boundx) + 'px',
+      height: Math.round(ry * boundy) + 'px',
+      marginLeft: '-' + Math.round(rx * c.x) + 'px',
+      marginTop: '-' + Math.round(ry * c.y) + 'px'
     });
   }
 });

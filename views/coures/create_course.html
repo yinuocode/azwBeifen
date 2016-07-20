@@ -1,5 +1,40 @@
 <input type="hidden" id="page-title" value="<?php use yii\helpers\Html; echo Html::encode($title)?>">
 <!-- header end -->
+<link rel="stylesheet" href="/static/js/plugins/jcrop/jquery.Jcrop.min.css">
+<style>
+  .img-upload-box{
+    width: auto;
+    margin-left: -280px;
+    padding:10px;
+  }
+  .img-upload-box .artwork{
+    width: 320px;
+    margin-right:10px;
+    max-height: 450px;
+    min-height:200px;
+  }
+  #img-target{
+    text-align: center;
+    max-width: 100%;
+    max-height:420px;
+  }
+  .img-upload-box .show{
+    width:190px;
+    height:190px;
+    overflow:hidden;
+    margin-bottom:15px;
+  }
+  #preview2{
+    display: block;
+  }
+  .img-btn{
+    display: block;
+    width: 150px;
+    height: 30px;
+    cursor: pointer;
+    margin:0 auto;
+  }
+</style>
   <section class="section-panel">
     <header class="panel-heading clearfix">
       <a href="/coures/direct">创建直播</a>
@@ -166,6 +201,28 @@
       <input type="hidden" id="course-type" value="1">
     </div>
   </section>
+  <!-- 图片上传弹窗 -->
+  <div class="popup hide" id="img-upload-popup">
+    <div class="popup-modal img-upload-box clearfix" id="img-upload-box">
+    <script id="imgUploadBox" type="text/html">
+      <div class="artwork lf"><img id="img-target" src="{{imgSrc}}"></div>
+      <div class="lf">
+        <div class="show">
+          <img id="preview2" src="{{imgSrc}}">
+        </div>
+        <form id="img-cut-form" method="post">
+          <input type="hidden" name="filename" id="img-src" value="{{imgSrc}}">
+          <input type="hidden" id="x" name="x" value="0"/>
+          <input type="hidden" id="y" name="y" value="0"/>
+          <input type="hidden" id="w" name="w" value="190"/>
+          <input type="hidden" id="h" name="h" value="190"/>
+          <input type="submit" class="img-btn" value="裁剪" />
+        </form>
+      </div>
+    </script>
+    </div>
+    <div class="popup-bg"></div>
+  </div>
   <!-- footer -->
   <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
   <!-- footer end -->

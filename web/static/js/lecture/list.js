@@ -54,7 +54,11 @@ define(function(require,exports,module){
   $('.lecture-list').on('click','.attention',function(){
     var dataUid=$(this).attr('data-uid');
     main.postAjaxDatas('/lecturer/attention',{user_id:dataUid},function(datas){
-      main.runPostAjaxDatas();
+      if(datas.status==1){
+        main.runPostAjaxDatas();
+      }else{
+        alert(datas.msg);
+      }
     });
   });
   // 未登录点击关注
