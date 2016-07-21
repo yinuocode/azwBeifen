@@ -416,8 +416,13 @@ $(function(){
         if(!bannedJudge()){
           bannedHint();
         }else{
-          socket.emit('input',{name:name,cid:courseCid,uid:userMid,message:$(self).html()});
-          event.preventDefault();
+          if(chatTextarea.html().replace(/\&nbsp;/g,'').replace(/ /g,'')){
+            console.log(12);
+            socket.emit('input',{name:name,cid:courseCid,uid:userMid,message:$(self).html()});
+            event.preventDefault();
+          }else{
+            chatTextarea.html('');
+          }
         }
       }
     });
@@ -425,9 +430,11 @@ $(function(){
       if(!bannedJudge()){
         bannedHint();
       }else{
-        if(chatTextarea.html()!==''){
+        if(chatTextarea.html().replace(/\&nbsp;/g,'').replace(/ /g,'')){
           socket.emit('input',{name:userName,cid:courseCid,uid:userMid,message:chatTextarea.html()});
           event.preventDefault();
+        }else{
+          chatTextarea.html('');
         }
       }
     });

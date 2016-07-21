@@ -90,14 +90,14 @@ define(function(require,exports,module){
     });
     // 复制邀请链接
     copyToClipboard('profile-link','copy-link');
-    uploadImg('#fileList1','#filePicker1','#img-path1',180,180);
-    uploadImg('#fileList2','#filePicker2','#img-path2',306,175);
+    uploadImg('#fileList1','#filePicker1','#img-path1',180,180,1);
+    uploadImg('#fileList2','#filePicker2','#img-path2',306,175,1.75);
   }
-  function uploadImg(uObj,fileObj,imgSrc,tWidth,tHeight){
+  function uploadImg(uObj,fileObj,artworkSrc,tWidth,tHeight,ratio){
     // 上传图片
     var $list = $(uObj),
         // 优化retina, 在retina下这个值是2
-        ratio = window.devicePixelRatio || 1,
+        // ratio = window.devicePixelRatio || 1,
         // 缩略图大小
         thumbnailWidth = tWidth * ratio,
         thumbnailHeight = tHeight * ratio,
@@ -137,43 +137,47 @@ define(function(require,exports,module){
     // 当有文件添加进来的时候
     $(fileObj).on('click',function(){_index=$(this).attr('data-index');});
     uploader.on( 'fileQueued', function( file ) {
-        var $li = $(
-                '<div id="' + file.id + '" class="file-item thumbnails">' +
-                    '<img>' +
-                    '<div class="info">' + file.name + '</div>' +
-                '</div>'
-                ),
-            $img = $li.find('img');
+        // var $li = $(
+        //         '<div id="' + file.id + '" class="file-item thumbnails">' +
+        //             '<img>' +
+        //             '<div class="info">' + file.name + '</div>' +
+        //         '</div>'
+        //         ),
+        //     $img = $li.find('img');
         // $list为容器jQuery实例
-        $list.html( $li );
+        // $list.html( $li );
         // 创建缩略图
         // 如果为非图片文件，可以不用调用此方法。
         // thumbnailWidth x thumbnailHeight 为 100 x 100
-        uploader.makeThumb( file, function( error, src ) {
-            if ( error ) {
-                $img.replaceWith('<span>不能预览</span>');
-                return;
-            }
-            $img.attr( 'src', src );
-        }, thumbnailWidth, thumbnailHeight );
+        // uploader.makeThumb( file, function( error, src ) {
+        //     if ( error ) {
+        //         $img.replaceWith('<span>不能预览</span>');
+        //         return;
+        //     }
+        //     $img.attr( 'src', src );
+        // }, thumbnailWidth, thumbnailHeight );
     });
     // 文件上传过程中创建进度条实时显示。
     uploader.on( 'uploadProgress', function( file, percentage ) {
-        var $li = $( '#'+file.id ),
-            $percent = $li.find('.progress span');
-        // 避免重复创建
-        if ( !$percent.length ) {
-            $percent = $('<p class="progress"><span></span></p>')
-                    .appendTo( $li )
-                    .find('span');
-        }
-        $percent.css( 'width', percentage * 100 + '%' );
+        // var $li = $( '#'+file.id ),
+        //     $percent = $li.find('.progress span');
+        // // 避免重复创建
+        // if ( !$percent.length ) {
+        //     $percent = $('<p class="progress"><span></span></p>')
+        //             .appendTo( $li )
+        //             .find('span');
+        // }
+        // $percent.css( 'width', percentage * 100 + '%' );
     });
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on( 'uploadSuccess', function( file,resporse ) {
         $( '#'+file.id ).addClass('upload-state-done');
-        $(imgSrc).val(main.imgPath+'/'+resporse.date+'/'+file.name);
-        console.log($(imgSrc).val());
+        var imgSrc=main.imgPath+'/'+resporse.date+'/'+file.name;
+        var imgUploadBox = template('imgUploadBox',{imgSrc:imgSrc,imgW:tWidth,imgH:tHeight});
+        $('#img-upload-box').html(imgUploadBox);
+        // 图片裁剪
+        imgCrop(uObj,artworkSrc,tWidth,tHeight,ratio);
+        $('#img-upload-popup').removeClass('hide');
     });
     // 文件上传失败，显示上传出错。
     uploader.on( 'uploadError', function( file ) {
@@ -189,5 +193,77 @@ define(function(require,exports,module){
     uploader.on( 'uploadComplete', function( file ) {
         $( '#'+file.id ).find('.progress').remove();
     });
+  }
+
+  // 图片裁剪
+  function imgCrop(uObj,artworkSrc,tWidth,tHeight,ratio){
+    $('.img-upload-box .show').css('height',190/ratio+'px');
+    $.getScript('/static/js/plugins/jcrop/jquery.Jcrop.min.js',function(){
+      $('#img-target').Jcrop({
+        allowSelect: false,
+        // minSize: [48,48],
+        setSelect: [0,0,tWidth,tHeight],
+        onChange: updatePreview,
+        // onSelect: updatePreview,
+        onSelect: updateCoords,
+        aspectRatio: ratio
+      },
+      function(){
+        // Use the API to get the real image size
+        var bounds = this.getBounds();
+        boundx = bounds[0];
+        boundy = bounds[1];
+        // Store the API in the jcrop_api variable
+        jcrop_api = this;
+      });
+    });
+    // 图片裁剪 ajax提交
+    var $imgCutFrom = $('#img-cut-form');
+    $imgCutFrom.validate({
+      onsubmit:true,// 是否在提交时验证
+      submitHandler: function(form){
+        var data = $imgCutFrom.serialize();
+        $.ajax({
+          url : '/album/cut-photo',
+          type : 'post',
+          data : data,
+          dataType: 'json',
+          success : function(data){
+            if(data.status==1){
+              console.log(data);
+              $('#img-upload-popup').addClass('hide');
+              $(uObj).html('<img class="imghead" src="'+data.msg+'">');
+              $(artworkSrc).val(data.msg);
+              $('#uploader-img').find('.error').hide();
+            }else{
+              alert(data.msg);
+              $('#img-upload-popup').addClass('hide');
+            }
+          }
+        });
+      }
+    });
+    // Create variables (in this scope) to hold the API and image size
+    var jcrop_api, boundx, boundy;
+    // 设置坐标
+    function updateCoords(c){
+      $('#x').val(c.x);
+      $('#y').val(c.y);
+      $('#w').val(c.w);
+      $('#h').val(c.h);
+    }
+    // 实时显示裁剪图
+    function updatePreview(c){
+      var rx;
+      var ry;
+      rx = 190 / c.w;   //大头像预览Div的大小
+      ry = (190/ratio) / c.h;
+      $('#preview2').css({
+        width: Math.round(rx * boundx) + 'px',
+        height: Math.round(ry * boundy) + 'px',
+        marginLeft: '-' + Math.round(rx * c.x) + 'px',
+        marginTop: '-' + Math.round(ry * c.y) + 'px'
+      });
+    }
   }
 });

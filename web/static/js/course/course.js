@@ -8,7 +8,6 @@ define(function(require,exports,module){
     main.postAjaxDatas('/coures/update-live-beg',{live_id:ret},function(datas){
       var directForm = template('directForm',datas);
       $('#course-form-box').html(directForm);
-      console.log(datas);
       $('#h-cid').val(ret);
       runCourseForm();
       var start = {
@@ -39,7 +38,6 @@ define(function(require,exports,module){
     main.postAjaxDatas('/coures/update-coures-beg',{coures_id:ret},function(datas){
       var courseForm = template('courseForm',datas);
       $('#course-form-box').html(courseForm);
-      console.log(datas);
       $('#h-cid').val(ret);
       runCourseForm();
     });
@@ -49,12 +47,10 @@ define(function(require,exports,module){
     main.getAjaxDatas('/coures/get-label',function(datas){
       var courseTag = template('courseTag',{list:datas});
       $('#course-tag').html(courseTag);
-      console.log(datas);
     });
     main.getAjaxDatas('/coures/classify',function(datas){
       var selectedId=$('#course-categoryId').attr('value');
       datas.sid=selectedId;
-      console.log(datas);
       var courseCategoryId = template('courseCategoryId',{list:datas});
       $('#course-categoryId').html(courseCategoryId);
     });
@@ -176,6 +172,7 @@ define(function(require,exports,module){
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on( 'uploadSuccess', function( file,resporse ) {
         $( '#'+file.id ).addClass('upload-state-done');
+        // var timestamp = Date.parse(new Date());
         var imgSrc=main.imgPath+'/'+resporse.date+'/'+file.name;
         // $('#img-target,#preview2').attr('src',imgSrc);
         // $('#img-src').val(imgSrc);
@@ -184,7 +181,10 @@ define(function(require,exports,module){
         // 图片裁剪
         imgCrop();
         $('#img-upload-popup').removeClass('hide');
-        console.log(main.imgPath+'/'+resporse.date+'/'+file.name);
+        // setTimeout(function() {
+          // if($('.jcrop-holder').height()==)
+          // $('#preview2').css('width',$('.jcrop-holder').width()*1.37+'px');
+        // }, 500);
     });
     // 文件上传失败，显示上传出错。
     uploader.on( 'uploadError', function( file ) {
@@ -234,12 +234,12 @@ define(function(require,exports,module){
     $.getScript('/static/js/plugins/jcrop/jquery.Jcrop.min.js',function(){
       $('#img-target').Jcrop({
         allowSelect: false,
-        minSize: [48,48],
-        setSelect: [0,0,190,190],
+        // minSize: [48,48],
+        setSelect: [0,0,355,210],
         onChange: updatePreview,
         // onSelect: updatePreview,
         onSelect: updateCoords,
-        aspectRatio: 1
+        aspectRatio: 1.69
       },
       function(){
         // Use the API to get the real image size
@@ -255,24 +255,26 @@ define(function(require,exports,module){
     $imgCutFrom.validate({
       onsubmit:true,// 是否在提交时验证
       submitHandler: function(form){
-        $('#img-upload-popup').addClass('hide');
-        $('.jcrop-holder').remove();
-        $('#fileList').html('<img class="imghead" src="'+'http://image.agodpig.com/20160720/-play-bj.jpg'+'">');
-        $('#img-path').val('http://image.agodpig.com/20160720/-play-bj.jpg');
-        $('#uploader-img').find('.error').hide();
-        // var data = $imgCutFrom.serialize();
-        // $.ajax({
-        //   url : '/album/cut-photo',
-        //   type : 'post',
-        //   data : data,
-        //   success : function(data){
-        //     console.log(data);
-        //     $('.img-upload-box').hide();
-        //     $('#fileList').html('<img class="imghead" src="'+data+'">');
-        //     $('#img-path').val(data);
-        //     $('#uploader-img').find('.error').hide();
-        //   }
-        // });
+        var data = $imgCutFrom.serialize();
+        $.ajax({
+          url : '/album/cut-photo',
+          type : 'post',
+          data : data,
+          dataType: 'json',
+          success : function(data){
+            if(data.status==1){
+              console.log(data.msg);
+              // var timestamp = Date.parse(new Date());
+              $('#img-upload-popup').addClass('hide');
+              $('#fileList').html('<img class="imghead" src="'+data.msg+'">');//+'?v=+'+timestamp+
+              $('#img-path').val(data.msg);
+              $('#uploader-img').find('.error').hide();
+            }else{
+              alert(data.msg);
+              $('#img-upload-popup').addClass('hide');
+            }
+          }
+        });
       }
     });
   }
@@ -286,11 +288,12 @@ define(function(require,exports,module){
     $('#h').val(c.h);
   }
   // 实时显示裁剪图
+  updatePreview({x:0,y:0,w:355,h:210});
   function updatePreview(c){
     var rx;
     var ry;
-    rx = 199 / c.w;   //大头像预览Div的大小
-    ry = 199 / c.h;
+    rx = 190 / c.w;   //大头像预览Div的大小
+    ry = 112.43 / c.h;
     $('#preview2').css({
       width: Math.round(rx * boundx) + 'px',
       height: Math.round(ry * boundy) + 'px',
