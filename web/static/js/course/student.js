@@ -68,14 +68,14 @@ define(function(require,exports,module){
     if(groupId){
       if(confirm('您确定要删除这个组吗?')){
         main.postAjaxDatas('/coures/delete-group',{group_id:groupId},function(datas){
-          console.log(datas);
+          main.sitesHint('删除成功！');
           // 局部刷新
           runGetAjaxGroup();
           main.runPostAjaxDatas();
         });
       }
     }else{
-      alert('请选择您要删除的组');
+      main.sitesHint('请选择您要删除的组','err');
     }
   });
   // 删除学员
@@ -89,17 +89,17 @@ define(function(require,exports,module){
             sid.push($selected.eq(i).val());
           }
           main.postAjaxDatas('/coures/delete-student',{group_id:groupId,sid:sid},function(datas){
-            console.log(datas);
+            main.sitesHint('删除成功！');
             // 局部刷新
             runGetAjaxGroup();
             main.runPostAjaxDatas();
           });
         }
       }else{
-        alert('请选择您要删除的学员');
+        main.sitesHint('请选择您要删除的学员','err');
       }
     }else{
-      alert('请先选择一个组');
+      main.sitesHint('请先选择一个组','err');
     }
   });
   // 创建组
@@ -111,7 +111,7 @@ define(function(require,exports,module){
     if(groupId){
       $('#add-student-popup').removeClass('hide');
     }else{
-      alert('请先选择一个组');
+      main.sitesHint('请先选择一个组','err');
     }
   });
   // 关闭弹窗
@@ -130,13 +130,13 @@ define(function(require,exports,module){
         dataType:'json',
         success : function(data){
           if(data.status==1){
-            alert('创建成功');
+            main.sitesHint('创建成功');
             $('.popup').addClass('hide');
             // 局部刷新
             runGetAjaxGroup();
             main.runPostAjaxDatas();
           }else{
-            alert(data.msg);
+            main.sitesHint(data.msg,'err');
           }
         }
       });
@@ -155,12 +155,12 @@ define(function(require,exports,module){
         dataType:'json',
         success : function(data){
           if(data.status==1){
-            alert('添加成功');
+            main.sitesHint('添加成功');
             $('.popup').addClass('hide');
             // 局部刷新
             main.runPostAjaxDatas();
           }else{
-            alert(data.msg);
+            main.sitesHint(data.msg,'err');
           }
         }
       });
@@ -171,7 +171,6 @@ define(function(require,exports,module){
     onsubmit:true,// 是否在提交时验证
     submitHandler: function(form){
       var data = $('#student-search').serialize();
-      console.log(data);
       $.ajax({
         url : '/coures/search',
         type : 'post',
@@ -179,23 +178,13 @@ define(function(require,exports,module){
         dataType:'json',
         success : function(data){
           if(data.status==1){
-            console.log(data);
-            console.log(11);
             var studentList = template('studentList',{list:data.data});
             $('#student-list').html(studentList);
           }else{
-            alert(data.msg);
+            main.sitesHint(data.msg,'err');
           }
         }
       });
-    }
-  });
-  // 进入聊天室
-  $('#chat-room').on('click',function(){
-    if(groupId){
-      window.open('/group/group-chat?gid='+groupId);
-    }else{
-      alert('请先选择一个组');
     }
   });
 });

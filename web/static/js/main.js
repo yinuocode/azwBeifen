@@ -140,7 +140,7 @@ define(function(require,exports,module){
       }
     });
   });
-  $('input').keyup(function (event) {
+  $('.registration input').keyup(function (event) {
     if (event.keyCode == "13") {
       document.getElementById("signin-btn").click();  //服务器控件loginsubmit点击事件被触发
       document.getElementById("signup-btn").click();  //服务器控件loginsubmit点击事件被触发
@@ -276,6 +276,21 @@ define(function(require,exports,module){
     }
   }
   // 登录注册结束
-
+  /*
+    提示用户成功和失败信息，需配合相对应的css使用
+    txt：需要告知用户的消息
+    state：状态是成功还是失败，接收两个参数 'win' or 'err' 默认为 'win'
+  */
+  main.sitesHint=function(txt,state){
+    $('#site-hint').remove();
+    $('body').append('<div id="site-hint" class="'+state+'">'+txt+'</div>');
+    var siteHint=$('#site-hint');
+    siteHint.fadeIn(800,function(){
+      var timeObj=setTimeout(function() {
+        siteHint.fadeOut(800);
+        clearTimeout(timeObj);
+      }, 800);
+    });
+  };
   module.exports=main;
 });

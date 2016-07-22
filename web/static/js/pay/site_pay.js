@@ -35,10 +35,10 @@ define(function(require,exports,module){
           success : function(data){
             console.log(data);
             if(data.status==1){
-              alert('支付成功');
+              main.sitesHint('支付成功！');
               window.location.href='/couresdetail?cid='+getVal.cid+'&type='+getVal.type;
             }else{
-              alert(data.msg);
+              main.sitesHint(data.msg,'err');
             }
           }
         });

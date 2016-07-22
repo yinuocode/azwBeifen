@@ -28,6 +28,22 @@ define(function(require,exports,module){
       }
     });
   }
+  /*
+    提示用户成功和失败信息，需配合相对应的css使用
+    txt：需要告知用户的消息
+    state：状态是成功还是失败，接收两个参数 'win' or 'err' 默认为 'win'
+  */
+  function sitesHint(txt,state){
+    $('#site-hint').remove();
+    $('body').append('<div id="site-hint" class="'+state+'">'+txt+'</div>');
+    var siteHint=$('#site-hint');
+    siteHint.fadeIn(800,function(){
+      var timeObj=setTimeout(function() {
+        siteHint.fadeOut(800);
+        clearTimeout(timeObj);
+      }, 500);
+    });
+  }
   $('.cid').val(getVal.cid);
   // 返回课程详情
   $('#current-course').attr('href','/couresdetail?cid='+getVal.cid+'&type='+getVal.type);
@@ -68,7 +84,7 @@ define(function(require,exports,module){
     // 加载视频
     var url=liLessonItem.attr('data-src');
     if(url==1){
-      alert('该课程需要购买后才能观看');
+      sitesHint('该课程需要购买后才能观看！','err');
       // $('#buy-popup').removeClass('hide');
     }else{
       var lessonVideoContent = template('lessonVideoContent',{data:url});
@@ -133,7 +149,7 @@ define(function(require,exports,module){
               if(data.status==1){
                 runAnswer(aid);
               }else{
-                alert(data.msg);
+                sitesHint(data.msg,'err');
               }
             }
           });
@@ -168,7 +184,7 @@ define(function(require,exports,module){
             $('.ke-edit-iframe').contents().find('.ke-content').html('');
             runFaqs();
           }else{
-            alert(data.msg);
+            sitesHint(data.msg,'err');
           }
         }
       });
@@ -199,7 +215,7 @@ define(function(require,exports,module){
             // $('#comment-form .ke-edit-iframe').contents().find('.ke-content').html('');
             $('#comment-succeed').fadeIn().fadeOut(3500);
           }else{
-            alert(data.msg);
+            sitesHint(data.msg,'err');
           }
         }
       });
@@ -235,7 +251,7 @@ define(function(require,exports,module){
           if(data.status==1){
             $('#note-save').fadeIn().fadeOut(3500);
           }else{
-            alert(data.msg);
+            sitesHint(data.msg,'err');
           }
         }
       });
@@ -298,11 +314,11 @@ define(function(require,exports,module){
           });
         }else{
           $('#pay-popup').removeClass('hide');
-          alert(datas.msg);
+          sitesHint(datas.msg,'err');
         }
       });
     }else{
-      alert('最起码打赏一元吧');
+      sitesHint('最起码打赏一元吧！','err');
     }
   });
   // 弹幕控制按钮

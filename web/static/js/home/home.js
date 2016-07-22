@@ -53,10 +53,10 @@ define(function(require,exports,module){
         success : function(data){
           console.log(data);
           if(data.status==1){
-            alert('发送成功');
+            main.sitesHint('发送成功！');
             $('.popup').addClass('hide');
           }else{
-            alert(data.msg);
+            main.sitesHint(data.msg,'err');
           }
         }
       });
@@ -88,7 +88,7 @@ define(function(require,exports,module){
           signinSpan.parent().html('已签到');
         });
       }else{
-        alert(datas.msg);
+        main.sitesHint(datas.msg,'err');
       }
     });
   });

@@ -35,7 +35,7 @@ define(function(require,exports,module){
     var groupId=$(this).attr('data-gid');
     if(confirm('您确定要退出这个组吗?')){
       main.postAjaxDatas('/group/del-group',{gid:groupId},function(datas){
-        console.log(datas);
+        main.sitesHint('退出成功！');
         // 局部刷新
         runPostAjaxDatas();
       });

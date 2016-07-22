@@ -38,12 +38,12 @@ define(function(require,exports,module){
         dataType:'json',
         success : function(data){
           if(data.status==1){
-            // alert('创建成功');
+            main.sitesHint('创建成功!');
             $('.popup').addClass('hide');
             // 局部刷新
             main.runPostAjaxDatas();
           }else{
-            alert(data.msg);
+            main.sitesHint(data.msg,'err');
           }
         }
       });
@@ -95,12 +95,12 @@ define(function(require,exports,module){
               dataType:'json',
               success : function(data){
                 if(data.status==1){
-                  alert('修改成功');
+                  main.sitesHint('修改成功!');
                   $('.popup').addClass('hide');
                   // 局部刷新
                   main.runPostAjaxDatas();
                 }else{
-                  alert(data.msg);
+                  main.sitesHint(data.msg,'err');
                 }
               }
             });
@@ -108,7 +108,7 @@ define(function(require,exports,module){
         });
       });
     }else{
-      alert('请选择具体修改的某个相册');
+      main.sitesHint('请选择具体修改的某个相册','err');
     }
   });
   // 删除相册
@@ -122,15 +122,16 @@ define(function(require,exports,module){
         }
         main.postAjaxDatas('/album/delete-album',{aid:aid},function(datas){
           if(datas.status==1){
+            main.sitesHint('删除成功！');
             // 局部刷新
             main.runPostAjaxDatas();
           }else{
-            alert(datas.msg);
+            main.sitesHint(datas.msg,'err');
           }
         });
       }
     }else{
-      alert('请选择您要删除的相册');
+      main.sitesHint('请选择您要删除的相册','err');
     }
   });
   // 分页

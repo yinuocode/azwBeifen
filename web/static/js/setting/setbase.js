@@ -39,7 +39,7 @@ define(function(require,exports,module){
           data : data,
           success : function(data){
             if(data){
-              alert("提交成功");
+              main.sitesHint('提交成功！');
             }else{
               alert(data);
             }
@@ -66,7 +66,7 @@ define(function(require,exports,module){
           data : data,
           success : function(data){
             if(data){
-              alert("认证成功");
+              main.sitesHint('认证成功！');
               $('#panel-body2').hide();
               $('#panel-body1').show();
               $('.form-hint').html('<span class="hot">已认证成功</span>');
@@ -236,7 +236,7 @@ define(function(require,exports,module){
               $(artworkSrc).val(data.msg);
               $('#uploader-img').find('.error').hide();
             }else{
-              alert(data.msg);
+              main.sitesHint(data.msg,'err');
               $('#img-upload-popup').addClass('hide');
             }
           }

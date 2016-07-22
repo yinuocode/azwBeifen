@@ -101,11 +101,11 @@
           <div class="course-item-list-in-toolbar-pane ps-container show">
             <ul class="period-list" id="hour-item-list">
             <script id="hourItemList" type="text/html">
-            {{each list as value i}}
+            {{each liveVideos as value i}}
               <li class="period lesson-item lesson-item-66" data-vid="{{value.vid}}" data-src="{{value.live_src}}">
                 <a href="/couresdetail/direct-video?cid={{value.live_id}}&amp;type=0&amp;vid={{value.vid}}" title="课程回放{{i+1}}">
                   <i class="es-icon es-icon-doing color-primary status-icon"></i>
-                  <span class="title">   回放{{i+1}}：课程回放{{i+1}}</span>
+                  <span class="title">回放{{i+1}}：{{value.vname}}</span>
                   <span class="date" title="视频时长{{value.create_date}}">{{value.create_date}}</span>
                 </a>
               </li>

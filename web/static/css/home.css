@@ -138,7 +138,11 @@
 }
 .publish-select .webuploader-container,.publish-select .webuploader-container .webuploader-pick{
   height:100%;
-  width: 100%
+  width: 100%;
+  /* 视频 start */
+  height: 30px;
+  border-radius: 0;
+  /* 视频 end */
 }
 .talk-icon{
   background: url(../img/talk-icon.png) no-repeat;
@@ -152,7 +156,8 @@
   left: 16px;
   top: 18px;
 }
-/*.publish-option{
+/* 上传视频 start */
+.publish-option{
   position: absolute;
   top:60px;
   background: #fff;
@@ -165,7 +170,14 @@
 .publish-option>li{
   border:1px solid #4faef6;
   border-top:0;
-}*/
+  height: 30px;
+  position:relative;
+}
+.publish-option>li>a{
+  position: static;
+  display: block;
+}
+/* 上传视频 end */
 .talk-btn{
   padding: 3px 25px;
   margin: 8px auto 0;

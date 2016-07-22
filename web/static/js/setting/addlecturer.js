@@ -22,10 +22,10 @@ define(function(require,exports,module){
         dataType: 'json',
         success : function(data){
           if(data.status==1){
-            alert('添加讲师成功');
+            main.sitesHint('添加讲师成功！');
             location.reload();
           }else{
-            alert(data.msg);
+            main.sitesHint(data.msg,'err');
           }
         }
       });

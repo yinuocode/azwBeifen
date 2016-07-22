@@ -82,18 +82,14 @@ define(function(require,exports,module){
           }
         }
         main.postAjaxDatas('/coures/study-delete',{cid1:cid1,cid2:cid2},function(datas){
-          console.log(datas);
-          // 循环删除
-          // for(var j=0,lens=$selected.length;j<lens;j++){
-          //   $selected.eq(j).parent().parent().remove();
-          // }
+          main.sitesHint('删除成功！');
           // 局部刷新
           main.runPostAjaxDatas();
         });
 
       }
     }else{
-      alert('请选择您要删除的课程');
+      main.sitesHint('请选择您要删除的课程','err');
     }
   });
   // 发私信
@@ -116,10 +112,10 @@ define(function(require,exports,module){
   //       dataType:'json',
   //       success : function(data){
   //         if(data.status==1){
-  //           alert('发送成功');
+  //           main.sitesHint('发送成功！');
   //           $('.popup').addClass('hide');
   //         }else{
-  //           alert(data.msg);
+  //           main.sitesHint(data.msg,'err');
   //         }
   //       }
   //     });

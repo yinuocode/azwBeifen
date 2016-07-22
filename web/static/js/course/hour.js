@@ -79,16 +79,16 @@ define(function(require,exports,module){
         main.postAjaxDatas('/myteach/del-hour',{hid:hid,did:did},function(datas){
           console.log(datas);
           if(datas.status==1){
-            alert('删除成功');
+            main.sitesHint('删除成功');
             // 局部刷新
             main.runPostAjaxDatas();
           }else{
-            alert(datas.msg);
+            main.sitesHint(datas.msg,'err');
           }
         });
       }
     }else{
-      alert('请选择您要删除的课程');
+      main.sitesHint('请选择您要删除的课程','err');
     }
   });
   var one1=0;
@@ -128,11 +128,11 @@ define(function(require,exports,module){
         success : function(data){
           console.log(data);
           if(data.status==1){
-            alert('添加成功');
+            main.sitesHint('添加成功！');
             $('.popup').addClass('hide');
             main.runPostAjaxDatas();
           }else{
-            alert(data.msg);
+            main.sitesHint(data.msg,'err');
           }
         }
       });
@@ -154,11 +154,11 @@ define(function(require,exports,module){
         success : function(data){
           console.log(data);
           if(data.status==1){
-            alert('添加成功');
+            main.sitesHint('添加成功！');
             $('.popup').addClass('hide');
             main.runPostAjaxDatas();
           }else{
-            alert(data.msg);
+            main.sitesHint(data.msg,'err');
           }
         }
       });

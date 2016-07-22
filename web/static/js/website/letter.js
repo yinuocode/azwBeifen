@@ -86,7 +86,7 @@ define(function(require,exports,module){
           //   $('.web-letter').html(noRead);
           // }
         }else{
-          alert(datas.msg);
+          main.sitesHint(datas.msg,'err');
         }
       });
     }
@@ -107,11 +107,11 @@ define(function(require,exports,module){
         dataType:'json',
         success : function(data){
           if(data.status==1){
-            alert('发送成功');
+            main.sitesHint('发送成功！');
             $('#letter-form')[0].reset();
             $('.popup').addClass('hide');
           }else{
-            alert(data.msg);
+            main.sitesHint(data.msg,'err');
             $('.popup').addClass('hide');
           }
         }

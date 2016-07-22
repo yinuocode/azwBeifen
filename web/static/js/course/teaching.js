@@ -78,7 +78,7 @@ define(function(require,exports,module){
           window.open('/coures/direct?cid='+cid);
         }
       }else{
-        alert('请选择具体修改的某个课程');
+        main.sitesHint('请选择具体修改的某个课程','err');
       }
   });
   // 一键邀请
@@ -93,7 +93,7 @@ define(function(require,exports,module){
       $('#invite-cid').val(cid1);
       $('#invite-popup').removeClass('hide');
     }else{
-      alert('请选择您要邀请的课程');
+      main.sitesHint('请选择您要邀请的课程','err');
     }
   });
   // 开始发布
@@ -101,25 +101,15 @@ define(function(require,exports,module){
     var type=$(this).attr('data-type');
     var cid=$(this).attr('data-cid');
     main.postAjaxDatas('/myteach/alter-state',{type:type,cid:cid},function(datas){
-      if(!datas.status){
-        alert('服务器忙，请稍后。。。');
+      if(datas.status==1){
+        // 局部刷新
+        main.sitesHint('发布成功！');
+        main.runPostAjaxDatas();
+      }else{
+        main.sitesHint(datas.msg,'err');
       }
-      // 局部刷新
-      main.runPostAjaxDatas();
     });
   });
-  // $('#handle-edit').on('click',function(){
-  //   var $selected=$('input[name="selected"]:checked');
-  //   if($selected.length==1){
-  //     main.getAjaxDatas('/coures/update-live-beg?live_id='+$selected.val(),function(datas){
-  //       // var tableCourseList = template('tableCourseList',{list:datas});
-  //       // $('#table-course-list').html(tableCourseList);
-  //       console.log(datas);
-  //     });
-  //   }else{
-  //     alert('请选择具体修改的某个课程');
-  //   }
-  // });
   // 删除
   $('#handle-delete').on('click',function(){
     var $selected=$('input[name="selected"]:checked');
@@ -135,13 +125,12 @@ define(function(require,exports,module){
           }
         }
         main.postAjaxDatas('/myteach/delete',{cid1:cid1,cid2:cid2},function(datas){
-          console.log(datas);
           if(datas.status==1){
-            // alert('删除成功');
+            main.sitesHint('删除成功！');
             // 局部刷新
             main.runPostAjaxDatas();
           }else{
-            alert(datas.msg);
+            main.sitesHint(datas.msg,'err');
           }
           // 循环删除
           // for(var j=0,lens=$selected.length;j<lens;j++){
@@ -150,7 +139,7 @@ define(function(require,exports,module){
         });
       }
     }else{
-      alert('请选择您要删除的课程');
+      main.sitesHint('请选择您要删除的课程','err');
     }
   });
   // 添加助教
@@ -179,9 +168,10 @@ define(function(require,exports,module){
     var aid=$this.attr('data-aid');
     main.postAjaxDatas('/myteach/delete-assis',{aid:aid},function(datas){
       if(datas.status==1){
+        main.sitesHint('删除成功！');
         $this.parent().remove();
       }else{
-        alert(datas.msg);
+        main.sitesHint(datas.msg,'err');
       }
     });
   });
@@ -191,9 +181,10 @@ define(function(require,exports,module){
     var aid=$this.attr('data-aid');
     main.postAjaxDatas('/lecturer/del-coumer',{id:aid},function(datas){
       if(datas.status==1){
+        main.sitesHint('删除成功！');
         $this.parent().remove();
       }else{
-        alert(datas.msg);
+        main.sitesHint(datas.msg,'err');
       }
     });
   });
@@ -218,11 +209,11 @@ define(function(require,exports,module){
         dataType:'json',
         success : function(data){
           if(data.status){
-            alert('添加成功');
+            main.sitesHint('添加成功！');
             $('#sub-teaching')[0].reset();
             $('.popup').addClass('hide');
           }else{
-            alert(data.msg);
+            main.sitesHint(data.msg,'err');
           }
         }
       });
@@ -240,11 +231,11 @@ define(function(require,exports,module){
         dataType:'json',
         success : function(data){
           if(data.status){
-            alert('添加成功');
+            main.sitesHint('添加成功！');
             $('#sub-service')[0].reset();
             $('.popup').addClass('hide');
           }else{
-            alert(data.msg);
+            main.sitesHint(data.msg,'err');
           }
         }
       });
@@ -261,11 +252,11 @@ define(function(require,exports,module){
         dataType:'json',
         success : function(data){
           if(data.status==1){
-            alert('邀请成功');
+            main.sitesHint('邀请成功！');
             $('#invite-form')[0].reset();
             $('.popup').addClass('hide');
           }else{
-            alert(data.msg);
+            main.sitesHint(data.msg,'err');
             $('.popup').addClass('hide');
           }
         }

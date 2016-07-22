@@ -36,7 +36,7 @@ define(function(require,exports,module){
           // });
         }
       }else{
-        alert('请输入不为零的整数');
+        main.sitesHint('请输入不为零的整数','err');
       }
     });
   });

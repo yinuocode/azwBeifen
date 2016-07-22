@@ -32,13 +32,26 @@
                 <div class="clearfix">
                   <textarea name="Dynamic[details]" id="" cols="30" rows="10" class="publish-txt lf" placeholder="你在想些什么呢..."></textarea>
                   <div id="uploader-img" class="publish-select">
-                    <div id="filePicker" title="上传图片"><i class="talk-icon camera" id="talk-camera"></i></div>
+                    <!--
+                      上传图片
+                      <div id="filePicker" title="上传图片"><i class="talk-icon camera" id="talk-camera"></i></div>
+                    -->
+                    <!-- 上传视频 start -->
+                    <i class="talk-icon camera" id="talk-camera"></i>
+                    <ul class="publish-option" id="publish-option">
+                      <li><a href="javascript:;" id="filePicker">图片</a></li>
+                      <li><a href="javascript:;" id="filePicker1">视频</a></li>
+                    </ul>
+                    <!-- 上传视频 end -->
                   </div>
                 </div>
                 <div id="fileList" class="uploader-list clearfix">
                 </div>
+                <div id="fileList1" class="uploader-list clearfix">
+                </div>
                 <div id="input-img">
                 </div>
+                <input type="hidden" name="video" id="input-video" value="">
                 <p><button type="submit" class="btn talk-btn">发表</button></p>
               </form>
               <div class="publish-date">发表说说</div>
@@ -51,11 +64,15 @@
                   <p class="text">
                     {{value.details}}
                   </p>
+                  {{if value.type==1}}
                   <p class="img clearfix">
                     {{each value.dynimg as src j}}
                     <img src="{{src}}" alt="">
                     {{/each}}
                   </p>
+                  {{else}}
+                  <p><video src="{{value.dynimg[0]}}" controls="controls" width="100%"></video></p>
+                  {{/if}}
                   <p class="video"></p>
                   <div class="handle-box">
                     <div class="handle clearfix">

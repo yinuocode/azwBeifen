@@ -22,7 +22,24 @@ define(function(require,exports,module){
         fSuccess(datas);
       },
       error: function(xml,err){
+        console.log(err);
       }
+    });
+  }
+  /*
+    提示用户成功和失败信息，需配合相对应的css使用
+    txt：需要告知用户的消息
+    state：状态是成功还是失败，接收两个参数 'win' or 'err' 默认为 'win'
+  */
+  function sitesHint(txt,state){
+    $('#site-hint').remove();
+    $('body').append('<div id="site-hint" class="'+state+'">'+txt+'</div>');
+    var siteHint=$('#site-hint');
+    siteHint.fadeIn(800,function(){
+      var timeObj=setTimeout(function() {
+        siteHint.fadeOut(800);
+        clearTimeout(timeObj);
+      }, 500);
     });
   }
   $('.cid').val(getVal.cid);
@@ -47,7 +64,7 @@ define(function(require,exports,module){
   // 回放列表
   postAjaxDatas('/couresdetail/playback',getVal,function(datas){
     console.log(datas);
-    var hourItemList = template('hourItemList',{list:datas});
+    var hourItemList = template('hourItemList',datas);
     $('#hour-item-list').html(hourItemList);
     var liLessonItem;
     if(getVal.vid){
@@ -60,13 +77,13 @@ define(function(require,exports,module){
     // 加载视频
     var url=liLessonItem.attr('data-src');
     if(url==1){
-      alert('该课程需要购买后才能观看');
+      sitesHint('该课程需要购买后才能观看！','err');
     }else if(url){
       var lessonVideoContent = template('lessonVideoContent',{data:url});
       $('#lesson-video-content').html(lessonVideoContent);
       $.getScript('/static/js/plugins/video/video.min.js');
     }else{
-      alert('暂无回放内容');
+      sitesHint('暂无回放内容','err');
     }
   });
   // 打赏
@@ -99,11 +116,11 @@ define(function(require,exports,module){
           });
         }else{
           $('#pay-popup').removeClass('hide');
-          alert(datas.msg);
+          sitesHint(datas.msg,'err');
         }
       });
     }else{
-      alert('最起码打赏一元吧');
+      sitesHint('最起码打赏一元吧！','err');
     }
   });
   // 弹幕控制按钮

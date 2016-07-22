@@ -105,7 +105,7 @@ define(function(require,exports,module){
       }else if(window.sidebar){
         window.sidebar.addPanel($title, currentHerf);
       }else{
-        alert('您可以通过快捷键' + ctrl + ' + D 加入到收藏夹');}
+        main.sitesHint('您可以通过快捷键' + ctrl + ' + D 加入到收藏夹','err');}
     });
   }
   // 礼物功能

@@ -137,38 +137,70 @@
                 <div class="introduce" id="course-introduce">
                   该课程暂无介绍
                 </div>
-                <div class="hour">
-                  <h2 class="head hour-head hide">本课课时</h2>
-                  <ul class="hour-list">
+                <div class="hour" id="hour-list">
                   <script id="hourList" type="text/html">
-                  {{if hour_num>0}}
-                  {{each hour as value i}}
-                    <li class="clearfix">
-                      {{if is_login==1}}
-                        {{if buy==1||value.is_free==1||self==1}}
-                          <a href="/couresdetail/video?cid={{cid}}&amp;type={{type}}&amp;hid={{value.hour_id}}">
+                  {{if type==1}}
+                    <h2 class="head hour-head">本课课时</h2>
+                    <ul class="hour-list">
+                    {{if hour_num>0}}
+                    {{each hour as value i}}
+                      <li class="clearfix">
+                        {{if is_login==1}}
+                          {{if buy==1||value.is_free==1||self==1}}
+                            <a href="/couresdetail/video?cid={{cid}}&amp;type={{type}}&amp;hid={{value.hour_id}}">
+                              <span class="hour-title {{if value.is_free==1}}free{{/if}}">{{value.hour_title}}</span>
+                              <span class="rf hour-time">{{value.video_time}}</span>
+                            </a>
+                          {{else}}
+                            <a href="javascript:;" class="no-buy">
+                              <span class="hour-title">{{value.hour_title}}</span>
+                              <span class="rf hour-time">{{value.video_time}}</span>
+                            </a>
+                          {{/if}}
+                        {{else}}
+                          <a href="javascript:;" class="click-login">
                             <span class="hour-title {{if value.is_free==1}}free{{/if}}">{{value.hour_title}}</span>
                             <span class="rf hour-time">{{value.video_time}}</span>
                           </a>
+                        {{/if}}
+                      </li>
+                    {{/each}}
+                    {{else}}
+                      <div class="no-hour">该课程暂无课时</div>
+                    {{/if}}
+                    </ul>
+                  {{else}}
+                    <h2 class="head hour-head">回放列表</h2>
+                    <ul class="hour-list">
+                    {{if liveVideos.length>0}}
+                    {{each liveVideos as value i}}
+                      <li class="clearfix">
+                        {{if is_login==1}}
+                          {{if buy==1||free==0||self==1}}
+                            <a href="/couresdetail/direct-video?cid={{cid}}&amp;type=0&amp;hid={{value.vid}}">
+                              <span class="hour-title">{{value.vname}}</span>
+                              <span class="rf hour-time">{{value.create_date}}</span>
+                            </a>
+                          {{else}}
+                            <a href="javascript:;" class="no-buy">
+                              <span class="hour-title">{{value.vname}}</span>
+                              <span class="rf hour-time">{{value.create_date}}</span>
+                            </a>
+                          {{/if}}
                         {{else}}
-                          <a href="javascript:;" class="no-buy">
-                            <span class="hour-title">{{value.hour_title}}</span>
-                            <span class="rf hour-time">{{value.video_time}}</span>
+                          <a href="javascript:;" class="click-login">
+                            <span class="hour-title">{{value.vname}}</span>
+                            <span class="rf hour-time">{{value.create_date}}</span>
                           </a>
                         {{/if}}
-                      {{else}}
-                        <a href="javascript:;" class="click-login">
-                          <span class="hour-title {{if value.is_free==1}}free{{/if}}">{{value.hour_title}}</span>
-                          <span class="rf hour-time">{{value.video_time}}</span>
-                        </a>
-                      {{/if}}
-                    </li>
-                  {{/each}}
-                  {{else}}
-                    <div class="no-hour">该课程暂无课时</div>
+                      </li>
+                    {{/each}}
+                    {{else}}
+                      <div class="no-hour">该课程暂无回放</div>
+                    {{/if}}
+                    </ul>
                   {{/if}}
                   </script>
-                  </ul>
                 </div>
               </div>
               <div class="body-item hide">

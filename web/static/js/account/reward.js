@@ -63,7 +63,7 @@ define(function(require,exports,module){
         if(datas.status==1){
           main.runPostAjaxDatas();
         }else{
-          alert(datas.msg);
+          main.sitesHint(datas.msg,'err');
         }
       });
     }

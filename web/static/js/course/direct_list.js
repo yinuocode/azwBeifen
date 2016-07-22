@@ -85,10 +85,10 @@ define(function(require,exports,module){
         dataType:'json',
         success : function(data){
           if(data.status==1){
-            alert('发送成功');
+            main.sitesHint('发送成功！');
             $('.popup').addClass('hide');
           }else{
-            alert(data.msg);
+            main.sitesHint(data.msg,'err');
           }
         }
       });

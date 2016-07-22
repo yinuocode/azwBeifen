@@ -46,7 +46,7 @@ define(function(require,exports,module){
   });
   // 课程评论
   if(getVal.type==1){
-    $('#comment-btn,.hour-head').removeClass('hide');
+    $('#comment-btn').removeClass('hide');
     main.postAjaxDatas('/couresdetail/comment',getVal,function(datas){
       template.config("escape", false);
       var commentList = template('commentList',datas);
@@ -56,7 +56,7 @@ define(function(require,exports,module){
     // 课时
     main.postAjaxDatas('/couresdetail/hour',getVal,function(datas){
       var hourList = template('hourList',datas);
-      $('.hour-list').html(hourList);
+      $('#hour-list').html(hourList);
       console.log(datas);
     });
     // 课时评价切换
@@ -65,6 +65,12 @@ define(function(require,exports,module){
       var _index=_this.index();
       _this.addClass('active').siblings().removeClass('active');
       $('#course-about-body .body-item').eq(_index).removeClass('hide').siblings().addClass('hide');
+    });
+  }else{
+    // 回放列表
+    main.postAjaxDatas('/couresdetail/playback',getVal,function(datas){
+      var hourList = template('hourList',datas);
+      $('#hour-list').html(hourList);
     });
   }
   // 点击登录
@@ -92,10 +98,10 @@ define(function(require,exports,module){
         success : function(data){
           console.log(data);
           if(data.status==1){
-            alert('发送成功');
+            main.sitesHint('发送成功');
             $('.popup').addClass('hide');
           }else{
-            alert(data.msg);
+            main.sitesHint(data.msg,'err');
           }
         }
       });
@@ -112,7 +118,7 @@ define(function(require,exports,module){
       if(datas.status==1){
         window.location.href='pay?cid='+cid+'&type='+type+'&order='+datas.order;
       }else{
-        alert(datas.msg);
+        main.sitesHint(datas.msg,'err');
       }
     });
   });
@@ -127,7 +133,7 @@ define(function(require,exports,module){
       if(datas.status==1){
         _this.attr('id','cancel-collect').html('取消收藏');
       }else{
-        // alert(datas.msg);
+        main.sitesHint(datas.msg,'err');
       }
     });
   });
@@ -141,18 +147,12 @@ define(function(require,exports,module){
         if(datas.status==1){
           _this.attr('id','collect').html('点击收藏');
         }else{
-          // alert(datas.msg);
+          main.sitesHint(datas.msg,'err');
         }
       });
     }else{
       cancelNum=0;
-      alert('您操作过于频繁，请稍后重试');
+      main.sitesHint('您操作过于频繁，请稍后重试','err');
     }
   });
-  // 立即观看
-  // $('.panel-body').on('click','#start-look',function(){
-  //   main.postAjaxDatas('/couresdetail/enroll',getVal,function(datas){
-  //     console.log(datas);
-  //   });
-  // });
 });

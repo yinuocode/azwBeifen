@@ -43,9 +43,10 @@ define(function(require,exports,module){
     if(confirm('笔记删除将不可恢复，是否继续！')){
       main.postAjaxDatas('/mynote/del-note',{nid:nid},function(datas){
         if(datas.status==1){
+          main.sitesHint('删除成功！');
           main.runPostAjaxDatas();
         }else{
-          alert(datas.msg);
+          main.sitesHint(datas.msg,'err');
         }
       });
     }

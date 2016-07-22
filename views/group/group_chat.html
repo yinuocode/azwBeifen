@@ -13,10 +13,9 @@
     {{/if}}
       <a href="/coures/study">我的学习</a>
       <a href="/coures/note">我的笔记</a>
-    {{if identity}}
-      <a href="/coures/manage" class="active">学员管理</a>
-    {{else}}
       <a href="/group/my-group" class="active">我的小组</a>
+    {{if identity}}
+      <a href="/coures/manage">学员管理</a>
     {{/if}}
     </script>
     </header>
@@ -65,14 +64,22 @@
               <div class="clearfix">
                 <textarea name="Topic[topic_content]" id="" cols="30" rows="10" class="publish-txt lf" placeholder="输入群话题..."></textarea>
                 <div id="uploader-img" class="publish-select">
-                  <div id="filePicker" title="上传图片"><i class="talk-icon camera" id="talk-camera"></i></div>
+                  <!-- <div id="filePicker" title="上传图片"><i class="talk-icon camera" id="talk-camera"></i></div> -->
+                  <i class="talk-icon camera" id="talk-camera"></i>
+                  <ul class="publish-option" id="publish-option">
+                    <li><a href="javascript:;" id="filePicker">图片</a></li>
+                    <li><a href="javascript:;" id="filePicker1">视频</a></li>
+                  </ul>
                 </div>
               </div>
               <input type="hidden" name="Topic[group_id]" value="" id="group-id">
               <div id="fileList" class="uploader-list clearfix">
               </div>
+              <div id="fileList1" class="uploader-list clearfix">
+              </div>
               <div id="input-img">
               </div>
+              <input type="hidden" name="video" id="input-video" value="">
               <p><button type="submit" class="btn talk-btn">发表</button></p>
             </form>
             <div class="publish-date">发起群话题</div>
@@ -89,11 +96,15 @@
                 <p class="text">
                   {{value.topic_content}}
                 </p>
-                <p class="img">
+                {{if value.type==1}}
+                <p class="img clearfix">
                   {{each value.topic_image as src j}}
                   <img src="{{src}}" alt="">
                   {{/each}}
                 </p>
+                {{else}}
+                <p><video src="{{value.topic_image[0]}}" controls="controls" width="100%"></video></p>
+                {{/if}}
                 <p class="video"></p>
                 <div class="handle-box">
                   <div class="handle clearfix">

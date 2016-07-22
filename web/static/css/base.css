@@ -1215,6 +1215,7 @@ form.cmxform form.cmxform .gray * {
   background: #F6F5F5;
   border:none;
   height:auto;
+  min-width: 260px;
 }
 .search-box .search-txt{
   background: #F6F5F5;

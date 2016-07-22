@@ -74,10 +74,10 @@ define(function(require,exports,module){
           success : function(data){
             if(data.status==1){
               $('.button-submit').prop('disabled',false);
-              alert("操作成功");
+              main.sitesHint('操作成功');
               window.location.href='/myteach/teaching';
             }else{
-              alert(data.msg);
+              main.sitesHint(data.msg,'err');
             }
           }
         });
@@ -263,14 +263,13 @@ define(function(require,exports,module){
           dataType: 'json',
           success : function(data){
             if(data.status==1){
-              console.log(data.msg);
               // var timestamp = Date.parse(new Date());
               $('#img-upload-popup').addClass('hide');
               $('#fileList').html('<img class="imghead" src="'+data.msg+'">');//+'?v=+'+timestamp+
               $('#img-path').val(data.msg);
               $('#uploader-img').find('.error').hide();
             }else{
-              alert(data.msg);
+              main.sitesHint(data.msg,'err');
               $('#img-upload-popup').addClass('hide');
             }
           }

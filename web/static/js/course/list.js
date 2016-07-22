@@ -82,7 +82,7 @@ define(function(require,exports,module){
   $('#search-btn').on('click',function(){
     searchCourse();
   });
-  $('input').keyup(function (event) {
+  $('#search-val').keyup(function (event) {
     if (event.keyCode == '13') {
       searchCourse();
     }

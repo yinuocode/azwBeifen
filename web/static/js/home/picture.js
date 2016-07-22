@@ -47,13 +47,13 @@ define(function(require,exports,module){
         dataType:'json',
         success : function(data){
           if(data.status==1){
-            // alert('上传成功');
+            main.sitesHint('上传成功！');
             $('#fileList,#input-img').html('');
             $('.popup').addClass('hide');
             // 局部刷新
             runPostAjaxDatas();
           }else{
-            alert(data.msg);
+            main.sitesHint(data.msg,'err');
           }
         }
       });
@@ -91,15 +91,16 @@ define(function(require,exports,module){
         }
         main.postAjaxDatas('/album/delete-albumimg',{img_id:imgId},function(datas){
           if(datas.status==1){
+            main.sitesHint('删除成功！');
             // 局部刷新
             runPostAjaxDatas();
           }else{
-            alert(datas.msg);
+            main.sitesHint(datas.msg,'err');
           }
         });
       }
     }else{
-      alert('请选择您要删除的图片');
+      main.sitesHint('请选择您要删除的图片','err');
     }
   });
   // 将图片设置为封面
@@ -109,15 +110,15 @@ define(function(require,exports,module){
       var imgId=$selected.val();
       main.postAjaxDatas('/album/set-albumcover',{img_id:imgId,aid:aid},function(datas){
         if(datas.status==1){
-          alert('设置成功');
+          main.sitesHint('设置成功！');
           // 局部刷新
           runPostAjaxDatas();
         }else{
-          alert(datas.msg);
+          main.sitesHint(datas.msg,'err');
         }
       });
     }else{
-      alert('请选择您要封面的具体某个照片');
+      main.sitesHint('请选择您要封面的具体某个照片','err');
     }
   });
   // 分页

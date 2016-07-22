@@ -57,7 +57,7 @@ define(function(require,exports,module){
       if(datas.status==1){
         main.runPostAjaxDatas();
       }else{
-        alert(datas.msg);
+        main.sitesHint(datas.msg,'err');
       }
     });
   });
@@ -92,11 +92,11 @@ define(function(require,exports,module){
         dataType:'json',
         success : function(data){
           if(data.status==1){
-            alert('发送成功');
+            main.sitesHint('发送成功！');
             $('#letter-form')[0].reset();
             $('.popup').addClass('hide');
           }else{
-            alert(data.msg);
+            main.sitesHint(data.msg,'err');
           }
         }
       });
@@ -108,7 +108,7 @@ define(function(require,exports,module){
     searchVal=$('#search-val').val();
     main.runPostAjaxDatas();
   });
-  $('input').keyup(function (event) {
+  $('#search-val').keyup(function (event) {
     if (event.keyCode == "13") {
       main.pageVal=1;
       searchVal=$('#search-val').val();

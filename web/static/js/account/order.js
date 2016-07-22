@@ -54,15 +54,16 @@ define(function(require,exports,module){
     endTime=$('#endDate').val();
     main.runPostAjaxDatas();
   });
-  // 删除评论
+  // 删除订单
   $('.order-table').on('click','.delete-order',function(){
     var oid=$(this).attr('data-oid');
     if(confirm("确认删除此条订单吗?")){
       main.postAjaxDatas('/account/del-order',{oid:oid},function(datas){
         if(datas.status==1){
+          main.sitesHint('删除成功！');
           main.runPostAjaxDatas();
         }else{
-          alert(datas.msg);
+          main.sitesHint(datas.msg,'err');
         }
       });
     }
