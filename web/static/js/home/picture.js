@@ -213,7 +213,7 @@ define(function(require,exports,module){
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on( 'uploadSuccess', function( file,resporse ) {
         $( '#'+file.id ).addClass('upload-state-done');
-        $('#input-img').append('<input type="hidden" name="attach[]" value="'+main.imgPath+'/'+resporse.date+'/'+file.name+'">');
+        $('#input-img').append('<input type="hidden" name="attach[]" value="'+main.imgPath+'/'+resporse.date+'/'+resporse.name+'">');
     });
     // 文件上传失败，显示上传出错。
     uploader.on( 'uploadError', function( file ) {

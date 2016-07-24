@@ -33,15 +33,18 @@ define(function(require,exports,module){
   */
   function sitesHint(txt,state){
     $('#site-hint').remove();
-    $('body').append('<div id="site-hint" class="'+state+'">'+txt+'</div>');
+    $('body').append('<div id="site-hint" class="clearfix '+state+'">'+txt+'<a href="javascript:;" title="关闭" id="close-hint">×</a></div>');
     var siteHint=$('#site-hint');
-    siteHint.fadeIn(800,function(){
+    siteHint.slideDown(300,function(){
       var timeObj=setTimeout(function() {
-        siteHint.fadeOut(800);
+        siteHint.slideUp();
         clearTimeout(timeObj);
-      }, 500);
+      }, 2000);
     });
   }
+  $('body').on('click','#close-hint',function(){
+    $('#site-hint').slideUp();
+  });
   $('.cid').val(getVal.cid);
   // 返回课程详情
   $('#current-course').attr('href','/couresdetail?cid='+getVal.cid+'&type='+getVal.type);

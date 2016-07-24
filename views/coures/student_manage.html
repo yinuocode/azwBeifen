@@ -51,6 +51,7 @@
               <th class="th2">手机号码</th>
               <th class="th2">入会时间</th>
             </tr>
+            {{if list.length>0}}
             {{each list as value i}}
             <tr>
               <td><input type="checkbox" name="selected" value="{{value.id}}"></td>
@@ -62,6 +63,11 @@
               <td>{{value.addtime}}</td>
             </tr>
             {{/each}}
+            {{else}}
+            <tr>
+              <td colspan="7" class="no-data">暂无学员</td>
+            </tr>
+            {{/if}}
           </tbody>
         </script>
         </table>

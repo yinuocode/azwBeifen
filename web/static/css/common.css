@@ -229,7 +229,10 @@ body {
   position: absolute;
   width: 100%;
   bottom: 110px;
-  top: 92px; }
+  /*top: 92px; */
+  /*麦序隐藏*/
+  top: 48px;
+}
 
 .lecturer-order {
   color: #333;
@@ -266,8 +269,11 @@ body {
 
 .chat {
   padding: 0 5% 5px;
-  height: 70%;
-  overflow: auto; }
+  /*height: 70%;*/
+  /*麦序隐藏*/
+  height: 100%;
+  overflow: auto;
+}
 
 .chatbox .inform {
   color: #008AD1;
@@ -407,6 +413,7 @@ body {
   float: left;
   height: 30px;
   line-height: 32px;
+  max-width: 42%;
   overflow: hidden; }
 
 .student-list li {

@@ -10,7 +10,7 @@
     <div class="panel-body">
       <h2 class="panel-title">安全设置</h2>
       <div class="safety-setting w600">
-        <div class="row">
+        <!-- <div class="row">
           <div class="safety-icon qq"></div>
           <div class="set-name">QQ账号</div>
           <div class="set-info">未绑定，绑定后可直接登录。</div>
@@ -21,6 +21,12 @@
           <div class="set-name">微信登录</div>
           <div class="set-info">未绑定，绑定后可直接登录。</div>
           <a href="javascript:;" class="rf">绑定</a>
+        </div> -->
+        <div class="row">
+          <div class="safety-icon password"></div>
+          <div class="set-name">账号合并</div>
+          <div class="set-info">合并账号后可使用任意账号登录</div>
+          <a href="/personage/merge" class="rf">合并</a>
         </div>
         <div class="row">
           <div class="safety-icon password"></div>
@@ -36,7 +42,7 @@
         </div>
       </div>
       <h2 class="panel-title">邮箱设置</h2>
-      <form id="set-email-form" class="w600 cmxform" method="post">
+      <form id="set-email-form" class="w600 cmxform" method="post" autocomplete="off">
         <div class="form-group">
           <label class="control-label" for="profile-email">当前登录邮箱</label>
           <div class="form-controls">
@@ -46,13 +52,13 @@
         <div class="form-group">
           <label class="control-label">新登录邮箱</label>
           <div class="form-controls">
-            <input type="text" name="User[email]" class="form-input" value="" required email="true">
+            <input type="text" name="User[email]" id="new-email" class="form-input" value=" " required email="true">
           </div>
         </div>
         <div class="form-group">
           <label class="control-label">网站登录密码</label>
           <div class="form-controls">
-            <input type="password" name="User[password_hash]" required minlength="6" class="form-input" />
+            <input type="password" name="User[password_hash]" required minlength="6" value="" class="form-input" />
             <p class="form-hint">设置新的登录邮箱，需要校验当前的网站登录密码</p>
           </div>
         </div>
@@ -61,8 +67,6 @@
             <button type="submit" class="button-submit">提交</button>
           </div>
         </div>
-        <input type="hidden" name="form-data" value ="#set-email-form"/>
-        <input type="hidden" name="_url" value ="/personage/mailset"/>
       </form>
     </div>
   </section>
@@ -72,42 +76,7 @@
   <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
   <script src="/static/js/plugins/validate/messages_zh.js"></script>
   <script>
-    // ajax提交
-    var $formData = $($('input[name="form-data"]').val());
-    $formData.validate({
-      onsubmit:true,// 是否在提交时验证
-      submitHandler: function(form){
-        var _url = $('input[name="_url"]').val();
-        var data = $formData.serialize();
-        console.log(data);
-        $.ajax({
-          url : _url,
-          type : 'post',
-          data : data,
-          success : function(data){
-            if(data){
-              alert("提交成功");
-            }else{
-              alert(data);
-            }
-          }
-        });
-      }
-    });
-    // 是否是公司
-    $.ajax({
-      type:'get',
-      url:'/firm/is-firm',
-      dataType: 'json',
-      success: function(datas){
-        if(datas==1){
-          $('#apply-lecturer-btn').html('添加讲师').attr('href','/personage/addlecturer');
-        }
-      },
-      error: function(xml,err){
-        console.log(err);
-      }
-    });
+    seajs.use('/static/js/setting/account.js');
   </script>
 </body>
 </html>

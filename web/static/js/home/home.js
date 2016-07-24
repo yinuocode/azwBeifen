@@ -54,6 +54,7 @@ define(function(require,exports,module){
           console.log(data);
           if(data.status==1){
             main.sitesHint('发送成功！');
+            $('#letter-form')[0].reset();
             $('.popup').addClass('hide');
           }else{
             main.sitesHint(data.msg,'err');

@@ -4,7 +4,7 @@ define(function(require,exports,module){
   var home = require('/static/js/home/home');
   // 简介
   main.postAjaxDatas('/home/introp',{user_id:home.uid},function(datas){
-    console.log(datas);
+    template.config("escape", false);
     var homeIntro = template('homeIntro',datas);
     $('#home-intro').html(homeIntro);
   });

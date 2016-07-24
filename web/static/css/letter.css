@@ -1,0 +1,222 @@
+.letter-list{
+  padding:5px 25px;
+  margin: 25px 0 10px;
+  background: #fff;
+}
+.media, .media-body {
+  zoom: 1;
+  overflow: hidden;
+}
+.letter-list .media{
+  border-bottom: 1px solid #f5f5f5;
+  cursor: pointer;
+  margin-top: 15px;
+  padding-bottom: 15px;
+}
+.letter-list .media:last-child {
+  border-bottom: none;
+}
+.letter-list .user-card{
+  padding-right: 10px;
+  display: inline-block;
+}
+.letter-list .avatar-sm{
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+.media-body{
+  word-break: break-all;
+  display: table-cell;
+  vertical-align: top;
+  width: 1200px;
+  font-size: 14px;
+}
+.letter-list .media-heading {
+  margin:0 10px 10px 0;
+  margin-top: 0;
+  height: 21px;
+  max-width: 880px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  position: relative;
+}
+.letter-list .unread{
+  color:#4E9BD5;
+}
+.letter-list .link-dark {
+  color: #313131;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.letter-list .link-dark:hover {
+  color: #4E9BD5;
+}
+.letter-footer{
+  color: #999;
+  font-size: 13px;
+}
+.letter-footer .actions {
+  visibility: hidden;
+  color: #919191;
+}
+.mhm {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.text-muted {
+  color: #919191;
+}
+.letter-list .media:hover .actions {
+  visibility: visible;
+}
+/*私信会话*/
+.conversation{
+  background: #fff;
+  margin: 25px 0 10px;
+  padding: 30px 50px 50px;
+  min-height: 500px;
+}
+.conversation-hade{
+  color: #616161;
+  position: relative;
+  font-size: 16px;
+  margin-bottom:30px;
+}
+.section-panel .back-letter.btn {
+  padding:4px 15px;
+  margin-left:50px;
+  border-radius: 5px;
+}
+.conversation-hade h2 {
+  font-size: 25px;
+  margin-top: 0;
+}
+/*回复私信*/
+.reply-letter{
+  margin-bottom:25px;
+}
+.conversation .form-group{
+  margin-bottom:10px;
+}
+.conversation .button-submit{
+  width: 150px;
+  height: 38px;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: 300ms;
+  -webkit-transition: 300ms;
+  -ms-transition: 300ms;
+  -o-transition: 300ms;
+}
+.conversation .button-submit:hover{
+  background: #236DB6;
+}
+.media-list .media{
+  border-bottom: 1px solid #f5f5f5;
+  padding-top:15px;
+  padding-bottom: 15px;
+}
+.media-list .media:last-child {
+  border-bottom: none;
+}
+.letter-popover{
+  top: 0;
+  left: 0;
+  z-index: 1060;
+  padding: 1px;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: left;
+  background-color: #ffffff;
+  background-clip: padding-box;
+  border: 1px solid #cccccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  white-space: normal;
+  min-width: 200px;
+  border-color: #e1e1e1;
+  position: relative;
+  display: block;
+  margin: 0 20px 0 20px;
+  max-width: 100%;
+}
+.letter-popover.right{
+  margin-right:70px;
+}
+.letter-popover.left{
+  margin-left:70px;
+}
+.message-list .message-content {
+  margin-bottom: 10px;
+}
+.message-list .message-actions{
+  float: right;
+  visibility: hidden;
+}
+.message-list .media:hover .message-actions{
+  visibility: visible;
+}
+.letter-popover > .arrow, .letter-popover > .arrow:after {
+  position: absolute;
+  border-width: 10px;
+  display: block;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+}
+.letter-popover.right > .arrow{
+  left: -11px;
+  margin-top: -11px;
+  border-left-width: 0;
+  border-right-color: #e1e1e1;
+}
+.letter-popover .arrow {
+  top: 24px;
+}
+.letter-popover.left > .arrow {
+  top: 50%;
+  right: -11px;
+  margin-top: -11px;
+  border-right-width: 0;
+  border-left-color: #999999;
+  border-left-color: rgba(0, 0, 0, 0.25);
+}
+.letter-popover.left > .arrow {
+  border-left-color: #e1e1e1;
+}
+.message-list .letter-popover .arrow {
+  top: 24px;
+}
+.letter-popover.right > .arrow:after {
+  content: " ";
+  left: 1px;
+  bottom: -10px;
+  border-left-width: 0;
+  border-right-color: #ffffff;
+}
+.letter-popover.left > .arrow:after {
+  content: " ";
+  right: 1px;
+  border-right-width: 0;
+  border-left-color: #ffffff;
+  bottom: -10px;
+}
+.message-list .message-me .letter-popover .arrow:after {
+  border-left-color: #fafafa;
+}
+.conversation .form-textarea{
+  padding: 5px 10px;
+  font-size: 14px;
+  resize: none;
+  border-color: #ddd;
+}

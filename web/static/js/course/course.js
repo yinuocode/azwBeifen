@@ -173,7 +173,7 @@ define(function(require,exports,module){
     uploader.on( 'uploadSuccess', function( file,resporse ) {
         $( '#'+file.id ).addClass('upload-state-done');
         // var timestamp = Date.parse(new Date());
-        var imgSrc=main.imgPath+'/'+resporse.date+'/'+file.name;
+        var imgSrc=main.imgPath+'/'+resporse.date+'/'+resporse.name;
         // $('#img-target,#preview2').attr('src',imgSrc);
         // $('#img-src').val(imgSrc);
         var imgUploadBox = template('imgUploadBox',{imgSrc:imgSrc});

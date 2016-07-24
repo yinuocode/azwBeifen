@@ -292,7 +292,7 @@ define(function(require,exports,module){
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on( 'uploadSuccess', function( file,resporse ) {
         $( '#'+file.id ).addClass('upload-state-done');
-        $('#input-img').append('<input type="hidden" name="attach[]" value="'+main.imgPath+'/'+resporse.date+'/'+file.name+'">');
+        $('#input-img').append('<input type="hidden" name="attach[]" value="'+main.imgPath+'/'+resporse.date+'/'+resporse.name+'">');
         $('#input-video').val('');
         $('#fileList1').html('');
     });
@@ -407,10 +407,10 @@ define(function(require,exports,module){
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on( 'uploadSuccess', function( file,resporse ) {
         $( '#'+file.id ).addClass('upload-state-done');
-        $('#input-video').val(main.videoPath+'/'+resporse.date+'/'+file.name);
+        $('#input-video').val(main.videoPath+'/'+resporse.date+'/'+resporse.name);
         $('#input-img,#fileList').html('');
         $('.talk-btn').html('发表').removeClass('disabled').prop('disabled',false);
-        console.log('/'+resporse.date+'/'+file.name);
+        console.log('/'+resporse.date+'/'+resporse.name);
     });
     // 文件上传失败，显示上传出错。
     uploader.on( 'uploadError', function( file ) {

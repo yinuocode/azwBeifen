@@ -18,7 +18,7 @@ a {
   color: #010101; }
 a:hover {
   text-decoration: none;
-  color: #a00001; }
+  color: #4E9BD5; }
 .show {
   display: block; }
 .hide {
@@ -1012,7 +1012,9 @@ form.cmxform form.cmxform .gray * {
   color: #C50606; }
 .form-textarea {
   width: 100%;
-  padding: 2px 10px; }
+  padding: 2px 10px;
+  font-size: 14px;
+}
 #form-radio label {
   margin-right: 20px; }
 .form-hint {
@@ -1420,60 +1422,6 @@ input[name="selected"], #controlAll {
   height: 30px;
   line-height: 30px;
   padding: 0 12px;
-}
-/*私信*/
-.letter-list{
-  padding:10px 0;
-}
-.letter-list>li{
-  padding:10px 35px;
-  border-bottom:1px solid #d4d4d4;
-}
-.letter-list>li:last-child{
-  border-bottom:0;
-}
-.letter-list>li>.clearfix>.lf{
-  margin-right:15px;
-  text-align: left;
-  line-height: 26px;
-}
-.letter-list .avatar{
-  display: block;
-  border-radius: 50%;
-  width:80px;
-  height:80px;
-}
-.letter-list>li>.clearfix>.rf{
-  position: relative;
-}
-.letter-list>li>.clearfix>.rf a{
-  display: block;
-  line-height: 35px;
-}
-.letter-list>li>.clearfix>.rf .delete-letter.hide{
-  position: absolute;
-  bottom:0;
-  left:-60px;
-  display: none;
-}
-.letter-list>li:hover .delete-letter.hide{
-  display: block !important;
-}
-.letter-list .name{
-  color:#969696;
-}
-.letter-list .name.hot{
-  color: #4E9BD5
-}
-.letter-list .date{
-  color:#969696;
-  font-size: 12px;
-}
-.letter-content{
-  padding:10px 30px;
-  text-align: left;
-  text-indent: 2em;
-  display: none;
 }
 /*直播课程列表*/
 .course-list.direct-course{

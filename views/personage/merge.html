@@ -8,25 +8,30 @@
       <a href="/personage/settled">公司入驻申请</a>
     </header>
     <div class="panel-body">
-      <h2 class="panel-crumbs"><a href="/personage/setsafety">安全设置</a>&gt;密码验证</h2>
+      <h2 class="panel-crumbs"><a href="/personage/setsafety">安全设置</a>&gt;账号合并</h2>
       <div class="panel-body-bd">
-        <form id="set-password-form" class="w600 cmxform" method="post">
+        <form id="merge-account-form" class="w600 cmxform" method="post" autocomplete="off">
           <div class="form-group">
-            <label class="control-label" for="old-password">当前密码</label>
+            <label class="control-label" for="merge-account">合并的账号</label>
             <div class="form-controls required">
-              <input type="password" id="old-password" name="oldpassword" class="form-input" value="" required minlength="6">
+              <input type="text" id="merge-account" name="merge_account" class="form-input" value=" " required>
             </div>
           </div>
           <div class="form-group">
-            <label class="control-label" for="form_newPassword">新密码</label>
+            <label class="control-label" for="account-Password">合并账号密码</label>
             <div class="form-controls required">
-              <input type="password" id="form_newPassword" name="User[password_hash]" class="form-input" value="" required minlength="6">
+              <input type="password" id="account-password" name="merge_password" class="form-input" value="" required minlength="6">
             </div>
           </div>
           <div class="form-group">
-            <label class="control-label" for="form_confirmPassword">确认密码</label>
-            <div class="form-controls required">
-              <input type="password" name="form_confirmPassword" id="form_confirmPassword" class="form-input" value="" required minlength="6">
+            <label class="control-label">选择主账号</label>
+            <div class="form-controls">
+              <div id="form-radio">
+                <input type="radio" id="main-account1" checked name="main_account" value="1">
+                <label for="main-account1">当前账号</label>
+                <input type="radio" id="main-account2" name="main_account" value="2">
+                <label for="main-account2">合并的账号</label>
+              </div>
             </div>
           </div>
           <div class="form-group">

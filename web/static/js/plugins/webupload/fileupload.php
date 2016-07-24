@@ -82,6 +82,10 @@ if (isset($_REQUEST["name"])) {
     $fileName = uniqid("file_");
 }
 
+$fname = time().rand(1000,9999);
+$suffix = substr($fileName,strripos($fileName,'.'));
+$fileName = $fname.$suffix;
+
 $filePath = $targetDir . DIRECTORY_SEPARATOR . $fileName;
 $uploadPath = $uploadDir . DIRECTORY_SEPARATOR . $fileName;
 
@@ -175,6 +179,6 @@ if ( $done ) {
 }
 
 // Return Success JSON-RPC response
-$date = array('date'=>date('Ymd'));
+$date = array('date'=>date('Ymd'),'name'=>$fileName);
 echo  json_encode($date);
 // die('{"jsonrpc" : "2.0", "result" : null, "id" : "id","date":'$date'}');

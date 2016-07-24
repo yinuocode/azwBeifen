@@ -33,6 +33,8 @@ blockquote:before, blockquote:after, q:before, q:after{ content: ''; content: no
 a {background-color: transparent;}
 a:active,a:hover{outline: 0;}
 /*消灭所有 alert*/
-#site-hint{position: fixed;top: 0;left: 0;right: 0;height: 45px;width: 100%;color: #fff;z-index: 99999999999;background: #6FBC60;text-align: center;line-height: 45px;font-size: 20px;display: none;}
+#site-hint{position: fixed;top: 0;left: 0;right: 0;height: 40px;line-height: 40px;width: 100%;color: #fff;z-index: 99999999999;background: #6FBC60;text-align: center;font-size: 18px;display: none;}
 #site-hint.win{background: #6FBC60;}
 #site-hint.err{background: #F6888B;}
+#close-hint{float: right;margin-right: 25px;text-decoration: none;font-size: 20px;color: #888;font-weight: bold;}
+#close-hint:hover{color:#D45555;font-weight: border;}

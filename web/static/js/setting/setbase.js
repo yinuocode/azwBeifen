@@ -26,52 +26,45 @@ define(function(require,exports,module){
   }
   function runForm(){
     // ajax提交
-    var $formData = $($('input[name="form-data"]').val());
+    var $formData = $('#set-base-form');
     $formData.validate({
       onsubmit:true,// 是否在提交时验证
       submitHandler: function(form){
-        var _url = $('input[name="_url"]').val();
         var data = $formData.serialize();
-        console.log(data);
         $.ajax({
-          url : _url,
+          url : '/personage/basic',
           type : 'post',
           data : data,
+          dataType: 'json',
           success : function(data){
-            if(data){
-              main.sitesHint('提交成功！');
-            }else{
-              alert(data);
-            }
+            data.status==1?main.sitesHint('提交成功！'):main.sitesHint(data.msg,'err');
           }
         });
       }
     });
     $('#setname').on('click',function(){
-      console.log(123);
       $('#panel-body1').hide();
       $('#panel-body2').show();
     });
     // ajax提交
-    var $formData2 = $($('input[name="form-data2"]').val());
+    var $formData2 = $('#set-name-form');
     $formData2.validate({
       onsubmit:true,// 是否在提交时验证
       submitHandler: function(form){
-        var _url = $('input[name="_url2"]').val();
         var data = $formData2.serialize();
-        console.log(data);
         $.ajax({
-          url : _url,
+          url : '/personage/authentication',
           type : 'post',
           data : data,
+          dataType:'json',
           success : function(data){
-            if(data){
+            if(data.status==1){
               main.sitesHint('认证成功！');
               $('#panel-body2').hide();
               $('#panel-body1').show();
               $('.form-hint').html('<span class="hot">已认证成功</span>');
             }else{
-              alert(data);
+              main.sitesHint(data.msg,'err');
             }
           }
         });
@@ -172,7 +165,7 @@ define(function(require,exports,module){
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on( 'uploadSuccess', function( file,resporse ) {
         $( '#'+file.id ).addClass('upload-state-done');
-        var imgSrc=main.imgPath+'/'+resporse.date+'/'+file.name;
+        var imgSrc=main.imgPath+'/'+resporse.date+'/'+resporse.name;
         var imgUploadBox = template('imgUploadBox',{imgSrc:imgSrc,imgW:tWidth,imgH:tHeight});
         $('#img-upload-box').html(imgUploadBox);
         // 图片裁剪

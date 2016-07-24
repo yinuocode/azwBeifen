@@ -9,7 +9,6 @@ define(function(require,exports,module){
     if(state==1){
       $('#live-password').val(datas.audit_key);
       $('#live-ip').val(datas.ip);
-      console.log(datas);
       // $.getScript('/static/js/plugins/copy/ZeroClipboard.min.js', function(data, status, jqxhr) {
         // 复制邀请链接
         // copyToClipboard('live-password','copy-link');
@@ -66,11 +65,13 @@ define(function(require,exports,module){
           url : _url,
           type : 'post',
           data : data,
+          dataType: 'json',
           success : function(data){
-            if(data){
+            if(data.status==1){
+              main.sitesHint('提交成功！');
               location.reload();
             }else{
-              alert(data);
+              main.sitesHint(data.msg,'err');
             }
           }
         });
@@ -166,7 +167,7 @@ define(function(require,exports,module){
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on( 'uploadSuccess', function( file,resporse ) {
         $( '#'+file.id ).addClass('upload-state-done');
-        $('.img-path').eq(_index).val(main.imgPath+'/'+resporse.date+'/'+file.name);
+        $('.img-path').eq(_index).val(main.imgPath+'/'+resporse.date+'/'+resporse.name);
         $('.uploader-img').eq(_index).find('.error').hide();
     });
     // 文件上传失败，显示上传出错。

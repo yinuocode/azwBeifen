@@ -27,8 +27,8 @@ define(function(require,exports,module){
         $('#course-notice').html(datas.detail.coures_title_r);
       }
     }else{
-      if(datas.detail.live_describe!==''){
-        $('#course-introduce').html(datas.detail.live_describe);
+      if(datas.detail.live_brief!==''){
+        $('#course-introduce').html(datas.detail.live_brief);
       }
       if(datas.detail.live_title_r!==''){
         $('#course-notice').html(datas.detail.live_title_r);
@@ -40,6 +40,7 @@ define(function(require,exports,module){
   });
   // 讲师简介
   main.postAjaxDatas('/couresdetail/course-teach',getVal,function(datas){
+    template.config("escape", false);
     var lecturerModule = template('lecturerModule',datas);
     $('#lecturer-module').html(lecturerModule);
     $('#user-id').val(datas.user_id);

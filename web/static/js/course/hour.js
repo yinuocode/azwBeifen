@@ -255,11 +255,11 @@ define(function(require,exports,module){
     uploader.on( 'uploadSuccess', function( file,resporse ) {
         $( '#'+file.id ).addClass('upload-state-done');
         $('#hour-date').val(resporse.date);
-        $('#hour-fname').val(file.name);
-        $('#hour-path').val('/'+resporse.date+'/'+file.name);
+        $('#hour-fname').val(resporse.name);
+        $('#hour-path').val('/'+resporse.date+'/'+resporse.name);
         $('#uploader-hour').find('.error').hide();
         $('#upload-status').html('确认添加').removeClass('disabled').prop('disabled',false);
-        console.log('/'+resporse.date+'/'+file.name);
+        console.log('/'+resporse.date+'/'+resporse.name);
     });
     // 文件上传失败，显示上传出错。
     uploader.on( 'uploadError', function( file ) {
@@ -353,10 +353,10 @@ define(function(require,exports,module){
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on( 'uploadSuccess', function( file,resporse ) {
         $( '#'+file.id ).addClass('upload-state-done');
-        $('#data-path').val(main.imgPath+'/'+resporse.date+'/'+file.name);
+        $('#data-path').val(main.imgPath+'/'+resporse.date+'/'+resporse.name);
         $('#uploader-data').find('.error').hide();
         $('#upload-status2').html('确认添加').removeClass('disabled').prop('disabled',false);
-        console.log(main.imgPath+'/'+resporse.date+'/'+file.name);
+        console.log(main.imgPath+'/'+resporse.date+'/'+resporse.name);
     });
     // 文件上传失败，显示上传出错。
     uploader.on( 'uploadError', function( file ) {

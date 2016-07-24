@@ -7,9 +7,10 @@ if ((typeof Range !== "undefined") && !Range.prototype.createContextualFragment)
     return frag;
   };
 }
-if(navigator.userAgent.indexOf('Firefox')==-1){
-  alert('为了更好地使用麦序功能，请使用火狐浏览器打开页面');
-}
+// 隐藏麦序
+// if(navigator.userAgent.indexOf('Firefox')==-1){
+//   alert('为了更好地使用麦序功能，请使用火狐浏览器打开页面');
+// }
 $(function(){
   // 定义变量
   var chatTextarea = $('.chat-textarea'),

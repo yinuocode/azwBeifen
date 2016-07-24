@@ -281,16 +281,19 @@ define(function(require,exports,module){
     txt：需要告知用户的消息
     state：状态是成功还是失败，接收两个参数 'win' or 'err' 默认为 'win'
   */
-  main.sitesHint=function(txt,state){
+  main.sitesHint = function(txt,state){
     $('#site-hint').remove();
-    $('body').append('<div id="site-hint" class="'+state+'">'+txt+'</div>');
+    $('body').append('<div id="site-hint" class="clearfix '+state+'">'+txt+'<a href="javascript:;" title="关闭" id="close-hint">×</a></div>');
     var siteHint=$('#site-hint');
-    siteHint.fadeIn(800,function(){
+    siteHint.slideDown(300,function(){
       var timeObj=setTimeout(function() {
-        siteHint.fadeOut(800);
+        siteHint.slideUp();
         clearTimeout(timeObj);
-      }, 800);
+      }, 3000);
     });
   };
+  $('body').on('click','#close-hint',function(){
+    $('#site-hint').slideUp();
+  });
   module.exports=main;
 });
