@@ -102,18 +102,42 @@ $(function(){
     change: saveRange
   });
   // 表情输出
-  var docFragment = document.createDocumentFragment();
-  for (var i = 69; i > 0; i--) {
-    var emojiItem = document.createElement('img');
-    emojiItem.src = '/static/img/lecture/emoji/' + i + '.gif';
-    emojiItem.title = i;
-    docFragment.appendChild(emojiItem);
-  }
-  $('#iconlist').html(docFragment);
-  $('#iconlist img').on('click',function(event){
-    chatTextarea.focus();
-    _insertimg('<img src="'+$(this).attr("src")+'"/>');
-    iconList.hide();
+  // var docFragment = document.createDocumentFragment();
+  // for (var i = 69; i > 0; i--) {
+  //   var emojiItem = document.createElement('img');
+  //   emojiItem.src = '/static/img/lecture/emoji/' + i + '.gif';
+  //   emojiItem.title = i;
+  //   docFragment.appendChild(emojiItem);
+  // }
+  // $('#iconlist').html(docFragment);
+  // $('#iconlist').on('click','img',function(event){
+  //   chatTextarea.focus();
+  //   _insertimg('<img src="'+$(this).attr("src")+'"/>');
+  //   iconList.hide();
+  // });
+  $.ajax({
+    type: 'get',
+    url: '/wealth/expression',
+    dataType: 'json',
+    success: function(data){
+      var docFragment = '';
+      for(var i=0,len=data.length;i<len;i++){
+        docFragment += '<img src="'+data[i][0]+'" title="'+data[i][1]+'"/>';
+      }
+      $('#iconlist').html(docFragment);
+      $('#iconlist').on('click','img',function(event){
+        chatTextarea.focus();
+        _insertimg('<img src="'+$(this).attr("src")+'"/>');
+        iconList.hide();
+      });
+      // 表情提示
+      $('#iconlist img').tipso({
+        speed: 200,
+        delay: 150,
+        width: 80,
+        background: 'rgba(0,0,0,0.7)'
+      });
+    }
   });
   var setStatus = function(s){
     status.text(s);
@@ -147,7 +171,7 @@ $(function(){
           // }
         }, 6000);
       }else{
-        alert('请使用火狐浏览器操作麦序');
+        main.sitesHint('请使用火狐浏览器操作麦序','err');
       }
     });
     // 触发发言完毕
@@ -186,13 +210,13 @@ $(function(){
           }, 500);
         }
       }else{
-        alert('请使用火狐浏览器操作麦序');
+        main.sitesHint('请使用火狐浏览器操作麦序','err');
       }
     });
   }
   // 礼物
-  var showGift=function(cid,uid,uname,gnr,num,gtitle){
-    socket.emit('showGift',{cid:cid,uid:uid,uname:uname,gnr:gnr,num:num,gtitle:gtitle});
+  var showGift=function(cid,uid,uname,gnr,num,gtitle,gprice){
+    socket.emit('showGift',{cid:cid,uid:uid,uname:uname,gnr:gnr,num:num,gtitle:gtitle,gprice:gprice});
   };
   //加入教室
   var joinroom = function(cid,uid,uname,isman,headpic,level){
@@ -244,8 +268,6 @@ $(function(){
     });
     socket.on('showmember',function(data){
       console.log('触发showmember');
-      console.log('-----------------------------------');
-      console.log(data);
       var str = '';
       if(data.length){
         bannedArr=[];
@@ -282,18 +304,18 @@ $(function(){
           }
           // 是否是自己
           if(data[x].uid==userMid){
-            dUname='<span class="username current hot"><input type="text" mid="'+data[x].uid+'" id="amend-name" value="'+data[x].uname+'"></span>';
-            // dUname='<span class="username hot" mid="'+data[x].uid+'" title="'+data[x].uname+'">'+data[x].uname+'</span><span class="icon-grade iconfont icon hot">&#xe642;</span>';
+            // dUname='<span class="username current hot"><input type="text" mid="'+data[x].uid+'" id="amend-name" value="'+data[x].uname+'"></span>';
+            dUname='<span class="username hot" mid="'+data[x].uid+'" title="'+data[x].uname+'">'+data[x].uname+'</span>';//<span class="icon-grade iconfont icon hot">&#xe642;</span>'
           // }else if(data[x].uid<200){// 是否是会员
           //   dUname='<span class="username" mid="'+data[x].uid+'" title="'+data[x].uname+'">'+data[x].uname+'</span>';
           }else{
-            dUname='<span class="username" mid="'+data[x].uid+'" title="'+data[x].uname+'">'+data[x].uname+'</span><span class="icon-grade iconfont icon hot">&#xe642;</span>';
+            dUname='<span class="username" mid="'+data[x].uid+'" title="'+data[x].uname+'">'+data[x].uname+'</span>';//<span class="icon-grade iconfont icon hot">&#xe642;</span>
           }
           // 判断当前用户是否是管理员
           // console.log(userMid);
           // console.log(userMid.toString()+","+arrAdminT);
           if($.inArray(userMid.toString(),arrAdminT)!=-1){
-            str +='<li class="clearfix">'+avatar+dUname+'<div class="banned-kick rf">'+bannedMake+'&nbsp;&nbsp;'+kickedRoom+'</div></li>';
+            str +='<li class="clearfix">'+avatar+dUname+'<div class="banned-kick rf">'+bannedMake+kickedRoom+'</div></li>';
           }else{
             str +='<li class="clearfix">'+avatar+dUname+'<div class="rf">'+kickedRoom1+'</div></li>';
           }
@@ -301,6 +323,14 @@ $(function(){
       }
       $studentList.html(str);
       getStorage($searchText.val());
+      // 禁言踢人提示
+      $('.tipso_bubble').remove();
+      $('.banned-kick .icon').tipso({
+        speed: 200,
+        delay: 150,
+        width: 80,
+        background: 'rgba(0,0,0,0.7)'
+      });
     });
     //禁言
     $('#student-list').on('click','.icon-banned',function(event){
@@ -422,6 +452,7 @@ $(function(){
             socket.emit('input',{name:name,cid:courseCid,uid:userMid,message:$(self).html()});
             event.preventDefault();
           }else{
+            main.sitesHint('请先输入发送内容','err');
             chatTextarea.html('');
           }
         }
@@ -435,6 +466,7 @@ $(function(){
           socket.emit('input',{name:userName,cid:courseCid,uid:userMid,message:chatTextarea.html()});
           event.preventDefault();
         }else{
+          main.sitesHint('请先输入发送内容','err');
           chatTextarea.html('');
         }
       }
@@ -443,16 +475,19 @@ $(function(){
       if(!bannedJudge()){
         bannedHint();
       }else{
-        socket.emit('input',{name:userName,cid:courseCid,uid:userMid,message:'<img src="http://139.196.195.238/OBSWebClient/imgs/flower.png"/>'});
+        socket.emit('input',{name:userName,cid:courseCid,uid:userMid,message:'<img src="http://image.agodpig.com/face/meiguihua.png"/>'});
         event.preventDefault();
       }
     });
     // 发公告
     $('#notice').on('click',function(event){
-      if(chatTextarea.html()!==''){
+      if(chatTextarea.html().replace(/\&nbsp;/g,'').replace(/ /g,'')){
         // socket.emit('input',{name:userName,cid:courseCid,uid:userMid,message:'<div class="inform">'+noticeNr+'</div>'});
         socket.emit('input',{name:userName,cid:courseCid,uid:userMid,message:'<div class="inform">'+chatTextarea.html()+'</div>'});
         event.preventDefault();
+      }else{
+        main.sitesHint('请先输入公告内容','err');
+        chatTextarea.html('');
       }
     });
     // 送礼物
@@ -469,8 +504,8 @@ $(function(){
               for(var i=0;i<num;i++){
                 giftNrs+=giftNr;
               }
-              showGift(courseCid,userMid,userName,giftNr,num,giftTitle);
-              socket.emit('input',{name:userName+'<span class="hot">送了'+num+'个'+giftTitle+'</span>',cid:courseCid,uid:userMid,message:giftNrs});
+              showGift(courseCid,userMid,userName,giftNr,num,giftTitle,giftPrice);
+              socket.emit('input',{name:userName+'<span class="hot">送了'+num+'个'+giftTitle+' ￥'+(giftPrice*num).toFixed(2)+'</span>',cid:courseCid,uid:userMid,message:giftNrs});
               event.preventDefault();
             }else{
               // console.log(12222222);
@@ -478,10 +513,10 @@ $(function(){
             }
           });
         }else{
-          alert('土豪，礼物数不能大于500个，请分批送礼');
+          main.sitesHint('土豪，礼物数不能大于500个，请分批送礼','err');
         }
       }else{
-        alert('最少也要送一个吧');
+        main.sitesHint('至少也要送一个吧','err');
       }
     });
     // var admire=['你很牛，我看好你','讲的不错，学到了不少东西','拿去花，不谢','有钱，任性'];
@@ -498,11 +533,12 @@ $(function(){
             $('#enjoy-effect').show().animate({
               bottom:'50%',
               fontSize:30
-            },4000,function(){
-              $('#enjoy-effect').fadeOut(1000,function(){
+            },2500,function(){
+              $('#enjoy-effect').fadeOut(500,function(){
                 $(this).css({
                   'bottom':'4px',
                   'font-size':'16px',
+                  'color': '#008AD1',
                   'display':'none'
                 });
               });
@@ -514,7 +550,7 @@ $(function(){
           }
         });
       }else{
-        alert('最起码打赏一元吧');
+        main.sitesHint('最起码打赏一元吧','err');
       }
     });
   }
@@ -543,19 +579,19 @@ $(function(){
   },1200);
   // 修改昵称
 
-  $studentList.on('blur','#amend-name',function(){
-    var uid=$(this).attr('mid');
-    var uname=$(this).val();
-    if(uname!=userName){
-      $.ajax({
-        type: 'POST',
-        url: '/index.php?r=broadcasting%2Fupbase',
-        data: {id:uid,name:uname},
-        success: function(){
-          console.log('修改成功！');
-          userName=uname;
-        }
-      });
-    }
-  });
+  // $studentList.on('blur','#amend-name',function(){
+  //   var uid=$(this).attr('mid');
+  //   var uname=$(this).val();
+  //   if(uname!=userName){
+  //     $.ajax({
+  //       type: 'POST',
+  //       url: '',
+  //       data: {id:uid,name:uname},
+  //       success: function(){
+  //         console.log('修改成功！');
+  //         userName=uname;
+  //       }
+  //     });
+  //   }
+  // });
 });

@@ -90,7 +90,7 @@
             {{each topic as value i}}
               <li>
                 <p class="group-talk-user clearfix">
-                  <span class="lf"><img src="{{value.topic_portrait}}" class="avatar" width="45" height="45" alt=""></span>
+                  <a href="/home?uid={{value.topic_user}}" target="_blank" class="lf"><img src="{{value.topic_portrait}}" class="avatar" width="45" height="45" alt=""></a>
                   <a href="/home?uid={{value.topic_user}}" class="lf" target="_blank">{{value.topic_uname}}</a>
                 </p>
                 <p class="text">

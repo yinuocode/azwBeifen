@@ -35,7 +35,12 @@
   <![endif]-->
 </head>
 <body>
-  <div class="top-banner">
+  <div class="slider top-banner" id="banner">
+    <script id="topBanner" type="text/html">
+      {{each list as value i}}
+        <div><a href="{{value.img_address}}" target="_blank"><img src="{{value.src}}" alt="{{value.img_title}}"></a></div>
+      {{/each}}
+    </script>
   </div>
   <!-- top-banner end -->
   <div class="top-notice">
@@ -339,8 +344,8 @@
   <!-- footer -->
   <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
   <!-- footer end -->
-
   <script src="/static/js/plugins/slick/slick.min.js"></script>
+  <script src="/static/js/plugins/nicescroll/jquery.nicescroll.min.js"></script>
   <script>
     seajs.use('index');
   </script>

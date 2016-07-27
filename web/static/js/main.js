@@ -200,8 +200,8 @@ define(function(require,exports,module){
     // 验证
     // ePhone.focus();eiUsername.focus();
     eUsername.bind('input blur keydown', function() {
-      if($(this).val()===''){
-        $(this).addClass('error').next().html('用户名不能为空！').addClass('error');
+      if(!(/^[0-9A-Za-z_]{1,}$/.test($(this).val()))){
+        $(this).addClass('error').next().html('用户名为英文数字下划线组合').addClass('error');
       }else{
         $(this).removeClass('error').next().removeClass('error').html('');
       }
@@ -232,12 +232,12 @@ define(function(require,exports,module){
     function isEPhone(_this){
       if(istrueEP){
         // 验证是否是手机或者邮箱
-        if(/(^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$)|(^1[3|5|7|8|][0-9]{9}$)/.test(_this.val())){
+        if(/(^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$)/.test(_this.val())){///(^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$)|(^1[3|5|7|8|][0-9]{9}$)/
           _this.removeClass('error').next().removeClass('error').html('');
         }else if(_this.val()===''){
-          _this.addClass('error').next().html('邮箱或手机不能为空！').addClass('error');
+          _this.addClass('error').next().html('邮箱不能为空！').addClass('error');
         }else{
-          _this.addClass('error').next().html('输入邮箱或手机格式不正确！').addClass('error');
+          _this.addClass('error').next().html('请输入正确的邮箱格式！').addClass('error');
         }
       }
     }
@@ -246,8 +246,8 @@ define(function(require,exports,module){
   function checkLogin(){
     istrueEP=true;
     istrueP=true;
-    if(eUsername.val()===''){
-      eUsername.addClass('error').next().html('用户名不能为空！').addClass('error');
+    if(!(/^[0-9A-Za-z_]{1,}$/.test(eUsername.val()))){
+      eUsername.addClass('error').next().html('用户名为6-16位的英文数字下划线组合').addClass('error');
       return false;
     }
     if(!(/^[\w\W]{6,}$/.test($('#signin-form').find(iptPwd).val()))){
@@ -259,9 +259,9 @@ define(function(require,exports,module){
   function checkSignup(){
     istrueEP=true;
     istrueP=true;
-    if(/(^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$)|(^1[3|5|7|8|][0-9]{9}$)/.test(ePhone.val())){
-      if($('#signup-form').find(eUsername).val()===''){
-        $('#signup-form').find(eUsername).addClass('error').next().html('用户名不能为空！').addClass('error');
+    if(/(^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$)/.test(ePhone.val())){///(^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$)|(^1[3|5|7|8|][0-9]{9}$)/
+      if(!(/^[0-9A-Za-z_]{1,}$/.test($('#signup-form').find(eUsername).val()))){
+        $('#signup-form').find(eUsername).addClass('error').next().html('用户名为6-16位的英文数字下划线组合').addClass('error');
         return false;
       }else if(!(/^[\w\W]{6,}$/.test($('#signup-form').find(iptPwd).val()))){
         $('#signup-form').find(iptPwd).addClass('error').next().html('密码不能少于六位！').addClass('error');
@@ -271,7 +271,7 @@ define(function(require,exports,module){
       ePhone.addClass('error').next().html('邮箱或手机不能为空！').addClass('error');
       return false;
     }else{
-      ePhone.addClass('error').next().html('输入邮箱或手机格式不正确！').addClass('error');
+      ePhone.addClass('error').next().html('请输入正确的邮箱格式！').addClass('error');
       return false;
     }
   }

@@ -360,10 +360,19 @@ function streamStatusResponse(resp)
 
 function startStreaming()
 {
-	var myJSONRequest = {};
-	myJSONRequest["request-type"] = "StartStopStreaming";
-
-	sendMessage(myJSONRequest);
+  $.ajax({
+    type:'get',
+    url:'/couresdetail/del-url',
+    dataType: 'json',
+    success: function(datas){
+      var myJSONRequest = {};
+      myJSONRequest["request-type"] = "StartStopStreaming";
+      sendMessage(myJSONRequest);
+    },
+    error: function(xml,err){
+      console.log(err);
+    }
+  });
 }
 
 function startPreview(){

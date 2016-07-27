@@ -1,78 +1,44 @@
 <input type="hidden" id="page-title" value="<?php use yii\helpers\Html; echo Html::encode($title)?>">
+<link rel="stylesheet" href="/static/css/letter.css">
 <!-- header end -->
   <section class="section-panel">
     <header class="panel-heading clearfix">
       <a class="active">站内信</a>
     </header>
     <div class="panel-body">
-      <div class="panel-body-course">
-        <div class="select-type clearfix">
-          <div class="lf">
-            <a href="javascript:;" class="handle-icon triangle" id="handle-course" data-val="">收件箱</a>
-            <ul class="select-items">
-              <li><a href="javascript:;" data-arg="1">收件箱</a></li>
-              <li><a href="javascript:;" data-arg="2">发件箱</a></li>
-            </ul>
-          </div>
-          <!-- <div class="rf"><a href="javascript:;" class="handle-icon delete" id="handle-delete">删除</a></div> -->
-        </div>
-        <div class="table-course" id="table-course-list">
-        <script id="tableCourseList" type="text/html">
-          <ul class="letter-list">
-            {{if data.length>0}}
-            {{each data as value i}}
-            <li>
-              <div class="clearfix">
-                <div class="lf">
-                  <img src="{{value.portrait}}" class="avatar" alt="">
-                </div>
-                <div class="lf">
-                  {{if type==1}}
-                    {{if value.letter_read==0}}
-                    <div class="name hot">
-                      {{if value.nick_name}}
-                      {{value.nick_name}}
-                      {{else}}
-                      {{value.username}}
-                      {{/if}}
-                    </div>
-                    {{else}}
-                    <div class="name">
-                      {{if value.nick_name}}
-                      {{value.nick_name}}
-                      {{else}}
-                      {{value.username}}
-                      {{/if}}
-                    </div>
-                    {{/if}}
-                  {{else}}
-                  <div class="name"><span class="hot">接收人：</span>{{if value.nick_name}}{{value.nick_name}}{{else}}{{value.username}}{{/if}}</div>
-                  {{/if}}
-                  <div class="title">
-                    {{value.letter_title}}</div>
-                  <div class="date">{{value.letter_add_date}}</div>
-                </div>
-                <div class="rf">
-                {{if type==1}}
-                  <a href="javascript:;" data-uid="{{value.user_id}}" class="reply-letter">回复私信</a>
-                  <a href="javascript:;" data-lid="{{value.letter_id}}" class="look-all {{if value.letter_read==0}}rcvd{{/if}}">查看全部</a>
-                  <a href="javascript:;" data-lid="{{value.letter_id}}" class="delete-letter hide">x删除</a>
-                {{else}}
-                  <a href="javascript:;" data-lid="{{value.letter_id}}" class="delete-letter">删除私信</a>
-                  <a href="javascript:;" data-lid="{{value.letter_id}}" class="look-all">查看全部</a>
-                {{/if}}
-                </div>
+      <ul class="letter-list" id="letter-list">
+      <script id="letterList" type="text/html">
+      {{if data.length>0}}
+      {{each data as value i}}
+        <li class="media" data-url="/website/conversation?lid={{value.lid}}" data-lid="{{value.lid}}">
+          <a href="/home?uid={{value.user_id}}" class="lf user-card" target="_blank">
+            <img class="avatar-sm" width="50" height="50" src="{{value.cover}}">
+          </a>
+          <div class="media-body">
+            <div class="clearfix">
+              <h4 class="media-heading lf">
+                <a class="link-dark" href="/home?uid={{value.user_id}}" target="_blank">{{value.username}}:</a>{{value.body}}
+              </h4>
+              {{if value.sum!=0}}
+              <div class="unread lf">({{value.sum}}条未读)</div>
+              {{/if}}
+            </div>
+            <div class="letter-footer clearfix">
+              <span class="lf">{{value.letter_add_date}}</span>
+              <!-- <span class="rf">共{{value.num_letter}}条</span> -->
+              <div class="actions rf">
+                <a class="delete-letter text-muted" href="javascript:;" data-lid="{{value.lid}}">删除</a>
+                <!-- <span class="mhm text-muted">|</span> -->
               </div>
-              <div class="letter-content">{{value.letter_body}}</div>
-            </li>
-            {{/each}}
-            {{else}}
-            <li class="no-data">暂无站内信</li>
-            {{/if}}
-          </ul>
-        </script>
-        </div>
-      </div>
+            </div>
+          </div>
+        </li>
+      {{/each}}
+      {{else}}
+        <div class="no-data">暂无私信</div>
+      {{/if}}
+      </script>
+      </ul>
       <div class="ajax-paging">
         <div class="clearfix">
           <a href="javascript:;" id="paging-prev" class="handle-icon left-arrows"></a>
@@ -81,44 +47,6 @@
       </div>
     </div>
   </section>
-  <!-- 回复私信 -->
-  <div class="popup hide" id="letter-popup">
-    <div class="popup-modal">
-      <div class="popup-header">
-        <h1>回复私信</h1>
-        <button type="button" class="popup-close"></button>
-      </div>
-      <div class="popup-body">
-        <form method="post" id="letter-form" class="popup-form cmxform">
-          <!--<div class="form-group">
-            <label class="control-label">收件人</label>
-            <div class="form-controls">
-              <input type="text" class="form-input" name="name" value="" required>
-            </div>
-          </div> -->
-          <div class="form-group">
-            <label class="control-label">标题</label>
-            <div class="form-controls">
-              <input type="text" class="form-input" name="title" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label">内容</label>
-            <div class="form-controls">
-              <textarea name="content" id="" class="form-textarea" required></textarea>
-            </div>
-          </div>
-          <input type="hidden" name="user_id" id="user-id" value="">
-          <div class="form-group">
-            <div class="form-submit">
-              <button type="submit" class="button-submit">确认</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="popup-bg"></div>
-  </div>
   <!-- footer -->
   <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
   <!-- footer end -->

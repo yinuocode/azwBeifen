@@ -189,6 +189,12 @@ define(function(require,exports,module){
       }
     });
   }
+  // 设置滚动条样式
+  $('#student-list,#chat-messages,#scenes,#sources,#thumbs').niceScroll({
+    cursorborder: '',
+    autohidemode: 'leave',
+    cursorcolor: '#41B9FF'
+  });
   // 引入聊天代码
   require('mychat');
 });

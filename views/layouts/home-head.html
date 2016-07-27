@@ -59,3 +59,29 @@
       </div>
     </script>
   </div>
+  <!-- 发送私信 -->
+  <div class="popup hide" id="letter-popup">
+    <div class="popup-modal">
+      <div class="popup-header">
+        <h1>发送私信</h1>
+        <button type="button" class="popup-close"></button>
+      </div>
+      <div class="popup-body">
+        <form method="post" id="letter-form" class="popup-form cmxform">
+          <div class="form-group">
+            <label class="control-label">内容</label>
+            <div class="form-controls">
+              <textarea name="content" id="" class="form-textarea" required placeholder="请输入私信内容"></textarea>
+            </div>
+          </div>
+          <input type="hidden" value="" name="user_id" id="user-id">
+          <div class="form-group">
+            <div class="form-submit">
+              <button type="submit" class="button-submit">确认</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="popup-bg"></div>
+  </div>

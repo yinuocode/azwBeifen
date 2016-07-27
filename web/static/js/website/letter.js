@@ -6,11 +6,11 @@ define(function(require,exports,module){
   // 按条件查找
   main.runPostAjaxDatas=function(){
     main.postAjaxDatas('/website/station-letter',{page:main.pageVal},function(datas){
-      var letterList = template('letterList',{list:datas});
+      var letterList = template('letterList',datas);
       $('#letter-list').html(letterList);
       // 是否显示分页
       if(main.pageVal==1){
-        if(datas.length<main.count){
+        if(datas.data.length<main.count){
           $('.ajax-paging').hide();
         }else{
           $('.ajax-paging').show();
@@ -41,7 +41,11 @@ define(function(require,exports,module){
     var $this = $(this);
     var lid = $this.attr('data-lid');
     main.postAjaxDatas('/website/is-read',{lid:lid},function(datas){
-      window.location.href=$this.attr('data-url');
+      if(datas.status==1){
+        window.location.href=$this.attr('data-url');
+      }else{
+        main.sitesHint(datas.msg,'err');
+      }
     });
   });
   // 阻止事件冒泡

@@ -17,6 +17,7 @@ define(function(require,exports,module){
   // 按条件查找
   main.runPostAjaxDatas = function(){
     main.postAjaxDatas('/website/letter-detail',{lid:lid},function(datas){
+      console.log(datas);
       var conversationS = template('conversationS',datas);
       $('#conversation').html(conversationS);
       // ajax提交
@@ -33,6 +34,7 @@ define(function(require,exports,module){
               if(data.status==1){
                 main.sitesHint('发送成功！');
                 $('#letter-form')[0].reset();
+                main.runPostAjaxDatas();
               }else{
                 main.sitesHint(data.msg,'err');
               }
@@ -45,17 +47,17 @@ define(function(require,exports,module){
   // 初始化
   main.runPostAjaxDatas();
   // 删除
-  $('.conversation').on('click','.delete-message',function(){
-    var lid=$(this).attr('data-lid');
-    if(confirm('您确定要删除吗?')){
-      main.postAjaxDatas('/website/del-letter',{lid:lid},function(datas){
-        if(datas.status==1){
-          main.sitesHint('删除成功！');
-          main.runPostAjaxDatas();
-        }else{
-          main.sitesHint(datas.msg,'err');
-        }
-      });
-    }
-  });
+  // $('.conversation').on('click','.delete-message',function(){
+  //   var lid=$(this).attr('data-lid');
+  //   if(confirm('您确定要删除吗?')){
+  //     main.postAjaxDatas('/website/del-letter',{lid:lid},function(datas){
+  //       if(datas.status==1){
+  //         main.sitesHint('删除成功！');
+  //         main.runPostAjaxDatas();
+  //       }else{
+  //         main.sitesHint(datas.msg,'err');
+  //       }
+  //     });
+  //   }
+  // });
 });

@@ -76,7 +76,9 @@ define(function(require,exports,module){
       liLessonItem=$('.lesson-item.lesson-item-66').eq(0);
     }
     liLessonItem.addClass('item-active');
-    $('#hour-title,title').html(liLessonItem.find('.title').html());
+    $('#hour-title').html(liLessonItem.find('.title').html());
+    // 页面title
+    document.title = liLessonItem.find('.title').html();
     // 加载视频
     var url=liLessonItem.attr('data-src');
     if(url==1){

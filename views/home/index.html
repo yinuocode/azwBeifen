@@ -54,7 +54,7 @@
                 <input type="hidden" name="video" id="input-video" value="">
                 <p><button type="submit" class="btn talk-btn">发表</button></p>
               </form>
-              <div class="publish-date">发表说说</div>
+              <div class="publish-date">发表动态</div>
             </div>
             {{/if}}
             <ul class="talk-list" id="talk-list-d">
@@ -171,38 +171,6 @@
     </div>
   </section>
   <!-- 主要内容结束 -->
-  <div class="popup hide" id="letter-popup">
-    <div class="popup-modal">
-      <div class="popup-header">
-        <h1>发送私信</h1>
-        <button type="button" class="popup-close"></button>
-      </div>
-      <div class="popup-body">
-        <form method="post" id="letter-form" class="popup-form cmxform">
-          <div class="form-group">
-            <label class="control-label">标题</label>
-            <div class="form-controls">
-              <input type="text" class="form-input" name="title" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label">内容</label>
-            <div class="form-controls">
-              <textarea name="content" id="" class="form-textarea" required></textarea>
-            </div>
-          </div>
-          <input type="hidden" value="" name="user_id" id="user-id">
-          <div class="form-group">
-            <div class="form-submit">
-              <button type="submit" class="button-submit">确认</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="popup-bg"></div>
-  </div>
-  <!-- 发送私信 -->
   <!-- footer -->
   <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
   <!-- footer end -->

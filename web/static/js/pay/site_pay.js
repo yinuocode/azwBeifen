@@ -51,9 +51,13 @@ define(function(require,exports,module){
     var _this=$(this);
     if(profileMobile.val()!==''&&!(profileMobile.hasClass('error'))){
       main.postAjaxDatas('/pay/note',{mobile:profileMobile.val()},function(datas){
-        $('#verify-code').prop('disabled',false);
-        // var ceshi=datas;
-        getCode(_this);
+        if(datas.status==1){
+          main.sitesHint('请查收验证码！');
+          $('#verify-code').prop('disabled',false);
+          getCode(_this);
+        }else{
+          main.sitesHint(datas.msg,'err');
+        }
       });
     }
   });

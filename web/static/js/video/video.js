@@ -81,7 +81,9 @@ define(function(require,exports,module){
       $('.hid').val(liLessonItem.attr('data-hid'));
     }
     liLessonItem.addClass('item-active');
-    $('#hour-title,title').html(liLessonItem.find('.title').html());
+    $('#hour-title').html(liLessonItem.find('.title').html());
+    // 页面title
+    document.title = liLessonItem.find('.title').html();
     // 视频播放
     // $('#example_video_1_html5_api').attr('src',liLessonItem.attr('data-src'));
     // 加载视频
@@ -89,10 +91,12 @@ define(function(require,exports,module){
     if(url==1){
       sitesHint('该课程需要购买后才能观看！','err');
       // $('#buy-popup').removeClass('hide');
-    }else{
+    }else if(url){
       var lessonVideoContent = template('lessonVideoContent',{data:url});
       $('#lesson-video-content').html(lessonVideoContent);
       $.getScript('/static/js/plugins/video/video.min.js');
+    }else{
+      sitesHint('暂无课程','err');
     }
     runFaqs();
   });
@@ -162,6 +166,7 @@ define(function(require,exports,module){
   }
   // 问答返回
   $('.lesson-pane').on('click','#faq-back',function(){
+    runFaqs();
     $('.lesson-question-plugin-pane').hide();
   });
   // 右边切换

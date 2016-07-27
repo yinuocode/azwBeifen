@@ -14,6 +14,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <link rel="stylesheet" href="/static/css/rely/reset.css">
+  <link rel="stylesheet" href="/static/js/plugins/tipso/tipso.min.css">
   <link rel="stylesheet" href="/static/css/common.css">
   <link rel="stylesheet" href="/static/css/classroom.css">
   <!-- 让低版本ie浏览器更好的兼容 -->
@@ -58,18 +59,19 @@
       <div class="main-body clearfix">
         <aside class="main-side">
           <div class="main-side-top">
-            <div class="lecturer-info clearfix" id="main-side-top">
+            <div class="lecturer-info" id="main-side-top">
               <script id="mainSideTop" type="text/html">
-              <div class="lf">
+              <div class="avatar-box">
                 <a href="/home?uid={{uid}}" target="_blank">
-                  <img src="{{portrait}}" width="60px" height="60" alt="头像">
+                  <img src="{{portrait}}" alt="头像">
+                  <span>{{nick_name}}</span>
                 </a>
                 <input type="hidden" id="lecturer-id" value="{{uid}}">
               </div>
-              <div class="signature">{{motto}}</div>
+              <div class="signature">{{if motto}}{{motto}}{{else}}主人很懒，暂未设置个性签名{{/if}}</div>
               </script>
             </div>
-            <div id="ad-recommend">
+               <div id="ad-recommend">
               <script id="adRecommend" type="text/html">
               <h1 class="ad-side">推荐</h1>
               <div class="recommend">
@@ -186,7 +188,7 @@
               <div class="clearfix" id="all-gift">
               <script id="allGift" type="text/html">
               {{each list as value i}}
-                <a href="javascript:;" data-id="{{value.gid}}" title="{{value.gname}} ￥{{value.price}}"><img src="{{value.gimage}}" alt="{{value.gname}}"></a>
+                <a href="javascript:;" data-id="{{value.gid}}" data-price="{{value.price}}" data-name="{{value.gname}}" title="{{value.gname}} ￥{{value.price}}"><img src="{{value.gimage}}" alt="{{value.gname}}"></a>
               {{/each}}
               </script>
               </div>
@@ -225,18 +227,14 @@
         <header class="chat-head">
           <div>讲师：<span id="lecturer-name"></span></div>
         </header>
-        <div class="lecturer-order clearfix">
+        <!-- 麦序隐藏 -->
+        <!-- <div class="lecturer-order clearfix">
           <div class="lf icon iconfont icon-speak">麦序模式</div>
-        </div>
+        </div> -->
         <div class="chat-body">
-          <ol class="lecturer-list">
-            <!-- <li>
-              <span class="hot lf point-icon icon iconfont"><b>1.</b></span>
-              <img src="http://placehold.it/32x32" alt="用户名" class="avatar">
-              <span class="username">久伴</span>
-              <span class="usernamesub">老师</span>
-            </li> -->
-          </ol>
+          <!-- 麦序隐藏 -->
+          <!-- <ol class="lecturer-list"> -->
+          <!-- </ol> -->
           <div class="chat" id="chat-messages">
           </div>
         </div>
@@ -306,7 +304,9 @@
   <script src="/static/js/lib/sea.js" id="seajsnode"></script>
   <script src="http://139.196.195.238:8080/socket.io/socket.io.js"></script>
   <!-- <script src="http://localhost:8080/socket.io/socket.io.js"></script> -->
-  <!-- peer 麦克和摄像头 -->
+  <!-- 提示和滚动插件 -->
+  <script src="/static/js/plugins/tipso/tipso.min.js"></script>
+  <script src="/static/js/plugins/nicescroll/jquery.nicescroll.min.js"></script>
   <script>
     // 定义全局变量
     var arrAdminT=[],//获取管理员数组
@@ -319,8 +319,9 @@
         dataService='0',
         search=location.search,
         $allGift=$('#all-gift'), // 礼物
-        giftNr=''; // 礼物
-        giftTitle='';
+        giftNr='', // 礼物
+        giftTitle='',
+        giftPrice='',
         giftId=1; // 礼物 id
     // 获取get传值
     function getArgs(){
@@ -390,6 +391,7 @@
         if(datas.is_admin!='0'){
           dataService='1';
         }
+        getDeposit();
         seajs.use('classroom');
       });
     });
@@ -404,7 +406,6 @@
         $('#remain-money').html(datas);
       });
     }
-    getDeposit();
     var main={};
     /*
       提示用户成功和失败信息，需配合相对应的css使用
@@ -413,15 +414,18 @@
     */
     main.sitesHint = function(txt,state){
       $('#site-hint').remove();
-      $('body').append('<div id="site-hint" class="'+state+'">'+txt+'</div>');
+      $('body').append('<div id="site-hint" class="clearfix '+state+'">'+txt+'<a href="javascript:;" title="关闭" id="close-hint">×</a></div>');
       var siteHint=$('#site-hint');
-      siteHint.fadeIn(800,function(){
+      siteHint.slideDown(300,function(){
         var timeObj=setTimeout(function() {
-          siteHint.fadeOut(800);
+          siteHint.slideUp();
           clearTimeout(timeObj);
-        }, 500);
+        }, 2000);
       });
     };
+    $('body').on('click','#close-hint',function(){
+      $('#site-hint').slideUp();
+    });
   </script>
 </body>
 </html>

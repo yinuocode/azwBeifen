@@ -19,6 +19,7 @@
   <link rel="stylesheet" type="text/css" href="/static/css/video/dialog.css"/>
   <link rel="stylesheet" type="text/css" href="/static/css/video/jquery-ui-1.10.0.custom.min.css"/>
   <!-- end -->
+  <link rel="stylesheet" href="/static/js/plugins/tipso/tipso.min.css">
   <link rel="stylesheet" href="/static/js/plugins/upload/uploadify.css">
   <link rel="stylesheet" href="/static/css/common.css">
   <link rel="stylesheet" href="/static/css/lecture.css">
@@ -104,7 +105,7 @@
                     </dd>
                   </dl>
                 </div>
-                <div class="w33lf">
+                <div class="w33lf hide">
                   <dl>
                     <dt class="left">
                       <label for="fillOrStroke">字体填充:</label>
@@ -152,7 +153,7 @@
                     </dd>
                   </dl>
                 </div>
-<!--                 <div class="w33lf">
+                <!--<div class="w33lf">
                   <dl>
                     <dt class="left">
                       <label for="textFont">字体朝向:</label>
@@ -188,7 +189,7 @@
                     </dd>
                   </dl>
                 </div>
-            <!--     <div class="w33lf">
+                <div class="w33lf">
                   <dl>
                     <dt class="left">
                       <label for="textBaseline">文本基线:</label>
@@ -204,8 +205,8 @@
                       </select>
                     </dd>
                   </dl>
-                </div> -->
-       <!--          <div class="w33lf">
+                </div>
+                <!--<div class="w33lf">
                   <dl>
                     <dt class="left">
                       <label for="fontStyle">字体风格:</label>
@@ -233,19 +234,15 @@
           <div class="lf">讲师：<span id="lecturer-name"></span></div>
           <div class="lf">课堂人数：<span id="count"></span>人</div>
         </header>
-        <div class="lecturer-order clearfix">
+        <!-- 隐藏麦序 -->
+        <!-- <div class="lecturer-order clearfix">
           <div class="lf icon iconfont icon-speak icon-speak-off">麦序模式</div>
           <a href="javascript:;" class="icon-speak-state rf">开麦</a>
-        </div>
+        </div> -->
         <div class="chat-body">
-          <ol class="lecturer-list">
-            <!-- <li>
-              <span class="hot lf point-icon icon iconfont"><b>1.</b></span>
-              <img src="http://placehold.it/32x32" alt="用户名" class="avatar">
-              <span class="username">久伴</span>
-              <span class="usernamesub">老师</span>
-            </li> -->
-          </ol>
+          <!-- 隐藏麦序 -->
+          <!-- <ol class="lecturer-list">
+          </ol> -->
           <div class="chat" id="chat-messages">
             <a href="javascript:;" id="notice" class="inform"></a>
           </div>
@@ -381,7 +378,7 @@
         <p class="popup-alert">是否生成回放？</p>
         <div class="clearfix popup-item">
           <button id="start-playback" class="lf btn">生成回放</button>
-          <button id="start-playback" class="rf btn p-close">放弃生成</button>
+          <button class="rf btn p-close">放弃生成</button>
         </div>
       </div>
     </div>
@@ -408,6 +405,9 @@
   <script src="/static/js/lecture/sourcelist.js"></script>
   <script src="/static/js/lecture/connectionmodal.js"></script>
   <script src="/static/js/lecture/volumecontrol.js"></script>
+  <!-- 提示和滚动插件 -->
+  <script src="/static/js/plugins/tipso/tipso.min.js"></script>
+  <script src="/static/js/plugins/nicescroll/jquery.nicescroll.min.js"></script>
   <script>
     // 全局变量
     var arrAdminT=[], //获取管理员数组
@@ -464,7 +464,9 @@
       headpic=datas.portrait;
       level=datas.level.toString();
       $('#lecturer-name').html(userName);
-      $('#content-title,title').html(datas.live_title);
+      $('#content-title').html(datas.live_title);
+      // 页面title
+      document.title = datas.live_title;
       // 获取管理员数组
       postAjaxDatas('/broadcasting/adminid',{cid:courseCid,type:0},function(datas){
         arrAdminT=datas.admin;
@@ -479,10 +481,10 @@
         console.log(datas);
         if(datas.status==1){
           $('#playback-popup').addClass('hide');
-          $this.prop('disabled',false);
-          alert('恭喜，回放已生成');
+          $this.html('生成回放').prop('disabled',false);
+          main.sitesHint('恭喜，回放已生成！');
         }else{
-          alert(datas.msg);
+          main.sitesHint(datas.msg,'err');
         }
       });
     });
@@ -500,15 +502,18 @@
     */
     main.sitesHint = function(txt,state){
       $('#site-hint').remove();
-      $('body').append('<div id="site-hint" class="'+state+'">'+txt+'</div>');
+      $('body').append('<div id="site-hint" class="clearfix '+state+'">'+txt+'<a href="javascript:;" title="关闭" id="close-hint">×</a></div>');
       var siteHint=$('#site-hint');
-      siteHint.fadeIn(800,function(){
+      siteHint.slideDown(300,function(){
         var timeObj=setTimeout(function() {
-          siteHint.fadeOut(800);
+          siteHint.slideUp();
           clearTimeout(timeObj);
-        }, 500);
+        }, 2000);
       });
     };
+    $('body').on('click','#close-hint',function(){
+      $('#site-hint').slideUp();
+    });
   </script>
 </body>
 </html>

@@ -18,7 +18,8 @@ define(function(require,exports,module){
       fSuccess:function(datas){
         var cHeader = template('cHeader', datas);
         $('#c-header').html(cHeader);
-        $('title').html(datas.coures.live_title+' - 阿猪直播课堂');
+        // 页面title
+        document.title = datas.coures.live_title+' - 阿猪直播课堂';
         runFavorites();
       }
     },
@@ -111,7 +112,8 @@ define(function(require,exports,module){
   // 礼物功能
   function runGift(){
     giftNr=$allGift.find('a:first').html(); // 礼物
-    giftTitle=$allGift.find('a:first').attr('title');
+    giftTitle=$allGift.find('a:first').attr('data-name');
+    giftPrice=$allGift.find('a:first').attr('data-price');
     giftId=$allGift.find('a:first').attr('data-id');
     var $giftPrev=$('#gift-paging .prev'); // 分页按钮
     var $giftNext=$('#gift-paging .next'); // 分页按钮
@@ -141,7 +143,8 @@ define(function(require,exports,module){
     $allGift.on('click','a',function(){
       $(this).addClass('active').siblings().removeClass('active');
       giftNr=$(this).html();
-      giftTitle=$(this).attr('title');
+      giftTitle=$(this).attr('data-name');
+      giftPrice=$(this).attr('data-price');
       giftId=$(this).attr('data-id');
     });
     /*var $userAll=$('#user-all'); // 弹出所有用户
@@ -155,6 +158,14 @@ define(function(require,exports,module){
       $userObject.html($(this).html());
       $userAll.hide();
     });*/
+    // 礼物提示
+    $('#all-gift a').tipso({
+      // position: 'top',
+      speed: 200,
+      delay: 150,
+      width: 150,
+      background: 'rgba(0,0,0,0.7)'
+    });
   }
   // 定义变量
   var currentHerf=window.location.href; // href
@@ -193,5 +204,11 @@ define(function(require,exports,module){
   // 关闭弹窗
   $('.popup-close,.p-close').on('click',function(){
     $('.popup').addClass('hide');
+  });
+  // 设置滚动条样式
+  $('#student-list,#rankig-vermicelli,#chat-messages,.main-side-top,.rankig-list,.ranking-gift').niceScroll({
+    cursorborder: '',
+    autohidemode: 'leave',
+    cursorcolor: '#41B9FF'
   });
 });

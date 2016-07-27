@@ -1,9 +1,7 @@
 define(function(require,exports,module){
   // 引入主要模块模块
   var main = require('main');
-
   main.getAjaxDatas('/personage/basic-beg',function(datas){
-    console.log(datas);
     var setBaseForm = template('setBaseForm',datas);
     $('#set-base-form').html(setBaseForm);
     runForm();
@@ -15,15 +13,15 @@ define(function(require,exports,module){
     }
   });
   // 复制文本
-  function copyToClipboard(txt,id){
-    var clip = new ZeroClipboard.Client(); // 新建一个对象
-    clip.setHandCursor( true ); // 设置鼠标为手型
-    clip.setCSSEffects( true );
-    var val=$("#"+txt).val();   //获取需要复制文本。
-    clip.setText(val);          // 设置要复制的文本。
-    clip.addEventListener( 'complete', function(){$('#'+id).html('复制成功');});
-    clip.glue(id);              // 和上一句位置不可调换
-  }
+  // function copyToClipboard(txt,id){
+  //   var clip = new ZeroClipboard.Client(); // 新建一个对象
+  //   clip.setHandCursor( true ); // 设置鼠标为手型
+  //   clip.setCSSEffects( true );
+  //   var val=$("#"+txt).val();   //获取需要复制文本。
+  //   clip.setText(val);          // 设置要复制的文本。
+  //   clip.addEventListener( 'complete', function(){$('#'+id).html('复制成功');});
+  //   clip.glue(id);              // 和上一句位置不可调换
+  // }
   function runForm(){
     // ajax提交
     var $formData = $('#set-base-form');
@@ -82,7 +80,7 @@ define(function(require,exports,module){
         'insertunorderedlist', '|', 'emoticons', 'image', 'link','source']
     });
     // 复制邀请链接
-    copyToClipboard('profile-link','copy-link');
+    // copyToClipboard('profile-link','copy-link');
     uploadImg('#fileList1','#filePicker1','#img-path1',180,180,1);
     uploadImg('#fileList2','#filePicker2','#img-path2',306,175,1.75);
   }
@@ -223,7 +221,6 @@ define(function(require,exports,module){
           dataType: 'json',
           success : function(data){
             if(data.status==1){
-              console.log(data);
               $('#img-upload-popup').addClass('hide');
               $(uObj).html('<img class="imghead" src="'+data.msg+'">');
               $(artworkSrc).val(data.msg);

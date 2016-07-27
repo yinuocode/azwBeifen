@@ -40,7 +40,7 @@ $(function(){
   }catch(e){
     //set status to warn user
   }
-  var colorArr=['red','blue','green','#fff','yellow'];
+  var colorArr=['blue','green','#fff','yellow'];
   if(socket!==undefined){
     //加入教室
     socket.emit('joinroom',{cid:courseCid});
@@ -66,7 +66,9 @@ $(function(){
       }else{
         // 关闭线程
         clearInterval(setMsgs);
-        $('.chat-message'+data.uid+data.i).remove();
+        $('.chat-message'+data.uid+data.i).fadeOut(300,function(){
+          $(this).remove();
+        });
       }
     }, 50);
   }

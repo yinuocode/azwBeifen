@@ -6,8 +6,9 @@ define(function(require,exports,module){
     {
       url:'/index/banner',
       fSuccess:function(datas){
-        // console.log(datas);
-        $('.top-banner').html('<a href="'+datas[0].img_address+'" target="_blank"><img src="'+datas[0].src+'" alt="'+datas[0].img_title+'"></a>');
+        var topBanner = template('topBanner',{list:datas});
+        $('#banner').html(topBanner);
+        runBanner();
       }
     },
     // 公告
@@ -75,7 +76,7 @@ define(function(require,exports,module){
       slidesToShow: 3,//显示多少个图片
       slidesToScroll:1,//每次滚动几张图片
       arrows: true,//是否显示两边的箭头
-      autoplay:false,//是否自动滚动
+      autoplay:true,//是否自动滚动
       autoplaySpeed:3000,//自动播放的速度
       speed: 300,//图片滚动的速度
       infinite: true,//是否无限循环滚动图片
@@ -104,6 +105,24 @@ define(function(require,exports,module){
       },800);
     }, 5000);
   }
+  // 顶部banner
+  function runBanner(){
+    $('#banner').slick({
+      slidesToShow: 1,//显示多少个图片
+      slidesToScroll:1,//每次滚动几张图片
+      arrows: false,//是否显示两边的箭头
+      autoplay:true,//是否自动滚动
+      autoplaySpeed:5000,//自动播放的速度
+      speed: 300,//图片滚动的速度
+      infinite: true,//是否无限循环滚动图片
+      dots: false,//是否显示图片下面的小点点
+      adaptiveHeight: true,//高度自适应
+      pauseOnDotsHover:false,//鼠标放上是否滑动
+      // rtl: false,//从左到右滚动， 默认是false,true是从右到左
+      // vertical: true,//是否垂直滚动，默认false不垂直，true为上下滚动
+      swipe:true//可以使用鼠标拖拽
+    });
+  }
   // 搜索方向
   var $searchDirection=$('#search-direction a');
   var $searchClass=$('#search-class');
@@ -120,5 +139,11 @@ define(function(require,exports,module){
     var _index=$this.index();
     $this.addClass('active').siblings().removeClass('active');
     $sec03TopItem.eq(_index).addClass('active').siblings().removeClass('active');
+  });
+  // 设置滚动条样式
+  $('.sec03-rank').niceScroll({
+    cursorborder: '',
+    autohidemode: 'leave',
+    cursorcolor: '#41B9FF'
   });
 });

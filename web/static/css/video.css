@@ -1649,9 +1649,6 @@ form.cmxform label.error, label.error{
   font-size: 16px;
   font-weight: bold;
 }
-.bullet-con{
-
-}
 .bullet-con .chat-textarea{
   line-height: 20px;
   padding: 5px 6px;
@@ -1685,4 +1682,8 @@ form.cmxform label.error, label.error{
 }
 .bullet-con-btn.close:hover{
   background-position: 0 -81px;
+}
+.no-data{
+  line-height: 60px;
+  text-align: center;
 }

@@ -1,0 +1,82 @@
+<input type="hidden" id="page-title" value="<?php use yii\helpers\Html; echo Html::encode($title)?>">
+<link rel="stylesheet" href="/static/css/letter.css">
+<!-- header end -->
+  <section class="section-panel">
+    <div class="panel-body bt0">
+      <div class="conversation" id="conversation">
+      <script id="conversationS" type="text/html">
+        <div class="conversation-hade clearfix">
+          <h2 class="lf">与{{toname}}的私信对话</h2>
+          <a href="/website/letter" class="btn back-letter lf">返回我的私信</a>
+        </div>
+        <form id="letter-form" class="cmxform reply-letter">
+          <div class="form-group">
+            <label for="reply-lnrtext"></label>
+            <textarea name="content" id="reply-lnrtext" class="form-textarea" rows="3" placeholder="请输入私信内容" required></textarea>
+          </div>
+          <input type="hidden" name="user_id" id="user-id" value="{{touser}}">
+          <div class="row"><button type="submit" class="button-submit rf">回复</button></div>
+        </form>
+        <ul class="media-list message-list">
+          {{each detail as value i}}
+          {{if value.user_id==touser}}
+          <li class="media message-she">
+            <a class="lf media-object" href="/home?uid={{value.user_id}}" target="_blank">
+              <img class="avatar-sm" width="60" src="{{value.cover}}">
+            </a>
+            <div class="media-body">
+              <div class="letter-popover right">
+                <div class="arrow"></div>
+                <div class="popover-content">
+                  <div class="message-content">
+                    <strong><a class="link-dark" href="/home?uid={{value.user_id}}" target="_blank">{{value.username}}</a>：</strong>{{value.body}}
+                  </div>
+                  <div class="message-footer">
+                    <span class="text-muted">{{value.add_date}}</span>
+                    <!-- <div class="message-actions">
+                      <a class="text-muted delete-message" href="javascript:;" data-lid="{{}}">删除</a>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          {{else}}
+          <li class="media message-me">
+            <a class="rf media-object " href="/home?uid={{value.user_id}}">
+              <img class="avatar-sm" width="60" src="{{value.cover}}">
+            </a>
+            <div class="media-body">
+              <div class="letter-popover left">
+                <div class="arrow"></div>
+                <div class="popover-content">
+                  <div class="message-content">
+                    <strong>我：</strong>{{value.body}}
+                  </div>
+                  <div class="message-footer">
+                    <span class="text-muted">{{value.add_date}}</span>
+                    <!-- <div class="message-actions">
+                      <a class="text-muted delete-message" href="javascript:;" data-lid="{{}}">删除</a>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          {{/if}}
+          {{/each}}
+        </ul>
+      </script>
+      </div>
+    </div>
+  </section>
+  <!-- footer -->
+  <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
+  <!-- footer end -->
+  <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
+  <script src="/static/js/plugins/validate/messages_zh.js"></script>
+  <script>
+    seajs.use('/static/js/website/conversation.js');
+  </script>
+</body>
+</html>

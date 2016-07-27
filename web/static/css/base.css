@@ -607,20 +607,23 @@ form.cmxform form.cmxform .gray * {
 .web-letter {
   position: absolute;
   top: 4px;
-  right: 5px;
-  width: 20px;
+  left: 85px;
+  min-width: 20px;
+  padding: 0 5px;
   height: 20px;
   background: #0E60AE;
   font-size: 12px;
   text-align: center;
   line-height: 20px;
-  border-radius: 50%; }
+  border-radius: 50%;
+}
 .top-coupon{
   position: absolute;
   right: 0;
   top: 0;
   z-index: 10000;
 }
+img{max-width: 100%;}
 /*搜索共用*/
 .search-input {
   position: relative;
@@ -670,8 +673,6 @@ form.cmxform form.cmxform .gray * {
   height: 210px;
   overflow: hidden;
   display: block; }
-.course-list>li>a:hover span {
-  opacity: 1; }
 .course-list li a:hover img {
   -webkit-transform: scale(1.1, 1.1);
   -moz-transform: scale(1.1, 1.1);
@@ -698,10 +699,15 @@ form.cmxform form.cmxform .gray * {
   padding: 0 10px;
   overflow: hidden;
   opacity: 0;
+  filter: alpha(opacity=0);
   -webkit-transition: 300ms;
   -moz-transition: 300ms;
   -o-transition: 300ms;
   transition: 300ms; }
+.course-list>li>a:hover span {
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
 /*section03*/
 .sec03-top-item {
   display: none; }
@@ -729,6 +735,9 @@ form.cmxform form.cmxform .gray * {
   text-align: center;
   font-size: 18px;
   width: 20%; }
+.table-course .th230 {
+  width: 280px !important;
+}
 .sec03-table .th1 {
   width: 150px; }
 .sec03-table .th2 {
@@ -1376,6 +1385,7 @@ input[name="selected"], #controlAll {
   width: 60px;
   height: 60px;
   opacity: 0;
+  filter: alpha(opacity=0);
 }
 .study-course .select-checkbox.active{
   background-position: -66px 0;
@@ -1527,13 +1537,13 @@ input[name="selected"], #controlAll {
   -ms-transition: 300ms;
   -webkit-transition: 300ms;
   transition: 300ms;
-  filter: alpha(Opacity=0);
+  opacity: 0;
   -moz-opacity: 0;
   -khtml-opacity: 0;
-  opacity: 0;
+  filter: alpha(opacity=0);
 }
 .lecture-list>li:hover .row{
-  filter: alpha(Opacity=100);
+  filter: alpha(opacity=100);
   -moz-opacity: 1;
   -khtml-opacity: 1;
   opacity: 1;
@@ -1678,4 +1688,26 @@ input[name="selected"], #controlAll {
   padding: 0 2px;
   line-height: 24px;
   font-size: 20px;
+}
+/*ie 兼容性代码 针对ie8*/
+.lt-ie9 .course-list .full{
+  background: url(../img/lucency-bj.png);
+  display: none;
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+.lt-ie9 .course-list:hover .full{
+  display: block;
+}
+.lt-ie9 .lecture-list .row{
+  display: none;
+  opacity: 1;
+  filter: alpha(opacity=100);
+}
+.lt-ie9 .lecture-list:hover .row{
+  display: block;
+}
+.lt-ie9 .lecture-list>li .row .lf{
+  background: #217BBF;
+  color: #fff;
 }

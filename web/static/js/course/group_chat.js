@@ -97,18 +97,35 @@ define(function(require,exports,module){
       change: saveRange
     });
     // 表情输出
-    var docFragment = document.createDocumentFragment();
-    for (var i = 69; i > 0; i--) {
-      var emojiItem = document.createElement('img');
-      emojiItem.src = '/static/img/lecture/emoji/' + i + '.gif';
-      emojiItem.title = i;
-      docFragment.appendChild(emojiItem);
-    }
-    $('#iconlist').html(docFragment);
-    $('#iconlist img').on('click',function(event){
-      chatTextarea.focus();
-      _insertimg('<img src="'+$(this).attr("src")+'"/>');
-      iconList.hide();
+    // var docFragment = document.createDocumentFragment();
+    // for (var i = 69; i > 0; i--) {
+    //   var emojiItem = document.createElement('img');
+    //   emojiItem.src = '/static/img/lecture/emoji/' + i + '.gif';
+    //   emojiItem.title = i;
+    //   docFragment.appendChild(emojiItem);
+    // }
+    // $('#iconlist').html(docFragment);
+    // $('#iconlist img').on('click',function(event){
+    //   chatTextarea.focus();
+    //   _insertimg('<img src="'+$(this).attr("src")+'"/>');
+    //   iconList.hide();
+    // });
+    $.ajax({
+      type: 'get',
+      url: '/wealth/expression',
+      dataType: 'json',
+      success: function(data){
+        var docFragment = '';
+        for(var i=0,len=data.length;i<len;i++){
+          docFragment += '<img src="'+data[i][0]+'" title="'+data[i][1]+'"/>';
+        }
+        $('#iconlist').html(docFragment);
+        $('#iconlist').on('click','img',function(event){
+          chatTextarea.focus();
+          _insertimg('<img src="'+$(this).attr("src")+'"/>');
+          iconList.hide();
+        });
+      }
     });
     // 点击显示隐藏表情
     $('.chatbox').on('click','#face',function(event){

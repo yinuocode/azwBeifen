@@ -212,10 +212,13 @@ define(function(require,exports,module){
     // 标签
     var formTag=$('.form-tag');
     var inputTag=$('#input-tag');
-    inputTag.on('click',function(){
-      formTag.toggle();
+    inputTag.on('focus',function(){
+      formTag.show();
     });
     inputTag.on('blur',function(){
+      setTimeout(function(){
+        formTag.hide();
+      }, 400);
       inputTag.val(inputTag.val().replace(/，/g,','));
     });
     formTag.on('click','a',function(){

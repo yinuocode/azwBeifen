@@ -23,7 +23,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label class="control-label">副标题</label>
+            <label class="control-label">课程公告</label>
             <div class="form-controls">
               <input type="text" name="LiveCoures[live_title_r]" class="form-input" value="{{live_title_r}}" maxlength="300" required>
             </div>
@@ -69,13 +69,13 @@
             <div class="form-group">
               <label class="control-label">课程价格</label>
               <div class="form-controls">
-                <input type="text" class="form-input" min='1' value="{{if privilege_price}}{{privilege_price}}{{/if}}" id="course-price1" name="LiveCoures[privilege_price]" number="true" required>
+                <input type="text" class="form-input" min='1' id="course-price1" value="{{if live_price}}{{live_price}}{{/if}}" name="LiveCoures[live_price]" number="true" required>
               </div>
             </div>
             <div class="form-group">
               <label class="control-label">促销价格</label>
               <div class="form-controls">
-                <input type="text" class="form-input" range="" value="{{if live_price}}{{live_price}}{{/if}}" id="course-price2"  name="LiveCoures[live_price]" number="true" required>
+                <input type="text" class="form-input" range="" value="{{if privilege_price}}{{privilege_price}}{{/if}}" name="LiveCoures[privilege_price]" id="course-price2" number="true" required>
               </div>
             </div>
           </div>

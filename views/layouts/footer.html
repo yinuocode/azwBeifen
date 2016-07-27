@@ -16,6 +16,7 @@
       {{each list as value i}}
       <a href="{{value.controller}}">{{value.title}}</a>
       {{/each}}
+      <a href="/lecturer/map" target="_blank">公司地图</a>
     </script>
     </div>
     <div class="copyright">上海缔醍信息科技有限公司版权所有 | 京 ICP 备 13046642 号 -2</div>
@@ -113,7 +114,7 @@
         </div>
         <div class="rlf-group rlf-appendix clearfix">
           <label for="auto-signin" class="rlf-autoin lf" hidefocus="true"><input type="checkbox" checked="checked" name="rememberMe" class="auto-cbx" id="auto-signin">下次自动登录</label>
-          <a href="/user/newforgot" class="rlf-forget rf" target="_blank" hidefocus="true">忘记密码 </a>
+          <!-- <a href="/user/newforgot" class="rlf-forget rf" target="_blank" hidefocus="true">忘记密码 </a> -->
         </div>
         <div class="rlf-group clearfix">
           <input type="button" id="signin-btn" value="登录" hidefocus="true" class="btn-red btn-full">
@@ -143,7 +144,7 @@
     <div class="registration-footer">
       <div class="pop-login-sns clearfix">
         <span class="lf">其他方式登录</span>
-        <a href="javascript:;" class="pop-sns-weibo" id="weibo-login"><i class="icon-weibo"></i></a>
+        <!-- <a href="javascript:;" class="pop-sns-weibo" id="weibo-login"><i class="icon-weibo"></i></a> -->
         <a href="https://graph.qq.com/oauth2.0/authorize?response_type=code&amp;client_id=101260854&amp;redirect_uri=http%3A%2F%2Fdemo.agodpig.com%2Ftposlogin%2Fqq-login" class="pop-sns-qq" id="qq-login" target="_blank"><i class="icon-qq"></i></a>
         <a href="javascript:void(0)" class="pop-sns-weixin" id="weixin-login"><i class="icon-weixin"></i></a>
       </div>

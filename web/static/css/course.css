@@ -114,6 +114,7 @@
 .course-about-lf .hour-list a{
   color:#757575;
 }
+#course-introduce img{max-width: 100%;}
 .course-about-lf .hour-list>li{
   line-height: 36px;
   border-bottom:1px solid #eee;

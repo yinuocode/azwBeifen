@@ -16,7 +16,9 @@
                 <div class="lf">
                   <div class="title">{{detail.coures_title}}</div>
                   {{if detail.coures_type==1}}
+                  {{if detail.coures_price!=detail.privilege_price}}
                   <div class="price original">原价：<strong>￥{{detail.coures_price}}元</strong></div>
+                  {{/if}}
                   <div class="price now">现价：<strong>￥{{detail.privilege_price}}元</strong></div>
                   {{else}}
                   <div class="price now"><strong>免费课程</strong></div>
@@ -74,7 +76,9 @@
                 <div class="lf">
                   <div class="title">{{detail.live_title}}</div>
                   {{if detail.live_type==1}}
+                  {{if detail.live_price!=detail.privilege_price}}
                   <div class="price original">原价：<strong>￥{{detail.live_price}}元</strong></div>
+                  {{/if}}
                   <div class="price now">现价：<strong>￥{{detail.privilege_price}}元</strong></div>
                   {{else}}
                   <div class="price now"><strong>免费课程</strong></div>
@@ -114,7 +118,7 @@
                   </div>
                   <div class="row">
                     <div class="lf row-lf"><p class="data">难度</p><p>{{if detail.difficulty==1}}初级{{else if detail.difficulty==2}}中级{{else}}高级{{/if}}</p></div>
-                    <div class="rf row-rf"><p class="data">课时</p><p>{{detail.hour_num}}课时</p></div>
+                    <div class="rf row-rf"><p class="data">回放数</p><p>{{detail.hour_num}}</p></div>
                   </div>
                   <div class="clearfix">
                     <a href="javascript:;" class="data lf">分享</a>
@@ -177,7 +181,7 @@
                       <li class="clearfix">
                         {{if is_login==1}}
                           {{if buy==1||free==0||self==1}}
-                            <a href="/couresdetail/direct-video?cid={{cid}}&amp;type=0&amp;hid={{value.vid}}">
+                            <a href="/couresdetail/direct-video?cid={{cid}}&amp;type=0&amp;vid={{value.vid}}">
                               <span class="hour-title">{{value.vname}}</span>
                               <span class="rf hour-time">{{value.create_date}}</span>
                             </a>
@@ -273,15 +277,9 @@
       <div class="popup-body">
         <form method="post" id="letter-form" class="popup-form cmxform">
           <div class="form-group">
-            <label class="control-label">标题</label>
-            <div class="form-controls">
-              <input type="text" class="form-input" name="title" required>
-            </div>
-          </div>
-          <div class="form-group">
             <label class="control-label">内容</label>
             <div class="form-controls">
-              <textarea name="content" id="" class="form-textarea" required></textarea>
+              <textarea name="content" id="" class="form-textarea" required placeholder="请输入私信内容"></textarea>
             </div>
           </div>
           <input type="hidden" value="" name="user_id" id="user-id">

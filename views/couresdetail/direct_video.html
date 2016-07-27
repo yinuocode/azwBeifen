@@ -101,6 +101,7 @@
           <div class="course-item-list-in-toolbar-pane ps-container show">
             <ul class="period-list" id="hour-item-list">
             <script id="hourItemList" type="text/html">
+            {{if liveVideos.length>0}}
             {{each liveVideos as value i}}
               <li class="period lesson-item lesson-item-66" data-vid="{{value.vid}}" data-src="{{value.live_src}}">
                 <a href="/couresdetail/direct-video?cid={{cid}}&amp;type=0&amp;vid={{value.vid}}" title="课程回放{{i+1}}">
@@ -110,6 +111,9 @@
                 </a>
               </li>
             {{/each}}
+            {{else}}
+              <div class="no-data">暂无回放课程</div>
+            {{/if}}
             </script>
             </ul>
           </div>

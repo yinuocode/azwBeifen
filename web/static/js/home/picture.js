@@ -100,7 +100,7 @@ define(function(require,exports,module){
         });
       }
     }else{
-      main.sitesHint('请选择您要删除的图片','err');
+      main.sitesHint('请点击选择按钮后选择您要删除的图片','err');
     }
   });
   // 将图片设置为封面
@@ -118,7 +118,7 @@ define(function(require,exports,module){
         }
       });
     }else{
-      main.sitesHint('请选择您要封面的具体某个照片','err');
+      main.sitesHint('请点击选择按钮后选择您要设为封面的照片','err');
     }
   });
   // 分页

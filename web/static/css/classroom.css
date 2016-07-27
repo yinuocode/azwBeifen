@@ -9,36 +9,28 @@
   min-width: 1250px;
   color: #fff;
   font-size: 18px; }
-
 .course-logo {
   height: 55px;
   line-height: 55px;
   margin: 0 20px;
   width: 72px; }
-
 .course-logo img {
   vertical-align: middle; }
-
 .course-title {
   width: 330px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden; }
-
 .c-header .info {
   margin-left: 40px; }
-
 .c-header .info span {
   margin-left: 5px; }
-
 .c-header .info .info-num {
   margin-left: 40px;
   position: relative; }
-
 .c-header .rf a, .c-header .info-num:before, .c-header .rf a:before, .info-collect {
   background-image: url(../img/lecture/c-header-icon.png);
   background-repeat: no-repeat; }
-
 .c-header .info-num:before {
   content: '';
   display: block;
@@ -48,10 +40,8 @@
   height: 18px;
   top: 2px;
   left: -28px; }
-
 .c-header .rf {
   margin-right: 15%; }
-
 .c-header .rf a {
   display: block;
   text-indent: 9999px;
@@ -59,7 +49,6 @@
   height: 60px;
   position: relative;
   background-position: 0 -26px; }
-
 .c-header .rf a:before {
   content: '';
   display: block;
@@ -69,7 +58,6 @@
   height: 26px;
   top: 15px;
   left: 22px; }
-
 .c-header .info-collect {
   display: inline-block;
   width: 12px;
@@ -78,10 +66,8 @@
   position: relative;
   top: 1px;
   background-position: -52px 0; }
-
 .course-time {
   margin-left: 5%; }
-
 .course-time b {
   display: inline-block;
   width: 35px;
@@ -92,7 +78,6 @@
   line-height: 30px;
   text-align: center;
   margin: 0 5px; }
-
 /* header end */
 .content {
   position: fixed;
@@ -101,91 +86,91 @@
   width: 100%;
   min-width: 1250px;
   color: #fff; }
-
 .content-main {
   width: 64%;
   height: 100%;
   position: relative; }
-
 .main-body {
   position: absolute;
   width: 100%;
   top: 0;
   bottom: 50px; }
-
 .main-side {
   float: left;
   width: 25%;
   height: 100%;
   background: #ccc;
   color: #666; }
-
 .main-side-top {
   width: 100%;
   height: 50%;
   overflow: auto;
   background: #fff;
-  padding: 15px 10px; }
-
+  padding: 15px 10px 5px;
+}
 .ad-side {
   line-height: 40px;
   font-weight: bold;
   font-size: 18px; }
-
 .lecturer-info {
-  margin: 10px 0 25px; }
-
+  margin: 10px 0 12px;
+  text-align: center;
+}
 .lecturer-info > .signature {
-  margin-left: 60px;
-  padding-left: 10px;
-  margin-top: 12px;
   line-height: 20px;
-  height: 40px;
-  overflow: hidden; }
-
-.lecturer-info > .lf img {
-  border-radius: 50%; }
-
+  overflow: hidden;
+  padding:10px 10px 0;
+}
+.lecturer-info > .avatar-box{
+  width: 80px;
+  margin:0 auto;
+}
+.lecturer-info > .avatar-box a{
+  display: block;
+}
+.lecturer-info > .avatar-box img {
+  border-radius: 50%;
+  display: block;
+  width: 100%;
+  height:80px;
+}
 .main-side .recommend img {
   width: 100%;
   display: block; }
-
 .main-side .recommend .title {
   line-height: 30px;
   height: 30px;
   overflow: hidden;
   border: 1px solid #ccc;
   padding: 0 5px; }
-
 .main-play {
   float: left;
   width: 75%;
   height: 100%;
   position: relative;
   background: url(../img/lecture/main-play-bg.jpg) 100% 100%; }
-
 .direct-video-shade {
   width: 100%;
   height: 70%;
   margin: 0 auto;
   position: absolute;
   z-index: 9999; }
-
-#botr_oSQWzFgF_8nLlWRv4_div_wrapper {
+#botr_oSQWzFgF_8nLlWRv4_div_wrapper{
   width: 100% !important;
   height: 70% !important;
   margin: 0 auto; }
-
+#botr_oSQWzFgF_8nLlWRv4_div{
+  width: 100% !important;
+  height: 100% !important;
+}
 .main-icon {
   background-image: url(../img/lecture/main-icon.png?v=2);
   background-repeat: no-repeat;
   z-index: 999999; }
-
 .main-icon > a {
   display: block;
   height: 100%;
   width: 100%; }
-
 .main-play .me-make {
   position: absolute;
   top: 71%;
@@ -210,11 +195,9 @@
   font-family: 'STHeiti';
   color: #008AD1;
   margin-top: -20px; }
-
 #real-satte-span {
   position: relative;
   display: none; }
-
 #real-satte-span:before {
   content: '';
   background-position: -68px 0;
@@ -222,12 +205,10 @@
   height: 16px;
   top: 2px;
   left: -25px; }
-
 #real-satte-span img {
   position: relative;
   top: 12px;
   height: 60px; }
-
 .main-play .user-info {
   position: absolute;
   left: 0;
@@ -235,16 +216,13 @@
   width: 230px;
   height: 96px;
   background-position: 0 0; }
-
 .main-play .user-info-option {
   position: relative;
   height: 100%; }
-
 .main-play .user-info-option a {
   position: absolute;
   bottom: 27px;
   color: #fff; }
-
 .main-play .user-info-option .name {
   top: 28px;
   left: 100px;
@@ -266,7 +244,6 @@
   position: absolute;
   top: 3px;
   left: 3px; }
-
 .main-play .user-info-option .rank {
   width: 48px;
   height: 25px;
@@ -276,22 +253,17 @@
   text-indent: 24px;
   text-align: center;
   line-height: 25px; }
-
 .main-play .set {
   left: 85px;
   height: 25px;
   width: 30px;
   display: block; }
-
 .main-play .concern {
   left: 135px; }
-
 .main-play .vermicelli {
   left: 185px; }
-
 .main-play .member {
   left: 262px; }
-
 .main-play .enjoy {
   background-position: -58px -98px;
   height: 58px;
@@ -299,7 +271,6 @@
   position: absolute;
   bottom: 5px;
   right: 15px; }
-
 .main-play .share {
   background-position: 0 -98px;
   height: 58px;
@@ -334,7 +305,6 @@
   border: none;
   padding: 0 10px;
 }
-
 .main-play .share-block {
   display: block;
   width: 385px;
@@ -348,7 +318,6 @@
   line-height: 40px;
   font-size: 16px;
   display: none; }
-
 #current-link {
   height: 30px;
   line-height: 30px;
@@ -356,7 +325,6 @@
   background: #008AD1;
   border: none;
   width: 220px; }
-
 .main-play .signin, .main-play .invite {
   position: absolute;
   right: 0;
@@ -367,20 +335,16 @@
   line-height: 40px;
   font-size: 18px;
   color: #fff; }
-
 .main-play .signin {
   bottom: 100px; }
-
 /*.main-play .signin-span {
   position: absolute;
   top: -12px;
   color: red;
   font-size: 14px;
   display: none; }*/
-
 .main-play .invite {
   bottom: 90px; }
-
 .main-footer {
   position: absolute;
   bottom: 0;
@@ -388,29 +352,22 @@
   height: 50px;
   background: #0068B7;
   z-index: 9999999; }
-
 .main-footer-lf {
   width: 25%;
   padding: 4px 0 0 35px; }
-
 .main-footer-lf img {
   border-radius: 50%; }
-
 .main-footer .ad-list {
   padding-top: 2px;
   width: 75%; }
-
 .main-footer .ad-list a {
   color: #fff; }
-
 .main-footer .ad-list img {
   border-radius: 50%; }
-
 .main-footer .ad-list li {
   float: left;
   margin-left: 20px;
   position: relative; }
-
 .main-footer .ad-list-info {
   position: absolute;
   bottom: 50px;
@@ -421,33 +378,26 @@
   left: -100px;
   transition: 200ms;
   display: none; }
-
 .main-footer .ad-list li:hover .ad-list-info {
   display: block; }
-
 .content-side {
   width: 36%;
   height: 100%; }
-
 .guest-ranking {
   width: 50%;
   height: 100%;
   float: left; }
-
 .ranking-sort {
   background: url(../img/lecture/ranking-sort-bg.jpg) repeat-x;
   height: 67%;
   padding: 0 3px; }
-
 .ranking-sort .title {
   height: 50px;
   line-height: 50px;
   font-size: 20px;
   text-align: center; }
-
 .ranking-vip, .ranking-vermicelli, .ranking-gift {
   width: 100%; }
-
 .rankig-list {
   position: absolute;
   top: 50px;
@@ -455,7 +405,6 @@
   width: 100%;
   overflow: auto;
   font-size: 12px; }
-
 .rankig-list li {
   position: relative;
   line-height: 38px;
@@ -465,14 +414,12 @@
   border: 1px solid #05B0F2;
   margin: 3px 0;
   padding: 0 5px 0 30px; }
-
 #real-satte-span:before, .ranking-gift-bt .send, .ranking-gift-bt .object:after, .rankig-list li:before, .ranking-sort .title span:before,
 .ranking-gift-bt > a, .ranking-gift-nr .right .prev:before, .ranking-gift-nr .right .next:before {
   position: absolute;
   display: block;
   background-image: url(../img/lecture/guest-ranking.png);
   background-repeat: no-repeat; }
-
 /*.rankig-list li:before {
   content: '';
   background-position: -68px 0;
@@ -487,43 +434,34 @@
   width:22px;
   height:22px;
 }
-
 .ranking-vip, .ranking-vermicelli {
   height: 50%;
   position: relative; }
-
 .ranking-sort .title span {
   position: relative;
   margin-left: 20px; }
-
 .ranking-sort .title span:before {
   content: '';
   left: -45px;
   top: -4px; }
-
 .ranking-vip .title span:before {
   height: 36px;
   width: 36px;
   background-position: 0 0; }
-
 .ranking-vermicelli .title span:before {
   height: 28px;
   width: 28px;
   background-position: -36px 0; }
-
 .ranking-gift {
   height: 33%;
   background: #0068B7;
   padding: 6px 10px;
   overflow: auto; }
-
 .ranking-gift .title {
   font-size: 18px;
   color: #008AD1; }
-
 .ranking-gift a {
   color: #05B0F2; }
-
 .ranking-gift-nr a {
   float: left;
   width: 15%;
@@ -531,27 +469,21 @@
   border: 1px solid #05B0F2;
   background: #008AD1;
   margin: 6px 5% 4px 0; }
-
 .ranking-gift-nr a img {
   width: 100%; }
-
 .ranking-gift-nr .left {
   width: 85%;
   height: 150px;
   overflow: hidden; }
-
 .ranking-gift-nr .left a.active {
   border: 1px solid #fff; }
-
 .ranking-gift-nr .right {
   width: 15%; }
-
 .ranking-gift-nr .right .prev, .ranking-gift-nr .right .next {
   position: relative;
   width: 100%;
   height: 60px;
   margin-right: 0; }
-
 .ranking-gift-nr .right .prev:before, .ranking-gift-nr .right .next:before {
   content: '';
   width: 26px;
@@ -559,26 +491,19 @@
   top: 12px;
   left: 50%;
   margin-left: -13px; }
-
 .ranking-gift-nr .right .prev {
   margin-bottom: 14px; }
-
 .ranking-gift-nr .right .prev:before {
   background-position: -142px 0; }
-
 .ranking-gift-nr .right .prev.active:before {
   background-position: -168px 0; }
-
 .ranking-gift-nr .right .next:before {
   background-position: -88px 0; }
-
 .ranking-gift-nr .right .next.active:before {
   background-position: -114px 0; }
-
 .ranking-gift-bt {
   position: relative;
   margin-top: 10px; }
-
 .ranking-gift-bt > a {
   top: 0;
   right: 0;
@@ -589,10 +514,8 @@
   line-height: 40px;
   font-size: 18px;
   color: #fff; }
-
 /*.ranking-gift-bt .pay {
   top: 50px; }*/
-
 .ranking-input {
   border: 1px solid #05B0F2;
   border-radius: 3px;
@@ -603,7 +526,6 @@
   margin-bottom: 10px;
   color: #008AD1;
   position: relative; }
-
 .ranking-input .all {
   position: absolute;
   bottom: 32px;
@@ -617,15 +539,12 @@
   color: #fff;
   padding: 4px 10px;
   display: none; }
-
 .ranking-input .all li {
   cursor: pointer;
   height: 25px;
   overflow: hidden; }
-
 .ranking-gift-bt .left {
   width: 50%; }
-
 .ranking-gift-bt .send {
   border: 0;
   border-radius: 6px;
@@ -633,7 +552,6 @@
   width: 32px;
   height: 78px;
   background-position: 0 -42px; }
-
 .ranking-gift-bt .object {
   position: relative;
   display: block;
@@ -643,7 +561,6 @@
   padding-right: 20px;
   margin-left: 38px;
   cursor: pointer; }
-
 .ranking-gift-bt .object:after {
   content: '';
   width: 17px;
@@ -651,10 +568,8 @@
   right: 0;
   background-position: -33px -83px;
   top: 7px; }
-
 .ranking-gift-bt .count-box {
   margin-left: 38px; }
-
 .ranking-gift-bt .count {
   position: relative;
   display: block;
@@ -666,7 +581,6 @@
   padding-left: 3px;
   color: #05B0F2;
   width: 100%; }
-
 /* content end */
 /* footer */
 .c-footer {
@@ -675,7 +589,6 @@
   position: fixed;
   bottom: 0;
   width: 100%; }
-
 /* footer end */
 /*打赏效果*/
 #enjoy-effect {

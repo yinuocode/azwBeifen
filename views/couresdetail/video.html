@@ -141,6 +141,7 @@
           <div class="course-item-list-in-toolbar-pane ps-container show">
             <ul class="period-list" id="hour-item-list">
             <script id="hourItemList" type="text/html">
+            {{if hour.length>0}}
             {{each hour as value i}}
               <li class="period lesson-item lesson-item-66" data-hid="{{value.hour_id}}" data-src="{{if value.is_free==1||buy==1||self==1}}{{value.hour_src}}{{else}}1{{/if}}">
                 <a href="/couresdetail/video?cid={{cid}}&amp;type={{type}}&amp;hid={{value.hour_id}}" title="如何更好的使用阿猪网学习">
@@ -154,6 +155,9 @@
                 </a>
               </li>
             {{/each}}
+            {{else}}
+              <div class="no-data">暂无课程</div>
+            {{/if}}
             </script>
             </ul>
           </div>
@@ -300,6 +304,7 @@
           <div class="course-item-list-in-toolbar-pane ps-container">
             <ul class="period-list" id="data-item-list">
             <script id="dataItemList" type="text/html">
+            {{if list.length>0}}
             {{each list as value i}}
               <li class="period lesson-item lesson-item-66">
                 <a href="{{value.datum_address}}" download class="download-data" data-did="{{value.datum_id}}">
@@ -309,6 +314,9 @@
                 </a>
               </li>
             {{/each}}
+            {{else}}
+              <div class="no-data">暂无资料</div>
+            {{/if}}
             </script>
             </ul>
           </div>
@@ -339,7 +347,6 @@
   <script src="/static/js/plugins/kindeditor/kindeditor-min.js?v=2"></script>
   <!-- 视频 -->
   <!-- <script src="/static/js/plugins/video/video.min.js"></script> -->
-  get
   <!-- 弹幕 -->
   <script src="http://139.196.195.238:8089/socket.io/socket.io.js"></script>
   <script src="/static/js/video/barrage.js"></script>
