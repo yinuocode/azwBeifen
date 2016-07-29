@@ -56,9 +56,13 @@ define(function(require,exports,module){
     if(datas.type==1){
       $('#course-data-title').html(datas.detail.coures_title);
       $('#grade-star').css('width',datas.detail.score+'%');
+      // 页面title
+      document.title = datas.detail.coures_title;
     }else{
       $('#course-data-title').html(datas.detail.live_title);
       $('#course-type-video').html('类型：直播');
+      // 页面title
+      document.title = datas.detail.live_title;
     }
   });
   // 讲师简介
@@ -82,8 +86,6 @@ define(function(require,exports,module){
     }
     liLessonItem.addClass('item-active');
     $('#hour-title').html(liLessonItem.find('.title').html());
-    // 页面title
-    document.title = liLessonItem.find('.title').html();
     // 视频播放
     // $('#example_video_1_html5_api').attr('src',liLessonItem.attr('data-src'));
     // 加载视频
@@ -96,7 +98,7 @@ define(function(require,exports,module){
       $('#lesson-video-content').html(lessonVideoContent);
       $.getScript('/static/js/plugins/video/video.min.js');
     }else{
-      sitesHint('暂无课程','err');
+      sitesHint('暂无课时','err');
     }
     runFaqs();
   });
@@ -181,6 +183,10 @@ define(function(require,exports,module){
     onsubmit:true,// 是否在提交时验证
     submitHandler: function(form){
       var data = $('#faq-form').serialize();
+      if(!($('.hid').val())){
+        sitesHint('该课程暂无课时','err');
+        return;
+      }
       $.ajax({
         url : '/comment/question',
         type : 'post',

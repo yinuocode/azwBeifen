@@ -129,7 +129,7 @@ if (empty($_FILES) === false) {
 
 	header('Content-type: text/html; charset=UTF-8');
 	$json = new Services_JSON();
-	echo $json->encode(array('error' => 0, 'url' => $file_url));
+	echo $json->encode(array('error' => 0, 'url' => 'http://demo.agodpig.com'.$file_url));
 	exit;
 }
 

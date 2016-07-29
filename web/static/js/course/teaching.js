@@ -25,9 +25,10 @@ define(function(require,exports,module){
   // 初始化
   main.runPostAjaxDatas();
   // 下拉菜单
-  $('.handle-icon.triangle').on('click',function(){
-    $(this).parent().siblings().find('.select-items').removeClass('active');
-    $(this).next().toggleClass('active');
+  $('.handle-icon.triangle').on('click',function(e){
+    $(this).parent().siblings().find('.select-items').hide();
+    $(this).next().toggle();
+    e.stopPropagation();
   });
   // 类型查找
   $('.select-items').on('click','a',function(){
@@ -36,9 +37,12 @@ define(function(require,exports,module){
     var dataArg=_this.attr('data-arg');
     main.pageVal=1;
     _this.parent().parent().prev().html(_this.html()).attr('data-val',dataArg);
-    $('.select-items').removeClass('active');
     // 执行查找
     main.runPostAjaxDatas();
+  });
+  // 点击空白取消下拉列表
+  $(document).on('click',function(){
+    $('.select-items').hide();
   });
   // 选择操作目标
   $('#table-course-list').on('click','#controlAll',function(){
@@ -162,6 +166,18 @@ define(function(require,exports,module){
       $('#now-service').html(nowService);
     });
   });
+  // 添加免费学员
+  $('.table-course').on('click','.add-fstudent',function(){
+    var cid=$(this).attr('data-cid');
+    var type=$(this).attr('data-type');
+    $('#sub-student-popup').removeClass('hide');
+    $('input[name="cid"]').val(cid);
+    $('input[name="type"]').val(type);
+    // main.postAjaxDatas('/lecturer/freemem-list',{cid:cid,type:type},function(datas){
+    //   var nowStudent = template('nowStudent',{list:datas});
+    //   $('#now-student').html(nowStudent);
+    // });
+  });
   // 删除助教
   $('.popup').on('click','.delete-sub-s',function(){
     var $this=$(this);
@@ -188,6 +204,19 @@ define(function(require,exports,module){
       }
     });
   });
+  // // 删除学员
+  // $('.popup').on('click','.delete-student',function(){
+  //   var $this=$(this);
+  //   var aid=$this.attr('data-aid');
+  //   main.postAjaxDatas('/lecturer/del-coumer',{id:aid},function(datas){
+  //     if(datas.status==1){
+  //       main.sitesHint('删除成功！');
+  //       $this.parent().remove();
+  //     }else{
+  //       main.sitesHint(datas.msg,'err');
+  //     }
+  //   });
+  // });
   // 推广链接
   $('.table-course').on('click','.generalize-link',function(){
     var url=$(this).attr('data-url');
@@ -208,7 +237,7 @@ define(function(require,exports,module){
         data : data,
         dataType:'json',
         success : function(data){
-          if(data.status){
+          if(data.status==1){
             main.sitesHint('添加成功！');
             $('#sub-teaching')[0].reset();
             $('.popup').addClass('hide');
@@ -230,9 +259,31 @@ define(function(require,exports,module){
         data : data,
         dataType:'json',
         success : function(data){
-          if(data.status){
+          if(data.status==1){
             main.sitesHint('添加成功！');
             $('#sub-service')[0].reset();
+            $('.popup').addClass('hide');
+          }else{
+            main.sitesHint(data.msg,'err');
+          }
+        }
+      });
+    }
+  });
+  // 免费学员
+  $('#sub-student').validate({
+    onsubmit:true,// 是否在提交时验证
+    submitHandler: function(form){
+      var data = $('#sub-student').serialize();
+      $.ajax({
+        url : '/lecturer/inst-freemem',
+        type : 'post',
+        data : data,
+        dataType:'json',
+        success : function(data){
+          if(data.status==1){
+            main.sitesHint('添加成功！');
+            $('#sub-student')[0].reset();
             $('.popup').addClass('hide');
           }else{
             main.sitesHint(data.msg,'err');

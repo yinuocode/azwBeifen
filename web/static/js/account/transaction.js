@@ -48,9 +48,14 @@ define(function(require,exports,module){
   // 初始化
   main.runPostAjaxDatas();
   // 下拉菜单
-  $('.handle-icon.triangle').on('click',function(){
-    $(this).parent().siblings().find('.select-items').removeClass('active');
-    $(this).next().toggleClass('active');
+  $('.handle-icon.triangle').on('click',function(e){
+    $(this).parent().siblings().find('.select-items').hide();
+    $(this).next().toggle();
+    e.stopPropagation();
+  });
+  // 点击空白取消下拉列表
+  $(document).on('click',function(){
+    $('.select-items').hide();
   });
   // 类型查找
   $('.select-items').on('click','a',function(){
@@ -58,7 +63,6 @@ define(function(require,exports,module){
     typeVal=_this.attr('data-arg');
     main.pageVal=1;
     _this.parent().parent().prev().html(_this.html());
-    $('.select-items').removeClass('active');
     // 执行查找
     main.runPostAjaxDatas();
   });

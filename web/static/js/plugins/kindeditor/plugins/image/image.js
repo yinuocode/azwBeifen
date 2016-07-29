@@ -189,11 +189,13 @@ KindEditor.plugin('image', function(K) {
 			target : target,
 			width: 60,
 			afterUpload : function(data) {
+				console.log(data);
 				dialog.hideLoading();
 				if (data.error === 0) {
+					console.log(data.url);
 					var url = data.url;
 					if (formatUploadUrl) {
-						url = K.formatUrl(url, 'absolute');
+						// url = K.formatUrl(url, 'absolute');
 					}
 					if (self.afterUpload) {
 						self.afterUpload.call(self, url, data, name);

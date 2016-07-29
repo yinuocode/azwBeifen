@@ -116,10 +116,10 @@ define(function(require,exports,module){
   });
   // 登录登出
   $('#header-login').on('click','.logout',function(){
-    $.post('http://demo.agodpig.com/site/logout',{},function(data){
+    $.post('/site/logout',{},function(data){
       console.log(data);
       if(data){
-        window.location.href='http://demo.agodpig.com/';
+        window.location.href='/';
       }
     });
   });
@@ -127,7 +127,7 @@ define(function(require,exports,module){
   $('#signin-btn').click(function(){
     var data = $('#signin-form').serialize();
     $.ajax({
-      url : 'http://demo.agodpig.com/site/login',
+      url : '/site/login',
       type : 'post',
       data : data,
       success : function(data){
@@ -150,7 +150,7 @@ define(function(require,exports,module){
   $('#signup-btn').click(function(){
     var data = $('#signup-form').serialize();
     $.ajax({
-      url : 'http://demo.agodpig.com/site/signup',
+      url : '/site/signup',
       type : 'post',
       data : data,
       success : function(data){

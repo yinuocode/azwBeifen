@@ -34,7 +34,8 @@ define(function(require,exports,module){
         $('#course-notice').html(datas.detail.live_title_r);
       }
     }
-    window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};
+    var courseImg = $('.course-img').attr('src');
+    window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":courseImg,"bdStyle":"0","bdSize":"16"},"share":{}};
     with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
     console.log(datas);
   });

@@ -56,7 +56,11 @@ define(function(require,exports,module){
     });
     // 价格显示
     $('#course-price1').on('input',function(){
-      $('#course-price2').attr('range','[1,'+$(this).val()+']');
+      var $this=$(this);
+      $('#course-price2').attr('max',Number($this.val()));
+    });
+    $('#course-price2').on('input',function(){
+      $(this).attr('max',Number($('#course-price1').val()));
     });
     // ajax提交
     var $formData = $($('input[name="form-data"]').val());
@@ -212,14 +216,22 @@ define(function(require,exports,module){
     // 标签
     var formTag=$('.form-tag');
     var inputTag=$('#input-tag');
-    inputTag.on('focus',function(){
+    inputTag.on('focus',function(e){
       formTag.show();
+      e.stopPropagation();
+    });
+    inputTag.on('click',function(e){
+      e.stopPropagation();
     });
     inputTag.on('blur',function(){
-      setTimeout(function(){
-        formTag.hide();
-      }, 400);
+      // setTimeout(function(){
+      //   formTag.hide();
+      // }, 200);
       inputTag.val(inputTag.val().replace(/，/g,','));
+    });
+    $(document).on('click',function(){
+      console.log(123);
+      formTag.hide();
     });
     formTag.on('click','a',function(){
       var txt= $(this).html();
@@ -231,7 +243,6 @@ define(function(require,exports,module){
       formTag.hide();
     });
   }
-
   // 图片裁剪
   function imgCrop(){
     $.getScript('/static/js/plugins/jcrop/jquery.Jcrop.min.js',function(){

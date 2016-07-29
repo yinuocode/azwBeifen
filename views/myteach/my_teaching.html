@@ -72,6 +72,7 @@
                 <a href="/couresdetail/video?cid={{value.coures_id}}&amp;type=1">进入课程</a>
                 <a href="javascript:;" class="generalize-link" data-url="http://demo.agodpig.com/couresdetail?cid={{value.coures_id}}&amp;type=1">推广链接</a>
                 <a href="hour-manage?cid={{value.coures_id}}">课时管理</a>
+                <a href="javascript:;" class="add-fstudent" data-type="1" data-cid="{{value.coures_id}}">免费学员</a>
               {{else}}
                 <a href="javascript:;" class="start-issue" data-type="{{value.type}}" data-cid="{{value.coures_id}}">开始发布</a>
               {{/if}}
@@ -90,13 +91,14 @@
                 <a href="javascript:;" data-url="http://demo.agodpig.com/couresdetail?cid={{value.live_id}}&amp;type=0" class="generalize-link">推广链接</a>
                 <a href="javascript:;" class="add-teaching" data-cid="{{value.live_id}}">添加助教</a>
                 <a href="javascript:;" class="add-service" data-cid="{{value.live_id}}">添加客服</a>
+                <a href="javascript:;" class="add-fstudent" data-type="0" data-cid="{{value.live_id}}">免费学员</a>
               {{else}}
                 <a href="javascript:;" class="start-issue" data-type="{{value.type}}" data-cid="{{value.live_id}}">开始发布</a>
               {{/if}}
               </td>
             {{else}}
               <td><input type="checkbox" name="selected" data-type="{{value.type}}" value="{{value.live_id}}"></td>
-              <td><a href="/directdetail?cid={{value.live_id}}&amp;type=0" target="_blank">{{value.live_title}}</a></td>
+              <td><a href="/couresdetail?cid={{value.live_id}}&amp;type=0" target="_blank">{{value.live_title}}</a></td>
               <td><img src="{{value.live_cover}}" alt=""></td>
               <td>{{value.num}}</td>
               <td>{{if value.live_type==1}}{{value.privilege_price}}{{else}}免费{{/if}}</td>
@@ -172,7 +174,7 @@
     </div>
     <div class="popup-bg"></div>
   </div>
-  <!-- 添加助教 -->
+  <!-- 添加客服 -->
   <div class="popup hide" id="sub-service-popup">
     <div class="popup-modal">
       <div class="popup-header">
@@ -204,6 +206,49 @@
             </div>
           </div>
           <input type="hidden" class="form-input" name="cid" value="">
+          <div class="form-group">
+            <div class="form-submit">
+              <button type="submit" class="button-submit">确认</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="popup-bg"></div>
+  </div>
+  <!-- 添加免费学员 -->
+  <div class="popup hide" id="sub-student-popup">
+    <div class="popup-modal">
+      <div class="popup-header">
+        <h1>添加免费学员</h1>
+        <button type="button" class="popup-close"></button>
+      </div>
+      <div class="popup-body">
+        <form method="post" id="sub-student" class="popup-form cmxform">
+  <!--         <div class="form-group">
+            <label class="control-label">免费学员</label>
+            <div class="form-controls clearfix" id="now-student">
+              <script id="nowStudent" type="text/html">
+              {{if list.length>0}}
+              {{each list as value i}}
+                <div class="icon-tag">{{value.user_id}}
+                  <a href="javascript:;" class="icon-btn-x delete-student" data-aid="{{value.id}}">×</a>
+                </div>
+              {{/each}}
+              {{else}}
+              <div class="icon-tag">暂未添加免费学员</div>
+              {{/if}}
+              </script>
+            </div>
+          </div> -->
+          <div class="form-group">
+            <label class="control-label">学员id</label>
+            <div class="form-controls">
+              <input type="text" class="form-input" name="uid" number="true" required>
+            </div>
+          </div>
+          <input type="hidden" class="form-input" name="cid" value="">
+          <input type="hidden" class="form-input" name="type" value="">
           <div class="form-group">
             <div class="form-submit">
               <button type="submit" class="button-submit">确认</button>

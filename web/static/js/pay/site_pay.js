@@ -21,6 +21,19 @@ define(function(require,exports,module){
   $('.pay-close').on('click',function(){
     $('.alert-dismissible').hide();
   });
+  // 获取手机号
+  var profileMobile=$('#profile-mobile');
+  main.getAjaxDatas('/pay/phone-show',function(datas){
+    if(datas.status==1){
+      if(datas.phone){
+        profileMobile.val(datas.phone);
+      }else{
+        main.sitesHint('请先去个人设置里绑定手机号','err');
+      }
+    }else{
+      main.sitesHint(datas.msg,'err');
+    }
+  });
   // 本站支付
   $('#site-pay-form').validate({
     onsubmit:true,// 是否在提交时验证
@@ -46,14 +59,13 @@ define(function(require,exports,module){
     }
   });
   // 获取验证码
-  var profileMobile=$('#profile-mobile');
   $('#get-code').on('click',function(){
     var _this=$(this);
     if(profileMobile.val()!==''&&!(profileMobile.hasClass('error'))){
       main.postAjaxDatas('/pay/note',{mobile:profileMobile.val()},function(datas){
         if(datas.status==1){
           main.sitesHint('请查收验证码！');
-          $('#verify-code').prop('disabled',false);
+          $('#verify-code').prop('disabled',false).focus();
           getCode(_this);
         }else{
           main.sitesHint(datas.msg,'err');

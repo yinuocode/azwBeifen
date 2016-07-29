@@ -270,7 +270,9 @@ body {
   color: #008AD1; }
 .chat-usertext {
   text-indent: 2em;
-  font-size: 14px; }
+  font-size: 14px;
+  word-break: break-all;
+}
 .chat-bot {
   background: #008AD1;
   bottom: 0;

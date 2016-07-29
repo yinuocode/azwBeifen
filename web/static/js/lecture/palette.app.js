@@ -60,7 +60,9 @@ define(function(require,exports,module){
 			ctx.fillStyle = '#f5f5f5';
 			ctx.fillRect(0, 0, canvas.width, canvas.height);
 			if(message){
-				var words = message.split(/\b(?=\w)/);
+				// var words = message.split(/\b(?=\w)/);
+				var words = message.split(/\n/);
+				console.log(words);
 				//alert('cccccccccccccc');
 				//alert(words.length);
 				//console.log(words);
@@ -84,7 +86,7 @@ define(function(require,exports,module){
 					case 'fill':
 						ctx.fillStyle = textFillColor;
 						for(var i=0;i<words.length;i++){
-						ctx.fillText(words[i], xPosition, yPosition);
+							ctx.fillText(words[i], xPosition, yPosition);
 							yPosition+=fontSize*1.5;
 						}
 						break;

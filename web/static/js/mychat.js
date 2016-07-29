@@ -415,7 +415,7 @@ $(function(){
     socket.emit('getdata',{cid:courseCid});
     //listen for output
     socket.on('output',function(data){
-      // console.log(data);
+      console.log(data);
       if(data.length){
         //loop throuth restults
         for(var x=0;x<data.length;x++){
@@ -500,12 +500,13 @@ $(function(){
           postAjaxDatas('/broadcasting/send-gift',{gid:giftId,quantity:num,to_user_id:lid},function(datas){
             if(datas.status==1){
               getDeposit();
-              var giftNrs='';
-              for(var i=0;i<num;i++){
-                giftNrs+=giftNr;
-              }
+              // var giftNrs='';
+              // for(var i=0;i<num;i++){
+              //   giftNrs+=giftNr;
+              // }
+              giftNrs = num>1?giftNr+'<span class="hot" style="font-size: 20px;">×'+num:giftNr;
               showGift(courseCid,userMid,userName,giftNr,num,giftTitle,giftPrice);
-              socket.emit('input',{name:userName+'<span class="hot">送了'+num+'个'+giftTitle+' ￥'+(giftPrice*num).toFixed(2)+'</span>',cid:courseCid,uid:userMid,message:giftNrs});
+              socket.emit('input',{name:userName+'<span class="hot">送了'+num+'个'+giftTitle+'</span>',cid:courseCid,uid:userMid,message:giftNrs});//+' ￥'+(giftPrice*num).toFixed(2)
               event.preventDefault();
             }else{
               // console.log(12222222);

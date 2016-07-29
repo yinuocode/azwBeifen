@@ -24,12 +24,14 @@ define(function(require,exports,module){
   // 初始化
   main.runPostAjaxDatas();
   // 下拉菜单
-  $('.handle-icon.triangle').on('click',function(){
-    $(this).parent().siblings().find('.select-items').removeClass('active');
-    $(this).next().toggleClass('active');
+  $('.handle-icon.triangle').on('click',function(e){
+    $(this).parent().siblings().find('.select-items').hide();
+    $(this).next().toggle();
+    e.stopPropagation();
   });
-  $('.select-items a').on('click',function(){
-    $('.select-items').removeClass('active');
+  // 点击空白取消下拉列表
+  $(document).on('click',function(){
+    $('.select-items').hide();
   });
   // 选择操作目标
   $('#controlAll').on('click',function(){
@@ -61,7 +63,6 @@ define(function(require,exports,module){
     var dataArg=_this.attr('data-arg');
     main.pageVal=1;
     _this.parent().parent().prev().html(_this.html()).attr('data-val',dataArg);
-    $('.select-items').removeClass('active');
     // 执行查找
     main.runPostAjaxDatas();
   });

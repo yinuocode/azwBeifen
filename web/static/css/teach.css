@@ -78,13 +78,13 @@
   position: relative;
 }
 #iconlist {
-  width: 100%;
-  height: 94px;
+  width: 383px;
   overflow-y: scroll;
-  background: #aaa;
+  background: #bbb;
   position: absolute;
-  top: -103px;
+  bottom: 39px;
   left: -7px;
+  padding: 3px;
   display: none;
 }
 #iconlist img {

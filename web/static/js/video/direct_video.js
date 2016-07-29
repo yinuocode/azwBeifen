@@ -54,9 +54,13 @@ define(function(require,exports,module){
     if(datas.type==1){
       $('#course-data-title').html(datas.detail.coures_title);
       $('#grade-star').attr('class','lf star-'+datas.detail.score);
+      // 页面title
+      document.title = datas.detail.coures_title;
     }else{
       $('#course-data-title').html(datas.detail.live_title);
       $('#course-type-video').html('类型：直播');
+      // 页面title
+      document.title = datas.detail.live_title;
     }
   });
   // 讲师简介
@@ -77,8 +81,6 @@ define(function(require,exports,module){
     }
     liLessonItem.addClass('item-active');
     $('#hour-title').html(liLessonItem.find('.title').html());
-    // 页面title
-    document.title = liLessonItem.find('.title').html();
     // 加载视频
     var url=liLessonItem.attr('data-src');
     if(url==1){

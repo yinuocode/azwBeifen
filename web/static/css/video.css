@@ -1593,7 +1593,8 @@ form.cmxform label.error, label.error{
 /*打赏*/
 #enjoy-effect{
   position: absolute;
-  right: 470px;
+  width: 100%;
+  text-align: center;
   bottom: 4px;
 }
 .main-icon {

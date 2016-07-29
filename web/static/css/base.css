@@ -623,7 +623,7 @@ form.cmxform form.cmxform .gray * {
   top: 0;
   z-index: 10000;
 }
-img{max-width: 100%;}
+.panel-body img{max-width: 100%;}
 /*搜索共用*/
 .search-input {
   position: relative;

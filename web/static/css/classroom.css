@@ -593,6 +593,7 @@
 /*打赏效果*/
 #enjoy-effect {
   position: absolute;
-  right: 300px;
   bottom: 4px;
+  width: 100%;
+  text-align: center;
 }

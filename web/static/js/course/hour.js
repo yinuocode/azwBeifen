@@ -129,6 +129,9 @@ define(function(require,exports,module){
           console.log(data);
           if(data.status==1){
             main.sitesHint('添加成功！');
+            $('#add-hour-form')[0].reset();
+            $('#fileList1').html('');
+            $('#hour-path').val('');
             $('.popup').addClass('hide');
             main.runPostAjaxDatas();
           }else{
@@ -155,6 +158,9 @@ define(function(require,exports,module){
           console.log(data);
           if(data.status==1){
             main.sitesHint('添加成功！');
+            $('#add-data-form')[0].reset();
+            $('#fileList2').html('');
+            $('#data-path').val('');
             $('.popup').addClass('hide');
             main.runPostAjaxDatas();
           }else{

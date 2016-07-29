@@ -40,7 +40,7 @@
   <header class="c-header clearfix" id="c-header">
     <script id="cHeader" type="text/html">
       <div class="lf course-logo">
-        <img src="{{coures.live_cover}}" alt="{{coures.live_cover}}" height="45" width="72">
+        <img src="{{coures.live_cover}}" alt="{{coures.live_cover}}" id="course-img" height="45" width="72">
       </div>
       <h1 class="lf course-title">{{coures.live_title}}</h1>
       <div class="lf info">
@@ -113,10 +113,10 @@
           <a class="enjoy main-icon" href="javascript:;" id="enjoy-con"></a>
           <div class="enjoy-box hide">
             <div class="clearfix">
-              <a href="javascript:;" class="enjoy-m lf" data-m="1">1元</a>
-              <a href="javascript:;" class="enjoy-m lf" data-m="2">2元</a>
-              <a href="javascript:;" class="enjoy-m lf" data-m="5">5元</a>
-              <a href="javascript:;" class="enjoy-m lf" data-m="10">10元</a>
+              <a href="javascript:;" class="enjoy-m lf" data-m="1">1猪币</a>
+              <a href="javascript:;" class="enjoy-m lf" data-m="2">2猪币</a>
+              <a href="javascript:;" class="enjoy-m lf" data-m="5">5猪币</a>
+              <a href="javascript:;" class="enjoy-m lf" data-m="10">10猪币</a>
             </div>
             其他金额：<input type="text" class="enjoy-input" id="enjoy-val" onkeyup="value=value.replace(/[^\d|]/g,'')" value="1">
             <button type="button" class="enjoy-btn" id="enjoy-btn">确认</button>
@@ -128,7 +128,6 @@
           <div class="share-block">
             <p class="link">Ctrl+c复制链接：<input id="current-link" type="text" value=""></p>
             <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
-            <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
           </div>
         </div>
       </div>

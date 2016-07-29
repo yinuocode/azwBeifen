@@ -229,13 +229,13 @@
 .alert-success .close, .alert-success .alert-link {
   color: #529819;
 }
-#site-pay-form{
+.phone-verify{
   font-size: 16px;
 }
-#site-pay-form .form-controls{
+.phone-verify .form-controls{
   width: 300px;
   text-align: left;
 }
-#site-pay-form .button-submit{
+.phone-verify .button-submit{
   width: 150px;
 }

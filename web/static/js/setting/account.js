@@ -93,6 +93,7 @@ define(function(require,exports,module){
         url : '/personage/mailset',
         type : 'post',
         data : data,
+        dataType: 'json',
         success : function(data){
           data.status==1?main.sitesHint('提交成功！'):main.sitesHint(data.msg,'err');
         }

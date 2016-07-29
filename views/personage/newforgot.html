@@ -1,0 +1,70 @@
+<input type="hidden" id="page-title" value="<?php use yii\helpers\Html; echo Html::encode($title)?>">
+<link rel="stylesheet" href="/static/css/pay.css">
+<!-- header end -->
+  <section class="section-panel news-panel">
+    <div class="panel-body bt0">
+      <div class="panel-body-course sub b0">
+        <div class="order-pay">
+          <div class="order-pay-body">
+            <div class="pay-qrcode-body clearfix">
+              <form id="site-pay-form" class="w600 cmxform phone-verify" method="post">
+                <div class="form-group">
+                  <label class="control-label">用户名</label>
+                  <div class="form-controls">
+                    <input type="text" class="form-input" value="" name="username" placeholder="请输入用户名" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="profile-mobile" class="control-label">预留手机</label>
+                  <div class="form-controls clearfix">
+                    <input type="text" id="profile-mobile" class="form-input" value="" name="UserDetail[phone]" placeholder="请输入手机号" required ismobile="true">
+                    <button type="button" class="btn input-btn" id="get-code">获取验证码</button>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="verify-code" class="control-label">验证码</label>
+                  <div class="form-controls">
+                    <input type="text" id="verify-code" class="form-input" value="" name="UserDetail" disabled maxlength="4" minlength="4" required number="true">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-submit">
+                    <button type="submit" class="button-submit">下一步</button>
+                  </div>
+                </div>
+              </form>
+              <form id="set-password-form" class="w600 cmxform hide" method="post">
+                <div class="form-group">
+                  <label class="control-label" for="form_newPassword">新密码</label>
+                  <div class="form-controls required">
+                    <input type="password" id="form_newPassword" name="User[password_hash]" class="form-input" value="" required minlength="6">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="form_confirmPassword">确认密码</label>
+                  <div class="form-controls required">
+                    <input type="password" name="form_confirmPassword" id="form_confirmPassword" class="form-input" value="" required minlength="6">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="form-submit">
+                    <button type="submit" class="button-submit">确定</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- footer -->
+  <?php echo \Yii::$app->view->renderFile('@app/views/layouts/footer.html');?>
+  <!-- footer end -->
+  <script src="/static/js/plugins/validate/jquery.validate.min.js"></script>
+  <script src="/static/js/plugins/validate/messages_zh.js"></script>
+  <script>
+    seajs.use('/static/js/setting/newforgot.js');
+  </script>
+</body>
+</html>

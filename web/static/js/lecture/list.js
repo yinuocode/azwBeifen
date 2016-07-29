@@ -115,4 +115,6 @@ define(function(require,exports,module){
       main.runPostAjaxDatas();
     }
   });
+  // 导航选中
+  $('.nav>ul>li').eq(4).addClass('active').siblings().removeClass('active');
 });
